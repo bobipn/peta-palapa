@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LTI CRM · Palapa Ring Paket Tengah</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#226DB4; --blue2:#3D8DDB; --bg:#F0F4F8; --card:#fff; --line:#E2E9F1;
+  --ink:#20344B; --mute:#6B7F95; --green:#12A05C; --red:#E4534A; --amber:#E8A03D; --violet:#7A5FD0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font:inherit}
+/* ---- topbar ---- */
+.top{background:linear-gradient(90deg,#123B63,#226DB4);color:#fff;display:flex;align-items:center;gap:14px;padding:0 16px;height:52px;position:sticky;top:0;z-index:50}
+.top .logo{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:-.2px;white-space:nowrap}
+.top .logo .bx{width:26px;height:26px;border-radius:7px;background:#fff;color:#226DB4;display:grid;place-items:center;font-weight:800;font-size:12px}
+.mods{display:flex;gap:2px;height:100%}
+.mods button{padding:0 14px;height:100%;color:#cfe2f5;font-weight:600;font-size:13px;border-bottom:3px solid transparent}
+.mods button.on{color:#fff;border-bottom-color:#fff;background:rgba(255,255,255,.08)}
+.mods button:hover{background:rgba(255,255,255,.1)}
+.top .sp{flex:1}
+.top .env a{color:#cfe2f5;text-decoration:none;font-size:12px;padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.25);margin-left:6px;white-space:nowrap}
+.top .env a:hover{background:rgba(255,255,255,.12)}
+/* ---- toolbar ---- */
+.bar{display:flex;align-items:center;gap:10px;padding:12px 16px;flex-wrap:wrap}
+.srch{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 12px;min-width:240px;flex:1;max-width:380px}
+.srch input{border:none;outline:none;width:100%;background:none}
+.sel{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.btn{background:var(--blue);color:#fff;border-radius:9px;padding:9px 14px;font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{background:var(--blue2)}
+.btn.ghost{background:#fff;color:var(--blue);border:1px solid var(--line)}
+.btn.warn{background:#fff;color:var(--red);border:1px solid var(--line)}
+/* ---- KPI ---- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;padding:0 16px 4px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi .l{font-size:11px;color:var(--mute);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.kpi .v{font-size:20px;font-weight:800;margin-top:3px}
+.kpi .s{font-size:11px;color:var(--mute)}
+/* ---- kanban ---- */
+.board{display:flex;gap:12px;padding:12px 16px 24px;overflow-x:auto;align-items:flex-start}
+.col{background:#E9EFF6;border-radius:14px;min-width:270px;width:270px;flex:none;display:flex;flex-direction:column;max-height:calc(100vh - 250px)}
+.col-h{padding:11px 13px;display:flex;align-items:center;gap:8px;border-bottom:2px solid}
+.col-h .nm{font-weight:700;font-size:13px}
+.col-h .ct{margin-left:auto;background:#fff;border-radius:12px;font-size:11px;padding:1px 8px;font-weight:700}
+.col-v{font-size:11px;color:var(--mute);padding:6px 13px 2px}
+.col-b{padding:8px;overflow-y:auto;flex:1;min-height:60px}
+.col-b.over{background:rgba(34,109,180,.08);border-radius:0 0 14px 14px}
+.lead{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:8px;cursor:grab;box-shadow:0 1px 2px rgba(32,52,75,.05)}
+.lead:active{cursor:grabbing}
+.lead:hover{border-color:var(--blue2);box-shadow:0 3px 10px rgba(34,109,180,.12)}
+.lead .cu{font-weight:700;font-size:13px;line-height:1.3}
+.lead .idd{font-size:10.5px;color:var(--mute);font-family:ui-monospace,monospace}
+.lead .amt{font-weight:700;color:var(--blue);font-size:13px;margin-top:4px}
+.lead .meta{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.chip{font-size:10px;background:#F0F4F8;border-radius:10px;padding:1px 7px;color:var(--mute);font-weight:600}
+.chip.am{background:#EDE9FB;color:var(--violet)}
+.lead.dragging{opacity:.4}
+/* ---- table ---- */
+.tblwrap{margin:4px 16px 24px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#F7FAFD;text-align:left;padding:10px 12px;font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.4px;cursor:pointer;white-space:nowrap;user-select:none}
+th:hover{color:var(--ink)}
+td{padding:9px 12px;border-top:1px solid var(--line)}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:#F4F8FC}
+.n{text-align:right;font-variant-numeric:tabular-nums}
+.stg{font-size:10.5px;font-weight:700;border-radius:10px;padding:2px 9px;white-space:nowrap}
+.s-opp{background:#EAF1F8;color:#226DB4}.s-pro{background:#FFF4E2;color:#B97B15}
+.s-neg{background:#EDE9FB;color:#7A5FD0}.s-win{background:#E3F5EC;color:#12A05C}.s-drp{background:#FDEAE9;color:#E4534A}
+/* ---- accounts ---- */
+.acc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;padding:4px 16px 24px}
+.acc{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px;cursor:pointer}
+.acc:hover{border-color:var(--blue2);box-shadow:0 3px 12px rgba(34,109,180,.12)}
+.acc .av{width:38px;height:38px;border-radius:10px;color:#fff;display:grid;place-items:center;font-weight:800;margin-bottom:8px}
+.acc .nm{font-weight:700;font-size:13.5px;line-height:1.3}
+.acc .st{font-size:11px;color:var(--mute);margin-top:2px}
+.acc .row2{display:flex;justify-content:space-between;margin-top:9px;font-size:12px}
+.acc .row2 b{font-variant-numeric:tabular-nums}
+/* ---- reports ---- */
+.rep{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:4px 16px 24px}
+@media(max-width:900px){.rep{grid-template-columns:1fr}}
+.rcard{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px}
+.rcard h3{margin:0 0 12px;font-size:14px}
+.hbar{display:grid;grid-template-columns:110px 1fr 90px;gap:8px;align-items:center;margin:6px 0;font-size:12px}
+.hbar .tk{height:10px;background:#F0F4F8;border-radius:6px;overflow:hidden}
+.hbar .tk i{display:block;height:100%;border-radius:6px}
+.hbar .vv{text-align:right;font-variant-numeric:tabular-nums;color:var(--mute)}
+/* ---- drawer ---- */
+.ov{position:fixed;inset:0;background:rgba(18,40,66,.45);z-index:90;display:none}
+.ov.open{display:block}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(430px,95vw);background:#fff;z-index:100;box-shadow:-12px 0 40px rgba(18,40,66,.25);transform:translateX(105%);transition:.22s;display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.dr-h{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.dr-h .x{margin-left:auto;font-size:22px;color:var(--mute)}
+.dr-b{padding:16px 18px;overflow-y:auto;flex:1}
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:11px;color:var(--mute);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
+.fld input,.fld select,.fld textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;outline:none;background:#fff}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--blue2)}
+.dr-f{padding:14px 18px;border-top:1px solid var(--line);display:flex;gap:8px}
+.hist{font-size:12px;color:var(--mute);border-left:2px solid var(--line);padding-left:10px;margin:4px 0}
+.foot{padding:14px 16px;color:var(--mute);font-size:11.5px;display:flex;justify-content:space-between;flex-wrap:gap;border-top:1px solid var(--line);background:#fff}
+.view{display:none}.view.on{display:block}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#20344B;color:#fff;border-radius:10px;padding:10px 18px;font-size:13px;z-index:200;opacity:0;transition:.25s;pointer-events:none}
+.toast.on{opacity:1}
+@media(max-width:760px){ .mods button{padding:0 9px;font-size:11.5px} .top .env{display:none} }
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="logo"><span class="bx">L</span> LTI CRM</div>
+  <div class="mods" id="mods">
+    <button data-v="pipeline" class="on">Pipeline</button>
+    <button data-v="leads">Leads</button>
+    <button data-v="accounts">Accounts</button>
+    <button data-v="reports">Reports</button>
+  </div>
+  <div class="sp"></div>
+  <div class="env">
+    <a href="index.html">🏠 Portal</a><a href="peta.html">🌐 Peta</a><a href="komersial.html">📊 Komersial</a>
+  </div>
+</div>
+
+<div class="bar">
+  <div class="srch">🔎<input id="q" placeholder="Cari pelanggan / Lead ID…" autocomplete="off"></div>
+  <select class="sel" id="fAM"><option value="">Semua AM</option></select>
+  <select class="sel" id="fSeg"><option value="">Semua Ruas</option>
+    <option>P4</option><option>P5</option><option>P6</option><option>P7</option><option>P8A</option><option>P8B</option></select>
+  <button class="btn" id="newLead">＋ Lead Baru</button>
+  <button class="btn ghost" id="expCsv">⬇ CSV</button>
+  <button class="btn warn" id="resetData">↺ Reset</button>
+</div>
+
+<div class="kpis" id="kpis"></div>
+
+<div class="view on" id="v-pipeline"><div class="board" id="board"></div></div>
+
+<div class="view" id="v-leads"><div class="tblwrap"><div style="overflow-x:auto">
+  <table><thead><tr id="lhead">
+    <th data-k="id">Lead ID</th><th data-k="cust">Pelanggan</th><th data-k="am">AM</th>
+    <th data-k="stage">Tahap</th><th data-k="svc">Layanan</th><th data-k="seg">Ruas</th>
+    <th class="n" data-k="kap">Kap</th><th class="n" data-k="amt">Nilai (Rp jt)</th>
+  </tr></thead><tbody id="lbody"></tbody></table>
+</div></div></div>
+
+<div class="view" id="v-accounts"><div class="acc-grid" id="accGrid"></div></div>
+
+<div class="view" id="v-reports"><div class="rep" id="repWrap"></div></div>
+
+<div class="ov" id="ov"></div>
+<div class="drawer" id="drawer">
+  <div class="dr-h"><div><div id="drTitle" style="font-weight:800"></div><div id="drSub" style="font-size:11px;color:var(--mute)"></div></div>
+    <button class="x" id="drX">×</button></div>
+  <div class="dr-b">
+    <div class="fld"><label>Pelanggan</label><input id="eCust"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="fld"><label>Account Manager</label><select id="eAM"></select></div>
+      <div class="fld"><label>Tahap</label><select id="eStage">
+        <option>1. Opportunity</option><option>2. Proposal</option><option>3. Negotiation</option>
+        <option>5. Closed (Win)</option><option>5. Dropped</option></select></div>
+      <div class="fld"><label>Layanan</label><select id="eSvc">
+        <option>FO_Bandwidth</option><option>FO_Bandwidth_PPU</option><option>FO_Darkfiber</option>
+        <option>Kolokasi_NOC</option><option>Bantek</option></select></div>
+      <div class="fld"><label>Ruas / Segmen</label><input id="eSeg" placeholder="mis. P6"></div>
+      <div class="fld"><label>Kapasitas (Gbps/core)</label><input id="eKap" type="number" min="0" step="0.5"></div>
+      <div class="fld"><label>Nilai Acuan (Rp)</label><input id="eRef" type="number" min="0" step="1000000"></div>
+    </div>
+    <div class="fld"><label>Nilai Kontrak / Closed (Rp)</label><input id="eVal" type="number" min="0" step="1000000"></div>
+    <div class="fld"><label>Catatan</label><textarea id="eNote" rows="3" placeholder="Catatan aktivitas, follow-up…"></textarea></div>
+    <div id="drHist"></div>
+  </div>
+  <div class="dr-f">
+    <button class="btn" id="drSave" style="flex:1">💾 Simpan</button>
+    <button class="btn warn" id="drDel">🗑 Hapus</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="foot">
+  <span>© 2026 PT Len Telekomunikasi Indonesia · LTI CRM — Palapa Ring Paket Tengah</span>
+  <span>CRM by <b>@bobipanca</b> · sinkron real-time antar pengguna · Firebase Cloud</span>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+"use strict";
+/* ============ DATA (framework eksisting: 95 lead Panel Komersial) ============ */
+const SEED = [{"id":"LTIAF0001","cust":"PT IOH","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth_PPU","seg":"P5 PPU","kap":10.0,"ref":1094400000,"val":1094400000},{"id":"LTIAF0002","cust":"PT IOH","am":"Farintya","stage":"1. Opportunity","svc":"FO_Darkfiber","seg":"P7","kap":2.0,"ref":12683642400,"val":12683642400},{"id":"LTIAF0003","cust":"PT IOH","am":"Farintya","stage":"1. Opportunity","svc":"Kolokasi_NOC","seg":"P7","kap":0,"ref":222420000,"val":222420000},{"id":"LTIAF0003","cust":"PT IOH","am":"Farintya","stage":"2. Proposal","svc":"Kolokasi_NOC","seg":"P7","kap":0,"ref":222420000,"val":222420000},{"id":"LTIGN0001","cust":"PT CNI","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":122769231},{"id":"LTIMA0001","cust":"PT Lintasarta","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":175384615},{"id":"LTIMA0002","cust":"PT Lintasarta","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P6 PPU","kap":10.0,"ref":1497600000,"val":2304000000},{"id":"LTIMA0003","cust":"PT Lintasarta","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":166153846},{"id":"LTIGN0002","cust":"PT SCKom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":48000000},{"id":"LTIGN0003","cust":"PT XLSMART","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":10.0,"ref":1824000000,"val":589292308},{"id":"LTIGN0004","cust":"PT XLSMART","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":20.0,"ref":4992000000,"val":1344000000},{"id":"LTIGN0005","cust":"PT XLSMART","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":10.0,"ref":2496000000,"val":672000000},{"id":"LTIGN0006","cust":"PT XLSMART","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":30.0,"ref":5472000000,"val":2651815385},{"id":"LTIGN0007","cust":"PT Icon+","am":"Novia","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P5 PPU","kap":10.0,"ref":1094400000,"val":1064000000},{"id":"LTIGN0008","cust":"PT Icon+","am":"Novia","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P6 PPU","kap":10.0,"ref":1497600000,"val":576000000},{"id":"LTIGN0009","cust":"PT IOH","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Darkfiber","seg":"P5","kap":2.0,"ref":7619580000,"val":5861215385},{"id":"LTIGN0010","cust":"PT IOH","am":"Farintya","stage":"5. Dropped","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":0},{"id":"LTIGN0011","cust":"PT LMM","am":"Novia","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P4","kap":1.0,"ref":108000000,"val":41538462},{"id":"LTIAF0004","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P4","kap":10.0,"ref":864000000,"val":864000000},{"id":"LTIAF0005","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":10.0,"ref":1824000000,"val":1824000000},{"id":"LTIAF0006","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":20.0,"ref":4992000000,"val":3803428571},{"id":"LTIAF0007","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P7","kap":20.0,"ref":4224000000,"val":4224000000},{"id":"LTIAF0008","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8A","kap":60.0,"ref":17280000000,"val":11520000000},{"id":"LTIAF0009","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8B","kap":10.0,"ref":672000000,"val":413538462},{"id":"LTIGN0012","cust":"PT Dewata Net","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":223384615},{"id":"LTIGN0013","cust":"PT Dewata Net","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":119409231},{"id":"LTIGN0014","cust":"PT EBTel","am":"Novia","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":157846154},{"id":"LTIGN0015","cust":"PT Gomeds","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P5 PPU","kap":10.0,"ref":1094400000,"val":1683692308},{"id":"LTIGN0016","cust":"PT Gomeds","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P6 PPU","kap":10.0,"ref":1497600000,"val":1536000000},{"id":"LTIGN0017","cust":"PT Gomeds","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P7 PPU","kap":10.0,"ref":1267200000,"val":1299692308},{"id":"LTIGN0018","cust":"PT Abhinawa","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":87692308},{"id":"LTIGN0019","cust":"PT CNI","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Darkfiber","seg":"P5","kap":2.0,"ref":7619580000,"val":290938776},{"id":"LTIAF0010","cust":"PT Mora Telematika Indonesia, Tbk.","am":"Farintya","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P4","kap":1.0,"ref":108000000,"val":108000000},{"id":"LTIAF0011","cust":"PT Mora Telematika Indonesia, Tbk.","am":"Farintya","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIAF0012","cust":"PT Indo Telemedia Solusi","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIAF0013","cust":"PT Primacom Interbuana","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIAF0014","cust":"PT Primacom Interbuana","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIAF0015","cust":"PT Primacom Interbuana","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTIAF0016","cust":"PT Media Link Global Indo","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTIAF0017","cust":"PT Cyberplus Media Pratama","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIAF0018","cust":"PT Lintas Jaringan Nusantara","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIAF0019","cust":"PT Inter Medialink Solusi","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIAF0020","cust":"PT Media Cepat Indonesia","am":"Farintya","stage":"1. Opportunity","svc":null,"seg":null,"kap":0,"ref":0,"val":0},{"id":"LTIAF0021","cust":"PT Mitra Telemedia Manunggal","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIAF0022","cust":"PT Sinergi Inti Andalan Prima, Tbk","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIAF0023","cust":"PT Telkom","am":"Farintya","stage":"1. Opportunity","svc":"FO_Darkfiber","seg":"P8B","kap":2.0,"ref":1189308000,"val":1189308000},{"id":"LTINP0001","cust":"PT Mamura Inter Media","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0002","cust":"PT Inditech Global Network","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0003","cust":"PT Citra Jelajah Informatika","am":"Novia","stage":"1. Opportunity","svc":null,"seg":null,"kap":0,"ref":0,"val":0},{"id":"LTINP0004","cust":"PT Dewata Telematika","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0005","cust":"PT Borneo Broadband Technology","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P4","kap":1.0,"ref":108000000,"val":108000000},{"id":"LTINP0006","cust":"PT Jala Lintas Media","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0007","cust":"PT Inter Medialink Solusi","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTINP0008","cust":"PT Intranusa Core Teknologi","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0009","cust":"PT Prima Mandiri Sentosa Gowa","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0010","cust":"PT Celebes Media Jaringan","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIMA0004","cust":"PT Ameera Mega Buana","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIMA0005","cust":"PT Icon+","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"id":"LTIMA0006","cust":"PT Medialink Global Mandiri","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIMA0007","cust":"PT Adi Inti Mandiri","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTIMA0008","cust":"PT Lintasarta","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"id":"LTIMA0009","cust":"PT Julia Multimedia Nusantara","am":"Mutiara","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIMA0010","cust":"PT Kaili Global","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIMA0011","cust":"PT Citra Agung Mestika","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTIMA0012","cust":"PT Indotrans Data","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTIMA0013","cust":"PT Lintasarta","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":10.0,"ref":2880000000,"val":2880000000},{"id":"LTIMA0014","cust":"PT Uninet Media Sakti","am":"Mutiara","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTIMA0015","cust":"PT Serayu Multi Connection","am":"Mutiara","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTIMA0016","cust":"DCConnect Global Limited","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTIMA0017","cust":"PT Trans Hybrid Communication","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIMA0018","cust":"PT EZSVS Technology Indonesia","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTIMA0019","cust":"PT Metrosolusi Teknologi Indonesia","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIMA0020","cust":"PT Supra Primatama Nusantara","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0011","cust":"PT Petro One Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0012","cust":"PT Power Telecom Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0013","cust":"PT Berdikari Prima Mandiri","am":"Novia","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTINP0014","cust":"PT Maxindo Mitra Solusi","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0015","cust":"PT Mega Artha Lintas Data","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0016","cust":"PT Media Cepat Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0017","cust":"PT Mitra Visioner Pratama","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTINP0018","cust":"PT Sumber Data Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTINP0019","cust":"PT Inovasi Teknologi Makmur","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0020","cust":"PT Infokom Elektrindo","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0021","cust":"PT Inter Medialink Solusi","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0022","cust":"PT Jaringan Fiberku Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0023","cust":"01 Digital","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0024","cust":"PT Lisar International Networking","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0025","cust":"PT Indo Teknologi Logistik","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"id":"LTINP0026","cust":"PT Satu Akses Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"id":"LTINP0027","cust":"PT Gemilang Catur Persada","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIAF0006B","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":5.0,"ref":1560000000,"val":1188571429},{"id":"LTIAF0009B","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8B","kap":5.0,"ref":420000000,"val":258461538},{"id":"LTIGN0020","cust":"PT IOH","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P7 PPU","kap":10.0,"ref":1267200000,"val":1137230769},{"id":"LTIGN0021","cust":"PT EBTel","am":"Novia","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":10.0,"ref":1824000000,"val":0},{"id":"LTIAF0010","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"Bantek","seg":"P7 Bantek","kap":0,"ref":0,"val":196438710}];
+const KEY='lti_crm_v1';
+const TK='LTI2026'; // token tim utk security rules
+const STAGES=[
+  ['1. Opportunity','Opportunity','#226DB4','s-opp'],
+  ['2. Proposal','Proposal','#B97B15','s-pro'],
+  ['3. Negotiation','Negotiation','#7A5FD0','s-neg'],
+  ['5. Closed (Win)','Closed · Win','#12A05C','s-win'],
+  ['5. Dropped','Dropped','#E4534A','s-drp'],
+];
+const AMS=['Farintya','Mutiara','Novia'];
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const rp=n=>'Rp'+Math.round(n||0).toLocaleString('id-ID');
+const jt=n=>((n||0)/1e6).toLocaleString('id-ID',{maximumFractionDigits:0});
+const amount=l=> l.stage==='5. Closed (Win)' ? (l.val||0) : (l.ref||0);
+const segP=s=>{ const m=/^P(8A|8B|\d)/.exec(s||''); return m?('P'+m[1]):''; };
+function stamp(t){ return new Date().toISOString().slice(0,16).replace('T',' ')+' · '+t; }
+function seedLeads(){ return SEED.map((l,i)=>({uid:'L'+(i+1), id:l.id, cust:l.cust, am:l.am, stage:l.stage,
+  svc:l.svc||'', seg:l.seg||'', kap:l.kap||0, ref:l.ref||0, val:l.val||0, note:'',
+  hist:[stamp('Import dari Panel Komersial')]})); }
+
+/* ============ SYNC LAYER (Firestore cloud + fallback lokal) ============ */
+const firebaseConfig = {
+  apiKey: "AIzaSyDj6Zqe9ziwif_zc3l5nImVpIpLuGgkO9s",
+  authDomain: "lti-crm.firebaseapp.com",
+  projectId: "lti-crm",
+  storageBucket: "lti-crm.firebasestorage.app",
+  messagingSenderId: "4129983911",
+  appId: "1:4129983911:web:7e39ec64186729bc8c3a82"
+};
+let MODE='local', fdb=null, unsub=null;
+let DB={leads:[],seq:1};
+
+const statusEl=document.createElement('span');
+statusEl.id='syncChip';
+statusEl.style.cssText='font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.15);color:#fff;white-space:nowrap';
+document.querySelector('.top .sp').after(statusEl);
+function setStatus(k){
+  const m={connect:['⏳ Menghubungkan…','rgba(255,255,255,.15)'],
+           online:['🟢 Sinkron Cloud','rgba(18,160,92,.35)'],
+           cache:['🟡 Offline · cache','rgba(232,160,61,.35)'],
+           local:['🔴 Mode Lokal','rgba(228,83,74,.35)']};
+  statusEl.textContent=m[k][0]; statusEl.style.background=m[k][1];
+}
+
+function localLoad(){ try{ const s=localStorage.getItem(KEY); if(s){DB=JSON.parse(s);return;} }catch(e){}
+  DB={leads:seedLeads(),seq:SEED.length+1}; localSave(); }
+function localSave(){ try{ localStorage.setItem(KEY,JSON.stringify(DB)); }catch(e){} }
+
+function initSync(){
+  setStatus('connect');
+  if(!(window.firebase && firebase.firestore)){ MODE='local'; localLoad(); setStatus('local'); renderAll(); return; }
+  try{
+    firebase.initializeApp(firebaseConfig);
+    fdb=firebase.firestore();
+    try{ fdb.enablePersistence({synchronizeTabs:true}).catch(()=>{}); }catch(e){}
+    MODE='cloud';
+    unsub=fdb.collection('leads').onSnapshot(snap=>{
+      DB.leads=snap.docs.map(d=>{ const x=d.data(); x.uid=d.id; delete x.tk; return x; });
+      DB.leads.sort((a,b)=>(b.updated||'').localeCompare(a.updated||''));
+      DB.seq=DB.leads.length+1;
+      setStatus(snap.metadata.fromCache?'cache':'online');
+      if(snap.empty && !window.__seeding){ trySeed(); }
+      renderAll();
+    }, err=>{ console.warn('snapshot err',err); MODE='local'; localLoad(); setStatus('local'); renderAll(); });
+  }catch(e){ console.warn('firebase init fail',e); MODE='local'; localLoad(); setStatus('local'); renderAll(); }
+}
+function trySeed(){
+  window.__seeding=true;
+  const marker=fdb.collection('meta').doc('seed');
+  fdb.runTransaction(async tx=>{
+    const m=await tx.get(marker);
+    if(m.exists) throw new Error('already-seeded');
+    tx.set(marker,{at:new Date().toISOString(),tk:TK});
+  }).then(()=>{
+    const batch=fdb.batch();
+    seedLeads().forEach(l=>{ const {uid,...rest}=l;
+      batch.set(fdb.collection('leads').doc(uid), Object.assign(rest,{tk:TK,updated:new Date().toISOString()})); });
+    return batch.commit();
+  }).then(()=>toast('Data awal (95 lead) dimuat ke cloud'))
+    .catch(e=>{ if(e.message!=='already-seeded') console.warn('seed fail',e); })
+    .finally(()=>{ window.__seeding=false; });
+}
+function persistLead(l){
+  if(MODE==='cloud' && fdb){
+    const {uid,...rest}=l;
+    fdb.collection('leads').doc(uid).set(Object.assign({},rest,{tk:TK,updated:new Date().toISOString()}))
+      .catch(e=>{ console.warn(e); toast('Gagal simpan ke cloud — cek koneksi/rules'); });
+  } else localSave();
+}
+function removeLead(uid){
+  if(MODE==='cloud' && fdb){ fdb.collection('leads').doc(uid).delete().catch(e=>{console.warn(e);toast('Gagal hapus di cloud');}); }
+  else { DB.leads=DB.leads.filter(x=>x.uid!==uid); localSave(); }
+}
+function reseedAll(){
+  if(MODE==='cloud' && fdb){
+    fdb.collection('leads').get().then(snap=>{
+      const batch=fdb.batch();
+      snap.docs.forEach(d=>batch.delete(d.ref));
+      seedLeads().forEach(l=>{ const {uid,...rest}=l;
+        batch.set(fdb.collection('leads').doc(uid), Object.assign(rest,{tk:TK,updated:new Date().toISOString()})); });
+      return batch.commit();
+    }).then(()=>toast('Data cloud direset ke awal')).catch(e=>{console.warn(e);toast('Gagal reset cloud');});
+  } else { localStorage.removeItem(KEY); localLoad(); renderAll(); toast('Data lokal direset'); }
+}
+
+/* ============ STATE ============ */
+let view='pipeline', q='', fam='', fseg='', sortK='amt', sortD=-1, curUid=null;
+
+/* ============ FILTER ============ */
+function rows(){
+  return DB.leads.filter(l=>{
+    if(fam && l.am!==fam) return false;
+    if(fseg && segP(l.seg)!==fseg) return false;
+    if(q){ const t=(l.cust+' '+l.id).toLowerCase(); if(!t.includes(q)) return false; }
+    return true;
+  });
+}
+
+/* ============ KPI ============ */
+function renderKpis(){
+  const R=rows();
+  const win=R.filter(l=>l.stage==='5. Closed (Win)');
+  const open=R.filter(l=>['1. Opportunity','2. Proposal','3. Negotiation'].includes(l.stage));
+  const drop=R.filter(l=>l.stage==='5. Dropped');
+  const closedVal=win.reduce((a,l)=>a+(l.val||0),0), pipeVal=open.reduce((a,l)=>a+(l.ref||0),0);
+  const dec=win.length+drop.length;
+  document.getElementById('kpis').innerHTML=[
+    ['Total Lead',R.length,''],
+    ['Pipeline Terbuka',open.length+' lead',rp(pipeVal)],
+    ['Closed (Win)',win.length+' lead',rp(closedVal)],
+    ['Win Rate',dec?Math.round(win.length/dec*100)+'%':'—',win.length+' menang · '+drop.length+' lepas'],
+    ['Rata-rata Deal',win.length?rp(closedVal/win.length):'—','per kontrak closed'],
+  ].map(k=>`<div class="kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+}
+
+/* ============ PIPELINE (kanban) ============ */
+function renderBoard(){
+  const R=rows();
+  const b=document.getElementById('board'); b.innerHTML='';
+  STAGES.forEach(([key,label,color,cls])=>{
+    const list=R.filter(l=>l.stage===key);
+    const val=list.reduce((a,l)=>a+amount(l),0);
+    const col=document.createElement('div'); col.className='col'; col.dataset.stage=key;
+    col.innerHTML=`<div class="col-h" style="border-color:${color}"><span class="nm" style="color:${color}">${label}</span>
+      <span class="ct">${list.length}</span></div>
+      <div class="col-v">${rp(val)}</div><div class="col-b" data-stage="${esc(key)}"></div>`;
+    const body=col.querySelector('.col-b');
+    list.sort((a,b)=>amount(b)-amount(a)).forEach(l=>{
+      const c=document.createElement('div'); c.className='lead'; c.draggable=true; c.dataset.uid=l.uid;
+      c.innerHTML=`<div class="cu">${esc(l.cust)}</div><div class="idd">${esc(l.id)}</div>
+        <div class="amt">${rp(amount(l))}</div>
+        <div class="meta"><span class="chip am">${esc(l.am)}</span>${l.seg?`<span class="chip">${esc(l.seg)}</span>`:''}${l.svc?`<span class="chip">${esc(l.svc.replace('FO_',''))}</span>`:''}</div>`;
+      c.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',l.uid); c.classList.add('dragging');});
+      c.addEventListener('dragend',()=>c.classList.remove('dragging'));
+      c.addEventListener('click',()=>openDrawer(l.uid));
+      body.appendChild(c);
+    });
+    body.addEventListener('dragover',e=>{e.preventDefault(); body.classList.add('over');});
+    body.addEventListener('dragleave',()=>body.classList.remove('over'));
+    body.addEventListener('drop',e=>{
+      e.preventDefault(); body.classList.remove('over');
+      const uid=e.dataTransfer.getData('text/plain'); const l=DB.leads.find(x=>x.uid===uid);
+      if(l && l.stage!==key){
+        const old=l.stage; l.stage=key;
+        if(key==='5. Closed (Win)' && !l.val) l.val=l.ref;
+        if(key==='5. Dropped') l.val=0;
+        l.hist=[stamp(`Tahap: ${old} → ${key}`)].concat(l.hist||[]).slice(0,20);
+        persistLead(l); renderAll(); toast(`${l.cust} → ${label}`);
+      }
+    });
+    b.appendChild(col);
+  });
+}
+
+/* ============ LEADS TABLE ============ */
+function renderTable(){
+  const R=rows().slice();
+  const get=l=> sortK==='amt'?amount(l): (sortK==='kap'? (l.kap||0) : (l[sortK]||''));
+  R.sort((a,b)=>{ const va=get(a),vb=get(b);
+    return (typeof va==='number'&&typeof vb==='number') ? (va-vb)*sortD : String(va).localeCompare(String(vb),'id')*sortD; });
+  const cls=s=> s==='5. Closed (Win)'?'s-win':s==='2. Proposal'?'s-pro':s==='3. Negotiation'?'s-neg':s==='5. Dropped'?'s-drp':'s-opp';
+  document.getElementById('lbody').innerHTML = R.map(l=>`<tr data-uid="${l.uid}">
+    <td style="font-family:ui-monospace,monospace;font-size:12px">${esc(l.id)}</td>
+    <td style="font-weight:600">${esc(l.cust)}</td><td>${esc(l.am)}</td>
+    <td><span class="stg ${cls(l.stage)}">${esc((l.stage||'').replace(/^\d\.\s*/,''))}</span></td>
+    <td style="color:var(--mute)">${esc(l.svc||'—')}</td><td style="color:var(--mute)">${esc(l.seg||'—')}</td>
+    <td class="n">${l.kap||'—'}</td><td class="n" style="font-weight:600">${jt(amount(l))}</td></tr>`).join('')
+    || '<tr><td colspan="8" style="text-align:center;color:var(--mute);padding:30px">Tidak ada lead.</td></tr>';
+  document.querySelectorAll('#lbody tr').forEach(tr=>tr.addEventListener('click',()=>openDrawer(tr.dataset.uid)));
+}
+document.getElementById('lhead').addEventListener('click',e=>{
+  const th=e.target.closest('th'); if(!th)return;
+  const k=th.dataset.k==='amount'?'amt':th.dataset.k;
+  if(sortK===k) sortD=-sortD; else {sortK=k;sortD=-1;}
+  renderTable();
+});
+
+/* ============ ACCOUNTS ============ */
+const PALC=['#226DB4','#12A05C','#E8A03D','#7A5FD0','#E4534A','#0FA3A3','#B95E9C','#5B8C2A'];
+function renderAccounts(){
+  const map={};
+  rows().forEach(l=>{ const a=map[l.cust]=map[l.cust]||{cust:l.cust,n:0,win:0,val:0,pipe:0,ams:new Set()};
+    a.n++; a.ams.add(l.am);
+    if(l.stage==='5. Closed (Win)'){a.win++;a.val+=l.val||0;}
+    else if(['1. Opportunity','2. Proposal','3. Negotiation'].includes(l.stage)) a.pipe+=l.ref||0; });
+  const arr=Object.values(map).sort((a,b)=>b.val-a.val||b.pipe-a.pipe);
+  document.getElementById('accGrid').innerHTML=arr.map((a,i)=>`<div class="acc" data-cust="${esc(a.cust)}">
+    <div class="av" style="background:${PALC[i%PALC.length]}">${esc((a.cust||'?').replace(/^PT\s+/i,'')[0]||'?')}</div>
+    <div class="nm">${esc(a.cust)}</div>
+    <div class="st">${a.n} lead · AM: ${[...a.ams].join(', ')}</div>
+    <div class="row2"><span style="color:var(--mute)">Closed</span><b style="color:var(--green)">${rp(a.val)}</b></div>
+    <div class="row2"><span style="color:var(--mute)">Pipeline</span><b style="color:var(--blue)">${rp(a.pipe)}</b></div>
+  </div>`).join('') || '<div style="color:var(--mute)">Tidak ada account.</div>';
+  document.querySelectorAll('.acc').forEach(el=>el.addEventListener('click',()=>{
+    document.getElementById('q').value=el.dataset.cust; q=el.dataset.cust.toLowerCase(); switchView('leads'); renderAll();
+  }));
+}
+
+/* ============ REPORTS ============ */
+function renderReports(){
+  const R=rows();
+  const hb=(rowsArr,color)=>{ const mx=Math.max(...rowsArr.map(r=>r[1]),1);
+    return rowsArr.map(r=>`<div class="hbar"><span>${esc(r[0])}</span><span class="tk"><i style="width:${r[1]/mx*100}%;background:${color}"></i></span><span class="vv">${r[2]}</span></div>`).join(''); };
+  const byStage=STAGES.map(([k,lb])=>{ const L=R.filter(l=>l.stage===k); return [lb,L.length,L.length+' lead']; });
+  const byAM=AMS.map(a=>{ const w=R.filter(l=>l.am===a&&l.stage==='5. Closed (Win)').reduce((x,l)=>x+(l.val||0),0); return [a,w,rp(w)]; });
+  const byAMpipe=AMS.map(a=>{ const p=R.filter(l=>l.am===a&&['1. Opportunity','2. Proposal','3. Negotiation'].includes(l.stage)).reduce((x,l)=>x+(l.ref||0),0); return [a,p,rp(p)]; });
+  const segs=['P4','P5','P6','P7','P8A','P8B'].map(s=>{ const v=R.filter(l=>segP(l.seg)===s&&l.stage==='5. Closed (Win)').reduce((x,l)=>x+(l.val||0),0); return [s,v,rp(v)]; });
+  document.getElementById('repWrap').innerHTML=
+    `<div class="rcard"><h3>Distribusi Tahap</h3>${hb(byStage,'#226DB4')}</div>
+     <div class="rcard"><h3>Closed Won per AM</h3>${hb(byAM,'#12A05C')}</div>
+     <div class="rcard"><h3>Pipeline per AM</h3>${hb(byAMpipe,'#3D8DDB')}</div>
+     <div class="rcard"><h3>Closed Won per Ruas</h3>${hb(segs,'#E8A03D')}</div>`;
+}
+
+/* ============ DRAWER ============ */
+const ov=document.getElementById('ov'), dr=document.getElementById('drawer');
+function openDrawer(uid){
+  curUid=uid; const isNew = uid===null;
+  const l = isNew ? {uid:null,id:'LTINEW'+String(DB.seq).padStart(4,'0'),cust:'',am:AMS[0],stage:'1. Opportunity',svc:'FO_Bandwidth',seg:'',kap:1,ref:0,val:0,note:'',hist:[]}
+                  : DB.leads.find(x=>x.uid===uid);
+  if(!l) return;
+  document.getElementById('drTitle').textContent = isNew ? 'Lead Baru' : l.cust;
+  document.getElementById('drSub').textContent = l.id;
+  document.getElementById('eAM').innerHTML=AMS.map(a=>`<option${a===l.am?' selected':''}>${a}</option>`).join('');
+  document.getElementById('eCust').value=l.cust; document.getElementById('eStage').value=l.stage;
+  document.getElementById('eSvc').value=l.svc||'FO_Bandwidth'; document.getElementById('eSeg').value=l.seg||'';
+  document.getElementById('eKap').value=l.kap||0; document.getElementById('eRef').value=l.ref||0;
+  document.getElementById('eVal').value=l.val||0; document.getElementById('eNote').value=l.note||'';
+  document.getElementById('drHist').innerHTML=(l.hist||[]).slice(0,8).map(h=>`<div class="hist">${esc(h)}</div>`).join('');
+  document.getElementById('drDel').style.display = isNew?'none':'';
+  ov.classList.add('open'); dr.classList.add('open');
+}
+function closeDrawer(){ ov.classList.remove('open'); dr.classList.remove('open'); curUid=undefined; }
+ov.addEventListener('click',closeDrawer);
+document.getElementById('drX').addEventListener('click',closeDrawer);
+document.getElementById('drSave').addEventListener('click',()=>{
+  const cust=document.getElementById('eCust').value.trim();
+  if(!cust){ toast('Nama pelanggan wajib diisi'); return; }
+  const vals={cust, am:document.getElementById('eAM').value, stage:document.getElementById('eStage').value,
+    svc:document.getElementById('eSvc').value, seg:document.getElementById('eSeg').value.trim(),
+    kap:+document.getElementById('eKap').value||0, ref:+document.getElementById('eRef').value||0,
+    val:+document.getElementById('eVal').value||0, note:document.getElementById('eNote').value};
+  if(curUid===null){
+    const uid='L'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+    const nl=Object.assign({uid,id:'LTINEW'+String(DB.seq).padStart(4,'0'),hist:[stamp('Lead dibuat')]},vals);
+    DB.leads.unshift(nl); DB.seq++;
+    persistLead(nl); toast('Lead baru ditambahkan');
+  } else {
+    const l=DB.leads.find(x=>x.uid===curUid); if(!l) return;
+    const note = l.stage!==vals.stage ? `Tahap: ${l.stage} → ${vals.stage}` : 'Data diperbarui';
+    l.hist=[stamp(note)].concat(l.hist||[]).slice(0,20);
+    Object.assign(l,vals);
+    persistLead(l); toast('Perubahan disimpan');
+  }
+  closeDrawer(); renderAll();
+});
+document.getElementById('drDel').addEventListener('click',()=>{
+  if(!confirm('Hapus lead ini? (akan terhapus untuk semua pengguna)')) return;
+  const uid=curUid;
+  DB.leads=DB.leads.filter(x=>x.uid!==uid);
+  removeLead(uid); closeDrawer(); renderAll(); toast('Lead dihapus');
+});
+
+/* ============ TOOLBAR ============ */
+document.getElementById('q').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();renderAll();});
+document.getElementById('fAM').addEventListener('change',e=>{fam=e.target.value;renderAll();});
+document.getElementById('fSeg').addEventListener('change',e=>{fseg=e.target.value;renderAll();});
+document.getElementById('newLead').addEventListener('click',()=>openDrawer(null));
+document.getElementById('resetData').addEventListener('click',()=>{
+  if(!confirm('Kembalikan data CRM ke kondisi awal (95 lead)? Ini berlaku untuk SEMUA pengguna bila mode cloud.'))return;
+  reseedAll();
+});
+document.getElementById('expCsv').addEventListener('click',()=>{
+  const cols=['id','cust','am','stage','svc','seg','kap','ref','val','note'];
+  const head='Lead ID,Pelanggan,AM,Tahap,Layanan,Ruas,Kapasitas,Nilai Acuan,Nilai Closed,Catatan';
+  const cell=v=>{v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+  const csv='﻿'+head+'\n'+rows().map(l=>cols.map(c=>cell(l[c])).join(',')).join('\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download='LTI_CRM_Leads.csv'; document.body.appendChild(a); a.click(); setTimeout(()=>a.remove(),200);
+});
+
+/* ============ VIEW SWITCH ============ */
+function switchView(v){ view=v;
+  document.querySelectorAll('#mods button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
+}
+document.getElementById('mods').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return; switchView(b.dataset.v); renderAll();
+});
+
+function toast(t){ const el=document.getElementById('toast'); el.textContent=t; el.classList.add('on'); setTimeout(()=>el.classList.remove('on'),2000); }
+function renderAll(){ renderKpis();
+  if(view==='pipeline')renderBoard(); if(view==='leads')renderTable();
+  if(view==='accounts')renderAccounts(); if(view==='reports')renderReports(); }
+
+/* ============ INIT ============ */
+document.getElementById('fAM').innerHTML='<option value="">Semua AM</option>'+AMS.map(a=>`<option>${a}</option>`).join('');
+initSync();
+renderAll();
+
+</script>
+</body>
+</html>
