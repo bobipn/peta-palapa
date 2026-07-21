@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel Komersial LTI — Monitoring Kinerja 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#0A0F16; --panel:#111A24; --raise:#17222F; --edge:#22303F; --edge2:#2E3F52;
+  --signal:#F2A93B; --fiber:#45D6F0; --live:#3ECF8E; --alert:#FF6259;
+  --ink:#E9EFF5; --dim:#7A8B9C; --dim2:#4E5F72;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --disp:'Space Grotesk',sans-serif;
+  --body:'Inter',sans-serif;
+  --rail:212px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--void); color:var(--ink); font-family:var(--body);
+  -webkit-font-smoothing:antialiased; line-height:1.5; overflow-x:hidden;
+}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
+input,select{font:inherit;}
+:focus-visible{outline:2px solid var(--fiber);outline-offset:2px;border-radius:4px;}
+/* ---------- shell ---------- */
+.shell{display:grid;grid-template-columns:var(--rail) 1fr;min-height:100vh;}
+.rail{
+  background:var(--panel); border-right:1px solid var(--edge);
+  display:flex;flex-direction:column;position:sticky;top:0;height:100vh;
+}
+.brand{padding:20px 18px 16px;border-bottom:1px solid var(--edge);}
+.brand-mark{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--live);
+  box-shadow:0 0 0 3px rgba(62,207,142,.16);flex:none;animation:blink 2.6s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.45}}
+.brand-name{font-family:var(--disp);font-weight:700;font-size:14.5px;letter-spacing:-.01em;}
+.brand-sub{font-family:var(--mono);font-size:9.5px;color:var(--dim2);letter-spacing:.14em;text-transform:uppercase;}
+.nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:2px;}
+.nav-btn{
+  display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  padding:9px 10px;border-radius:7px;color:var(--dim);font-size:13px;
+  transition:background .15s,color .15s;
+}
+.nav-btn:hover{background:var(--raise);color:var(--ink);}
+.nav-btn[aria-current="true"]{background:var(--raise);color:var(--ink);}
+.nav-btn[aria-current="true"] .nav-dot{background:var(--signal);box-shadow:0 0 8px rgba(242,169,59,.55);}
+.nav-dot{width:5px;height:5px;border-radius:1px;background:var(--dim2);flex:none;transition:background .15s;}
+.nav-num{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--dim2);}
+.rail-foot{padding:14px 18px;border-top:1px solid var(--edge);font-family:var(--mono);font-size:9.5px;color:var(--dim2);line-height:1.7;}
+.maplink{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 10px 0;padding:9px 12px;
+  border-radius:8px;text-decoration:none;font-size:12.5px;font-weight:600;color:#06101d;
+  background:linear-gradient(120deg,#45D6F0,#3ECF8E);transition:.15s;}
+.maplink:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.maplink span{font-size:15px;}
+/* ---------- control bar ---------- */
+.bar{
+  position:sticky;top:0;z-index:40;background:rgba(10,15,22,.93);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--edge);
+  padding:12px 26px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+}
+.ctl{display:flex;align-items:center;gap:8px;}
+.ctl-lbl{font-family:var(--mono);font-size:9.5px;color:var(--dim2);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;}
+.seg{display:flex;background:var(--panel);border:1px solid var(--edge);border-radius:7px;overflow:hidden;}
+.seg button{padding:5px 11px;font-family:var(--mono);font-size:11.5px;color:var(--dim);transition:.15s;}
+.seg button[aria-pressed="true"]{background:var(--signal);color:#1A1206;font-weight:700;}
+.seg button:hover:not([aria-pressed="true"]){background:var(--raise);color:var(--ink);}
+.num-in{
+  width:64px;background:var(--panel);border:1px solid var(--edge);border-radius:7px;
+  padding:5px 8px;color:var(--ink);font-family:var(--mono);font-size:12px;
+}
+.num-in::-webkit-outer-spin-button,.num-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.num-in[type=number]{-moz-appearance:textfield;}
+.rng{width:92px;accent-color:var(--fiber);}
+.bar-right{margin-left:auto;display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:10.5px;color:var(--dim2);}
+.chip{padding:3px 9px;border-radius:20px;border:1px solid var(--edge2);font-size:10px;}
+.chip.warn{border-color:var(--signal);color:var(--signal);}
+/* ---------- main ---------- */
+main{padding:26px;max-width:1500px;}
+.view{display:none;animation:fade .28s ease both;}
+.view.on{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+h1.vt{font-family:var(--disp);font-size:23px;font-weight:600;margin:0 0 3px;letter-spacing:-.015em;}
+p.vs{margin:0 0 20px;color:var(--dim);font-size:13px;}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin:26px 0 12px;flex-wrap:wrap;}
+.sec-t{font-family:var(--disp);font-size:15px;font-weight:600;margin:0;}
+.sec-n{font-family:var(--mono);font-size:10.5px;color:var(--dim2);}
+/* ---------- capacity spine (signature) ---------- */
+.spine-wrap{
+  background:var(--panel);border:1px solid var(--edge);border-radius:12px;
+  padding:20px 22px 16px;margin-bottom:22px;position:relative;
+}
+.spine-top{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:14px;flex-wrap:wrap;}
+.spine-ttl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim2);}
+.spine-fig{font-family:var(--disp);font-size:26px;font-weight:700;letter-spacing:-.02em;}
+.spine-fig .u{font-size:13px;color:var(--dim);font-weight:500;margin-left:5px;}
+.spine{display:flex;height:46px;border-radius:6px;overflow:hidden;background:var(--void);border:1px solid var(--edge);}
+.strand{position:relative;transition:filter .15s;cursor:default;
+  background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.34) 0 1px,transparent 1px 7px);}
+.strand:hover{filter:brightness(1.35);}
+.strand.idle{background-color:#16202B;
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px);}
+.spine-scale{display:flex;justify-content:space-between;margin-top:6px;font-family:var(--mono);font-size:9.5px;color:var(--dim2);}
+.spine-key{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--dim);}
+.spine-key i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;vertical-align:-1px;}
+.tip{
+  position:fixed;pointer-events:none;z-index:99;background:var(--raise);
+  border:1px solid var(--edge2);border-radius:7px;padding:7px 10px;font-size:11.5px;
+  box-shadow:0 8px 22px rgba(0,0,0,.5);opacity:0;transition:opacity .12s;white-space:nowrap;
+}
+.tip.on{opacity:1;}
+.tip b{font-family:var(--mono);color:var(--signal);}
+/* ---------- kpi ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;}
+.kpi{background:var(--panel);border:1px solid var(--edge);border-radius:11px;padding:15px 17px;position:relative;overflow:hidden;}
+.kpi::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--edge2);}
+.kpi.sig::after{background:var(--signal);} .kpi.fib::after{background:var(--fiber);}
+.kpi.liv::after{background:var(--live);}   .kpi.alr::after{background:var(--alert);}
+.kpi-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);}
+.kpi-v{font-family:var(--disp);font-size:25px;font-weight:700;letter-spacing:-.02em;margin:5px 0 2px;}
+.kpi-s{font-size:11px;color:var(--dim);}
+.kpi-v.sig{color:var(--signal)} .kpi-v.fib{color:var(--fiber)}
+.kpi-v.liv{color:var(--live)}   .kpi-v.alr{color:var(--alert)}
+/* ---------- panels & bars ---------- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+.card{background:var(--panel);border:1px solid var(--edge);border-radius:11px;padding:18px 20px;}
+.card-t{font-family:var(--disp);font-size:14px;font-weight:600;margin:0 0 3px;}
+.card-s{font-size:11.5px;color:var(--dim2);margin:0 0 14px;font-family:var(--mono);}
+.brow{display:grid;grid-template-columns:118px 1fr 84px;align-items:center;gap:11px;padding:6px 0;}
+.brow .bn{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.btrack{height:9px;background:var(--void);border-radius:5px;overflow:hidden;}
+.bfill{height:100%;border-radius:5px;transition:width .5s cubic-bezier(.2,.9,.3,1);}
+.bval{font-family:var(--mono);font-size:11.5px;text-align:right;}
+.meter{height:10px;background:var(--void);border:1px solid var(--edge);border-radius:6px;overflow:hidden;margin:9px 0 7px;}
+.meter i{display:block;height:100%;transition:width .5s cubic-bezier(.2,.9,.3,1);}
+.mfoot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--dim);}
+/* ---------- table ---------- */
+.tbl-wrap{border:1px solid var(--edge);border-radius:11px;overflow:hidden;background:var(--panel);}
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+thead th{
+  background:var(--raise);text-align:left;padding:10px 12px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);
+  border-bottom:1px solid var(--edge);white-space:nowrap;cursor:pointer;user-select:none;
+}
+thead th:hover{color:var(--ink);}
+thead th .ar{opacity:.4;font-size:9px;margin-left:3px;}
+thead th.act .ar{opacity:1;color:var(--signal);}
+tbody td{padding:9px 12px;border-bottom:1px solid rgba(34,48,63,.55);}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--raise);}
+td.n,th.n{text-align:right;font-family:var(--mono);}
+.pill{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-family:var(--mono);white-space:nowrap;}
+.p-opp{background:rgba(122,139,156,.16);color:var(--dim);}
+.p-pro{background:rgba(69,214,240,.14);color:var(--fiber);}
+.p-win{background:rgba(62,207,142,.14);color:var(--live);}
+.p-drp{background:rgba(255,98,89,.14);color:var(--alert);}
+.empty{padding:34px;text-align:center;color:var(--dim2);font-size:13px;}
+.filters{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:12px;}
+.sel,.srch{background:var(--panel);border:1px solid var(--edge);border-radius:7px;padding:6px 10px;color:var(--ink);font-size:12px;}
+.srch{width:200px;}
+.srch::placeholder{color:var(--dim2);}
+/* ---------- notes ---------- */
+.note{border-radius:9px;padding:12px 15px;font-size:12px;line-height:1.6;border:1px solid;}
+.note b{font-weight:600;}
+.note.warn{background:rgba(242,169,59,.07);border-color:rgba(242,169,59,.4);color:var(--dim);}
+.note.warn b{color:var(--signal);}
+.note.bad{background:rgba(255,98,89,.07);border-color:rgba(255,98,89,.4);color:var(--dim);}
+.note.bad b{color:var(--alert);}
+.note.good{background:rgba(62,207,142,.07);border-color:rgba(62,207,142,.4);color:var(--dim);}
+.note.good b{color:var(--live);}
+.stack{display:flex;flex-direction:column;gap:11px;}
+.li{display:grid;grid-template-columns:auto 1fr auto;gap:11px;align-items:start;padding:11px 0;border-bottom:1px solid rgba(34,48,63,.55);}
+.li:last-child{border-bottom:none;}
+.li .dot{width:7px;height:7px;border-radius:2px;margin-top:5px;}
+.li .t{font-size:12.5px;font-weight:500;}
+.li .d{font-size:11.5px;color:var(--dim);margin-top:2px;}
+.li .rt{font-family:var(--mono);font-size:11.5px;color:var(--dim);white-space:nowrap;}
+@media(max-width:1080px){
+  .grid2{grid-template-columns:1fr;}
+}
+@media(max-width:860px){
+  :root{--rail:0px;}
+  .shell{grid-template-columns:1fr;}
+  .rail{position:fixed;bottom:0;top:auto;height:auto;width:100%;flex-direction:row;
+    border-right:none;border-top:1px solid var(--edge);z-index:60;}
+  .brand,.rail-foot,.maplink{display:none;}
+  .nav{flex-direction:row;overflow-x:auto;padding:7px 9px;gap:5px;}
+  .nav-btn{flex-direction:column;gap:3px;font-size:10px;padding:6px 9px;white-space:nowrap;}
+  .nav-num{display:none;}
+  main{padding:16px 14px 84px;}
+  .bar{padding:10px 14px;gap:13px;}
+  .brow{grid-template-columns:82px 1fr 66px;}
+}
+.backmap{position:fixed;left:14px;bottom:74px;z-index:70;background:var(--signal);color:#1A1206;font-weight:700;
+  font-family:var(--mono);font-size:12px;padding:8px 14px;border-radius:8px;text-decoration:none;
+  box-shadow:0 6px 18px rgba(0,0,0,.45);}
+.backmap:hover{filter:brightness(1.08);}
+@media(min-width:861px){.backmap{left:auto;right:20px;bottom:20px;}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="rail">
+    <div class="brand">
+      <div class="brand-mark"><span class="pulse"></span><span class="brand-name">Panel Komersial</span></div>
+      <div class="brand-sub">LTI · Palapa Ring Tengah</div>
+    </div>
+    <a class="maplink" href="index.html">🌐 Peta Rute &amp; Site <span>→</span></a>
+    <nav class="nav" id="nav">
+      <button class="nav-btn" data-v="ikhtisar" aria-current="true"><span class="nav-dot"></span>Ikhtisar<span class="nav-num" id="n-ikh"></span></button>
+      <button class="nav-btn" data-v="pipeline"><span class="nav-dot"></span>Pipeline<span class="nav-num" id="n-pipe"></span></button>
+      <button class="nav-btn" data-v="pelanggan"><span class="nav-dot"></span>Pelanggan<span class="nav-num" id="n-cust"></span></button>
+      <button class="nav-btn" data-v="am"><span class="nav-dot"></span>Account Manager<span class="nav-num">3</span></button>
+      <button class="nav-btn" data-v="biaya"><span class="nav-dot"></span>Biaya &amp; Margin<span class="nav-num" id="n-cost"></span></button>
+      <button class="nav-btn" data-v="mutu"><span class="nav-dot"></span>Mutu Data<span class="nav-num" id="n-dq"></span></button>
+    </nav>
+    <div class="rail-foot">
+      Sumber<br>Form Monitoring &amp; Evaluasi<br>Model S&amp;M · CAC · ROI
+    </div>
+  </aside>
+  <div>
+    <!-- ============ control bar ============ -->
+    <div class="bar">
+      <div class="ctl">
+        <span class="ctl-lbl">Target FY</span>
+        <div class="seg" id="segTarget">
+          <button data-t="66000000000" aria-pressed="true">Rp66,00 M</button>
+          <button data-t="66660000000" aria-pressed="false">Rp66,66 M</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-lbl">Gross Margin</span>
+        <input class="num-in" type="number" id="inGM" min="0" max="100" step="1" placeholder="—" aria-label="Gross margin persen">
+        <span class="ctl-lbl">%</span>
+      </div>
+      <div class="ctl">
+        <span class="ctl-lbl">Durasi Kontrak</span>
+        <input class="num-in" type="number" id="inDur" min="1" max="10" step="1" value="1" aria-label="Durasi kontrak tahun">
+        <span class="ctl-lbl">thn</span>
+      </div>
+      <div class="ctl">
+        <span class="ctl-lbl">Win Factor</span>
+        <input class="rng" type="range" id="inWF" min="2" max="6" step="0.5" value="4" aria-label="Win factor">
+        <span class="ctl-lbl" id="wfVal" style="color:var(--fiber)">4,0×</span>
+      </div>
+      <div class="bar-right">
+        <span class="chip" id="chipWeek">Week-30</span>
+        <span class="chip warn" id="chipGM">Gross margin belum diisi</span>
+      </div>
+    </div>
+    <main>
+      <!-- ============ IKHTISAR ============ -->
+      <section class="view on" id="v-ikhtisar">
+        <h1 class="vt">Ikhtisar Kinerja</h1>
+        <p class="vs">Posisi kontrak, kapasitas, dan jarak ke target tahun berjalan.</p>
+        <div class="spine-wrap">
+          <div class="spine-top">
+            <div>
+              <div class="spine-ttl">Tulang punggung kapasitas · 600 Gbps terpasang</div>
+              <div class="spine-fig" id="spineFig">299<span class="u">Gbps terjual · 301 Gbps gelap</span></div>
+            </div>
+            <div style="text-align:right">
+              <div class="spine-ttl">Utilisasi</div>
+              <div class="spine-fig" id="spineUtil" style="color:var(--signal)">49,8<span class="u">%</span></div>
+            </div>
+          </div>
+          <div class="spine" id="spine"></div>
+          <div class="spine-scale"><span>0</span><span>150</span><span>300</span><span>450</span><span>600 Gbps</span></div>
+          <div class="spine-key" id="spineKey"></div>
+        </div>
+        <div class="kpis" id="kpiMain"></div>
+        <div class="sec-h"><h2 class="sec-t">Jarak ke target</h2><span class="sec-n" id="tgtNote"></span></div>
+        <div class="grid2">
+          <div class="card">
+            <p class="card-t">Realisasi terhadap target</p>
+            <p class="card-s">nilai kontrak closed</p>
+            <div class="meter"><i id="mTgt" style="background:linear-gradient(90deg,#8A6A2E,var(--signal))"></i></div>
+            <div class="mfoot"><span id="mTgtL"></span><span id="mTgtR"></span></div>
+          </div>
+          <div class="card">
+            <p class="card-t">Kecukupan pipeline</p>
+            <p class="card-s">pipeline terbuka ÷ kebutuhan</p>
+            <div class="meter"><i id="mCov"></i></div>
+            <div class="mfoot"><span id="mCovL"></span><span id="mCovR"></span></div>
+          </div>
+        </div>
+        <div class="sec-h"><h2 class="sec-t">Pendapatan per pelanggan</h2><span class="sec-n">closed · Rp miliar</span></div>
+        <div class="card" id="custBars"></div>
+      </section>
+      <!-- ============ PIPELINE ============ -->
+      <section class="view" id="v-pipeline">
+        <h1 class="vt">Pipeline</h1>
+        <p class="vs">Sebaran tahap dan seluruh lead yang tercatat. Klik judul kolom untuk mengurutkan.</p>
+        <div class="kpis" id="kpiPipe"></div>
+        <div class="sec-h"><h2 class="sec-t">Tahap</h2><span class="sec-n">jumlah lead · nilai</span></div>
+        <div class="card" id="funnel"></div>
+        <div class="sec-h"><h2 class="sec-t">Daftar lead</h2><span class="sec-n" id="leadCount"></span></div>
+        <div class="filters">
+          <select class="sel" id="fAM"><option value="all">Semua Account Manager</option></select>
+          <select class="sel" id="fStage"><option value="all">Semua tahap</option></select>
+          <select class="sel" id="fSvc"><option value="all">Semua layanan</option></select>
+          <select class="sel" id="fSeg"><option value="all">Semua ruas (Project)</option>
+            <option value="Project 4">Ruas P4</option><option value="Project 5">Ruas P5</option>
+            <option value="Project 6">Ruas P6</option><option value="Project 7">Ruas P7</option>
+            <option value="Project 8">Ruas P8</option></select>
+          <input class="srch" id="fQ" type="search" placeholder="Cari pelanggan / Lead ID…" aria-label="Cari lead">
+        </div>
+        <div class="tbl-wrap">
+          <table id="tblLead">
+            <thead><tr>
+              <th data-k="id">Lead ID<span class="ar">↕</span></th>
+              <th data-k="cust">Pelanggan<span class="ar">↕</span></th>
+              <th data-k="am">AM<span class="ar">↕</span></th>
+              <th data-k="stage">Tahap<span class="ar">↕</span></th>
+              <th data-k="svc">Layanan<span class="ar">↕</span></th>
+              <th data-k="seg">Ruas<span class="ar">↕</span></th>
+              <th class="n" data-k="kap">Kap<span class="ar">↕</span></th>
+              <th class="n" data-k="amount">Nilai (Rp jt)<span class="ar">↕</span></th>
+            </tr></thead>
+            <tbody id="tbLead"></tbody>
+          </table>
+        </div>
+      </section>
+      <!-- ============ PELANGGAN ============ -->
+      <section class="view" id="v-pelanggan">
+        <h1 class="vt">Pelanggan</h1>
+        <p class="vs">Kapasitas sewa (Gbps) dan sewa core dihitung terpisah karena satuannya berbeda.</p>
+        <div class="kpis" id="kpiCust"></div>
+        <div class="sec-h"><h2 class="sec-t">Pelanggan berkontrak</h2><span class="sec-n" id="custNote"></span></div>
+        <div class="tbl-wrap">
+          <table id="tblCust">
+            <thead><tr>
+              <th data-k="cust">Pelanggan<span class="ar">↕</span></th>
+              <th class="n" data-k="rev">Pendapatan (Rp jt)<span class="ar">↕</span></th>
+              <th class="n" data-k="pct">Porsi<span class="ar">↕</span></th>
+              <th class="n" data-k="gbps">Kapasitas (Gbps)<span class="ar">↕</span></th>
+              <th class="n" data-k="core">Core<span class="ar">↕</span></th>
+              <th class="n" data-k="segs">Ruas<span class="ar">↕</span></th>
+              <th class="n" data-k="deals">Kontrak<span class="ar">↕</span></th>
+            </tr></thead>
+            <tbody id="tbCust"></tbody>
+          </table>
+        </div>
+        <div class="sec-h"><h2 class="sec-t">Konsentrasi</h2><span class="sec-n">risiko portofolio</span></div>
+        <div id="concNote"></div>
+      </section>
+      <!-- ============ ACCOUNT MANAGER ============ -->
+      <section class="view" id="v-am">
+        <h1 class="vt">Account Manager</h1>
+        <p class="vs">Win rate menghitung menang berbanding lead yang sudah diputuskan; konversi menghitung menang berbanding seluruh lead yang ditangani.</p>
+        <div class="grid3" id="amCards"></div>
+        <div class="sec-h"><h2 class="sec-t">Perbandingan</h2><span class="sec-n">Rp miliar</span></div>
+        <div class="grid2">
+          <div class="card"><p class="card-t">Nilai kontrak closed</p><p class="card-s">cash-in kontrak</p><div id="amBar1"></div></div>
+          <div class="card"><p class="card-t">Pipeline terbuka</p><p class="card-s">nilai acuan</p><div id="amBar2"></div></div>
+        </div>
+      </section>
+      <!-- ============ BIAYA ============ -->
+      <section class="view" id="v-biaya">
+        <h1 class="vt">Biaya &amp; Margin</h1>
+        <p class="vs">Isi gross margin di bilah atas untuk menghidupkan LTV, LTV/CAC, dan CAC payback.</p>
+        <div class="kpis" id="kpiCost"></div>
+        <div class="sec-h"><h2 class="sec-t">Ekonomi unit</h2><span class="sec-n" id="ueNote"></span></div>
+        <div class="grid2">
+          <div class="card">
+            <p class="card-t">Rantai perhitungan LTV</p>
+            <p class="card-s">ARPU × margin × durasi × (1 + renewal)</p>
+            <div id="ltvChain"></div>
+          </div>
+          <div class="card">
+            <p class="card-t">Serapan pagu</p>
+            <p class="card-s">realisasi terhadap pagu komersial</p>
+            <div class="meter"><i id="mPagu" style="background:linear-gradient(90deg,#256B4B,var(--live))"></i></div>
+            <div class="mfoot"><span id="mPaguL"></span><span id="mPaguR"></span></div>
+            <div style="margin-top:16px" id="ratioRows"></div>
+          </div>
+        </div>
+        <div class="sec-h"><h2 class="sec-t">Biaya per tahapan</h2><span class="sec-n">Rp juta</span></div>
+        <div class="card" id="costBars"></div>
+        <div class="sec-h"><h2 class="sec-t">Posisi terhadap kisaran industri</h2><span class="sec-n">carrier / wholesale</span></div>
+        <div class="tbl-wrap">
+          <table><thead><tr><th>Metrik</th><th>Posisi LTI</th><th>Kisaran industri</th><th>Penilaian</th></tr></thead>
+          <tbody id="tbBench"></tbody></table>
+        </div>
+        <p style="margin-top:12px"><span class="note warn" style="display:block"><b>Catatan metodologi.</b> Kisaran industri berasal dari pengetahuan umum sektor wholesale, bukan kutipan laporan tertentu. Verifikasi dengan laporan tahunan pembanding sebelum dipakai sebagai dasar keputusan.</span></p>
+      </section>
+      <!-- ============ MUTU DATA ============ -->
+      <section class="view" id="v-mutu">
+        <h1 class="vt">Mutu Data</h1>
+        <p class="vs">Hal yang sudah dibereskan dan yang masih menunggu keputusan.</p>
+        <div class="grid2">
+          <div class="card"><p class="card-t">Sudah dikoreksi</p><p class="card-s">Juli 2026</p><div class="stack" id="dqDone"></div></div>
+          <div class="card"><p class="card-t">Menunggu keputusan</p><p class="card-s">butuh konfirmasi</p><div class="stack" id="dqOpen"></div></div>
+        </div>
+        <div class="sec-h"><h2 class="sec-t">Status berkas</h2><span class="sec-n">hasil validasi terakhir</span></div>
+        <div class="kpis" id="kpiDQ"></div>
+      </section>
+    </main>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+<a class="backmap" href="index.html">← Peta Palapa Ring</a>
+<script>
+/* ==================== DATA ==================== */
+const LEADS = [{"r":3,"am":"Farintya","cust":"PT IOH","id":"LTIAF0001","stage":"1. Opportunity","svc":"FO_Bandwidth_PPU","seg":"P5 PPU","kap":10.0,"ref":1094400000,"val":1094400000},{"r":4,"am":"Farintya","cust":"PT IOH","id":"LTIAF0002","stage":"1. Opportunity","svc":"FO_Darkfiber","seg":"P7","kap":2.0,"ref":12683642400,"val":12683642400},{"r":5,"am":"Farintya","cust":"PT IOH","id":"LTIAF0003","stage":"1. Opportunity","svc":"Kolokasi_NOC","seg":"P7","kap":0,"ref":222420000,"val":222420000},{"r":6,"am":"Farintya","cust":"PT IOH","id":"LTIAF0003","stage":"2. Proposal","svc":"Kolokasi_NOC","seg":"P7","kap":0,"ref":222420000,"val":222420000},{"r":7,"am":"Mutiara","cust":"PT CNI","id":"LTIGN0001","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":122769231},{"r":8,"am":"Mutiara","cust":"PT Lintasarta","id":"LTIMA0001","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":175384615},{"r":9,"am":"Mutiara","cust":"PT Lintasarta","id":"LTIMA0002","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P6 PPU","kap":10.0,"ref":1497600000,"val":2304000000},{"r":10,"am":"Mutiara","cust":"PT Lintasarta","id":"LTIMA0003","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":166153846},{"r":11,"am":"Farintya","cust":"PT SCKom","id":"LTIGN0002","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":48000000},{"r":12,"am":"Mutiara","cust":"PT XLSMART","id":"LTIGN0003","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":10.0,"ref":1824000000,"val":589292308},{"r":13,"am":"Mutiara","cust":"PT XLSMART","id":"LTIGN0004","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":20.0,"ref":4992000000,"val":1344000000},{"r":14,"am":"Mutiara","cust":"PT XLSMART","id":"LTIGN0005","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":10.0,"ref":2496000000,"val":672000000},{"r":15,"am":"Mutiara","cust":"PT XLSMART","id":"LTIGN0006","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":30.0,"ref":5472000000,"val":2651815385},{"r":16,"am":"Novia","cust":"PT Icon+","id":"LTIGN0007","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P5 PPU","kap":10.0,"ref":1094400000,"val":1064000000},{"r":17,"am":"Novia","cust":"PT Icon+","id":"LTIGN0008","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P6 PPU","kap":10.0,"ref":1497600000,"val":576000000},{"r":18,"am":"Farintya","cust":"PT IOH","id":"LTIGN0009","stage":"5. Closed (Win)","svc":"FO_Darkfiber","seg":"P5","kap":2.0,"ref":7619580000,"val":5861215385},{"r":19,"am":"Farintya","cust":"PT IOH","id":"LTIGN0010","stage":"5. Dropped","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":0},{"r":20,"am":"Novia","cust":"PT LMM","id":"LTIGN0011","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P4","kap":1.0,"ref":108000000,"val":41538462},{"r":21,"am":"Farintya","cust":"PT Telkom","id":"LTIAF0004","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P4","kap":10.0,"ref":864000000,"val":864000000},{"r":22,"am":"Farintya","cust":"PT Telkom","id":"LTIAF0005","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":10.0,"ref":1824000000,"val":1824000000},{"r":23,"am":"Farintya","cust":"PT Telkom","id":"LTIAF0006","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":20.0,"ref":4992000000,"val":3803428571},{"r":24,"am":"Farintya","cust":"PT Telkom","id":"LTIAF0007","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P7","kap":20.0,"ref":4224000000,"val":4224000000},{"r":25,"am":"Farintya","cust":"PT Telkom","id":"LTIAF0008","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8A","kap":60.0,"ref":17280000000,"val":11520000000},{"r":26,"am":"Farintya","cust":"PT Telkom","id":"LTIAF0009","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8B","kap":10.0,"ref":672000000,"val":413538462},{"r":27,"am":"Mutiara","cust":"PT Dewata Net","id":"LTIGN0012","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":223384615},{"r":28,"am":"Mutiara","cust":"PT Dewata Net","id":"LTIGN0013","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":119409231},{"r":29,"am":"Novia","cust":"PT EBTel","id":"LTIGN0014","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":157846154},{"r":30,"am":"Mutiara","cust":"PT Gomeds","id":"LTIGN0015","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P5 PPU","kap":10.0,"ref":1094400000,"val":1683692308},{"r":31,"am":"Mutiara","cust":"PT Gomeds","id":"LTIGN0016","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P6 PPU","kap":10.0,"ref":1497600000,"val":1536000000},{"r":32,"am":"Mutiara","cust":"PT Gomeds","id":"LTIGN0017","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P7 PPU","kap":10.0,"ref":1267200000,"val":1299692308},{"r":33,"am":"Farintya","cust":"PT Abhinawa","id":"LTIGN0018","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":87692308},{"r":34,"am":"Mutiara","cust":"PT CNI","id":"LTIGN0019","stage":"5. Closed (Win)","svc":"FO_Darkfiber","seg":"P5","kap":2.0,"ref":7619580000,"val":290938776},{"r":35,"am":"Farintya","cust":"PT Mora Telematika Indonesia, Tbk.","id":"LTIAF0010","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P4","kap":1.0,"ref":108000000,"val":108000000},{"r":36,"am":"Farintya","cust":"PT Mora Telematika Indonesia, Tbk.","id":"LTIAF0011","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":37,"am":"Farintya","cust":"PT Indo Telemedia Solusi","id":"LTIAF0012","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":38,"am":"Farintya","cust":"PT Primacom Interbuana","id":"LTIAF0013","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":39,"am":"Farintya","cust":"PT Primacom Interbuana","id":"LTIAF0014","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":40,"am":"Farintya","cust":"PT Primacom Interbuana","id":"LTIAF0015","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"r":41,"am":"Farintya","cust":"PT Media Link Global Indo","id":"LTIAF0016","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"r":42,"am":"Farintya","cust":"PT Cyberplus Media Pratama","id":"LTIAF0017","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":43,"am":"Farintya","cust":"PT Lintas Jaringan Nusantara","id":"LTIAF0018","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":44,"am":"Farintya","cust":"PT Inter Medialink Solusi","id":"LTIAF0019","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":45,"am":"Farintya","cust":"PT Media Cepat Indonesia","id":"LTIAF0020","stage":"1. Opportunity","svc":null,"seg":null,"kap":0,"ref":0,"val":0},{"r":46,"am":"Farintya","cust":"PT Mitra Telemedia Manunggal","id":"LTIAF0021","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":47,"am":"Farintya","cust":"PT Sinergi Inti Andalan Prima, Tbk","id":"LTIAF0022","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":48,"am":"Farintya","cust":"PT Telkom","id":"LTIAF0023","stage":"1. Opportunity","svc":"FO_Darkfiber","seg":"P8B","kap":2.0,"ref":1189308000,"val":1189308000},{"r":49,"am":"Novia","cust":"PT Mamura Inter Media","id":"LTINP0001","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":50,"am":"Novia","cust":"PT Inditech Global Network","id":"LTINP0002","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":51,"am":"Novia","cust":"PT Citra Jelajah Informatika","id":"LTINP0003","stage":"1. Opportunity","svc":null,"seg":null,"kap":0,"ref":0,"val":0},{"r":52,"am":"Novia","cust":"PT Dewata Telematika","id":"LTINP0004","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":53,"am":"Novia","cust":"PT Borneo Broadband Technology","id":"LTINP0005","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P4","kap":1.0,"ref":108000000,"val":108000000},{"r":54,"am":"Novia","cust":"PT Jala Lintas Media","id":"LTINP0006","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":55,"am":"Novia","cust":"PT Inter Medialink Solusi","id":"LTINP0007","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"r":56,"am":"Novia","cust":"PT Intranusa Core Teknologi","id":"LTINP0008","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":57,"am":"Novia","cust":"PT Prima Mandiri Sentosa Gowa","id":"LTINP0009","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":58,"am":"Novia","cust":"PT Celebes Media Jaringan","id":"LTINP0010","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":59,"am":"Mutiara","cust":"PT Ameera Mega Buana","id":"LTIMA0004","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":60,"am":"Mutiara","cust":"PT Icon+","id":"LTIMA0005","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"r":61,"am":"Mutiara","cust":"PT Medialink Global Mandiri","id":"LTIMA0006","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":62,"am":"Mutiara","cust":"PT Adi Inti Mandiri","id":"LTIMA0007","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"r":63,"am":"Mutiara","cust":"PT Lintasarta","id":"LTIMA0008","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"r":64,"am":"Mutiara","cust":"PT Julia Multimedia Nusantara","id":"LTIMA0009","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":65,"am":"Mutiara","cust":"PT Kaili Global","id":"LTIMA0010","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":66,"am":"Mutiara","cust":"PT Citra Agung Mestika","id":"LTIMA0011","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"r":67,"am":"Mutiara","cust":"PT Indotrans Data","id":"LTIMA0012","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"r":68,"am":"Mutiara","cust":"PT Lintasarta","id":"LTIMA0013","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":10.0,"ref":2880000000,"val":2880000000},{"r":69,"am":"Mutiara","cust":"PT Uninet Media Sakti","id":"LTIMA0014","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"r":70,"am":"Mutiara","cust":"PT Serayu Multi Connection","id":"LTIMA0015","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"r":71,"am":"Mutiara","cust":"DCConnect Global Limited","id":"LTIMA0016","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"r":72,"am":"Mutiara","cust":"PT Trans Hybrid Communication","id":"LTIMA0017","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":73,"am":"Mutiara","cust":"PT EZSVS Technology Indonesia","id":"LTIMA0018","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"r":74,"am":"Mutiara","cust":"PT Metrosolusi Teknologi Indonesia","id":"LTIMA0019","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":75,"am":"Mutiara","cust":"PT Supra Primatama Nusantara","id":"LTIMA0020","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":76,"am":"Novia","cust":"PT Petro One Indonesia","id":"LTINP0011","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":77,"am":"Novia","cust":"PT Power Telecom Indonesia","id":"LTINP0012","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":78,"am":"Novia","cust":"PT Berdikari Prima Mandiri","id":"LTINP0013","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"r":79,"am":"Novia","cust":"PT Maxindo Mitra Solusi","id":"LTINP0014","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":80,"am":"Novia","cust":"PT Mega Artha Lintas Data","id":"LTINP0015","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":81,"am":"Novia","cust":"PT Media Cepat Indonesia","id":"LTINP0016","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":82,"am":"Novia","cust":"PT Mitra Visioner Pratama","id":"LTINP0017","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"r":83,"am":"Novia","cust":"PT Sumber Data Indonesia","id":"LTINP0018","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"r":84,"am":"Novia","cust":"PT Inovasi Teknologi Makmur","id":"LTINP0019","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":85,"am":"Novia","cust":"PT Infokom Elektrindo","id":"LTINP0020","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":86,"am":"Novia","cust":"PT Inter Medialink Solusi","id":"LTINP0021","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"r":87,"am":"Novia","cust":"PT Jaringan Fiberku Indonesia","id":"LTINP0022","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":88,"am":"Novia","cust":"01 Digital","id":"LTINP0023","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":89,"am":"Novia","cust":"PT Lisar International Networking","id":"LTINP0024","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":90,"am":"Novia","cust":"PT Indo Teknologi Logistik","id":"LTINP0025","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"r":91,"am":"Novia","cust":"PT Satu Akses Indonesia","id":"LTINP0026","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"r":92,"am":"Novia","cust":"PT Gemilang Catur Persada","id":"LTINP0027","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"r":93,"am":"Farintya","cust":"PT Telkom","id":"LTIAF0006B","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":5.0,"ref":1560000000,"val":1188571429},{"r":94,"am":"Farintya","cust":"PT Telkom","id":"LTIAF0009B","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8B","kap":5.0,"ref":420000000,"val":258461538},{"r":95,"am":"Farintya","cust":"PT IOH","id":"LTIGN0020","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P7 PPU","kap":10.0,"ref":1267200000,"val":1137230769},{"r":96,"am":"Novia","cust":"PT EBTel","id":"LTIGN0021","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":10.0,"ref":1824000000,"val":0},{"r":97,"am":"Farintya","cust":"PT Telkom","id":"LTIAF0010","stage":"5. Closed (Win)","svc":"Bantek","seg":"P7 Bantek","kap":0,"ref":0,"val":196438710}];
+const COST = {
+  sm: 1560059436, pagu: 2750000000, revPeriod: 16088146777,
+  cac: 390014859, arpu: 1005509174, newCust: 4,
+  capInstall: 600, fiberKm: 3100, collection: 98.1,
+  renewal: 0.99, durasi: 1, avgTCV: 5555000000,
+  perSales: 520019812, perOpp: 30001143, perProp: 260009906,
+  perGbps: 3786552, perKm: 503245
+};
+const DQ_DONE = [
+  ["Unit port dijadikan bilangan bulat", "Kapasitas gabungan dipecah mengikuti katalog: 25G → 10G×2 + 1G×5.", "5 baris"],
+  ["Lead ID ganda diperbaiki", "Baris pecahan diberi ID sendiri agar rekap mingguan tidak salah baca.", "2 lead"],
+  ["Sewa core dipisah dari Gbps", "Darkfiber disewa per core. Total dikoreksi dari 303 menjadi 299 Gbps + 4 core.", "2 pelanggan"],
+  ["Master entitas diperluas", "39 → 93 perusahaan; 51 nama pendek disamakan ke nama badan hukum.", "51 baris"],
+  ["Migrasi & kontrak baru dicatat", "Indosat 1G → 10G PPU, EBTel occupied port, Telkom Bantek.", "3 lead"]
+];
+const DQ_OPEN = [
+  ["Target tahun berjalan", "Workbook memakai Rp66,00 M, model biaya menyebut Rp66,66 M (BA IKUK). Selisih Rp660 juta.", "alert"],
+  ["Gross margin belum diisi", "Menahan LTV, LTV/CAC, dan CAC payback. Satu angka membuka tiga metrik.", "alert"],
+  ["11 baris kembar di master", "Sembilan perusahaan tercatat lebih dari sekali; laporan sudah diarahkan ke satu entri.", "signal"],
+  ["Nama '01 Digital' belum terdaftar", "Satu-satunya lead yang belum punya padanan di master entitas.", "signal"],
+  ["Dokumen kontrak tertunda", "No BAST/kontrak untuk migrasi Indosat, EBTel KSO, dan Telkom Bantek.", "signal"],
+  ["Target per Account Manager", "Belum ada pembagian resmi; capaian individu belum bisa dinilai objektif.", "signal"]
+];
+const PAL = ['#F2A93B','#45D6F0','#3ECF8E','#8B7BD8','#FF9E7A','#5B9BD5','#E8C547','#6FD3B8','#D98BB0','#7FB069','#C77DFF','#4EA5D9'];
+/* ==================== STATE ==================== */
+const S = { target: 66000000000, gm: 0, wf: 4, dur: 1, view: 'ikhtisar',
+            am: 'all', stage: 'all', svc: 'all', seg: 'all', q: '',
+            leadSort: {k:'amount', d:-1}, custSort: {k:'rev', d:-1} };
+const segToProject = seg => { if(!seg) return null; const m = /^P(\d)/.exec(seg); return m ? 'Project '+m[1] : null; };
+/* ==================== HELPERS ==================== */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const OPEN_ST = ['1. Opportunity','2. Proposal','3. Negotiation'];
+const isClosed = l => l.stage === '5. Closed (Win)';
+const isOpen = l => OPEN_ST.includes(l.stage);
+const amount = l => isClosed(l) ? l.val : l.ref;
+const idn = (n, d=0) => n.toLocaleString('id-ID', {minimumFractionDigits:d, maximumFractionDigits:d});
+const M = n => idn(n/1e9, 2);                 // ke miliar
+const JT = n => idn(n/1e6, 0);                // ke juta
+const pc = (n, d=1) => idn(n*100, d) + '%';
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* ==================== DERIVED ==================== */
+function calc(){
+  const closed = LEADS.filter(isClosed), open = LEADS.filter(isOpen);
+  const totalClosed = closed.reduce((a,l)=>a+l.val,0);
+  const pipeline = open.reduce((a,l)=>a+l.ref,0);
+  const gap = Math.max(0, S.target - totalClosed);
+  const reqPipe = gap * S.wf;
+  const coverage = reqPipe > 0 ? pipeline / reqPipe : 1;
+  let gbps=0, core=0;
+  closed.forEach(l => { if(l.svc==='FO_Darkfiber') core+=l.kap; else gbps+=l.kap; });
+  const cust = {};
+  closed.forEach(l => {
+    const c = cust[l.cust] || (cust[l.cust] = {cust:l.cust, rev:0, gbps:0, core:0, segs:new Set(), svcs:new Set(), deals:0});
+    c.rev += l.val; c.deals++; if(l.seg) c.segs.add(l.seg); if(l.svc) c.svcs.add(l.svc);
+    if(l.svc==='FO_Darkfiber') c.core += l.kap; else c.gbps += l.kap;
+  });
+  const custArr = Object.values(cust).map(c=>({...c, segs:c.segs.size, svcs:c.svcs.size,
+    pct: totalClosed? c.rev/totalClosed : 0})).sort((a,b)=>b.rev-a.rev);
+  const amMap = {};
+  LEADS.forEach(l => {
+    const a = amMap[l.am] || (amMap[l.am] = {am:l.am, total:0, won:0, drop:0, sales:0, pipe:0, tenants:new Set(), opp:0});
+    a.total++;
+    if(isClosed(l)){ a.won++; a.sales += l.val; if(l.cust) a.tenants.add(l.cust); }
+    else if(l.stage==='5. Dropped') a.drop++;
+    else if(isOpen(l)){ a.pipe += l.ref; if(l.stage==='1. Opportunity') a.opp++; }
+  });
+  const amArr = Object.values(amMap).map(a=>{
+    const decided = a.won + a.drop;
+    return {...a, tenants:a.tenants.size,
+      wr: decided ? a.won/decided : 0,
+      conv: a.total ? a.won/a.total : 0,
+      share: totalClosed ? a.sales/totalClosed : 0};
+  }).sort((x,y)=>y.sales-x.sales);
+  const stageAgg = {};
+  LEADS.forEach(l => {
+    const s = stageAgg[l.stage] || (stageAgg[l.stage] = {stage:l.stage, n:0, v:0});
+    s.n++; s.v += amount(l);
+  });
+  // ekonomi unit — hidup begitu gross margin diisi
+  const gm = S.gm/100;
+  const ltv = gm > 0 ? COST.arpu * gm * S.dur * (1 + COST.renewal) : 0;
+  const ltvCac = gm > 0 ? ltv / COST.cac : 0;
+  const payback = gm > 0 ? COST.cac / (COST.arpu * gm / 12) : 0;
+  return {closed, open, totalClosed, pipeline, gap, reqPipe, coverage, gbps, core,
+          custArr, amArr, stageAgg, gm, ltv, ltvCac, payback,
+          achieve: S.target ? totalClosed/S.target : 0,
+          util: gbps / COST.capInstall,
+          idle: COST.capInstall - gbps};
+}
+/* ==================== RENDER: SPINE ==================== */
+function renderSpine(D){
+  const sp = $('#spine'), key = $('#spineKey');
+  sp.innerHTML=''; key.innerHTML='';
+  D.custArr.forEach((c,i)=>{
+    if(c.gbps<=0) return;
+    const d = document.createElement('div');
+    d.className='strand';
+    d.style.cssText = `width:${c.gbps/COST.capInstall*100}%;background-color:${PAL[i%PAL.length]}`;
+    d.dataset.tip = `${c.cust} — ${idn(c.gbps)} Gbps · Rp${M(c.rev)} M`;
+    sp.appendChild(d);
+  });
+  const idle = document.createElement('div');
+  idle.className='strand idle';
+  idle.style.width = D.idle/COST.capInstall*100 + '%';
+  idle.dataset.tip = `Kapasitas gelap — ${idn(D.idle)} Gbps belum terjual`;
+  sp.appendChild(idle);
+  D.custArr.slice(0,6).forEach((c,i)=>{
+    if(c.gbps<=0) return;
+    key.insertAdjacentHTML('beforeend',
+      `<span><i style="background:${PAL[i%PAL.length]}"></i>${esc(c.cust)} ${idn(c.gbps)}G</span>`);
+  });
+  key.insertAdjacentHTML('beforeend', `<span><i style="background:#16202B;border:1px solid var(--edge2)"></i>Gelap ${idn(D.idle)}G</span>`);
+  $('#spineFig').innerHTML = `${idn(D.gbps)}<span class="u">Gbps terjual · ${idn(D.idle)} Gbps gelap</span>`;
+  $('#spineUtil').innerHTML = `${idn(D.util*100,1)}<span class="u">%</span>`;
+}
+/* ==================== RENDER: KPI ==================== */
+const kpi = (l,v,s,c) => `<div class="kpi ${c||''}"><div class="kpi-l">${l}</div><div class="kpi-v ${c||''}">${v}</div><div class="kpi-s">${s}</div></div>`;
+function renderIkhtisar(D){
+  $('#kpiMain').innerHTML =
+    kpi('Nilai kontrak closed', 'Rp'+M(D.totalClosed)+' M', `${D.closed.length} kontrak · ${D.custArr.length} pelanggan`, 'sig') +
+    kpi('Capaian target', pc(D.achieve), 'target Rp'+M(S.target)+' M', D.achieve>=0.9?'liv':'sig') +
+    kpi('Jarak ke target', 'Rp'+M(D.gap)+' M', D.gap>0?'perlu ditutup tahun ini':'target tercapai', D.gap>0?'alr':'liv') +
+    kpi('Kecukupan pipeline', pc(D.coverage), `butuh Rp${M(D.reqPipe)} M · ada Rp${M(D.pipeline)} M`, D.coverage>=1?'liv':'alr');
+  $('#tgtNote').textContent = `win factor ${idn(S.wf,1)}×`;
+  $('#mTgt').style.width = Math.min(100, D.achieve*100)+'%';
+  $('#mTgtL').textContent = pc(D.achieve)+' tercapai';
+  $('#mTgtR').textContent = 'Rp'+M(D.totalClosed)+' M / Rp'+M(S.target)+' M';
+  const cov = Math.min(100, D.coverage*100);
+  $('#mCov').style.width = cov+'%';
+  $('#mCov').style.background = D.coverage>=1
+      ? 'linear-gradient(90deg,#256B4B,var(--live))'
+      : 'linear-gradient(90deg,#8A3A36,var(--alert))';
+  $('#mCovL').textContent = pc(D.coverage)+(D.coverage>=1?' — mencukupi':' — belum mencukupi');
+  $('#mCovR').textContent = D.coverage>=1 ? 'surplus Rp'+M(D.pipeline-D.reqPipe)+' M'
+                                          : 'kurang Rp'+M(D.reqPipe-D.pipeline)+' M';
+  const max = D.custArr[0]?.rev || 1;
+  $('#custBars').innerHTML = D.custArr.map((c,i)=>`
+    <div class="brow">
+      <span class="bn" title="${esc(c.cust)}">${esc(c.cust)}</span>
+      <span class="btrack"><i class="bfill" style="width:${c.rev/max*100}%;background:${PAL[i%PAL.length]}"></i></span>
+      <span class="bval">${M(c.rev)}</span>
+    </div>`).join('');
+}
+/* ==================== RENDER: PIPELINE ==================== */
+function renderPipeline(D){
+  const opp = D.stageAgg['1. Opportunity']||{n:0,v:0};
+  const pro = D.stageAgg['2. Proposal']||{n:0,v:0};
+  const drp = D.stageAgg['5. Dropped']||{n:0,v:0};
+  const decided = D.closed.length + drp.n;
+  $('#kpiPipe').innerHTML =
+    kpi('Lead terbuka', idn(D.open.length), 'Opportunity + Proposal', 'fib') +
+    kpi('Nilai pipeline', 'Rp'+M(D.pipeline)+' M', 'nilai kontrak acuan', 'fib') +
+    kpi('Win rate', pc(decided? D.closed.length/decided:0), `${D.closed.length} menang · ${drp.n} lepas`, 'liv') +
+    kpi('Konversi keseluruhan', pc(LEADS.length? D.closed.length/LEADS.length:0), `${D.closed.length} dari ${LEADS.length} lead`, 'sig');
+  const order = ['1. Opportunity','2. Proposal','3. Negotiation','5. Closed (Win)','5. Dropped'];
+  const cols = {'1. Opportunity':'#5B6B7D','2. Proposal':'var(--fiber)','3. Negotiation':'#8B7BD8','5. Closed (Win)':'var(--signal)','5. Dropped':'var(--alert)'};
+  const maxN = Math.max(...order.map(s=>(D.stageAgg[s]||{n:0}).n), 1);
+  $('#funnel').innerHTML = order.map(s=>{
+    const a = D.stageAgg[s]||{n:0,v:0};
+    return `<div class="brow">
+      <span class="bn">${esc(s)}</span>
+      <span class="btrack"><i class="bfill" style="width:${Math.max(a.n/maxN*100,1.5)}%;background:${cols[s]}"></i></span>
+      <span class="bval">${a.n} lead</span>
+    </div>
+    <div style="margin:-4px 0 8px 129px;font-family:var(--mono);font-size:10.5px;color:var(--dim2)">Rp${M(a.v)} M</div>`;
+  }).join('');
+  renderLeadTable(D);
+}
+function renderLeadTable(D){
+  let rows = LEADS.slice();
+  if(S.am!=='all')    rows = rows.filter(l=>l.am===S.am);
+  if(S.stage!=='all') rows = rows.filter(l=>l.stage===S.stage);
+  if(S.svc!=='all')   rows = rows.filter(l=>l.svc===S.svc);
+  if(S.seg!=='all')   rows = rows.filter(l=>segToProject(l.seg)===S.seg);
+  if(S.q){
+    const q = S.q.toLowerCase();
+    rows = rows.filter(l => (l.cust||'').toLowerCase().includes(q) || (l.id||'').toLowerCase().includes(q));
+  }
+  const k = S.leadSort.k, d = S.leadSort.d;
+  rows.sort((a,b)=>{
+    const va = k==='amount'? amount(a) : a[k], vb = k==='amount'? amount(b) : b[k];
+    if(typeof va === 'number' && typeof vb === 'number') return (va-vb)*d;
+    return String(va??'').localeCompare(String(vb??''),'id')*d;
+  });
+  const pill = s => s==='5. Closed (Win)'?'p-win':s==='2. Proposal'?'p-pro':s==='5. Dropped'?'p-drp':'p-opp';
+  $('#tbLead').innerHTML = rows.length ? rows.map(l=>`
+    <tr>
+      <td style="font-family:var(--mono);font-size:11.5px">${esc(l.id)}</td>
+      <td>${esc(l.cust)}</td>
+      <td>${esc(l.am)}</td>
+      <td><span class="pill ${pill(l.stage)}">${esc((l.stage||'').replace(/^\d\.\s*/,''))}</span></td>
+      <td style="color:var(--dim);font-size:11.5px">${esc(l.svc||'—')}</td>
+      <td style="color:var(--dim);font-size:11.5px">${esc(l.seg||'—')}</td>
+      <td class="n">${l.kap? idn(l.kap):'—'}</td>
+      <td class="n">${JT(amount(l))}</td>
+    </tr>`).join('') : `<tr><td colspan="8" class="empty">Tidak ada lead yang cocok. Longgarkan filter atau kosongkan kotak pencarian.</td></tr>`;
+  $('#leadCount').textContent = `${rows.length} dari ${LEADS.length} lead`;
+  $$('#tblLead thead th').forEach(th=>{
+    th.classList.toggle('act', th.dataset.k===k);
+    const ar = th.querySelector('.ar'); if(ar) ar.textContent = th.dataset.k===k ? (d>0?'↑':'↓') : '↕';
+  });
+}
+/* ==================== RENDER: PELANGGAN ==================== */
+function renderCust(D){
+  const top3 = D.custArr.slice(0,3).reduce((a,c)=>a+c.pct,0);
+  $('#kpiCust').innerHTML =
+    kpi('Pelanggan berkontrak', idn(D.custArr.length), 'dari 93 entitas terdaftar', 'liv') +
+    kpi('Kapasitas sewa', idn(D.gbps)+' Gbps', 'di luar sewa core', 'fib') +
+    kpi('Sewa core', idn(D.core)+' core', 'Darkfiber · satuan core', 'sig') +
+    kpi('Porsi tiga teratas', pc(top3), D.custArr[0]? esc(D.custArr[0].cust)+' memimpin':'', top3>0.7?'alr':'sig');
+  const k = S.custSort.k, d = S.custSort.d;
+  const rows = D.custArr.slice().sort((a,b)=>{
+    const va=a[k], vb=b[k];
+    if(typeof va==='number'&&typeof vb==='number') return (va-vb)*d;
+    return String(va).localeCompare(String(vb),'id')*d;
+  });
+  $('#tbCust').innerHTML = rows.map(c=>`
+    <tr>
+      <td>${esc(c.cust)}</td>
+      <td class="n">${JT(c.rev)}</td>
+      <td class="n">${pc(c.pct,2)}</td>
+      <td class="n">${idn(c.gbps)}</td>
+      <td class="n">${c.core? idn(c.core) : '—'}</td>
+      <td class="n">${c.segs}</td>
+      <td class="n">${c.deals}</td>
+    </tr>`).join('');
+  $('#custNote').textContent = `${D.custArr.length} pelanggan · Rp${M(D.totalClosed)} M`;
+  $$('#tblCust thead th').forEach(th=>{
+    th.classList.toggle('act', th.dataset.k===k);
+    const ar = th.querySelector('.ar'); if(ar) ar.textContent = th.dataset.k===k ? (d>0?'↑':'↓') : '↕';
+  });
+  const t = D.custArr[0];
+  $('#concNote').innerHTML = t ? `<div class="note ${t.pct>0.4?'bad':'warn'}">
+    <b>${esc(t.cust)} menyumbang ${pc(t.pct)} pendapatan.</b>
+    Kehilangan satu pelanggan ini setara ${pc(t.rev/S.target)} dari target tahun berjalan, dan ${idn(t.gbps)} dari ${idn(D.gbps)} Gbps kapasitas sewa melekat padanya.
+    Dari 93 entitas yang terdaftar, ${93-D.custArr.length} belum berkontrak — di situ ruang penyeimbangnya.</div>` : '';
+}
+/* ==================== RENDER: AM ==================== */
+function renderAM(D){
+  $('#amCards').innerHTML = D.amArr.map((a,i)=>{
+    const col = a.wr>=0.95?'var(--live)':a.wr>=0.7?'var(--signal)':'var(--alert)';
+    const deg = Math.round(a.wr*360);
+    return `<div class="card">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:15px">
+        <div style="width:38px;height:38px;border-radius:50%;background:var(--raise);border:1px solid var(--edge);
+             display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:700;color:${PAL[i%PAL.length]}">${esc(a.am[0])}</div>
+        <div><div style="font-weight:600;font-size:14px">${esc(a.am)}</div>
+             <div style="font-family:var(--mono);font-size:10px;color:var(--dim2)">porsi ${pc(a.share)}</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:15px;margin-bottom:14px">
+        <div style="width:70px;height:70px;border-radius:50%;flex:none;position:relative;
+             background:conic-gradient(${col} ${deg}deg, var(--edge) ${deg}deg)">
+          <div style="position:absolute;inset:6px;border-radius:50%;background:var(--panel);
+               display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:14px">${idn(a.wr*100,0)}%</div>
+        </div>
+        <div style="font-size:11.5px;color:var(--dim);line-height:1.7">
+          <div>Win rate</div>
+          <div style="font-family:var(--mono);color:var(--ink)">${a.won} menang · ${a.drop} lepas</div>
+          <div style="font-family:var(--mono)">konversi ${pc(a.conv)}</div>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--edge);padding-top:11px;display:grid;gap:7px;font-size:11.5px">
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--dim)">Kontrak closed</span><b style="font-family:var(--mono)">Rp${M(a.sales)} M</b></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--dim)">Pipeline</span><b style="font-family:var(--mono)">Rp${M(a.pipe)} M</b></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--dim)">Lead ditangani</span><b style="font-family:var(--mono)">${a.total} · ${a.opp} opportunity</b></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--dim)">Pelanggan aktif</span><b style="font-family:var(--mono)">${a.tenants}</b></div>
+      </div></div>`;
+  }).join('');
+  const bar = (arr, key, col) => {
+    const mx = Math.max(...arr.map(a=>a[key]), 1);
+    return arr.map((a,i)=>`<div class="brow">
+      <span class="bn">${esc(a.am)}</span>
+      <span class="btrack"><i class="bfill" style="width:${a[key]/mx*100}%;background:${col}"></i></span>
+      <span class="bval">${M(a[key])}</span></div>`).join('');
+  };
+  $('#amBar1').innerHTML = bar(D.amArr,'sales','var(--signal)');
+  $('#amBar2').innerHTML = bar(D.amArr.slice().sort((x,y)=>y.pipe-x.pipe),'pipe','var(--fiber)');
+}
+/* ==================== RENDER: BIAYA ==================== */
+function renderCost(D){
+  const gmOn = D.gm > 0;
+  $('#kpiCost').innerHTML =
+    kpi('Biaya S&amp;M', 'Rp'+M(COST.sm)+' M', `pagu Rp${M(COST.pagu)} M · terpakai ${pc(COST.sm/COST.pagu)}`, 'liv') +
+    kpi('CAC', 'Rp'+JT(COST.cac)+' jt', `${COST.newCust} pelanggan baru`, 'sig') +
+    kpi('LTV', gmOn? 'Rp'+JT(D.ltv)+' jt' : 'belum bisa', gmOn? 'per pelanggan':'isi gross margin dulu', gmOn?'fib':'alr') +
+    kpi('LTV / CAC', gmOn? idn(D.ltvCac,2)+'×' : 'belum bisa', 'sehat bila ≥ 4×', gmOn? (D.ltvCac>=4?'liv':'alr') : 'alr');
+  $('#ueNote').textContent = gmOn ? `gross margin ${idn(S.gm)}%` : 'menunggu gross margin';
+  const chain = [
+    ['ARPU per tahun', 'Rp'+JT(COST.arpu)+' jt', true],
+    ['× Gross margin', gmOn? idn(S.gm)+'%' : 'belum diisi', gmOn],
+    ['× Durasi kontrak', idn(S.dur)+' tahun', true],
+    ['× (1 + renewal)', idn(1+COST.renewal,2), true],
+    ['= LTV', gmOn? 'Rp'+JT(D.ltv)+' jt' : '—', gmOn],
+    ['÷ CAC', 'Rp'+JT(COST.cac)+' jt', true],
+    ['= LTV / CAC', gmOn? idn(D.ltvCac,2)+'×' : '—', gmOn],
+    ['CAC payback', gmOn? idn(D.payback,1)+' bulan' : '—', gmOn]
+  ];
+  $('#ltvChain').innerHTML = chain.map(([l,v,ok],i)=>`
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(34,48,63,.5);
+         ${i>=4?'font-weight:600;':''}">
+      <span style="color:${ok?'var(--dim)':'var(--alert)'};font-size:12px">${l}</span>
+      <span style="font-family:var(--mono);font-size:12px;color:${ok?'var(--ink)':'var(--alert)'}">${v}</span>
+    </div>`).join('') +
+    (gmOn ? `<div class="note ${D.ltvCac>=4?'good':'warn'}" style="margin-top:12px">
+        <b>LTV/CAC ${idn(D.ltvCac,2)}×.</b> ${D.ltvCac>=4
+          ? 'Berada di kisaran sehat industri wholesale (4–7×).'
+          : `Di bawah kisaran sehat 4–7×. Pada durasi ${idn(S.dur)} tahun, margin setinggi 75% pun hanya mencapai ${idn(COST.arpu*0.75*S.dur*(1+COST.renewal)/COST.cac,2)}× — pengungkit yang menentukan adalah durasi kontrak, bukan margin. Naikkan durasi di bilah atas untuk melihat dampaknya.`}
+        Payback ${idn(D.payback,1)} bulan${D.payback<=24?' — dalam kisaran 12–24 bulan.':' — di atas kisaran 12–24 bulan.'}</div>`
+      : `<div class="note bad" style="margin-top:12px"><b>Tiga metrik tertahan.</b>
+         Isi gross margin di bilah atas, maka LTV, LTV/CAC, dan CAC payback langsung terhitung.</div>`);
+  $('#mPagu').style.width = Math.min(100, COST.sm/COST.pagu*100)+'%';
+  $('#mPaguL').textContent = pc(COST.sm/COST.pagu)+' terpakai';
+  $('#mPaguR').textContent = 'sisa Rp'+M(COST.pagu-COST.sm)+' M';
+  const ratios = [
+    ['terhadap realisasi periode', COST.sm/COST.revPeriod],
+    ['terhadap kontrak closed', COST.sm/D.totalClosed],
+    ['terhadap target tahun ini', COST.sm/S.target]
+  ];
+  $('#ratioRows').innerHTML = `<div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--dim2);margin-bottom:8px">Rasio biaya tergantung pembaginya</div>` +
+    ratios.map(([l,v])=>`<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px">
+      <span style="color:var(--dim)">${l}</span><b style="font-family:var(--mono)">${pc(v,2)}</b></div>`).join('');
+  const eff = [['Per sales executive',COST.perSales],['Per opportunity',COST.perOpp],
+               ['Per proposal',COST.perProp],['Per closing (CAC)',COST.cac],
+               ['Per Gbps terjual',COST.perGbps],['Per km backbone',COST.perKm]];
+  const mx = Math.max(...eff.map(e=>e[1]));
+  $('#costBars').innerHTML = eff.map(([l,v])=>`<div class="brow">
+    <span class="bn">${l}</span>
+    <span class="btrack"><i class="bfill" style="width:${v/mx*100}%;background:var(--fiber)"></i></span>
+    <span class="bval">${JT(v)}</span></div>`).join('');
+  const smPct = COST.sm/COST.revPeriod;
+  const bench = [
+    ['Biaya S&M terhadap pendapatan', pc(smPct,2), '5–11%', smPct<=0.11?'dalam kisaran':'di atas kisaran', smPct<=0.11?'liv':'alr'],
+    ['Gross margin', gmOn? idn(S.gm)+'%':'belum diisi', '50–75%', gmOn? (S.gm>=50?'dalam kisaran':'di bawah kisaran'):'menunggu input','' ],
+    ['LTV / CAC', gmOn? idn(D.ltvCac,2)+'×':'belum bisa dihitung', '4–7×', gmOn? (D.ltvCac>=4?'dalam kisaran':'di bawah kisaran'):'menunggu gross margin',''],
+    ['CAC payback', gmOn? idn(D.payback,1)+' bln':'belum bisa dihitung', '12–24 bln', gmOn? (D.payback<=24?'dalam kisaran':'di atas kisaran'):'menunggu gross margin',''],
+    ['Durasi kontrak', idn(S.dur)+' tahun', '3–5 tahun', S.dur>=3?'dalam kisaran':'di bawah kisaran', S.dur>=3?'liv':'alr'],
+    ['Probabilitas renewal', pc(COST.renewal), '80–90%', 'di atas kisaran','liv'],
+    ['Collection rate', idn(COST.collection,1)+'%', '≥ 98%', 'memenuhi','liv'],
+    ['Utilisasi backbone', pc(D.util), '—', idn(D.idle)+' Gbps masih gelap','sig']
+  ];
+  const cmap = {liv:'var(--live)',alr:'var(--alert)',sig:'var(--signal)','':'var(--dim)'};
+  $('#tbBench').innerHTML = bench.map(([m,p,r,j,c])=>`<tr>
+    <td>${m}</td><td style="font-family:var(--mono);font-size:11.5px">${p}</td>
+    <td style="color:var(--dim);font-family:var(--mono);font-size:11.5px">${r}</td>
+    <td style="color:${cmap[c]||'var(--dim)'};font-size:11.5px">${j}</td></tr>`).join('');
+}
+/* ==================== RENDER: MUTU DATA ==================== */
+function renderDQ(D){
+  $('#dqDone').innerHTML = DQ_DONE.map(([t,d,r])=>`<div class="li">
+    <span class="dot" style="background:var(--live)"></span>
+    <span><span class="t">${t}</span><span class="d">${d}</span></span>
+    <span class="rt">${r}</span></div>`).join('');
+  $('#dqOpen').innerHTML = DQ_OPEN.map(([t,d,c])=>`<div class="li">
+    <span class="dot" style="background:var(--${c})"></span>
+    <span><span class="t">${t}</span><span class="d">${d}</span></span></div>`).join('');
+  $('#kpiDQ').innerHTML =
+    kpi('Formula tervalidasi', '138.634', 'tanpa error', 'liv') +
+    kpi('Entitas terdaftar', '93', `${D.custArr.length} sudah berkontrak`, 'fib') +
+    kpi('Lead tercatat', idn(LEADS.length), 'baris pada sales leads', 'fib') +
+    kpi('Butuh keputusan', idn(DQ_OPEN.length), 'lihat daftar di atas', 'sig');
+}
+/* ==================== ORCHESTRATION ==================== */
+function render(){
+  const D = calc();
+  $('#chipGM').style.display = D.gm>0 ? 'none':'';
+  $('#n-ikh').textContent = pc(D.achieve,0);
+  $('#n-pipe').textContent = D.open.length;
+  $('#n-cust').textContent = D.custArr.length;
+  $('#n-cost').textContent = D.gm>0 ? idn(D.ltvCac,1)+'×' : '—';
+  $('#n-dq').textContent = DQ_OPEN.length;
+  renderSpine(D); renderIkhtisar(D); renderPipeline(D);
+  renderCust(D); renderAM(D); renderCost(D); renderDQ(D);
+}
+/* ==================== EVENTS ==================== */
+$('#nav').addEventListener('click', e=>{
+  const b = e.target.closest('.nav-btn'); if(!b) return;
+  S.view = b.dataset.v;
+  $$('.nav-btn').forEach(x=>x.setAttribute('aria-current', x===b));
+  $$('.view').forEach(v=>v.classList.toggle('on', v.id==='v-'+S.view));
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+$('#segTarget').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  S.target = +b.dataset.t;
+  $$('#segTarget button').forEach(x=>x.setAttribute('aria-pressed', x===b));
+  render();
+});
+$('#inGM').addEventListener('input', e=>{
+  const v = parseFloat(e.target.value);
+  S.gm = isNaN(v) ? 0 : Math.max(0, Math.min(100, v));
+  render();
+});
+$('#inDur').addEventListener('input', e=>{
+  const v = parseInt(e.target.value,10);
+  S.dur = isNaN(v) ? 1 : Math.max(1, Math.min(10, v));
+  render();
+});
+$('#inWF').addEventListener('input', e=>{
+  S.wf = parseFloat(e.target.value);
+  $('#wfVal').textContent = idn(S.wf,1)+'×';
+  render();
+});
+['fAM','fStage','fSvc','fSeg'].forEach(id=>{
+  $('#'+id).addEventListener('change', e=>{
+    S[{fAM:'am',fStage:'stage',fSvc:'svc',fSeg:'seg'}[id]] = e.target.value;
+    renderLeadTable(calc());
+  });
+});
+$('#fQ').addEventListener('input', e=>{ S.q = e.target.value.trim(); renderLeadTable(calc()); });
+$('#tblLead').querySelector('thead').addEventListener('click', e=>{
+  const th = e.target.closest('th'); if(!th||!th.dataset.k) return;
+  S.leadSort = S.leadSort.k===th.dataset.k ? {k:th.dataset.k,d:-S.leadSort.d} : {k:th.dataset.k,d:-1};
+  renderLeadTable(calc());
+});
+$('#tblCust').querySelector('thead').addEventListener('click', e=>{
+  const th = e.target.closest('th'); if(!th||!th.dataset.k) return;
+  S.custSort = S.custSort.k===th.dataset.k ? {k:th.dataset.k,d:-S.custSort.d} : {k:th.dataset.k,d:-1};
+  renderCust(calc());
+});
+/* tooltip untuk spine */
+const tip = $('#tip');
+document.addEventListener('mousemove', e=>{
+  const st = e.target.closest('.strand');
+  if(st && st.dataset.tip){
+    tip.innerHTML = st.dataset.tip.replace(/—\s(.+)$/, '— <b>$1</b>');
+    tip.classList.add('on');
+    const w = tip.offsetWidth;
+    tip.style.left = Math.min(window.innerWidth-w-12, Math.max(8, e.clientX - w/2))+'px';
+    tip.style.top = (e.clientY - tip.offsetHeight - 12)+'px';
+  } else tip.classList.remove('on');
+});
+/* isi pilihan filter */
+(function initFilters(){
+  const uniq = k => [...new Set(LEADS.map(l=>l[k]).filter(Boolean))].sort();
+  uniq('am').forEach(v=>$('#fAM').insertAdjacentHTML('beforeend',`<option value="${esc(v)}">${esc(v)}</option>`));
+  uniq('stage').forEach(v=>$('#fStage').insertAdjacentHTML('beforeend',`<option value="${esc(v)}">${esc(v)}</option>`));
+  uniq('svc').forEach(v=>$('#fSvc').insertAdjacentHTML('beforeend',`<option value="${esc(v)}">${esc(v)}</option>`));
+})();
+/* deep-link dari peta: komersial.html?project=Project%206 -> pra-filter ruas + buka Pipeline */
+(function initDeepLink(){
+  const p = new URLSearchParams(location.search).get('project');
+  if(!p) return;
+  if(![...$('#fSeg').options].some(o=>o.value===p)) return;
+  S.seg = p; $('#fSeg').value = p;
+  const nav = $('.nav-btn[data-v="pipeline"]');
+  if(nav){ S.view='pipeline';
+    $$('.nav-btn').forEach(x=>x.setAttribute('aria-current', x===nav));
+    $$('.view').forEach(v=>v.classList.toggle('on', v.id==='v-pipeline')); }
+})();
+render();
+</script>
+</body>
+</html>
