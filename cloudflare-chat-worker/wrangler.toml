@@ -1,0 +1,12 @@
+# wrangler.toml — Worker chat LTI (opsional; bisa juga deploy lewat dashboard Cloudflare)
+name = "lti-chat"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Variabel non-rahasia (ganti sesuai domain Anda):
+[vars]
+ALLOWED_ORIGIN = "https://peta-palapa.komersil.workers.dev"
+# CHAT_MODEL = "claude-haiku-4-5-20251001"   # opsional, verifikasi nama model
+
+# ANTHROPIC_API_KEY di-set sebagai SECRET, bukan di sini:
+#   wrangler secret put ANTHROPIC_API_KEY
