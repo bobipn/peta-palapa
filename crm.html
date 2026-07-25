@@ -121,7 +121,7 @@ tbody tr:hover{background:#F4F8FC}
   </div>
   <div class="sp"></div>
   <div class="env">
-    <a href="index.html">🏠 Portal</a><a href="peta.html">🌐 Peta</a><a href="komersial.html">📊 Komersial</a>
+    <a href="index.html">🏠 Portal</a><a href="peta.html">🌐 Peta</a><a href="komersial.html">📊 Komersial</a><a href="sales.html">☁ Sales</a><a href="dokumen.html">📁 Arsip</a>
   </div>
 </div>
 
@@ -246,16 +246,29 @@ function initSync(){
   try{
     firebase.initializeApp(firebaseConfig);
     fdb=firebase.firestore();
+    // Paksa transport long-polling (HTTPS biasa). Banyak jaringan korporat/proxy
+    // memblokir streaming WebChannel Firestore → gejalanya "Offline · cache" & tulisan
+    // tidak tersinkron. Long-polling menembus proxy tersebut.
+    try{ fdb.settings({ experimentalForceLongPolling:true, merge:true }); }catch(e){ console.warn('settings',e); }
     try{ fdb.enablePersistence({synchronizeTabs:true}).catch(()=>{}); }catch(e){}
     MODE='cloud';
-    unsub=fdb.collection('leads').onSnapshot(snap=>{
+    let gotServer=false;
+    // Watchdog: bila 12 detik belum tersambung ke server, beri petunjuk.
+    const watchdog=setTimeout(()=>{ if(!gotServer){ setStatus('cache');
+      toast('Masih memakai cache — cek koneksi & pastikan Firestore Rules sudah di-Publish.'); } }, 12000);
+    unsub=fdb.collection('leads').onSnapshot({includeMetadataChanges:true}, snap=>{
       DB.leads=snap.docs.map(d=>{ const x=d.data(); x.uid=d.id; delete x.tk; return x; });
       DB.leads.sort((a,b)=>(b.updated||'').localeCompare(a.updated||''));
       DB.seq=DB.leads.length+1;
+      if(!snap.metadata.fromCache){ gotServer=true; clearTimeout(watchdog); }
       setStatus(snap.metadata.fromCache?'cache':'online');
-      if(snap.empty && !window.__seeding){ trySeed(); }
+      if(snap.empty && !snap.metadata.fromCache && !window.__seeding){ trySeed(); }
       renderAll();
-    }, err=>{ console.warn('snapshot err',err); MODE='local'; localLoad(); setStatus('local'); renderAll(); });
+    }, err=>{ clearTimeout(watchdog); console.warn('snapshot err',err);
+      if(err && err.code==='permission-denied'){ setStatus('cache');
+        toast('Ditolak Firestore Rules. Publish rules dengan token '+TK+' agar bisa tulis.'); MODE='cloud'; }
+      else { MODE='local'; localLoad(); setStatus('local'); toast('Gagal ke cloud — mode lokal.'); }
+      renderAll(); });
   }catch(e){ console.warn('firebase init fail',e); MODE='local'; localLoad(); setStatus('local'); renderAll(); }
 }
 function trySeed(){
@@ -513,5 +526,6 @@ initSync();
 renderAll();
 
 </script>
+<script src="/chatbot-lti.js" defer></script>
 </body>
 </html>

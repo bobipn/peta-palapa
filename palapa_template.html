@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Palapa Ring Tengah · Peta Interaktif Rute & Site</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
+<style>
+  :root{
+    --bg:#0c1524; --panel:#111f34; --panel2:#16273f; --line:#22354f;
+    --txt:#e8eef7; --muted:#8fa4be; --accent:#31b0ff; --accent2:#ffb03a;
+    --marine:#2f8fff; --inland:#ff8a3d; --good:#37d67a; --bmh:#ff4d6d; --cls:#c56bff;
+    --rep:#ffd23f; --node:#37d67a; --wp:#6ea8ff; --pf:#8fa4be;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;color:var(--txt);background:var(--bg)}
+  #app{display:flex;height:100vh;overflow:hidden}
+  #side{width:340px;min-width:340px;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:1000}
+  .brand{padding:16px 18px;border-bottom:1px solid var(--line);background:linear-gradient(120deg,#12294a 0%,#0e1b30 100%)}
+  .brand h1{margin:0;font-size:16px;letter-spacing:.3px}
+  .brand p{margin:4px 0 0;font-size:11.5px;color:var(--muted);line-height:1.5}
+  .pagelink{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;padding:9px 12px;
+    border-radius:8px;text-decoration:none;font-size:12.5px;font-weight:600;color:#06101d;
+    background:linear-gradient(120deg,#31b0ff,#37d67a);transition:.15s}
+  .pagelink:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .pagelink span{font-size:15px}
+  .com-fig{display:flex;gap:8px;margin-bottom:8px}
+  .com-box{flex:1;background:#0d1a2c;border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  .com-box .cv{font-size:16px;font-weight:700;color:#37d67a}
+  .com-box .cv.pipe{color:#31b0ff}
+  .com-box .cl{font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-top:1px}
+  .com-kv{font-size:11.5px;color:var(--txt);margin:3px 0}
+  .com-kv b{color:var(--muted);font-weight:500}
+  .com-top{margin-top:6px;font-size:11px;color:var(--muted);line-height:1.6}
+  .com-top i{color:#cfe0f2;font-style:normal}
+  .side-scroll{overflow-y:auto;padding:14px;flex:1}
+  .card{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}
+  .card h3{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent)}
+  .search-wrap{position:relative}
+  #search{width:100%;padding:9px 32px 9px 12px;border-radius:8px;border:1px solid var(--line);background:#0d1a2c;color:var(--txt);font-size:13px;outline:none}
+  #search:focus{border-color:var(--accent)}
+  .clr{position:absolute;right:8px;top:7px;cursor:pointer;color:var(--muted);font-size:16px;display:none}
+  #results{margin-top:8px;max-height:260px;overflow-y:auto;display:none}
+  .res-item{padding:8px 10px;border-radius:7px;cursor:pointer;font-size:12.5px;border:1px solid transparent}
+  .res-item:hover{background:#0d1a2c;border-color:var(--line)}
+  .res-item .rn{font-weight:600}
+  .res-item .rm{font-size:11px;color:var(--muted)}
+  .tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:20px;margin-left:6px;vertical-align:middle;color:#06101d;font-weight:700}
+  .row{display:flex;align-items:center;gap:8px;font-size:12.5px;padding:4px 0;cursor:pointer;user-select:none}
+  .row input{accent-color:var(--accent);width:15px;height:15px}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;flex:none}
+  .lgline{width:16px;height:3px;border-radius:2px;display:inline-block;flex:none}
+  .count{margin-left:auto;font-size:11px;color:var(--muted)}
+  select{width:100%;padding:8px;border-radius:8px;border:1px solid var(--line);background:#0d1a2c;color:var(--txt);font-size:12.5px}
+  .btn{width:100%;padding:9px;border-radius:8px;border:1px solid var(--line);background:#123456;color:#fff;cursor:pointer;font-size:12.5px;transition:.15s}
+  .btn.primary{background:linear-gradient(120deg,#1f7fd6,#31b0ff);border:none;font-weight:600}
+  .btn.primary.active{background:linear-gradient(120deg,#e07b1a,#ffb03a)}
+  .btn:hover{filter:brightness(1.1)}
+  .coord-row{display:flex;gap:6px;margin-top:8px}
+  .coord-row input{flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:#0d1a2c;color:var(--txt);font-size:12px;min-width:0}
+  .hint{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}
+  #distOut{margin-top:10px;display:none}
+  .metric{background:#0d1a2c;border:1px solid var(--line);border-radius:8px;padding:10px;margin-bottom:8px}
+  .metric .big{font-size:22px;font-weight:700;color:var(--good)}
+  .metric .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+  .kv{font-size:12px;margin:3px 0;color:var(--txt)}
+  .kv b{color:var(--muted);font-weight:500}
+  .foot{font-size:10.5px;color:var(--muted);padding:10px 14px;border-top:1px solid var(--line);line-height:1.5}
+  #mapwrap{flex:1;position:relative}
+  #map{position:absolute;inset:0}
+  .stat-bar{position:absolute;top:12px;right:12px;z-index:600;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;max-width:60%}
+  .stat{background:rgba(17,31,52,.92);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:9px;padding:7px 12px;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+  .stat .n{font-size:16px;font-weight:700;line-height:1}
+  .stat .l{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+  .leaflet-popup-content-wrapper{background:#0f1e33;color:var(--txt);border-radius:10px;border:1px solid var(--line)}
+  .leaflet-popup-tip{background:#0f1e33}
+  .pop h4{margin:0 0 6px;font-size:14px}
+  .pop .pk{font-size:11.5px;color:var(--muted);margin:2px 0}
+  .mobtoggle{display:none}
+  @media(max-width:820px){
+    #side{position:absolute;left:0;top:0;bottom:0;transform:translateX(-100%);transition:.25s;box-shadow:6px 0 24px rgba(0,0,0,.5)}
+    #side.open{transform:none}
+    .mobtoggle{display:flex;position:absolute;top:12px;left:12px;z-index:1200;width:44px;height:44px;border-radius:10px;background:var(--accent);border:none;color:#fff;font-size:20px;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+    .stat-bar{max-width:70%}
+  }
+  .cust-pin{background:transparent}
+  .cust-pin div{width:20px;height:20px;background:#37d67a;border:3px solid #fff;border-radius:50%;box-shadow:0 0 0 6px rgba(55,214,122,.35)}
+  /* measure endpoints */
+  .ep{background:#0d1a2c;border:1px solid var(--line);border-radius:8px;padding:9px}
+  .ep-head{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+  .ep-badge{width:20px;height:20px;border-radius:50%;color:#06101d;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;flex:none}
+  .ep-label{font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ep-ctrls{display:flex;gap:6px;align-items:center}
+  .btn.mini{padding:6px 8px;font-size:11px;width:auto;flex:none;white-space:nowrap}
+  .btn.mini.active{background:linear-gradient(120deg,#e07b1a,#ffb03a);border:none;color:#fff}
+  .mini-in{padding:6px 8px;border-radius:7px;border:1px solid var(--line);background:#0a1524;color:var(--txt);font-size:11.5px;width:100%;min-width:0}
+  .site-pick{position:relative;flex:1;min-width:0}
+  .site-list{position:absolute;left:0;right:0;top:calc(100% + 3px);background:#0f1e33;border:1px solid var(--line);border-radius:8px;max-height:180px;overflow-y:auto;z-index:20;display:none;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+  .site-list .si{padding:6px 9px;font-size:11.5px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.04)}
+  .site-list .si:hover{background:#16273f}
+  .site-list .si .sm{font-size:10px;color:var(--muted)}
+  .meas-pin{background:transparent}
+  .meas-pin div{width:26px;height:26px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.5)}
+  .meas-pin span{transform:rotate(45deg);color:#06101d;font-weight:800;font-size:13px}
+  /* glowing city-light site markers */
+  .glow-wrap{background:transparent;border:none}
+  .glow{display:block;border-radius:50%;background:var(--gc);
+    box-shadow:0 0 6px 2px var(--gc),0 0 14px 5px var(--gc),0 0 26px 10px var(--gc);
+    animation:pulse 2.4s ease-in-out infinite}
+  .glow::after{content:"";position:absolute;inset:22%;border-radius:50%;background:#fff;opacity:.9;
+    box-shadow:0 0 5px 1px #fff}
+  .glow.inv{box-shadow:0 0 8px 3px var(--gc),0 0 20px 8px var(--gc),0 0 40px 16px var(--gc);
+    animation:pulseBig 2s ease-in-out infinite}
+  .glow.inv::before{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--gc);opacity:.55;animation:ring 2s ease-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(.85);opacity:.9}50%{transform:scale(1.1);opacity:1}}
+  @keyframes pulseBig{0%,100%{transform:scale(.9);opacity:.95}50%{transform:scale(1.18);opacity:1}}
+  @keyframes ring{0%{transform:scale(.7);opacity:.7}100%{transform:scale(1.9);opacity:0}}
+  /* inventory popup */
+  .leaflet-popup.inv-wrap .leaflet-popup-content{margin:12px 14px}
+  .inv-pop{max-width:300px}
+  .pop-bar{display:flex;gap:6px;margin:8px 0 2px}
+  .pbtn{background:#16273f;border:1px solid var(--line);color:#cfe0f2;border-radius:7px;padding:5px 10px;font-size:11px;cursor:pointer}
+  .pbtn:hover{background:#1f3350;border-color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+  .chip{background:#16273f;border:1px solid var(--line);border-radius:20px;padding:2px 9px;font-size:10.5px;color:#cfe0f2}
+  .chip b{color:#fff}
+  .chip.act{border-color:#2c6b45;background:#123322}.chip.act b{color:#37d67a}
+  .chip.inact{border-color:#4a3a1a;background:#2a2412}.chip.inact b{color:#ffd23f}
+  .inv-list{max-height:280px;overflow-y:auto;margin-top:4px;padding-right:4px}
+  .cust-blk{border-top:1px solid var(--line);padding:7px 0}
+  .cust-name{font-size:12px;font-weight:700;color:#eaf2ff;display:flex;align-items:center;gap:6px}
+  .cust-n{background:#31b0ff;color:#06101d;border-radius:10px;font-size:9.5px;padding:0 6px;font-weight:800}
+  .dev-row{margin:5px 0 5px 16px;font-size:11.5px}
+  .dev{display:inline-block;margin:1px 3px 1px 0}
+  .dev.act{color:#7ce6a6}.dev.inact{color:#cfd8e3}.dev.none{color:#5f7085}
+  .dev-meta{font-size:10px;color:#8fa4be;margin-top:1px}
+  .inv-list::-webkit-scrollbar{width:7px}.inv-list::-webkit-scrollbar-thumb{background:#2a3f5c;border-radius:4px}
+  /* inventory search results */
+  #invResults{margin-top:8px;max-height:220px;overflow-y:auto;display:none}
+  #custFilterInfo{margin-top:8px}
+  .ir{padding:7px 9px;border-radius:7px;cursor:pointer;font-size:12px;border:1px solid transparent}
+  .ir:hover{background:#0d1a2c;border-color:var(--line)}
+  .ir .irn{font-weight:600}.ir .irm{font-size:10.5px;color:var(--muted)}
+  /* modal */
+  .ov{position:fixed;inset:0;background:rgba(4,10,20,.72);backdrop-filter:blur(3px);z-index:3000;display:none;align-items:center;justify-content:center;padding:20px}
+  .ov.open{display:flex}
+  .modal{width:min(1080px,96vw);max-height:92vh;background:var(--panel);border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .modal-head{display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .modal-head h2{margin:0;font-size:16px}
+  .modal-head .x{margin-left:auto;background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;line-height:1}
+  .modal-tools{display:flex;gap:8px;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .modal-tools select{width:auto;min-width:200px}
+  .ed-info{font-size:11.5px;color:var(--muted);margin-left:auto}
+  .modal-body{overflow:auto;padding:6px 10px;flex:1}
+  #edTable{width:100%;border-collapse:collapse;font-size:12px}
+  #edTable th{position:sticky;top:0;background:#0e1b2e;color:var(--accent);text-align:left;padding:8px 6px;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--line);z-index:2}
+  #edTable td{padding:3px 5px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top}
+  #edTable input{width:100%;background:#0d1a2c;border:1px solid var(--line);color:var(--txt);border-radius:6px;padding:5px 6px;font-size:11.5px;min-width:70px}
+  #edTable input:focus{border-color:var(--accent);outline:none}
+  .del-row{background:#3a1622;border:1px solid #5c2634;color:#ff8095;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:14px}
+  .del-row:hover{background:#5c2634}
+  .modal-foot{display:flex;align-items:center;gap:10px;padding:12px 18px;border-top:1px solid var(--line)}
+  .ed-saved{font-size:11px;color:#7ce6a6}
+  .site-hi{filter:none}
+  @media(max-width:820px){.modal-tools select{min-width:140px}}
+  /* KML tree */
+  .tree-tools{display:flex;gap:6px;align-items:center}
+  .tree-tools input{flex:1;min-width:0;padding:6px 8px;border-radius:7px;border:1px solid var(--line);background:#0d1a2c;color:var(--txt);font-size:11.5px}
+  #tree{margin-top:8px;max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:8px;background:#0b1626;padding:4px}
+  .tnode{}
+  .trow{display:flex;align-items:center;gap:4px;padding:2px 3px;border-radius:5px;font-size:11.5px;white-space:nowrap}
+  .trow:hover{background:#132339}
+  .ttog{width:14px;text-align:center;cursor:pointer;color:#7fa0c4;font-size:9px;flex:none;user-select:none}
+  .ttog.leaf{visibility:hidden}
+  .tchk{width:13px;height:13px;accent-color:var(--accent);flex:none;cursor:pointer}
+  .tname{cursor:pointer;overflow:hidden;text-overflow:ellipsis}
+  .tname.folder{font-weight:600;color:#dbe7f5}
+  .tname.leaf-line{color:#cddaeb}
+  .tcount{color:var(--muted);font-size:10px;margin-left:2px}
+  .tchild{margin-left:13px;border-left:1px dashed #22354f;padding-left:4px;display:none}
+  .tnode.open>.tchild{display:block}
+  .tattr{font-size:9.5px;color:#7f93ab;margin:0 0 3px 30px;line-height:1.4}
+  .tattr b{color:#7cc7ff}
+  .tdot{width:8px;height:8px;border-radius:50%;flex:none;display:inline-block}
+  .tline{width:13px;height:3px;border-radius:2px;flex:none;display:inline-block}
+  #tree::-webkit-scrollbar{width:8px}#tree::-webkit-scrollbar-thumb{background:#2a3f5c;border-radius:4px}
+</style>
+</head>
+<body>
+<div id="app">
+  <button class="mobtoggle" id="mob">☰</button>
+  <aside id="side">
+    <div class="brand">
+      <h1>🌐 Palapa Ring Tengah</h1>
+      <p>Peta interaktif rute kabel serat optik (Marine &amp; Inland) — Paket Tengah. Update 15 · 30 Jun 2025.</p>
+      <a class="pagelink" href="index.html" style="background:linear-gradient(120deg,#0A1B3D,#12305f);color:#fff">🏠 Portal Utama (Dashboard) <span>→</span></a>
+      <a class="pagelink" href="komersial.html">📊 Panel Komersial · Monitoring Kinerja <span>→</span></a>
+      <a class="pagelink" href="crm.html" style="background:linear-gradient(120deg,#226DB4,#3D8DDB);color:#fff">📇 LTI CRM · Pipeline & Leads <span>→</span></a>
+      <a class="pagelink" href="sales.html" style="background:linear-gradient(120deg,#0E3F72,#2E86DE);color:#fff">☁ Sales Cloud · Dashboard <span>→</span></a>
+      <a class="pagelink" href="dokumen.html" style="background:linear-gradient(120deg,#0FA3A3,#2FD6C0);color:#052a2a">📁 Arsip Dokumen (SOP) <span>→</span></a>
+    </div>
+    <div class="side-scroll">
+
+      <div class="card">
+        <h3>🔎 Cari Site / Titik</h3>
+        <div class="search-wrap">
+          <input id="search" placeholder="Ketik nama site… (mis. Kendari, BMH, Repeater)" autocomplete="off"/>
+          <span class="clr" id="clr">×</span>
+        </div>
+        <div id="results"></div>
+      </div>
+
+      <div class="card">
+        <h3>📏 Jarak ke Rute Terdekat</h3>
+        <button class="btn primary" id="pickBtn">📍 Klik peta untuk tempatkan titik customer</button>
+        <div class="coord-row">
+          <input id="latIn" placeholder="Latitude"/>
+          <input id="lonIn" placeholder="Longitude"/>
+          <button class="btn" id="goCoord" style="flex:none;width:auto;padding:8px 12px">OK</button>
+        </div>
+        <div class="hint">Klik tombol lalu klik lokasi di peta, atau isi koordinat manual. Sistem menghitung titik terdekat pada jalur Palapa Ring &amp; site terdekat.</div>
+        <div id="distOut"></div>
+        <button class="btn" id="clearDist" style="margin-top:8px;display:none">Reset titik customer</button>
+      </div>
+
+      <div class="card">
+        <h3>📐 Ukur Jarak (A → B)</h3>
+        <div class="hint" style="margin-top:0">Setiap titik bisa berupa <b>lokasi bebas</b> (klik peta / koordinat) atau <b>site Palapa</b>. Cocok untuk: titik→titik, titik→site, site→site.</div>
+
+        <div class="ep" data-ep="A">
+          <div class="ep-head"><span class="ep-badge" style="background:#37d67a">A</span><span class="ep-label" id="labA">belum diset</span></div>
+          <div class="ep-ctrls">
+            <button class="btn mini" data-pick="A">📍 Klik peta</button>
+            <div class="site-pick"><input class="mini-in" id="siteA" placeholder="cari site…" autocomplete="off"><div class="site-list" id="listA"></div></div>
+          </div>
+          <div class="coord-row" style="margin-top:6px">
+            <input class="mini-in" id="latA" placeholder="Lat"><input class="mini-in" id="lonA" placeholder="Lon">
+            <button class="btn mini" data-coord="A" style="flex:none;width:auto">Set</button>
+          </div>
+        </div>
+
+        <div class="ep" data-ep="B" style="margin-top:8px">
+          <div class="ep-head"><span class="ep-badge" style="background:#31b0ff">B</span><span class="ep-label" id="labB">belum diset</span></div>
+          <div class="ep-ctrls">
+            <button class="btn mini" data-pick="B">📍 Klik peta</button>
+            <div class="site-pick"><input class="mini-in" id="siteB" placeholder="cari site…" autocomplete="off"><div class="site-list" id="listB"></div></div>
+          </div>
+          <div class="coord-row" style="margin-top:6px">
+            <input class="mini-in" id="latB" placeholder="Lat"><input class="mini-in" id="lonB" placeholder="Lon">
+            <button class="btn mini" data-coord="B" style="flex:none;width:auto">Set</button>
+          </div>
+        </div>
+
+        <div id="measOut" style="display:none;margin-top:10px"></div>
+        <button class="btn" id="clearMeas" style="margin-top:8px;display:none">Reset ukur A → B</button>
+      </div>
+
+      <div class="card">
+        <h3>🗂️ Inventaris &amp; Customer</h3>
+        <label style="font-size:11px;color:var(--muted)">Filter per customer</label>
+        <select id="custFilter" style="margin-top:5px"><option value="">Semua customer</option></select>
+        <div class="search-wrap" style="margin-top:8px">
+          <input id="invSearch" placeholder="Cari perangkat / customer / site…" autocomplete="off"/>
+          <span class="clr" id="invClr">×</span>
+        </div>
+        <div id="invResults"></div>
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <button class="btn" id="expAll">⬇ Export semua CSV</button>
+          <button class="btn primary" id="openEditor" style="flex:none;width:auto;padding:9px 12px">✏️ Kelola</button>
+        </div>
+        <div class="hint" id="custFilterInfo"></div>
+      </div>
+
+      <div class="card">
+        <h3>🧭 Filter Project</h3>
+        <select id="projFilter"><option value="">Semua Project (4–8)</option></select>
+      </div>
+
+      <div class="card" id="comCard">
+        <h3>📊 Ringkasan Komersial</h3>
+        <div id="comBody"></div>
+        <a class="pagelink" id="comLink" href="komersial.html"><span id="comLinkT">Buka Panel Komersial</span> <span>→</span></a>
+      </div>
+
+      <div class="card">
+        <h3>🛰️ Layer Rute</h3>
+        <label class="row"><input type="checkbox" data-ltype="Marine" checked><span class="lgline" style="background:var(--marine)"></span> Rute Marine (laut) <span class="count" id="c-marine"></span></label>
+        <label class="row"><input type="checkbox" data-ltype="Inland" checked><span class="lgline" style="background:var(--inland)"></span> Rute Inland (darat) <span class="count" id="c-inland"></span></label>
+      </div>
+
+      <div class="card">
+        <h3>🌐 Referensi Jaringan Global</h3>
+        <label class="row"><input type="checkbox" data-gref="sub"><span class="lgline" style="background:#22d3ee"></span> Kabel Laut Global (TeleGeography) <span class="count" id="c-sub"></span></label>
+        <label class="row"><input type="checkbox" data-gref="ter"><span class="lgline" style="background:#6ee7b7"></span> Transmisi Darat ITU <span class="count" id="c-ter"></span></label>
+        <div class="hint">Konteks jaringan sekitar Indonesia/Asia Tenggara (dipangkas &amp; disederhanakan dari data global). Kabel laut cyan; fiber darat hijau, microwave oranye, rencana putus-putus. Default nonaktif.</div>
+      </div>
+
+      <div class="card">
+        <h3>📍 Layer Site</h3>
+        <label class="row"><input type="checkbox" data-ptype="BMH" checked><span class="dot" style="background:var(--bmh)"></span> BMH (Beach Manhole) <span class="count" id="c-BMH"></span></label>
+        <label class="row"><input type="checkbox" data-ptype="Landing/CLS" checked><span class="dot" style="background:var(--cls)"></span> Landing / CLS (TS·INT) <span class="count" id="c-cls"></span></label>
+        <label class="row"><input type="checkbox" data-ptype="Repeater" checked><span class="dot" style="background:var(--rep)"></span> Repeater <span class="count" id="c-rep"></span></label>
+        <label class="row"><input type="checkbox" data-ptype="Node" checked><span class="dot" style="background:var(--node)"></span> Node Point <span class="count" id="c-node"></span></label>
+        <label class="row"><input type="checkbox" data-ptype="Waypoint"><span class="dot" style="background:var(--wp)"></span> Waypoint <span class="count" id="c-wp"></span></label>
+        <label class="row"><input type="checkbox" data-ptype="Point Feature"><span class="dot" style="background:var(--pf)"></span> Point Feature <span class="count" id="c-pf"></span></label>
+        <div class="hint">✨ Site utama (BMH, Landing/CLS, Repeater, Node) tampil sebagai <b>titik bercahaya (city light)</b>. Site yang punya <b>inventaris perangkat</b> bersinar lebih terang + cincin — klik untuk melihat daftar customer &amp; perangkatnya. Waypoint &amp; Point Feature disembunyikan default (jumlah besar).</div>
+      </div>
+
+      <div class="card">
+        <h3>🌳 Struktur Data (KML)</h3>
+        <div class="tree-tools">
+          <input id="treeSearch" placeholder="filter nama…" autocomplete="off"/>
+          <button class="btn mini" id="treeExpand" title="Buka semua">⊞</button>
+          <button class="btn mini" id="treeCollapse" title="Tutup semua">⊟</button>
+        </div>
+        <div class="tree-tools" style="margin-top:6px">
+          <button class="btn mini" id="treeAll">☑ Semua</button>
+          <button class="btn mini" id="treeNone">☐ Kosong</button>
+        </div>
+        <div id="tree"></div>
+        <div class="hint">Pohon folder persis struktur KML: Project → Node Point / Path → segmen. Centang untuk tampil/sembunyi. Klik nama untuk terbang ke fitur. Segmen kabel menampilkan Jenis &amp; Letak Kabel.</div>
+      </div>
+
+      <div class="card">
+        <h3>🗺️ Basemap</h3>
+        <select id="baseSel">
+          <option value="dark">Gelap (CartoDB)</option>
+          <option value="sat">Satelit (Esri)</option>
+          <option value="osm">OpenStreetMap</option>
+        </select>
+      </div>
+    </div>
+    <div class="foot">Sumber: KMZ "Palapa Middle Package Marine &amp; Inland route Update 15 (30 Jun 2025)". Jarak dihitung geodesik (great-circle) ke jalur terdekat — estimasi, bukan panjang kabel aktual.</div>
+  </aside>
+
+  <div id="mapwrap">
+    <div id="map"></div>
+    <div class="stat-bar" id="statbar"></div>
+  </div>
+</div>
+
+<!-- EDITOR MODAL -->
+<div id="editorOv" class="ov">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>✏️ Kelola Inventaris Perangkat</h2>
+      <button class="x" id="closeEditor">×</button>
+    </div>
+    <div class="modal-tools">
+      <select id="edSite"></select>
+      <button class="btn primary" id="addRow" style="width:auto;padding:8px 12px;flex:none">＋ Tambah perangkat</button>
+      <button class="btn" id="expSite" style="width:auto;padding:8px 12px;flex:none">⬇ CSV site</button>
+      <span id="edInfo" class="ed-info"></span>
+    </div>
+    <div class="modal-body">
+      <table id="edTable">
+        <thead><tr>
+          <th style="min-width:130px">Customer</th><th>Perangkat Aktif</th><th>Perangkat Tidak Aktif</th>
+          <th style="min-width:70px">Space</th><th style="min-width:70px">Power</th>
+          <th style="min-width:110px">Tgl Pasang</th><th>WRF ID</th><th>Remark</th><th style="width:40px"></th>
+        </tr></thead>
+        <tbody id="edBody"></tbody>
+      </table>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="resetInv" style="width:auto;padding:9px 14px;flex:none">↺ Reset ke data asli</button>
+      <div style="flex:1"></div>
+      <span class="ed-saved" id="edSaved">Perubahan tersimpan otomatis di browser ini</span>
+      <button class="btn primary" id="doneEditor" style="width:auto;padding:9px 18px;flex:none">Selesai</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/*__DATA__*/
+</script>
+<script>
+/*__APP__*/
+</script>
+<script src="/chatbot-lti.js" defer></script>
+</body>
+</html>
