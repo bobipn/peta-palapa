@@ -121,7 +121,7 @@ tbody tr:hover{background:#F4F8FC}
   </div>
   <div class="sp"></div>
   <div class="env">
-    <a href="index.html">🏠 Portal</a><a href="peta.html">🌐 Peta</a><a href="komersial.html">📊 Komersial</a><a href="sales.html">☁ Sales</a><a href="dokumen.html">📁 Arsip</a>
+    <a href="index.html">🏠 Portal</a><a href="peta.html">🌐 Peta</a><a href="komersial.html">📊 Komersial</a><a href="sales.html">☁ Sales</a><a href="dokumen.html">📁 Arsip</a><a href="sop.html">📘 SOP</a>
   </div>
 </div>
 
@@ -132,6 +132,7 @@ tbody tr:hover{background:#F4F8FC}
     <option>P4</option><option>P5</option><option>P6</option><option>P7</option><option>P8A</option><option>P8B</option></select>
   <button class="btn" id="newLead">＋ Lead Baru</button>
   <button class="btn ghost" id="expCsv">⬇ CSV</button>
+  <button class="btn ghost" id="showAudit">🕘 Riwayat</button>
   <button class="btn warn" id="resetData">↺ Reset</button>
 </div>
 
@@ -179,6 +180,12 @@ tbody tr:hover{background:#F4F8FC}
   </div>
 </div>
 
+<div class="ov" id="auditOv"></div>
+<div id="auditModal" style="position:fixed;top:0;right:0;bottom:0;width:min(460px,96vw);background:#fff;z-index:120;box-shadow:-12px 0 40px rgba(18,40,66,.25);transform:translateX(105%);transition:.22s;display:flex;flex-direction:column">
+  <div style="padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px"><b>🕘 Riwayat Perubahan (semua pengguna)</b><button id="auditX" style="margin-left:auto;font-size:22px;color:var(--mute);background:none;border:none;cursor:pointer">×</button></div>
+  <div id="auditBody" style="padding:14px 18px;overflow-y:auto;flex:1;font-size:12.5px"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <div class="foot">
@@ -190,6 +197,13 @@ tbody tr:hover{background:#F4F8FC}
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 "use strict";
+/* ============ IDENTITAS PENGGUNA (dari sesi Portal) ============ */
+function currentUser(){ try{ const s=JSON.parse(localStorage.getItem('lti_portal_auth_v1')||'null'); if(s && Date.now()-s.ts<3*60*60*1000) return s.name||s.user; }catch(e){} return null; }
+const ME = currentUser();
+if(!ME){
+  document.body.innerHTML='<div style="font-family:Inter,system-ui,sans-serif;max-width:440px;margin:90px auto;text-align:center;color:#20344B;padding:0 20px"><div style="font-size:40px">🔒</div><h2 style="margin:6px 0">Perlu Login</h2><p style="color:#6B7F95">Masuk dulu lewat <b>Portal Utama</b> agar setiap perubahan CRM tercatat atas nama Anda.</p><a href="index.html" style="display:inline-block;margin-top:12px;background:#226DB4;color:#fff;text-decoration:none;padding:11px 20px;border-radius:10px;font-weight:700">🏠 Ke Portal Utama</a></div>';
+  throw new Error('need-login');
+}
 /* ============ DATA (framework eksisting: 95 lead Panel Komersial) ============ */
 const SEED = [{"id":"LTIAF0001","cust":"PT IOH","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth_PPU","seg":"P5 PPU","kap":10.0,"ref":1094400000,"val":1094400000},{"id":"LTIAF0002","cust":"PT IOH","am":"Farintya","stage":"1. Opportunity","svc":"FO_Darkfiber","seg":"P7","kap":2.0,"ref":12683642400,"val":12683642400},{"id":"LTIAF0003","cust":"PT IOH","am":"Farintya","stage":"1. Opportunity","svc":"Kolokasi_NOC","seg":"P7","kap":0,"ref":222420000,"val":222420000},{"id":"LTIAF0003","cust":"PT IOH","am":"Farintya","stage":"2. Proposal","svc":"Kolokasi_NOC","seg":"P7","kap":0,"ref":222420000,"val":222420000},{"id":"LTIGN0001","cust":"PT CNI","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":122769231},{"id":"LTIMA0001","cust":"PT Lintasarta","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":175384615},{"id":"LTIMA0002","cust":"PT Lintasarta","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P6 PPU","kap":10.0,"ref":1497600000,"val":2304000000},{"id":"LTIMA0003","cust":"PT Lintasarta","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":166153846},{"id":"LTIGN0002","cust":"PT SCKom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":48000000},{"id":"LTIGN0003","cust":"PT XLSMART","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":10.0,"ref":1824000000,"val":589292308},{"id":"LTIGN0004","cust":"PT XLSMART","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":20.0,"ref":4992000000,"val":1344000000},{"id":"LTIGN0005","cust":"PT XLSMART","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":10.0,"ref":2496000000,"val":672000000},{"id":"LTIGN0006","cust":"PT XLSMART","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":30.0,"ref":5472000000,"val":2651815385},{"id":"LTIGN0007","cust":"PT Icon+","am":"Novia","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P5 PPU","kap":10.0,"ref":1094400000,"val":1064000000},{"id":"LTIGN0008","cust":"PT Icon+","am":"Novia","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P6 PPU","kap":10.0,"ref":1497600000,"val":576000000},{"id":"LTIGN0009","cust":"PT IOH","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Darkfiber","seg":"P5","kap":2.0,"ref":7619580000,"val":5861215385},{"id":"LTIGN0010","cust":"PT IOH","am":"Farintya","stage":"5. Dropped","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":0},{"id":"LTIGN0011","cust":"PT LMM","am":"Novia","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P4","kap":1.0,"ref":108000000,"val":41538462},{"id":"LTIAF0004","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P4","kap":10.0,"ref":864000000,"val":864000000},{"id":"LTIAF0005","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":10.0,"ref":1824000000,"val":1824000000},{"id":"LTIAF0006","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":20.0,"ref":4992000000,"val":3803428571},{"id":"LTIAF0007","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P7","kap":20.0,"ref":4224000000,"val":4224000000},{"id":"LTIAF0008","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8A","kap":60.0,"ref":17280000000,"val":11520000000},{"id":"LTIAF0009","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8B","kap":10.0,"ref":672000000,"val":413538462},{"id":"LTIGN0012","cust":"PT Dewata Net","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":223384615},{"id":"LTIGN0013","cust":"PT Dewata Net","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":119409231},{"id":"LTIGN0014","cust":"PT EBTel","am":"Novia","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":157846154},{"id":"LTIGN0015","cust":"PT Gomeds","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P5 PPU","kap":10.0,"ref":1094400000,"val":1683692308},{"id":"LTIGN0016","cust":"PT Gomeds","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P6 PPU","kap":10.0,"ref":1497600000,"val":1536000000},{"id":"LTIGN0017","cust":"PT Gomeds","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P7 PPU","kap":10.0,"ref":1267200000,"val":1299692308},{"id":"LTIGN0018","cust":"PT Abhinawa","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":87692308},{"id":"LTIGN0019","cust":"PT CNI","am":"Mutiara","stage":"5. Closed (Win)","svc":"FO_Darkfiber","seg":"P5","kap":2.0,"ref":7619580000,"val":290938776},{"id":"LTIAF0010","cust":"PT Mora Telematika Indonesia, Tbk.","am":"Farintya","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P4","kap":1.0,"ref":108000000,"val":108000000},{"id":"LTIAF0011","cust":"PT Mora Telematika Indonesia, Tbk.","am":"Farintya","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIAF0012","cust":"PT Indo Telemedia Solusi","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIAF0013","cust":"PT Primacom Interbuana","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIAF0014","cust":"PT Primacom Interbuana","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIAF0015","cust":"PT Primacom Interbuana","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTIAF0016","cust":"PT Media Link Global Indo","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTIAF0017","cust":"PT Cyberplus Media Pratama","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIAF0018","cust":"PT Lintas Jaringan Nusantara","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIAF0019","cust":"PT Inter Medialink Solusi","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIAF0020","cust":"PT Media Cepat Indonesia","am":"Farintya","stage":"1. Opportunity","svc":null,"seg":null,"kap":0,"ref":0,"val":0},{"id":"LTIAF0021","cust":"PT Mitra Telemedia Manunggal","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIAF0022","cust":"PT Sinergi Inti Andalan Prima, Tbk","am":"Farintya","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIAF0023","cust":"PT Telkom","am":"Farintya","stage":"1. Opportunity","svc":"FO_Darkfiber","seg":"P8B","kap":2.0,"ref":1189308000,"val":1189308000},{"id":"LTINP0001","cust":"PT Mamura Inter Media","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0002","cust":"PT Inditech Global Network","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0003","cust":"PT Citra Jelajah Informatika","am":"Novia","stage":"1. Opportunity","svc":null,"seg":null,"kap":0,"ref":0,"val":0},{"id":"LTINP0004","cust":"PT Dewata Telematika","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0005","cust":"PT Borneo Broadband Technology","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P4","kap":1.0,"ref":108000000,"val":108000000},{"id":"LTINP0006","cust":"PT Jala Lintas Media","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0007","cust":"PT Inter Medialink Solusi","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTINP0008","cust":"PT Intranusa Core Teknologi","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0009","cust":"PT Prima Mandiri Sentosa Gowa","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0010","cust":"PT Celebes Media Jaringan","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIMA0004","cust":"PT Ameera Mega Buana","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIMA0005","cust":"PT Icon+","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"id":"LTIMA0006","cust":"PT Medialink Global Mandiri","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIMA0007","cust":"PT Adi Inti Mandiri","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTIMA0008","cust":"PT Lintasarta","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"id":"LTIMA0009","cust":"PT Julia Multimedia Nusantara","am":"Mutiara","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIMA0010","cust":"PT Kaili Global","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIMA0011","cust":"PT Citra Agung Mestika","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTIMA0012","cust":"PT Indotrans Data","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTIMA0013","cust":"PT Lintasarta","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":10.0,"ref":2880000000,"val":2880000000},{"id":"LTIMA0014","cust":"PT Uninet Media Sakti","am":"Mutiara","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTIMA0015","cust":"PT Serayu Multi Connection","am":"Mutiara","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTIMA0016","cust":"DCConnect Global Limited","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTIMA0017","cust":"PT Trans Hybrid Communication","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTIMA0018","cust":"PT EZSVS Technology Indonesia","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTIMA0019","cust":"PT Metrosolusi Teknologi Indonesia","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIMA0020","cust":"PT Supra Primatama Nusantara","am":"Mutiara","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0011","cust":"PT Petro One Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0012","cust":"PT Power Telecom Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0013","cust":"PT Berdikari Prima Mandiri","am":"Novia","stage":"2. Proposal","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTINP0014","cust":"PT Maxindo Mitra Solusi","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0015","cust":"PT Mega Artha Lintas Data","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0016","cust":"PT Media Cepat Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0017","cust":"PT Mitra Visioner Pratama","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8A","kap":1.0,"ref":360000000,"val":360000000},{"id":"LTINP0018","cust":"PT Sumber Data Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P7","kap":1.0,"ref":264000000,"val":264000000},{"id":"LTINP0019","cust":"PT Inovasi Teknologi Makmur","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0020","cust":"PT Infokom Elektrindo","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0021","cust":"PT Inter Medialink Solusi","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P6","kap":1.0,"ref":312000000,"val":312000000},{"id":"LTINP0022","cust":"PT Jaringan Fiberku Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0023","cust":"01 Digital","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0024","cust":"PT Lisar International Networking","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTINP0025","cust":"PT Indo Teknologi Logistik","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"id":"LTINP0026","cust":"PT Satu Akses Indonesia","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P8B","kap":1.0,"ref":84000000,"val":84000000},{"id":"LTINP0027","cust":"PT Gemilang Catur Persada","am":"Novia","stage":"1. Opportunity","svc":"FO_Bandwidth","seg":"P5","kap":1.0,"ref":228000000,"val":228000000},{"id":"LTIAF0006B","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P6","kap":5.0,"ref":1560000000,"val":1188571429},{"id":"LTIAF0009B","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P8B","kap":5.0,"ref":420000000,"val":258461538},{"id":"LTIGN0020","cust":"PT IOH","am":"Farintya","stage":"5. Closed (Win)","svc":"FO_Bandwidth_PPU","seg":"P7 PPU","kap":10.0,"ref":1267200000,"val":1137230769},{"id":"LTIGN0021","cust":"PT EBTel","am":"Novia","stage":"5. Closed (Win)","svc":"FO_Bandwidth","seg":"P5","kap":10.0,"ref":1824000000,"val":0},{"id":"LTIAF0010","cust":"PT Telkom","am":"Farintya","stage":"5. Closed (Win)","svc":"Bantek","seg":"P7 Bantek","kap":0,"ref":0,"val":196438710}];
 const KEY='lti_crm_v1';
@@ -207,7 +221,7 @@ const rp=n=>'Rp'+Math.round(n||0).toLocaleString('id-ID');
 const jt=n=>((n||0)/1e6).toLocaleString('id-ID',{maximumFractionDigits:0});
 const amount=l=> l.stage==='5. Closed (Win)' ? (l.val||0) : (l.ref||0);
 const segP=s=>{ const m=/^P(8A|8B|\d)/.exec(s||''); return m?('P'+m[1]):''; };
-function stamp(t){ return new Date().toISOString().slice(0,16).replace('T',' ')+' · '+t; }
+function stamp(t){ return new Date().toISOString().slice(0,16).replace('T',' ')+' · '+ME+' — '+t; }
 function seedLeads(){ return SEED.map((l,i)=>({uid:'L'+(i+1), id:l.id, cust:l.cust, am:l.am, stage:l.stage,
   svc:l.svc||'', seg:l.seg||'', kap:l.kap||0, ref:l.ref||0, val:l.val||0, note:'',
   hist:[stamp('Import dari Panel Komersial')]})); }
@@ -223,6 +237,10 @@ const firebaseConfig = {
 };
 let MODE='local', fdb=null, unsub=null;
 let DB={leads:[],seq:1};
+function logAudit(action){ if(MODE==='cloud' && fdb){ try{ fdb.collection('audit').add({t:Date.now(),user:ME,action:action,module:'CRM',tk:TK}); }catch(e){} } }
+const userEl=document.createElement('span'); userEl.textContent='👤 '+ME;
+userEl.style.cssText='font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.15);color:#fff;white-space:nowrap;margin-right:6px';
+document.querySelector('.top .sp').after(userEl);
 
 const statusEl=document.createElement('span');
 statusEl.id='syncChip';
@@ -372,7 +390,7 @@ function renderBoard(){
         if(key==='5. Closed (Win)' && !l.val) l.val=l.ref;
         if(key==='5. Dropped') l.val=0;
         l.hist=[stamp(`Tahap: ${old} → ${key}`)].concat(l.hist||[]).slice(0,20);
-        persistLead(l); renderAll(); toast(`${l.cust} → ${label}`);
+        persistLead(l); logAudit('Pindah tahap: '+l.cust+' → '+label); renderAll(); toast(`${l.cust} → ${label}`);
       }
     });
     b.appendChild(col);
@@ -471,21 +489,21 @@ document.getElementById('drSave').addEventListener('click',()=>{
     const uid='L'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
     const nl=Object.assign({uid,id:'LTINEW'+String(DB.seq).padStart(4,'0'),hist:[stamp('Lead dibuat')]},vals);
     DB.leads.unshift(nl); DB.seq++;
-    persistLead(nl); toast('Lead baru ditambahkan');
+    persistLead(nl); logAudit('Tambah lead: '+nl.cust); toast('Lead baru ditambahkan');
   } else {
     const l=DB.leads.find(x=>x.uid===curUid); if(!l) return;
     const note = l.stage!==vals.stage ? `Tahap: ${l.stage} → ${vals.stage}` : 'Data diperbarui';
     l.hist=[stamp(note)].concat(l.hist||[]).slice(0,20);
     Object.assign(l,vals);
-    persistLead(l); toast('Perubahan disimpan');
+    persistLead(l); logAudit('Ubah lead: '+l.cust); toast('Perubahan disimpan');
   }
   closeDrawer(); renderAll();
 });
 document.getElementById('drDel').addEventListener('click',()=>{
   if(!confirm('Hapus lead ini? (akan terhapus untuk semua pengguna)')) return;
-  const uid=curUid;
+  const uid=curUid; const _l=DB.leads.find(x=>x.uid===uid); const _c=_l?_l.cust:uid;
   DB.leads=DB.leads.filter(x=>x.uid!==uid);
-  removeLead(uid); closeDrawer(); renderAll(); toast('Lead dihapus');
+  removeLead(uid); logAudit('Hapus lead: '+_c); closeDrawer(); renderAll(); toast('Lead dihapus');
 });
 
 /* ============ TOOLBAR ============ */
@@ -525,7 +543,23 @@ document.getElementById('fAM').innerHTML='<option value="">Semua AM</option>'+AM
 initSync();
 renderAll();
 
+
+document.getElementById('showAudit').addEventListener('click',async ()=>{
+  document.getElementById('auditOv').classList.add('open');
+  document.getElementById('auditModal').style.transform='none';
+  const body=document.getElementById('auditBody'); body.innerHTML='<div style="color:var(--mute)">Memuat…</div>';
+  if(MODE!=='cloud'||!fdb){ body.innerHTML='<div style="color:var(--mute)">Riwayat gabungan tersedia saat 🟢 Sinkron Cloud. Riwayat per-lead tetap tercatat di detail tiap lead.</div>'; return; }
+  try{ const snap=await fdb.collection('audit').orderBy('t','desc').limit(150).get();
+    const rows=snap.docs.map(d=>d.data());
+    body.innerHTML = rows.length ? rows.map(a=>{ const tm=new Date(a.t).toISOString().slice(0,16).replace('T',' ');
+      const col=/Hapus/.test(a.action)?'#E4534A':/Tambah/.test(a.action)?'#12A05C':'#226DB4';
+      return '<div style="padding:8px 0;border-bottom:1px solid var(--line)"><div style="font-weight:600">'+esc(a.user||'?')+' <span style="font-weight:400;color:var(--mute)">· '+esc(a.module||'')+'</span></div><div style="color:'+col+'">'+esc(a.action||'')+'</div><div style="font-size:11px;color:var(--mute);font-family:ui-monospace,monospace">'+tm+'</div></div>';
+    }).join('') : '<div style="color:var(--mute)">Belum ada riwayat.</div>';
+  }catch(e){ body.innerHTML='<div style="color:#E4534A">Gagal memuat: '+esc((e&&e.message)||e)+' (butuh Rules koleksi audit).</div>'; }
+});
+function closeAudit(){ document.getElementById('auditOv').classList.remove('open'); document.getElementById('auditModal').style.transform='translateX(105%)'; }
+document.getElementById('auditOv').addEventListener('click',closeAudit);
+document.getElementById('auditX').addEventListener('click',closeAudit);
 </script>
-<script src="/chatbot-lti.js" defer></script>
 </body>
 </html>

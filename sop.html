@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal SOP & CS AI Palapa Ring Paket Tengah - BAKTI Kominfo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bakti: {
+                            blue: '#004A99',
+                            darkblue: '#002B5C',
+                            red: '#E31B23',
+                            lightbg: '#F4F7FA',
+                            cardbg: '#FFFFFF',
+                            accent: '#00A8CC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .active-tab {
+            border-bottom: 3px solid #004A99;
+            color: #004A99;
+            font-weight: 600;
+        }
+        @media print {
+            header, nav, button, .no-print { display: none !important; }
+            body { background: white; margin: 0; padding: 0; }
+            .print-area { display: block !important; width: 100% !important; border: none !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; }
+        }
+        /* Custom scrollbar for chat */
+        #chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        #chat-messages::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 3px;
+        }
+        /* Document paper styling */
+        .a4-page {
+            width: 100%;
+            max-width: 800px;
+            min-height: 1050px;
+            background: white;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            padding: 2.5rem;
+            position: relative;
+            font-family: 'Times New Roman', Times, serif;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <header class="bg-white shadow-md border-b border-slate-200 sticky top-0 z-40 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-bakti-blue text-white p-3 rounded-lg font-bold text-xl flex items-center justify-center shadow">
+                        <i class="fa-solid fa-network-wired text-2xl mr-2"></i> BAKTI
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-bakti-darkblue leading-tight">SOP & Layanan Komersial Palapa Ring Tengah</h1>
+                        <p class="text-xs text-slate-500">PT Len Telekomunikasi Indonesia • SK Dirut No 19/2025 & Perdirut No 03/2024</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800 border border-indigo-200">
+                        <i class="fa-solid fa-robot mr-1.5 text-indigo-600"></i> CS AI Knowledge 2025
+                    </span>
+                    <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-md text-sm font-medium transition flex items-center">
+                        <i class="fa-solid fa-print mr-1.5"></i> Cetak / PDF
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Navigation Tabs -->
+            <nav class="flex space-x-6 border-t border-slate-100 pt-1 overflow-x-auto text-sm font-medium">
+                <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn py-3 px-1 active-tab flex items-center whitespace-nowrap cursor-pointer">
+                    <i class="fa-solid fa-chart-line mr-2"></i> Executive Dashboard
+                </button>
+                <button onclick="switchTab('cs-chatbot')" id="tab-cs-chatbot" class="tab-btn py-3 px-1 text-slate-600 hover:text-bakti-blue flex items-center whitespace-nowrap cursor-pointer">
+                    <i class="fa-solid fa-robot mr-2 text-indigo-600"></i> CS AI & Product Knowledge
+                </button>
+                <button onclick="switchTab('sop-catalog')" id="tab-sop-catalog" class="tab-btn py-3 px-1 text-slate-600 hover:text-bakti-blue flex items-center whitespace-nowrap cursor-pointer">
+                    <i class="fa-solid fa-folder-tree mr-2"></i> Katalog 19 SOP & Swimlanes
+                </button>
+                <button onclick="switchTab('letter-generator')" id="tab-letter-generator" class="tab-btn py-3 px-1 text-slate-600 hover:text-bakti-blue flex items-center whitespace-nowrap cursor-pointer">
+                    <i class="fa-solid fa-file-contract mr-2 text-rose-600"></i> Generator Surat Resmi
+                </button>
+                <button onclick="switchTab('calculator')" id="tab-calculator" class="tab-btn py-3 px-1 text-slate-600 hover:text-bakti-blue flex items-center whitespace-nowrap cursor-pointer">
+                    <i class="fa-solid fa-calculator mr-2"></i> Kalkulator Diskon & Tarif
+                </button>
+                <button onclick="switchTab('billing')" id="tab-billing" class="tab-btn py-3 px-1 text-slate-600 hover:text-bakti-blue flex items-center whitespace-nowrap cursor-pointer">
+                    <i class="fa-solid fa-file-invoice-dollar mr-2"></i> Simulasi Penagihan & Denda
+                </button>
+                <button onclick="switchTab('halo-bakti')" id="tab-halo-bakti" class="tab-btn py-3 px-1 text-slate-600 hover:text-bakti-blue flex items-center whitespace-nowrap cursor-pointer">
+                    <i class="fa-solid fa-headset mr-2"></i> Helpdesk & Halo BAKTI
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <div id="toast-container" class="fixed top-24 right-5 z-50 space-y-2 pointer-events-none no-print"></div>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- Executive Dashboard View -->
+        <div id="sec-dashboard" class="tab-content space-y-6">
+            <div class="bg-gradient-to-r from-blue-900 via-bakti-blue to-indigo-900 text-white rounded-xl p-6 shadow-lg">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-2 flex items-center">
+                            <i class="fa-solid fa-sitemap mr-3 text-amber-400"></i> Portal SOP & CS AI Palapa Ring Paket Tengah
+                        </h2>
+                        <p class="text-blue-100 text-sm max-w-3xl">
+                            PT Len Telekomunikasi Indonesia - Badan Usaha Pelaksana (BUP) Palapa Ring Paket Tengah ("Semua Berhak Terhubung"). Mengelola 6 Proyek (P4 - P8B) melingkupi 17 Kabupaten SLA, 10 Kota Interkoneksi, 19 Swimlane SOP, Generator Surat Resmi (SPH, BAST, BAPL), serta Asisten AI Customer Service.
+                        </p>
+                    </div>
+                    <div class="mt-4 md:mt-0 flex space-x-2">
+                        <button onclick="switchTab('cs-chatbot')" class="bg-amber-500 hover:bg-amber-600 text-amber-950 px-4 py-2.5 rounded-lg text-xs font-bold transition flex items-center shadow cursor-pointer">
+                            <i class="fa-solid fa-comments mr-2"></i> Tanya CS AI Palapa Ring
+                        </button>
+                        <button onclick="switchTab('letter-generator')" class="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2.5 rounded-lg text-xs font-bold transition flex items-center shadow cursor-pointer">
+                            <i class="fa-solid fa-file-pen mr-2"></i> Buat Surat SPH / BAST
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                    <div class="bg-blue-100 p-3 rounded-lg text-bakti-blue text-2xl">
+                        <i class="fa-solid fa-wifi"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-semibold text-slate-500 uppercase">Layanan Bandwidth</div>
+                        <div class="text-lg font-bold text-slate-800">1 Gbps & 10 Gbps</div>
+                        <div class="text-xs text-emerald-600 font-medium">P4: Rp 9Jt (1G) & Rp 72Jt (10G)</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                    <div class="bg-indigo-100 p-3 rounded-lg text-indigo-600 text-2xl">
+                        <i class="fa-solid fa-cable-car"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-semibold text-slate-500 uppercase">Layanan Dark Fiber</div>
+                        <div class="text-lg font-bold text-slate-800">22 Core FO (11 Pairs)</div>
+                        <div class="text-xs text-indigo-600 font-medium">Darat (12M/km) & Laut (36M/km)</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                    <div class="bg-amber-100 p-3 rounded-lg text-amber-600 text-2xl">
+                        <i class="fa-solid fa-server"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-semibold text-slate-500 uppercase">Kolokasi Perangkat</div>
+                        <div class="text-lg font-bold text-slate-800">Gratis 1U Pertama</div>
+                        <div class="text-xs text-amber-600 font-medium">Indoor Rack & Outdoor Tower</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                    <div class="bg-emerald-100 p-3 rounded-lg text-emerald-600 text-2xl">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-semibold text-slate-500 uppercase">Cakupan Jaringan</div>
+                        <div class="text-lg font-bold text-slate-800">3,102 km Optik</div>
+                        <div class="text-xs text-emerald-600 font-medium">6 Proyek (P4 - P8B) • 17 Kab SLA</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales Team Contact Section -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-800 flex items-center">
+                            <i class="fa-solid fa-address-book text-bakti-blue mr-2"></i> Tim Sales & Layanan PT Len Telekomunikasi Indonesia
+                        </h3>
+                        <p class="text-xs text-slate-500">Gedung Menara MTH Lt. M, Jl Letjen MT Haryono Kav 23, Tebet, Jakarta Selatan • Hotline: 1500-876</p>
+                    </div>
+                    <button onclick="switchTab('cs-chatbot')" class="text-xs bg-indigo-50 text-indigo-700 hover:bg-indigo-100 font-bold px-3 py-1.5 rounded-lg border border-indigo-200 transition flex items-center cursor-pointer">
+                        <i class="fa-solid fa-robot mr-1.5"></i> Konsultasi AI CS
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                    <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-slate-800 block mb-1">Bobi Panca Nugraha</strong>
+                        <p class="text-slate-500 mb-1"><i class="fa-solid fa-phone text-emerald-600 mr-1"></i> 0821-1930-5096</p>
+                        <p class="text-slate-500 font-mono text-[11px] truncate"><i class="fa-solid fa-envelope text-blue-500 mr-1"></i> bobi.panca@len-telko.co.id</p>
+                    </div>
+                    <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-slate-800 block mb-1">Farintya Yuniastiti</strong>
+                        <p class="text-slate-500 mb-1"><i class="fa-solid fa-phone text-emerald-600 mr-1"></i> 0812-8596-5152</p>
+                        <p class="text-slate-500 font-mono text-[11px] truncate"><i class="fa-solid fa-envelope text-blue-500 mr-1"></i> farintya.yuniastiti@len-telko.co.id</p>
+                    </div>
+                    <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-slate-800 block mb-1">Novia Putri Z</strong>
+                        <p class="text-slate-500 mb-1"><i class="fa-solid fa-phone text-emerald-600 mr-1"></i> 0812-2377-4723</p>
+                        <p class="text-slate-500 font-mono text-[11px] truncate"><i class="fa-solid fa-envelope text-blue-500 mr-1"></i> novia.putri@len-telko.co.id</p>
+                    </div>
+                    <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-slate-800 block mb-1">Mutiara Azana</strong>
+                        <p class="text-slate-500 mb-1"><i class="fa-solid fa-phone text-emerald-600 mr-1"></i> 0819-0541-1313</p>
+                        <p class="text-slate-500 font-mono text-[11px] truncate"><i class="fa-solid fa-envelope text-blue-500 mr-1"></i> mutiara.azana@len-telko.co.id</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center">
+                        <i class="fa-solid fa-layer-group text-bakti-blue mr-2"></i> Klasifikasi 19 SOP & Swimlane Diagrams
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <div class="font-bold text-sm text-slate-800 mb-1 flex items-center justify-between">
+                                <span>1. Onboarding & Penetapan</span>
+                                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-mono">SOP I - IV</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Peminatan pelanggan, Credit Rating, Trial 14 Hari / Stability Test, Kolokasi NOC-TS, & Perizinan WRF Kerja.</p>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <div class="font-bold text-sm text-slate-800 mb-1 flex items-center justify-between">
+                                <span>2. Skema Diskon & Insentif</span>
+                                <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-mono">SOP V - X</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Diskon Urutan Pelanggan (n+1), UMK Mikro/Kecil, Kemitraan BUMDes, Diskon Gangguan, Track Record Baik, & Promosi.</p>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <div class="font-bold text-sm text-slate-800 mb-1 flex items-center justify-between">
+                                <span>3. Penagihan & Keuangan</span>
+                                <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-mono">SOP XI - XIV</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Penagihan E-PNBP, Imbalan BUP 5%, Biaya Operasional BUP, Monitoring Status Pembayaran, & Denda 1 permil/hari.</p>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <div class="font-bold text-sm text-slate-800 mb-1 flex items-center justify-between">
+                                <span>4. Operasional & Offboarding</span>
+                                <span class="text-xs bg-rose-100 text-rose-800 px-2 py-0.5 rounded font-mono">SOP XV - XIX</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Halo BAKTI Helpdesk, Pembongkaran Perangkat NOC, Monev Lapangan, Penghentian Normal, Isolir & Pelimpahan KPKNL.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center">
+                        <i class="fa-solid fa-users-gear text-bakti-blue mr-2"></i> Legenda Aktor Swimlane
+                    </h3>
+                    <ul class="space-y-3 text-xs">
+                        <li class="flex items-start">
+                            <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold border border-blue-300 text-[10px] w-28 shrink-0 text-center mr-2 mt-0.5">Pelanggan</span>
+                            <span class="text-slate-600">Pelanggan / Calon Pelanggan / ISP Mitra BUMDes</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold border border-indigo-300 text-[10px] w-28 shrink-0 text-center mr-2 mt-0.5">BUP Komersial</span>
+                            <span class="text-slate-600">Mitra BUP Pemasaran & Penagihan (Len Telko)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold border border-amber-300 text-[10px] w-28 shrink-0 text-center mr-2 mt-0.5">Dir LTI BU BAKTI</span>
+                            <span class="text-slate-600">Direktorat Layanan TI BU (Evaluasi, SP3L, Diskon)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold border border-emerald-300 text-[10px] w-28 shrink-0 text-center mr-2 mt-0.5">Dir Infrastruktur</span>
+                            <span class="text-slate-600">Direktorat Infrastruktur BAKTI (WRF, NOC)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 border border-purple-300 text-[10px] w-28 shrink-0 text-center mr-2 mt-0.5">BUP KPBU</span>
+                            <span class="text-slate-600">BUP Operasional / Pengelola NOC-TS & Fisik</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-bold border border-rose-300 text-[10px] w-28 shrink-0 text-center mr-2 mt-0.5">KPKNL / PUPN</span>
+                            <span class="text-slate-600">Panitia Urusan Piutang Negara / Kantor Lelang</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Service AI Chatbot View -->
+        <div id="sec-cs-chatbot" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <div class="lg:col-span-4 space-y-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                        <div class="flex items-center space-x-3 border-b pb-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-bakti-blue to-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-sm">Customer Service AI</h3>
+                                <p class="text-xs text-emerald-600 font-medium"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Len Telko • Product Knowledge & SOP 2025</p>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Asisten Pintar Layanan Komersial Palapa Ring Paket Tengah. Terintegrasi dengan <strong>19 SOP (2024 & 2025)</strong> & <strong>Product Knowledge 2025</strong>.
+                        </p>
+
+                        <h4 class="font-bold text-xs uppercase text-slate-400 tracking-wider pt-2">Pertanyaan Populer:</h4>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="askPresetQuestion('Berapa tarif Proyek 4 untuk Bandwidth 1G dan 10G?')" class="w-full text-left p-2.5 bg-slate-50 hover:bg-blue-50 hover:text-bakti-blue text-slate-700 rounded-lg border border-slate-200 transition font-medium cursor-pointer">
+                                💡 Tarif Proyek 4 (Kaltim): 1G = Rp 9 Jt
+                            </button>
+                            <button onclick="askPresetQuestion('Berapa tarif Sewa Bandwidth 1G dan 10G per proyek dan diskon bundling 6 proyek?')" class="w-full text-left p-2.5 bg-slate-50 hover:bg-blue-50 hover:text-bakti-blue text-slate-700 rounded-lg border border-slate-200 transition font-medium cursor-pointer">
+                                💡 Daftar Tarif Bandwidth 1G & 10G Semua Proyek
+                            </button>
+                            <button onclick="askPresetQuestion('Bagaimana alur Penetapan Pelanggan, Uji Coba Trial, dan Score Credit Rating (SOP I & II)?')" class="w-full text-left p-2.5 bg-slate-50 hover:bg-blue-50 hover:text-bakti-blue text-slate-700 rounded-lg border border-slate-200 transition font-medium cursor-pointer">
+                                💡 SOP I & II: Penetapan, Credit Rating & Trial
+                            </button>
+                            <button onclick="askPresetQuestion('Jelaskan aturan Denda 1 Permil, Isolir H+10, Pemutusan H+30, dan Pelimpahan KPKNL (SOP XI & XIX)!')" class="w-full text-left p-2.5 bg-slate-50 hover:bg-blue-50 hover:text-bakti-blue text-slate-700 rounded-lg border border-slate-200 transition font-medium cursor-pointer">
+                                💡 SOP XI & XIX: Denda, Isolir & Pelimpahan KPKNL
+                            </button>
+                            <button onclick="askPresetQuestion('Bagaimana syarat Diskon BUMDes (SOP VII) dan Diskon Track Record Baik (SOP IX)?')" class="w-full text-left p-2.5 bg-slate-50 hover:bg-blue-50 hover:text-bakti-blue text-slate-700 rounded-lg border border-slate-200 transition font-medium cursor-pointer">
+                                💡 SOP VII & IX: Diskon BUMDes & Track Record
+                            </button>
+                            <button onclick="askPresetQuestion('Berapa tarif Kolokasi Indoor/Outdoor, aturan gratis 1U, dan faktor hardship tiap proyek?')" class="w-full text-left p-2.5 bg-slate-50 hover:bg-blue-50 hover:text-bakti-blue text-slate-700 rounded-lg border border-slate-200 transition font-medium cursor-pointer">
+                                💡 Ketentuan Kolokasi Gratis 1U & Pricelist Rack
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-bakti-darkblue to-blue-900 text-white p-5 rounded-xl shadow-sm space-y-3">
+                        <h4 class="font-bold text-sm flex items-center text-amber-400">
+                            <i class="fa-solid fa-phone-volume mr-2"></i> Kontak Resmi PT Len Telko
+                        </h4>
+                        <div class="text-xs space-y-2 text-blue-100">
+                            <p><strong class="text-white">Hotline CS:</strong> 1500-876</p>
+                            <p><strong class="text-white">Telepon Kantor:</strong> 021-22833872</p>
+                            <p><strong class="text-white">Alamat:</strong> Menara MTH Lt. M, Jl. Letjen MT Haryono Kav 23, Jakarta Selatan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col h-[680px]">
+                    <div class="p-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center rounded-t-xl">
+                        <div class="flex items-center space-x-3">
+                            <div class="relative">
+                                <div class="w-9 h-9 rounded-full bg-bakti-blue text-white flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-robot"></i>
+                                </div>
+                                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white"></span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-sm">Customer Service Palapa Ring Paket Tengah</h3>
+                                <p class="text-[11px] text-slate-500">PT Len Telekomunikasi Indonesia • Powered by Product Knowledge & AI</p>
+                            </div>
+                        </div>
+                        <button onclick="clearChatHistory()" class="text-xs text-slate-500 hover:text-rose-600 px-2.5 py-1 rounded bg-white border border-slate-200 transition flex items-center cursor-pointer">
+                            <i class="fa-solid fa-trash-can mr-1"></i> Bersihkan Chat
+                        </button>
+                    </div>
+
+                    <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-4 text-xs bg-slate-50/50">
+                        <div class="flex items-start space-x-2">
+                            <div class="w-7 h-7 rounded-full bg-bakti-blue text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <div class="bg-white border border-slate-200 p-3.5 rounded-2xl rounded-tl-none shadow-sm max-w-2xl text-slate-700 leading-relaxed space-y-2">
+                                <p class="font-bold text-bakti-blue">Selamat datang di Layanan Customer Service PT Len Telekomunikasi Indonesia! 👋</p>
+                                <p>Saya adalah asisten CS cerdas untuk <strong>Palapa Ring Paket Tengah</strong>. Knowledge base saya telah dilengkapi dengan <strong>19 SOP Resmi (2024 & 2025)</strong> dan <strong>Product Knowledge 2025</strong>.</p>
+                                <p>Silakan tanyakan seputar produk, tarif, maupun prosedur SOP kami:</p>
+                                <ul class="list-disc pl-4 space-y-1 text-slate-600">
+                                    <li><strong>Product Knowledge:</strong> Bandwidth 1G/10G, Dark Fiber, Kolokasi Perangkat, PPU, Proyek P4-P8B</li>
+                                    <li><strong>Prosedur SOP (2024/2025):</strong> Penetapan Pelanggan, Credit Rating, Trial 14 Hari, WRF NOC</li>
+                                    <li><strong>Skema Diskon (SOP V - X):</strong> Urutan Pelanggan, UMK, Kemitraan BUMDes, Gangguan, Track Record, Promo</li>
+                                    <li><strong>Keuangan & Operasional (SOP XI - XIX):</strong> Penagihan, Denda 1 permil, Isolir H+10, KPKNL, Halo BAKTI, Monev</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 border-t border-slate-200 bg-white rounded-b-xl">
+                        <form onsubmit="event.preventDefault(); handleUserSendMessage();" class="flex items-center space-x-2">
+                            <input type="text" id="chat-user-input" placeholder="Tanyakan seputar produk, tarif, kolokasi, atau proyek Palapa Ring..." class="flex-grow px-4 py-2.5 border border-slate-300 rounded-xl text-xs focus:outline-none focus:border-bakti-blue focus:ring-1 focus:ring-bakti-blue">
+                            <button type="submit" id="btn-send-chat" class="bg-bakti-blue hover:bg-bakti-darkblue text-white font-bold px-5 py-2.5 rounded-xl text-xs transition flex items-center shadow cursor-pointer">
+                                <span>Kirim</span> <i class="fa-solid fa-paper-plane ml-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 19 SOP Catalog View -->
+        <div id="sec-sop-catalog" class="tab-content hidden space-y-6">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="relative w-full md:w-96">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="sop-search" onkeyup="filterSop()" placeholder="Cari SOP berdasarkan nama, nomor, atau kata kunci..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-bakti-blue">
+                </div>
+                <div class="flex items-center space-x-2 overflow-x-auto w-full md:w-auto">
+                    <button onclick="filterSopCategory('all', this)" class="sop-cat-btn px-3 py-1.5 bg-bakti-blue text-white rounded-lg text-xs font-medium whitespace-nowrap cursor-pointer">Semua SOP (19)</button>
+                    <button onclick="filterSopCategory('penetapan', this)" class="sop-cat-btn px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-xs font-medium whitespace-nowrap cursor-pointer">Penetapan & Uji Coba</button>
+                    <button onclick="filterSopCategory('diskon', this)" class="sop-cat-btn px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-xs font-medium whitespace-nowrap cursor-pointer">Skema Diskon</button>
+                    <button onclick="filterSopCategory('keuangan', this)" class="sop-cat-btn px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-xs font-medium whitespace-nowrap cursor-pointer">Penagihan & Keuangan</button>
+                    <button onclick="filterSopCategory('operasional', this)" class="sop-cat-btn px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-xs font-medium whitespace-nowrap cursor-pointer">Operasional & Stop</button>
+                </div>
+            </div>
+
+            <!-- SOP Cards Container -->
+            <div id="sop-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- JS Populated -->
+            </div>
+        </div>
+
+        <!-- SOP Swimlane Modal Viewer -->
+        <div id="sop-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden items-center justify-center p-2 sm:p-4 no-print">
+            <div class="bg-white rounded-xl shadow-2xl max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden">
+                <div class="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span id="modal-sop-code" class="text-xs font-bold px-2.5 py-1 bg-blue-100 text-bakti-blue rounded-md border border-blue-200"></span>
+                            <span id="modal-sop-sla" class="text-xs font-semibold text-slate-500"></span>
+                        </div>
+                        <h2 id="modal-sop-title" class="text-base sm:text-lg font-bold text-slate-800 mt-1"></h2>
+                    </div>
+                    <button onclick="closeSopModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold px-2 cursor-pointer">&times;</button>
+                </div>
+                
+                <div class="p-5 overflow-y-auto space-y-6 text-sm" id="modal-sop-body">
+                    <!-- Dynamic Body with Swimlane Flowchart -->
+                </div>
+                
+                <div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-between items-center">
+                    <span class="text-xs text-slate-500"><i class="fa-solid fa-shield-halved text-bakti-blue mr-1"></i> SK Dirut BAKTI No 19 Tahun 2025</span>
+                    <button onclick="closeSopModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold cursor-pointer">Tutup Viewer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Letter Generator View -->
+        <div id="sec-letter-generator" class="tab-content hidden space-y-6">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-center gap-3 no-print">
+                <div class="flex items-center space-x-2 overflow-x-auto w-full md:w-auto">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mr-2">Template Surat:</span>
+                    <button onclick="selectLetterType('sph')" id="btn-doc-sph" class="doc-type-btn px-3.5 py-2 bg-bakti-blue text-white rounded-lg text-xs font-bold shadow flex items-center whitespace-nowrap cursor-pointer">
+                        <i class="fa-solid fa-file-invoice mr-1.5"></i> 1. Surat Penawaran Harga (SPH)
+                    </button>
+                    <button onclick="selectLetterType('bast')" id="btn-doc-bast" class="doc-type-btn px-3.5 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-xs font-bold flex items-center whitespace-nowrap cursor-pointer">
+                        <i class="fa-solid fa-file-signature mr-1.5"></i> 2. Berita Acara Serah Terima (BAST)
+                    </button>
+                    <button onclick="selectLetterType('bapl')" id="btn-doc-bapl" class="doc-type-btn px-3.5 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-xs font-bold flex items-center whitespace-nowrap cursor-pointer">
+                        <i class="fa-solid fa-file-contract mr-1.5"></i> 3. BAPL Retroactive Kolokasi
+                    </button>
+                </div>
+                <div class="flex items-center space-x-2 w-full md:w-auto justify-end">
+                    <button onclick="loadSamplePreset()" class="px-3 py-2 bg-amber-100 text-amber-800 hover:bg-amber-200 rounded-lg text-xs font-bold transition flex items-center border border-amber-300 cursor-pointer">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> Isi Contoh Data
+                    </button>
+                    <button onclick="downloadAsWord()" class="px-3.5 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs font-bold transition flex items-center shadow cursor-pointer">
+                        <i class="fa-solid fa-file-word mr-1.5"></i> Download .DOC
+                    </button>
+                    <button onclick="downloadAsHtml()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-bold transition flex items-center shadow cursor-pointer">
+                        <i class="fa-solid fa-code mr-1.5"></i> Download HTML
+                    </button>
+                    <button onclick="triggerPdfPrint()" class="px-3.5 py-2 bg-emerald-600 text-white hover:bg-emerald-700 rounded-lg text-xs font-bold transition flex items-center shadow cursor-pointer">
+                        <i class="fa-solid fa-print mr-1.5"></i> Cetak / PDF
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-5 bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4 no-print text-xs">
+                    <div class="border-b pb-2 flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center">
+                            <i class="fa-solid fa-pen-to-square text-bakti-blue mr-2"></i> Parameter Form <span id="form-title-label" class="ml-1 text-bakti-blue font-extrabold">(SPH)</span>
+                        </h3>
+                        <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-mono border border-blue-200">Template Khusus</span>
+                    </div>
+
+                    <div id="letter-form-container" class="space-y-3">
+                        <!-- Rendered dynamically via JS -->
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 print-area">
+                    <div class="a4-page border rounded-xl" id="letter-paper-content">
+                        <!-- Dynamic Rendered via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial & Discount Calculators View -->
+        <div id="sec-calculator" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <h3 class="font-bold text-xs uppercase text-slate-400 tracking-wider mb-2">Pilih Tool Simulasi</h3>
+                    <button onclick="switchCalcTool('credit-rating')" id="calc-btn-credit-rating" class="calc-tool-btn w-full text-left p-3 rounded-lg text-xs font-semibold bg-blue-50 text-bakti-blue flex items-center cursor-pointer">
+                        <i class="fa-solid fa-award mr-2.5 text-base"></i> Score Credit Rating Pelanggan
+                    </button>
+                    <button onclick="switchCalcTool('bumdes')" id="calc-btn-bumdes" class="calc-tool-btn w-full text-left p-3 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 flex items-center cursor-pointer">
+                        <i class="fa-solid fa-tree-city mr-2.5 text-base"></i> Diskon Kemitraan BUMDes
+                    </button>
+                    <button onclick="switchCalcTool('urutan')" id="calc-btn-urutan" class="calc-tool-btn w-full text-left p-3 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 flex items-center cursor-pointer">
+                        <i class="fa-solid fa-arrow-down-1-9 mr-2.5 text-base"></i> Diskon Urutan Pelanggan
+                    </button>
+                    <button onclick="switchCalcTool('track-record')" id="calc-btn-track-record" class="calc-tool-btn w-full text-left p-3 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 flex items-center cursor-pointer">
+                        <i class="fa-solid fa-star mr-2.5 text-base"></i> Diskon Track Record Baik
+                    </button>
+                    <button onclick="switchCalcTool('ppu')" id="calc-btn-ppu" class="calc-tool-btn w-full text-left p-3 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 flex items-center cursor-pointer">
+                        <i class="fa-solid fa-gauge-high mr-2.5 text-base"></i> Tarif Pay Per Use (PPU)
+                    </button>
+                    <button onclick="switchCalcTool('dark-fiber')" id="calc-btn-dark-fiber" class="calc-tool-btn w-full text-left p-3 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 flex items-center cursor-pointer">
+                        <i class="fa-solid fa-ruler-horizontal mr-2.5 text-base"></i> Pengali Dark Fiber (Akses/LTC)
+                    </button>
+                </div>
+
+                <div class="lg:col-span-9 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    
+                    <div id="tool-credit-rating" class="calc-view space-y-5">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800">Simulasi Parameter Score Credit Rating (SOP I - Lampiran I)</h3>
+                            <p class="text-xs text-slate-500">Legalitas bersifat mutlak. Penilaian dilanjutkan pada aspek Komersil, Finansial, dan Fisik.</p>
+                        </div>
+
+                        <form id="form-credit-rating" onsubmit="event.preventDefault(); calculateCreditRating();" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="col-span-2 bg-blue-50/70 p-3 rounded-lg border border-blue-200 flex items-center justify-between">
+                                <span class="font-bold text-blue-900">1. Aspek Legalitas (Akte, Izin Operasional, SPT Terbaru)</span>
+                                <select id="cr-legal" class="p-1.5 border border-slate-300 rounded focus:ring-1 focus:ring-bakti-blue">
+                                    <option value="Lengkap">Lengkap (Memenuhi Syarat Mutlak)</option>
+                                    <option value="Tidak Lengkap">Tidak Lengkap (Proses Dihentikan)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">Lama Operasional Perusahaan (Komersil)</label>
+                                <select id="cr-komersil" class="w-full p-2 border border-slate-300 rounded-lg">
+                                    <option value="20">&gt; 7 Tahun (20 poin)</option>
+                                    <option value="15">5 - 7 Tahun (15 poin)</option>
+                                    <option value="10">3 - 5 Tahun (10 poin)</option>
+                                    <option value="5">0 - 3 Tahun (5 poin)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">Tahun Berturut-turut Profit (Finansial)</label>
+                                <select id="cr-profit" class="w-full p-2 border border-slate-300 rounded-lg">
+                                    <option value="25">&gt; 5 Tahun Berturut (25 poin)</option>
+                                    <option value="20">4 Tahun Berturut (20 poin)</option>
+                                    <option value="15">3 Tahun Berturut (15 poin)</option>
+                                    <option value="10">2 Tahun Berturut (10 poin)</option>
+                                    <option value="5">1 Tahun (5 poin)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">Debt to Equity Ratio / DER (Finansial)</label>
+                                <select id="cr-der" class="w-full p-2 border border-slate-300 rounded-lg">
+                                    <option value="20">DER &lt; 100% (20 poin)</option>
+                                    <option value="10">DER &gt; 120% (10 poin)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">Tipe Bangunan Kantor (Fisik)</label>
+                                <select id="cr-bangunan" class="w-full p-2 border border-slate-300 rounded-lg">
+                                    <option value="20">Gedung / Office Tower (20 poin)</option>
+                                    <option value="15">Ruko (15 poin)</option>
+                                    <option value="10">Rumah (10 poin)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">Status Kepemilikan Kantor (Fisik)</label>
+                                <select id="cr-kepemilikan" class="w-full p-2 border border-slate-300 rounded-lg">
+                                    <option value="20">Milik Sendiri (SHM / HGB) (20 poin)</option>
+                                    <option value="10">Sewa / Pihak Lain (10 poin)</option>
+                                </select>
+                            </div>
+
+                            <div class="col-span-2 pt-2">
+                                <button type="submit" class="w-full bg-bakti-blue text-white py-2.5 rounded-lg font-bold hover:bg-bakti-darkblue transition cursor-pointer">
+                                    Hitung Score Credit Rating
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="res-credit-rating" class="p-4 bg-slate-100 rounded-xl border border-slate-200 hidden"></div>
+                    </div>
+
+                    <div id="tool-bumdes" class="calc-view space-y-5 hidden">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800">Simulasi Borang Penilaian Diskon Kemitraan BUMDes (Perdirut 03/2024)</h3>
+                            <p class="text-xs text-slate-500">Maksimum diskon BUMDes Tahun ke-1: 90%, Program BAKTI Lainnya: 80% (Khusus Bandwidth 1 Gbps).</p>
+                        </div>
+
+                        <form id="form-bumdes" onsubmit="event.preventDefault(); calculateBumdes();" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">1. Kepeloporan (Bobot 20%)</label>
+                                <select id="bm-kepeloporan" class="w-full p-2 border border-slate-300 rounded-lg">
+                                    <option value="5">ISP Pertama di Wilayah (Skor 5)</option>
+                                    <option value="4">ISP Kedua (Skor 4)</option>
+                                    <option value="3">ISP Ketiga (Skor 3)</option>
+                                    <option value="2">ISP Keempat (Skor 2)</option>
+                                    <option value="1">ISP Kelima (Skor 1)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">2. Pengembangan Infrastruktur (Bobot 25%)</label>
+                                <select id="bm-infrastruktur" class="w-full p-2 border border-slate-300 rounded-lg">
+                                    <option value="5">Proporsi Investasi ISP &gt; 75% (Skor 5)</option>
+                                    <option value="4">Proporsi Investasi 50 - 75% (Skor 4)</option>
+                                    <option value="3">Proporsi Investasi 25 - 49% (Skor 3)</option>
+                                    <option value="2">Proporsi Investasi &lt; 25% (Skor 2)</option>
+                                    <option value="1">Proporsi Investasi 0% (Skor 1)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">3. Layanan Eksisting (Bobot 20%)</label>
+                                <select id="bm-eksisting" class="w-full p-2 border border-slate-300 rounded-lg">
+                                    <option value="5">Tidak ada GSM & Fixed (Skor 5)</option>
+                                    <option value="4">GSM Buruk (1 bar / Edge) (Skor 4)</option>
+                                    <option value="3">GSM Cukup Sebagian Wilayah (Skor 3)</option>
+                                    <option value="2">GSM Cukup Baik (Skor 2)</option>
+                                    <option value="1">GSM & Fixed Internet Bagus (Skor 1)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-1">4. Kelayakan Usaha (Bobot 25%)</label>
+                                <select id="bm-kelayakan" class="w-full p-2 border border-slate-300 rounded-lg">
+                                    <option value="5">&lt; 200 KK (Sangat Butuh Akses) (Skor 5)</option>
+                                    <option value="4">200 - 300 KK (Skor 4)</option>
+                                    <option value="3">301 - 400 KK (Skor 3)</option>
+                                    <option value="2">401 - 500 KK (Skor 2)</option>
+                                    <option value="1">&gt; 500 KK (Skor 1)</option>
+                                </select>
+                            </div>
+
+                            <div class="col-span-2">
+                                <label class="block font-semibold text-slate-700 mb-1">5. Pelatihan & Pendampingan (Bobot 10%)</label>
+                                <select id="bm-pelatihan" class="w-full p-2 border border-slate-300 rounded-lg">
+                                    <option value="5">Latih (2 hr) + Magang + Pendampingan Intensif (Skor 5)</option>
+                                    <option value="4">Latih + Pendampingan Intensif (Skor 4)</option>
+                                    <option value="3">Latih + Pendampingan Tidak Intensif (Skor 3)</option>
+                                    <option value="2">Latih Tanpa Pendampingan (Skor 2)</option>
+                                    <option value="1">Tanpa Pelatihan (Skor 1)</option>
+                                </select>
+                            </div>
+
+                            <div class="col-span-2">
+                                <button type="submit" class="w-full bg-amber-600 text-white py-2.5 rounded-lg font-bold hover:bg-amber-700 transition cursor-pointer">
+                                    Hitung Diskon BUMDes
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="res-bumdes" class="p-4 bg-amber-50 rounded-xl border border-amber-200 hidden"></div>
+                    </div>
+
+                    <div id="tool-urutan" class="calc-view space-y-5 hidden">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800">Diskon Berdasarkan Pertimbangan Urutan Pelanggan (SOP V)</h3>
+                            <p class="text-xs text-slate-500">Formula Diskon: 1 / (n + 1), dimana n = urutan pelanggan pada proyek & kapasitas yang sama.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                            <div class="p-4 bg-slate-50 border rounded-xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase">Pelanggan Ke-1</span>
+                                <div class="text-2xl font-bold text-bakti-blue mt-1">Maks 50%</div>
+                                <span class="text-[10px] text-slate-400">Formula 1 / (1+1)</span>
+                            </div>
+                            <div class="p-4 bg-slate-50 border rounded-xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase">Pelanggan Ke-2</span>
+                                <div class="text-2xl font-bold text-bakti-blue mt-1">Maks 33.3%</div>
+                                <span class="text-[10px] text-slate-400">Formula 1 / (2+1)</span>
+                            </div>
+                            <div class="p-4 bg-slate-50 border rounded-xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase">Pelanggan Ke-3</span>
+                                <div class="text-2xl font-bold text-bakti-blue mt-1">Maks 25%</div>
+                                <span class="text-[10px] text-slate-400">Formula 1 / (3+1)</span>
+                            </div>
+                            <div class="p-4 bg-slate-50 border rounded-xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase">Pelanggan Ke-4</span>
+                                <div class="text-2xl font-bold text-bakti-blue mt-1">Maks 20%</div>
+                                <span class="text-[10px] text-slate-400">Formula 1 / (4+1)</span>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-blue-50 text-blue-900 rounded-lg text-xs">
+                            <i class="fa-solid fa-circle-info mr-1"></i> Diskon urutan berlaku untuk masa sewa <strong>maksimal 12 bulan</strong>. Pelanggan ke-5 dan seterusnya berlaku tarif normal.
+                        </div>
+                    </div>
+
+                    <div id="tool-track-record" class="calc-view space-y-5 hidden">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800">Diskon Rekam Jejak (Track Record) Baik (SOP IX)</h3>
+                            <p class="text-xs text-slate-500">Syarat Mutlak: Masa berlangganan &gt; 36 Bulan (3 Tahun) & Skor Evaluasi &gt; 77 Poin.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                            <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                                <div class="text-amber-600 font-bold text-lg"><i class="fa-solid fa-trophy mr-1"></i> GOLD</div>
+                                <div class="text-2xl font-extrabold text-slate-800 my-1">36% - 50%</div>
+                                <p class="text-xs text-slate-600">Sewa Kapasitas &ge; 35 Gbps (Utilisasi proyek &le; 50%)</p>
+                            </div>
+                            <div class="p-4 bg-slate-100 border border-slate-300 rounded-xl">
+                                <div class="text-slate-600 font-bold text-lg"><i class="fa-solid fa-medal mr-1"></i> SILVER</div>
+                                <div class="text-2xl font-extrabold text-slate-800 my-1">26% - 35%</div>
+                                <p class="text-xs text-slate-600">Sewa Kapasitas &ge; 10 Gbps</p>
+                            </div>
+                            <div class="p-4 bg-orange-50 border border-orange-200 rounded-xl">
+                                <div class="text-amber-800 font-bold text-lg"><i class="fa-solid fa-award mr-1"></i> BRONZE</div>
+                                <div class="text-2xl font-extrabold text-slate-800 my-1">0% - 25%</div>
+                                <p class="text-xs text-slate-600">Sewa Kapasitas &ge; 1 Gbps</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tool-ppu" class="calc-view space-y-5 hidden">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800">Kalkulator Tarif Pay Per Use / PPU (Perdirut 03/2024 Pas 16)</h3>
+                            <p class="text-xs text-slate-500">Khusus Bandwidth 10 Gbps di proyek utilisasi &le; 60%. Minimal bayar setara 2.5 Gbps (25%).</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <label class="text-xs font-semibold text-slate-700">Peak Utilization (Gbps):</label>
+                            <input type="number" id="ppu-gbps" step="0.1" min="0" max="10" value="3.5" oninput="calculatePPU()" class="p-2 border border-slate-300 rounded-lg text-sm w-32 focus:outline-none focus:border-bakti-blue">
+                        </div>
+                        <div id="res-ppu" class="p-4 bg-blue-50 border border-blue-200 rounded-xl text-xs space-y-2"></div>
+                    </div>
+
+                    <div id="tool-dark-fiber" class="calc-view space-y-5 hidden">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800">Skema Pengali Dark Fiber Akses & LTC (Pasal 6 & 7)</h3>
+                            <p class="text-xs text-slate-500">Formulasi pengali tarif Dark Fiber berdasarkan proporsi jarak dan masa komitmen.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                            <div class="p-4 bg-slate-50 rounded-xl border">
+                                <h4 class="font-bold text-slate-800 mb-2">A. Dark Fiber Akses (Proporsi Jarak)</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex justify-between border-b pb-1"><span>Jarak &le; 25% Total Segmen:</span> <strong class="text-bakti-blue">2.5 x Tarif Normal</strong></li>
+                                    <li class="flex justify-between border-b pb-1"><span>Jarak 25% &lt; x &le; 50%:</span> <strong class="text-bakti-blue">2.0 x Tarif Normal</strong></li>
+                                    <li class="flex justify-between border-b pb-1"><span>Jarak 50% &lt; x &le; 75%:</span> <strong class="text-bakti-blue">1.5 x Tarif Normal</strong></li>
+                                    <li class="flex justify-between border-b pb-1"><span>Jarak &gt; 75%:</span> <strong class="text-bakti-blue">1.0 x Tarif Normal</strong></li>
+                                </ul>
+                            </div>
+
+                            <div class="p-4 bg-slate-50 rounded-xl border">
+                                <h4 class="font-bold text-slate-800 mb-2">B. Long Term Commitment / LTC (Komitmen Sewa)</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex justify-between border-b pb-1"><span>Komitmen 3 Tahun:</span> <strong class="text-emerald-600">0.75 x Tarif (Diskon 25%)</strong></li>
+                                    <li class="flex justify-between border-b pb-1"><span>Komitmen 4 - 7 Tahun:</span> <strong class="text-emerald-600">0.60 x Tarif (Diskon 40%)</strong></li>
+                                    <li class="flex justify-between border-b pb-1"><span>Komitmen 8 - 10 Tahun:</span> <strong class="text-emerald-600">0.55 x Tarif (Diskon 45%)</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoicing & Penalty Maturity Timeline View -->
+        <div id="sec-billing" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800">Simulasi Maturity Timeline Penagihan & Denda (SOP XI & XIX)</h3>
+                    <p class="text-xs text-slate-500">Visualisasi eskalasi penagihan pelanggan dari invoice terbit hingga pelimpahan ke KPKNL.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-xl border text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Tanggal Terima Invoice Pelanggan:</label>
+                        <input type="date" id="bill-start-date" onchange="updateBillingTimeline()" class="w-full p-2 border border-slate-300 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Nilai Tagihan Bulanan (Rp):</label>
+                        <input type="number" id="bill-amount" value="50000000" oninput="updateBillingTimeline()" class="w-full p-2 border border-slate-300 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Hari Keterlambatan Pasca Jatuh Tempo:</label>
+                        <input type="number" id="bill-late-days" min="0" max="120" value="12" oninput="updateBillingTimeline()" class="w-full p-2 border border-slate-300 rounded-lg">
+                    </div>
+                </div>
+
+                <div id="bill-penalty-res" class="p-4 bg-rose-50 border border-rose-200 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center text-xs">
+                    <!-- Dynamic -->
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+                    <div class="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                        <div class="font-bold text-blue-900 mb-1"><i class="fa-solid fa-calendar-check mr-1"></i> H+14 Hari Kerja</div>
+                        <strong class="text-slate-800 block">Jatuh Tempo Pembayaran</strong>
+                        <p class="text-slate-500 mt-1">Batas pembayaran normal sesuai Perjanjian Penyediaan Layanan.</p>
+                    </div>
+
+                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                        <div class="font-bold text-amber-900 mb-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i> H+1 Pasca Jatuh Tempo</div>
+                        <strong class="text-slate-800 block">Denda Keterlambatan</strong>
+                        <p class="text-slate-500 mt-1">Denda 1 permil (0.1%) per hari kalender dari tagihan terutang. Maksimal denda 5%.</p>
+                    </div>
+
+                    <div class="p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                        <div class="font-bold text-orange-900 mb-1"><i class="fa-solid fa-ban mr-1"></i> H+10 Hari Kalender</div>
+                        <strong class="text-slate-800 block">Surat Tagihan 1 & Isolir</strong>
+                        <p class="text-slate-500 mt-1">Penerbitan ST1 & pengisoliran port layanan (kecuali disetujui Promise to Pay).</p>
+                    </div>
+
+                    <div class="p-3 bg-rose-50 border border-rose-200 rounded-lg">
+                        <div class="font-bold text-rose-900 mb-1"><i class="fa-solid fa-plug-circle-xmark mr-1"></i> H+30 Hari Kalender</div>
+                        <strong class="text-slate-800 block">Pemutusan Fisik & ST2</strong>
+                        <p class="text-slate-500 mt-1">Pencabutan fisik layanan, surat pemutusan kontrak sepihak & pembongkaran perangkat.</p>
+                    </div>
+
+                    <div class="p-3 bg-purple-50 border border-purple-200 rounded-lg">
+                        <div class="font-bold text-purple-900 mb-1"><i class="fa-solid fa-building-columns mr-1"></i> H+90 Pasca ST3</div>
+                        <strong class="text-slate-800 block">Pelimpahan KPKNL</strong>
+                        <p class="text-slate-500 mt-1">Piutang macet dilimpahkan resmi ke Panitia Urusan Piutang Negara (PUPN) / KPKNL.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Helpdesk & Halo BAKTI Simulator View -->
+        <div id="sec-halo-bakti" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-1 bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center">
+                        <i class="fa-solid fa-ticket text-bakti-blue mr-2"></i> Simulator Tiket Keluhan (SOP XV)
+                    </h3>
+                    <form onsubmit="event.preventDefault(); submitTicket();" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Channel Komunikasi:</label>
+                            <select id="t-channel" class="w-full p-2 border rounded-lg">
+                                <option value="WhatsApp / Live Chat">WhatsApp / Live Chat (&lt; 5 mnt response)</option>
+                                <option value="Email Hotline">Email (&lt; 15 mnt response)</option>
+                                <option value="Call Center / Telepon">Telepon (&lt; 30 detik response)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Customer Circuit ID (CID):</label>
+                            <input type="text" id="t-cid" placeholder="Contoh: PLP-MID-2025-089" required class="w-full p-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Segmen Proyek / Wilayah:</label>
+                            <input type="text" id="t-segment" placeholder="Contoh: P5 - Kendari-Wanggudu" required class="w-full p-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Jenis Keluhan:</label>
+                            <select id="t-type" class="w-full p-2 border rounded-lg">
+                                <option value="Link Down / Cut">Link Down / Fiber Cut</option>
+                                <option value="High Latency / Packet Loss">High Latency / Packet Loss</option>
+                                <option value="Permohonan Maintenance">Jadwal Maintenance / Reschedule</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-bakti-blue text-white py-2 rounded-lg font-bold hover:bg-bakti-darkblue transition cursor-pointer">
+                            Buat Tiket Simulasikan
+                        </button>
+                    </form>
+                </div>
+
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center justify-between">
+                        <span><i class="fa-solid fa-list-check text-bakti-blue mr-2"></i> Log Tiket Terdaftar</span>
+                        <span class="text-xs font-normal text-slate-500">SLA Analisis BUP: Maksimal 45 Menit</span>
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-100 text-slate-700 uppercase font-bold border-b">
+                                <tr>
+                                    <th class="p-2.5">No Tiket</th>
+                                    <th class="p-2.5">CID / Segmen</th>
+                                    <th class="p-2.5">Channel</th>
+                                    <th class="p-2.5">Status SLA Response</th>
+                                    <th class="p-2.5">Kategori Analisis BUP</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ticket-list-body" class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-2.5 font-semibold text-bakti-blue">TKT-20250210-01</td>
+                                    <td class="p-2.5">PLP-MID-012<br><span class="text-[10px] text-slate-400">P5 - Kendari-Wanggudu</span></td>
+                                    <td class="p-2.5">WhatsApp</td>
+                                    <td class="p-2.5"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold">&lt; 2 Menit (Passed)</span></td>
+                                    <td class="p-2.5"><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Gangguan Jaringan (Tiket NOC)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Floating Chat Launcher -->
+    <div class="fixed bottom-6 right-6 z-30 no-print">
+        <button onclick="switchTab('cs-chatbot')" class="bg-gradient-to-r from-bakti-blue to-indigo-600 hover:from-bakti-darkblue hover:to-indigo-800 text-white p-4 rounded-full shadow-2xl transition transform hover:scale-105 flex items-center space-x-2 group border-2 border-white cursor-pointer">
+            <i class="fa-solid fa-comments text-xl"></i>
+            <span class="text-xs font-bold hidden sm:inline-block pr-1">CS AI Palapa Ring</span>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-bakti-darkblue text-white py-6 border-t border-slate-800 text-xs no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="font-bold">PT Len Telekomunikasi Indonesia (BUP Palapa Ring Paket Tengah)</p>
+                <p class="text-slate-400 text-[11px]">Kementerian Komunikasi dan Digital RI & BAKTI | Menara MTH Lt. M, Jakarta Selatan</p>
+            </div>
+            <div class="text-slate-400 text-right text-[11px]">
+                <p>SOP & Product Knowledge Portal &copy; 2025</p>
+                <p>Hotline CS: 1500-876 | "Semua Berhak Terhubung"</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Official SOP Data Base (19 Official SOPs)
+        const sopData = [
+            {
+                id: 'sop-1',
+                code: 'SOP I',
+                category: 'penetapan',
+                title: 'Penetapan Pelanggan dan Perpanjangan Kontrak Berlangganan',
+                sla: '14 Hari Kerja',
+                description: 'Mengatur penerimaan dokumen peminatan, evaluasi Credit Rating (Legalitas, Komersil, Finansial, Fisik), penetapan KHS/Non-KHS, penerbitan SP3L, perpanjangan otomatis, dan penandatanganan Perjanjian Penyediaan Layanan.',
+                actors: ['Pelanggan', 'BUP Komersial', 'Dir LTI BU BAKTI', 'Dir Infrastruktur'],
+                steps: [
+                    { actor: 'Pelanggan', text: 'Mengajukan Surat Permohonan Minat & Dokumen Legalitas Lengkap.' },
+                    { actor: 'BUP Komersial', text: 'Melakukan verifikasi berkas & penilaian Score Credit Rating (Akte, Profit, DER, Fisik Kantor).' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Menerbitkan SP3L (Surat Perintah Persiapan Penyediaan Layanan) & Draf Perjanjian.' },
+                    { actor: 'Pelanggan', text: 'Menandatangani Perjanjian Penyediaan Layanan & BAST Aktivasi.' }
+                ]
+            },
+            {
+                id: 'sop-2',
+                code: 'SOP II',
+                category: 'penetapan',
+                title: 'Uji Coba Layanan (Free Trial & Stability Test)',
+                sla: 'Maks 14 Hari Kalender',
+                description: 'Fasilitas uji coba gratis maksimal 14 hari kalender untuk layanan Bandwidth dan 1x24 jam stability test untuk Dark Fiber. Pelanggan wajib konfirmasi minat H-3 sebelum trial usai.',
+                actors: ['Pelanggan', 'BUP Komersial', 'BUP KPBU NOC'],
+                steps: [
+                    { actor: 'Pelanggan', text: 'Mengajukan permohonan Trial / Stability Test setelah persetujuan SP3L.' },
+                    { actor: 'BUP KPBU NOC', text: 'Melakukan konfigurasikan port trial & mengaktifkan sinyal test.' },
+                    { actor: 'Pelanggan', text: 'Melakukan pengujian kualitas trafik (Latency, Jitter, Throughput).' },
+                    { actor: 'Pelanggan', text: 'Memberikan konfirmasi tertulis (Lanjut Kontrak / Batal) pada H-3 Trial.' }
+                ]
+            },
+            {
+                id: 'sop-3',
+                code: 'SOP III',
+                category: 'penetapan',
+                title: 'Penempatan Perangkat Pelanggan (Kolokasi NOC)',
+                sla: '5 Hari Kerja',
+                description: 'Verifikasi ketersediaan ruang rack & daya di NOC-TS. Gratis 1U + daya maks 10A DC / 2A AC untuk perangkat aktivasi pertama pelanggan kapasitas.',
+                actors: ['Pelanggan', 'BUP Komersial', 'BUP KPBU NOC'],
+                steps: [
+                    { actor: 'Pelanggan', text: 'Mengirimkan detail spesifikasi teknis perangkat (Dimensi U, Konsumsi Watt/Ampere).' },
+                    { actor: 'BUP KPBU NOC', text: 'Pemeriksaan kapasitas daya pendukung PLN/Genset & ketersediaan space rack.' },
+                    { actor: 'BUP Komersial', text: 'Menentukan status bebas biaya (1U Pertama) atau tarif berbayar + faktor hardship.' },
+                    { actor: 'Pelanggan', text: 'Instalasi perangkat di NOC dilanjutkan penandatanganan BAST Kolokasi.' }
+                ]
+            },
+            {
+                id: 'sop-4',
+                code: 'SOP IV',
+                category: 'penetapan',
+                title: 'Perizinan Masuk NOC (Work Request Form / WRF)',
+                sla: '2 Hari Kerja',
+                description: 'Izin akses fisik ke NOC/INT Palapa Ring. Pelanggan wajib mengajukan WRF melampirkan Method of Procedure (MoP), Timeplan, K3/HSE, serta impact analysis.',
+                actors: ['Pelanggan', 'BUP Komersial', 'Dir Infrastruktur'],
+                steps: [
+                    { actor: 'Pelanggan', text: 'Mengirimkan Formulir WRF H-2 sebelum kunjungan dengan daftar teknisi & K3.' },
+                    { actor: 'BUP Komersial', text: 'Review administratif kelengkapan ID card & MoP teknis.' },
+                    { actor: 'Dir Infrastruktur', text: 'Persetujuan izin masuk & penerbitan Security Pass NOC.' },
+                    { actor: 'Pelanggan', text: 'Pelaksanaan kerja di supervisi oleh Tim Engineer NOC.' }
+                ]
+            },
+            {
+                id: 'sop-5',
+                code: 'SOP V',
+                category: 'diskon',
+                title: 'Diskon Berdasarkan Pertimbangan Urutan Pelanggan',
+                sla: '3 Hari Kerja',
+                description: 'Skema diskon urutan n+1: Formula 1/(n+1). Pelanggan ke-1 (50%), ke-2 (33.3%), ke-3 (25%), ke-4 (20%). Berlaku maksimal 12 bulan masa sewa.',
+                actors: ['Pelanggan', 'BUP Komersial', 'Dir LTI BU BAKTI'],
+                steps: [
+                    { actor: 'BUP Komersial', text: 'Cek histori urutan pendaftar pada segmen proyek & kapasitas yang sama.' },
+                    { actor: 'BUP Komersial', text: 'Hitung persentase diskon berdasarkan urutan n (1/(n+1)).' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Verifikasi & persetujuan penetapan besaran diskon urutan.' }
+                ]
+            },
+            {
+                id: 'sop-6',
+                code: 'SOP VI',
+                category: 'diskon',
+                title: 'Diskon Usaha Mikro dan Usaha Kecil (UMK)',
+                sla: '5 Hari Kerja',
+                description: 'Potongan harga khusus bagi pengusaha mikro (modal <=1M) dan kecil (1-5M) yang memiliki NIB, IUMK, serta laporan keuangan resmi.',
+                actors: ['Pelanggan', 'BUP Komersial', 'Dir LTI BU BAKTI'],
+                steps: [
+                    { actor: 'Pelanggan', text: 'Submit legalitas UMK (NIB, Surat IUMK, Laporan Keuangan).' },
+                    { actor: 'BUP Komersial', text: 'Validasi kategori UMK sesuai ketentuan UU UMKM.' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Persetujuan tarif komersil insentif UMK.' }
+                ]
+            },
+            {
+                id: 'sop-7',
+                code: 'SOP VII',
+                category: 'diskon',
+                title: 'Diskon Kemitraan BUMDes / BUMDesma',
+                sla: '7 Hari Kerja',
+                description: 'Insentif khusus Bandwidth 1 Gbps untuk BUMDes. Penilaian 5 Borang (Kepeloporan, Infra, Eksisting, Kelayakan, Pelatihan). Diskon Tahun ke-1 s.d. 90%.',
+                actors: ['Pelanggan', 'BUP Komersial', 'Dir LTI BU BAKTI'],
+                steps: [
+                    { actor: 'Pelanggan', text: 'Mengisi Borang Penilaian Kemitraan BUMDes (5 Parameter).' },
+                    { actor: 'BUP Komersial', text: 'Skoring terbobot (Kepeloporan 20%, Infra 25%, Eksisting 20%, Kelayakan 25%, Pelatihan 10%).' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Penetapan besaran diskon BUMDes Tahun ke-1 (Maks 90%).' }
+                ]
+            },
+            {
+                id: 'sop-8',
+                code: 'SOP VIII',
+                category: 'diskon',
+                title: 'Diskon Kompensasi Gangguan dan Kerusakan',
+                sla: 'Evaluasi Bulanan',
+                description: 'Pengurangan tagihan akibat downtime/fiber cut mayor melebihi toleransi SLA bulanan berdasarkan incident log resmi Direktorat Infrastruktur.',
+                actors: ['Pelanggan', 'BUP Komersial', 'Dir Infrastruktur', 'Dir LTI BU BAKTI'],
+                steps: [
+                    { actor: 'Dir Infrastruktur', text: 'Rekapitulasi incident log & durasi downtime per sirkuit.' },
+                    { actor: 'BUP Komersial', text: 'Menghitung klaim kompensasi potongan tagihan sesuai formula SLA.' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Approval pemotongan nilai Invoice PNBP bulan berikutnya.' }
+                ]
+            },
+            {
+                id: 'sop-9',
+                code: 'SOP IX',
+                category: 'diskon',
+                title: 'Diskon Rekam Jejak (Track Record) Baik',
+                sla: '5 Hari Kerja',
+                description: 'Diskon apresiasi pelanggan loyal (Sewa > 36 bulan & Nilai Evaluasi > 77): Gold (36-50%), Silver (26-35%), Bronze (0-25%).',
+                actors: ['BUP Komersial', 'Dir LTI BU BAKTI'],
+                steps: [
+                    { actor: 'BUP Komersial', text: 'Evaluasi histori pembayaran & lama berlangganan (>36 Bulan).' },
+                    { actor: 'BUP Komersial', text: 'Kategorisasi Tier (Gold / Silver / Bronze) berdasarkan total bandwidth.' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Persetujuan perpanjangan dengan insentif Track Record.' }
+                ]
+            },
+            {
+                id: 'sop-10',
+                code: 'SOP X',
+                category: 'diskon',
+                title: 'Diskon Program Promosi',
+                sla: 'Sesuai Program',
+                description: 'Program insentif penetrasi pasar pada wilayah proyek dengan tingkat utilisasi < 60%. Tier Gold (50%), Silver (30%), Bronze (20%).',
+                actors: ['BUP Komersial', 'Dir LTI BU BAKTI'],
+                steps: [
+                    { actor: 'BUP Komersial', text: 'Pengajuan usulan promo wilayah utilisasi rendah (<60%).' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Persetujuan kuota promo & skema insentif wilayah.' }
+                ]
+            },
+            {
+                id: 'sop-11',
+                code: 'SOP XI',
+                category: 'keuangan',
+                title: 'Penagihan dan Denda Keterlambatan Pembayaran',
+                sla: 'Jatuh Tempo H+14 Hari Kerja',
+                description: 'Penerbitan Invoice E-PNBP bulanan. Keterlambatan pasca jatuh tempo dikenakan denda 1 permil (0.1%) per hari kalender (Maksimal 5%).',
+                actors: ['BUP Komersial', 'Pelanggan'],
+                steps: [
+                    { actor: 'BUP Komersial', text: 'Penerbitan Kode Billing E-PNBP tanggal 1 setiap bulan.' },
+                    { actor: 'Pelanggan', text: 'Pembayaran tagihan sebelum Jatuh Tempo (H+14 Hari Kerja).' },
+                    { actor: 'BUP Komersial', text: 'Penghitungan denda 1 permil/hari jika melampaui jatuh tempo.' }
+                ]
+            },
+            {
+                id: 'sop-12',
+                code: 'SOP XII',
+                category: 'keuangan',
+                title: 'Penagihan Imbalan BUP 5%',
+                sla: 'Triwulanan (Maks 14 Hari)',
+                description: 'Prosedur klaim imbalan hak BUP sebesar 5% dari total penerimaan PNBP komersil yang berhasil disetorkan ke Kas Negara.',
+                actors: ['BUP Komersial', 'Dir LTI BU BAKTI'],
+                steps: [
+                    { actor: 'BUP Komersial', text: 'Rekapitulasi setoran PNBP triwulanan yang terekam di SIMPONI.' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Verifikasi & pembayaran imbalan jasa BUP 5%.' }
+                ]
+            },
+            {
+                id: 'sop-13',
+                code: 'SOP XIII',
+                category: 'keuangan',
+                title: 'Penagihan Biaya Operasional BUP',
+                sla: 'Triwulanan',
+                description: 'Reimbursement biaya operasional pemasaran & penagihan BUP sesuai rencana kerja anggaran yang disetujui BAKTI.',
+                actors: ['BUP Komersial', 'Dir LTI BU BAKTI'],
+                steps: [
+                    { actor: 'BUP Komersial', text: 'Pengajuan proposal operasional tahunan paling lambat Oktober.' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Evaluasi & penyerahan BAST PPHP reimbursement operasional.' }
+                ]
+            },
+            {
+                id: 'sop-14',
+                code: 'SOP XIV',
+                category: 'keuangan',
+                title: 'Monitoring Status Pembayaran dan Piutang',
+                sla: 'Mingguan (Weekly)',
+                description: 'Rapat mingguan evaluasi rekapitulasi tagihan, cash-in E-PNBP, penanganan invoice overdue, dan usulan tindakan isolir.',
+                actors: ['BUP Komersial', 'Dir LTI BU BAKTI'],
+                steps: [
+                    { actor: 'BUP Komersial', text: 'Penyusunan laporan aging schedule piutang bulanan & overdue.' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Evaluasi tindakan penagihan intensif & persetujuan isolir.' }
+                ]
+            },
+            {
+                id: 'sop-15',
+                code: 'SOP XV',
+                category: 'operasional',
+                title: 'Penanganan Keluhan Pelanggan (Halo BAKTI)',
+                sla: 'Respon awal < 5 Mnt (WA), Analisis NOC < 45 Mnt',
+                description: 'Layanan Helpdesk 24/7. Penanganan gangguan jaringan (Fiber cut, degradasi) dengan SLA analisis BUP NOC maksimal 45 menit & berkala update tiap 60 menit.',
+                actors: ['Pelanggan', 'Helpdesk Halo BAKTI', 'BUP KPBU NOC'],
+                steps: [
+                    { actor: 'Pelanggan', text: 'Lapor gangguan via WA, Email, atau Call Center 1500-876.' },
+                    { actor: 'Helpdesk Halo BAKTI', text: 'Penerbitan Tiket Gangguan & eskalasi ke NOC (<15 mnt).' },
+                    { actor: 'BUP KPBU NOC', text: 'Diagnosa penyebab gangguan (<45 mnt) & dispatch tim FO lapangan.' },
+                    { actor: 'Helpdesk Halo BAKTI', text: 'Update status pemulihan ke pelanggan hingga Link UP & Close Tiket.' }
+                ]
+            },
+            {
+                id: 'sop-16',
+                code: 'SOP XVI',
+                category: 'operasional',
+                title: 'Pembongkaran Perangkat Pelanggan',
+                sla: 'Maks 30 Hari Kalender',
+                description: 'Kewajiban pengeluaran perangkat pelanggan dari NOC Palapa Ring setelah masa kontrak berakhir atau terjadi pemutusan hubungan hukum.',
+                actors: ['Pelanggan', 'BUP Komersial', 'BUP KPBU NOC'],
+                steps: [
+                    { actor: 'BUP Komersial', text: 'Penerbitan Surat Perintah Pembongkaran Perangkat.' },
+                    { actor: 'Pelanggan', text: 'Pengajuan WRF Pembongkaran & evakuasi perangkat (Maks 30 hr).' },
+                    { actor: 'BUP KPBU NOC', text: 'Penandatanganan BAST Pembongkaran & Pengosongan Space Rack.' }
+                ]
+            },
+            {
+                id: 'sop-17',
+                code: 'SOP XVII',
+                category: 'operasional',
+                title: 'Monitoring dan Evaluasi Lapangan (Monev)',
+                sla: 'Sesuai Jadwal',
+                description: 'Kunjungan kerja pengawasan & audit kondisi fisik infrastruktur NOC, kerapian kabel kolokasi, dan keandalan sistem daya pendukung.',
+                actors: ['BUP Komersial', 'Dir LTI BU BAKTI', 'Dir Infrastruktur'],
+                steps: [
+                    { actor: 'Dir LTI BU BAKTI', text: 'Penerbitan Surat Tugas Monev Lapangan (SPT).' },
+                    { actor: 'BUP Komersial', text: 'Pelaksanaan inspeksi fisik NOC & wawancara pemanfaatan layanan.' },
+                    { actor: 'BUP Komersial', text: 'Penyusunan Berita Acara Hasil Monev & rekomendasi tindak lanjut.' }
+                ]
+            },
+            {
+                id: 'sop-18',
+                code: 'SOP XVIII',
+                category: 'operasional',
+                title: 'Penghentian Normal Kontrak Berlangganan',
+                sla: 'Surat H-30 Kontrak usai',
+                description: 'Prosedur terminasi layanan atas permohonan pelanggan pada akhir masa kontrak dengan pemberitahuan tertulis minimal 30 hari sebelumnya.',
+                actors: ['Pelanggan', 'BUP Komersial', 'Dir LTI BU BAKTI'],
+                steps: [
+                    { actor: 'Pelanggan', text: 'Kirim surat permohonan penghentian berlangganan H-30.' },
+                    { actor: 'BUP Komersial', text: 'Pemeriksaan kewajiban outstanding pembayaran (harus lunas).' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Penerbitan Surat Penghentian Layanan (SPL) & BAST Terminasi.' }
+                ]
+            },
+            {
+                id: 'sop-19',
+                code: 'SOP XIX',
+                category: 'operasional',
+                title: 'Penghentian Sanksi, Isolir, dan Pelimpahan Piutang KPKNL/PUPN',
+                sla: 'H+10 (Isolir), H+30 (Putus), H+90 (KPKNL)',
+                description: 'Eskalasi sanksi penunggakan: Isolir port pada H+10 pasca ST1, pemutusan sepihak & cabut port fisik H+30, serta pelimpahan berkas piutang macet ke KPKNL/PUPN jika H+90 belum dilunasi.',
+                actors: ['BUP Komersial', 'Dir LTI BU BAKTI', 'KPKNL / PUPN'],
+                steps: [
+                    { actor: 'BUP Komersial', text: 'Penunggakan H+10: Penerbitan ST1 & Perintah Isolir Port.' },
+                    { actor: 'BUP Komersial', text: 'Penunggakan H+30: Pemutusan Kontrak Sepihak, ST2 & pencabutan port fisik.' },
+                    { actor: 'Dir LTI BU BAKTI', text: 'Penunggakan H+90: Penerbitan ST3 & pengusulan pelimpahan piutang macet.' },
+                    { actor: 'KPKNL / PUPN', text: 'Proses pengurusan piutang negara & tindakan penyitaan/penagihan paksa.' }
+                ]
+            }
+        ];
+
+        let currentDocType = 'sph';
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active-tab');
+                btn.classList.add('text-slate-600');
+            });
+            
+            const targetSec = document.getElementById('sec-' + tabId);
+            if(targetSec) {
+                targetSec.classList.remove('hidden');
+            }
+            
+            const targetBtn = document.getElementById('tab-' + tabId);
+            if(targetBtn) {
+                targetBtn.classList.add('active-tab');
+                targetBtn.classList.remove('text-slate-600');
+            }
+        }
+
+        function renderSopCards(items) {
+            const grid = document.getElementById('sop-cards-grid');
+            if(!grid) return;
+            grid.innerHTML = '';
+            
+            items.forEach(sop => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold px-2.5 py-1 bg-blue-100 text-bakti-blue rounded-md border border-blue-200">${sop.code}</span>
+                            <span class="text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded"><i class="fa-regular fa-clock mr-1"></i>SLA: ${sop.sla}</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm mb-2 leading-snug">${sop.title}</h4>
+                        <p class="text-xs text-slate-600 mb-4 line-clamp-3">${sop.description}</p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex justify-between items-center">
+                        <span class="text-[11px] text-slate-400 font-mono">${sop.category.toUpperCase()}</span>
+                        <button onclick="openSopModal('${sop.id}')" class="text-xs text-bakti-blue hover:text-bakti-darkblue font-bold flex items-center cursor-pointer">
+                            Detail Swimlane <i class="fa-solid fa-chevron-right ml-1"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterSop() {
+            const searchInput = document.getElementById('sop-search');
+            if(!searchInput) return;
+            const query = searchInput.value.toLowerCase();
+            const filtered = sopData.filter(sop => 
+                sop.code.toLowerCase().includes(query) ||
+                sop.title.toLowerCase().includes(query) ||
+                sop.description.toLowerCase().includes(query)
+            );
+            renderSopCards(filtered);
+        }
+
+        function filterSopCategory(cat, btnElement) {
+            document.querySelectorAll('.sop-cat-btn').forEach(btn => {
+                btn.className = "sop-cat-btn px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-xs font-medium whitespace-nowrap cursor-pointer";
+            });
+            if(btnElement) {
+                btnElement.className = "sop-cat-btn px-3 py-1.5 bg-bakti-blue text-white rounded-lg text-xs font-medium whitespace-nowrap cursor-pointer";
+            }
+
+            if(cat === 'all') {
+                renderSopCards(sopData);
+            } else {
+                const filtered = sopData.filter(sop => sop.category === cat);
+                renderSopCards(filtered);
+            }
+        }
+
+        function openSopModal(sopId) {
+            const sop = sopData.find(item => item.id === sopId);
+            if(!sop) return;
+
+            document.getElementById('modal-sop-code').innerText = sop.code;
+            document.getElementById('modal-sop-sla').innerText = 'SLA: ' + sop.sla;
+            document.getElementById('modal-sop-title').innerText = sop.title;
+
+            let html = `
+                <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                    <h4 class="font-bold text-bakti-blue mb-1 text-xs uppercase tracking-wider">Deskripsi Ringkas Prosedur</h4>
+                    <p class="text-xs text-slate-700 leading-relaxed">${sop.description}</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-3">Aktor Terkait</h4>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        ${sop.actors.map(actor => `<span class="px-2.5 py-1 rounded bg-slate-100 border text-slate-700 font-medium">${actor}</span>`).join('')}
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-3">Alur Swimlane Step-by-Step</h4>
+                    <div class="space-y-3">
+            `;
+
+            sop.steps.forEach((step, idx) => {
+                html += `
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-start space-x-3 text-xs">
+                        <div class="w-6 h-6 rounded-full bg-bakti-blue text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                            ${idx + 1}
+                        </div>
+                        <div class="flex-grow">
+                            <span class="font-bold text-bakti-blue uppercase text-[10px] tracking-wide block">${step.actor}</span>
+                            <p class="text-slate-800 mt-0.5">${step.text}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modal-sop-body').innerHTML = html;
+            const modal = document.getElementById('sop-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeSopModal() {
+            const modal = document.getElementById('sop-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function selectLetterType(type) {
+            currentDocType = type;
+            document.querySelectorAll('.doc-type-btn').forEach(btn => {
+                btn.className = "doc-type-btn px-3.5 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-xs font-bold flex items-center whitespace-nowrap cursor-pointer";
+            });
+
+            const activeBtn = document.getElementById('btn-doc-' + type);
+            if(activeBtn) {
+                activeBtn.className = "doc-type-btn px-3.5 py-2 bg-bakti-blue text-white rounded-lg text-xs font-bold shadow flex items-center whitespace-nowrap cursor-pointer";
+            }
+            renderLetterFormFields(type);
+            updateLetterPreview();
+        }
+
+        function renderLetterFormFields(type) {
+            const container = document.getElementById('letter-form-container');
+            const labelEl = document.getElementById('form-title-label');
+            if(!container) return;
+
+            if(type === 'sph') {
+                if(labelEl) labelEl.innerText = '(SPH - Surat Penawaran Harga)';
+                container.innerHTML = `
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nomor Surat SPH:</label>
+                            <input type="text" id="sph-no" value="0476/LTI/TB-2/VII/2026" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-bakti-blue">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Tanggal Surat SPH:</label>
+                            <input type="text" id="sph-date" value="13 Juli 2026" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-bakti-blue">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Perihal Surat:</label>
+                        <input type="text" id="sph-subject" value="Penawaran Harga Layanan Palapa Ring Tengah" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Nama Perusahaan Pelanggan:</label>
+                        <input type="text" id="sph-client-name" value="PT Lintasmaya Multi Media" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Alamat Lengkap Pelanggan:</label>
+                        <textarea id="sph-client-address" rows="2" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">Jl. MT Haryono Perum Bukit Mediterania Ruko RCI No.29 RT 54 Kel. Air Putih Kec. Samarinda, Kalimantan Timur 75124</textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Proyek Target:</label>
+                            <select id="sph-project" onchange="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                                <option value="Proyek 4" selected>Proyek 4 (Kaltim)</option>
+                                <option value="Proyek 5">Proyek 5 (Sulteng & Sultra)</option>
+                                <option value="Proyek 6">Proyek 6 (Sultra)</option>
+                                <option value="Proyek 7">Proyek 7 (Sulteng & Malut)</option>
+                                <option value="Proyek 8A">Proyek 8A (Sulut & Malut)</option>
+                                <option value="Proyek 8B">Proyek 8B (Malut)</option>
+                                <option value="Bundling 6 Proyek">Bundling 6 Proyek sekaligus</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Kapasitas Layanan:</label>
+                            <input type="text" id="sph-capacity" value="1G" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Harga Bulanan (Rp):</label>
+                            <input type="number" id="sph-price-monthly" value="9000000" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Periode Sewa (Bulan):</label>
+                            <input type="number" id="sph-period-months" value="12" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Masa Berlaku Penawaran (Hari):</label>
+                        <input type="number" id="sph-validity-days" value="30" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                    </div>
+                    <div class="border-t pt-2 font-bold text-slate-800">Penandatangan LTI:</div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nama LTI Rep:</label>
+                            <input type="text" id="sph-lti-name" value="Bobi Panca Nugraha" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Jabatan LTI Rep:</label>
+                            <input type="text" id="sph-lti-title" value="Manajer Penjualan dan Jaminan Jaringan" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                `;
+            } else if(type === 'bast') {
+                if(labelEl) labelEl.innerText = '(BAST - Berita Acara Serah Terima)';
+                container.innerHTML = `
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nomor BAST:</label>
+                            <input type="text" id="bast-no" value="022/BAST/DO/VI/2025" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Hari & Tanggal BAST:</label>
+                            <input type="text" id="bast-date" value="Sabtu, 7 Juni 2025" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="border-t pt-2 font-bold text-slate-800">Data Pihak II (Pelanggan):</div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Nama Perusahaan Pelanggan:</label>
+                        <input type="text" id="bast-client-name" value="PT Indosat Ooredoo Hutchison" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Alamat Pelanggan:</label>
+                        <textarea id="bast-client-address" rows="2" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">Jalan Medan Merdeka Barat No. 21, Jakarta 10110</textarea>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">No. Telepon Pelanggan:</label>
+                        <input type="text" id="bast-client-phone" value="021-300030001" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                    </div>
+                    <div class="border-t pt-2 font-bold text-slate-800">Detail Layanan & Sirkit:</div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Jenis Layanan:</label>
+                            <input type="text" id="bast-service-type" value="Penyediaan Layanan Sewa Bandwidth" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Kapasitas:</label>
+                            <input type="text" id="bast-capacity" value="1G" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nama Link / Sirkit:</label>
+                            <input type="text" id="bast-link-name" value="Proyek 7" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Masa Perjanjian (Bulan):</label>
+                            <input type="number" id="bast-period-months" value="12" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Detail Rute Link / Sirkit:</label>
+                        <input type="text" id="bast-link-detail" value="Luwuk - Salakan Banggai Taliabu - Sanana" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Detail Site / Lokasi:</label>
+                        <input type="text" id="bast-site-detail" value="Luwuk Salakan - Banggai Taliabu Sanana" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                    </div>
+                    <div class="border-t pt-2 font-bold text-slate-800">Penandatangan:</div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nama Rep LTI:</label>
+                            <input type="text" id="bast-lti-rep-name" value="ANDRE MORRIS" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Jabatan Rep LTI:</label>
+                            <input type="text" id="bast-lti-rep-title" value="Kepala Divisi Bisnis, Layanan & Komersial" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nama Rep Pelanggan:</label>
+                            <input type="text" id="bast-client-rep-name" value="RAHMA SARI DEWI" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Jabatan Rep Pelanggan:</label>
+                            <input type="text" id="bast-client-rep-title" value="VP - Head Budget Control Management" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                `;
+            } else if(type === 'bapl') {
+                if(labelEl) labelEl.innerText = '(BAPL - Persetujuan Layanan Retroactive)';
+                container.innerHTML = `
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nomor BAPL:</label>
+                            <input type="text" id="bapl-no" value="002/BAPL/R/LTI/X/2023" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Hari & Tanggal BAPL:</label>
+                            <input type="text" id="bapl-date" value="Rabu, 11 Oktober 2023" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Nama Perusahaan Pelanggan:</label>
+                        <input type="text" id="bapl-client-name" value="PT Indosat Ooredoo Hutchison" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                    </div>
+                    <div class="border-t pt-2 font-bold text-slate-800">Ketentuan Cut-Off & Pelunasan:</div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Tanggal Cut-Off Penempatan:</label>
+                            <input type="text" id="bapl-cutoff-date" value="30 September 2023" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Mulai Billing Bulanan:</label>
+                            <input type="text" id="bapl-next-billing-date" value="1 Oktober 2023" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Total Tagihan Retroactive (Rp):</label>
+                            <input type="number" id="bapl-total-retro" value="1509450000" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Skema / Jumlah Termin:</label>
+                            <input type="text" id="bapl-termin-info" value="1 (Satu) Termin Pembayaran" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="border-t pt-2 font-bold text-slate-800">Penandatangan:</div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nama Rep LTI:</label>
+                            <input type="text" id="bapl-lti-rep-name" value="Bobi Panca Nugraha" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Jabatan Rep LTI:</label>
+                            <input type="text" id="bapl-lti-rep-title" value="Manager Komersial" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nama Rep Pelanggan:</label>
+                            <input type="text" id="bapl-client-rep-name" value="Rahma Sari Dewi" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Jabatan Rep Pelanggan:</label>
+                            <input type="text" id="bapl-client-rep-title" value="VP - Head Budget Control Management" oninput="updateLetterPreview()" class="w-full p-2 border border-slate-300 rounded-lg">
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function loadSamplePreset() {
+            renderLetterFormFields(currentDocType);
+            if(currentDocType === 'sph') {
+                if(document.getElementById('sph-no')) document.getElementById('sph-no').value = "0476/LTI/TB-2/VII/2026";
+                if(document.getElementById('sph-date')) document.getElementById('sph-date').value = "13 Juli 2026";
+                if(document.getElementById('sph-client-name')) document.getElementById('sph-client-name').value = "PT Lintasmaya Multi Media";
+                if(document.getElementById('sph-client-address')) document.getElementById('sph-client-address').value = "Jl. MT Haryono Perum Bukit Mediterania Ruko RCI No.29 RT 54 Kel. Air Putih Kec. Samarinda, Kalimantan Timur 75124";
+                if(document.getElementById('sph-project')) document.getElementById('sph-project').value = "Proyek 4";
+                if(document.getElementById('sph-capacity')) document.getElementById('sph-capacity').value = "1G";
+                if(document.getElementById('sph-price-monthly')) document.getElementById('sph-price-monthly').value = "9000000";
+                if(document.getElementById('sph-period-months')) document.getElementById('sph-period-months').value = "12";
+                if(document.getElementById('sph-validity-days')) document.getElementById('sph-validity-days').value = "30";
+                if(document.getElementById('sph-lti-name')) document.getElementById('sph-lti-name').value = "Bobi Panca Nugraha";
+                if(document.getElementById('sph-lti-title')) document.getElementById('sph-lti-title').value = "Manajer Penjualan dan Jaminan Jaringan";
+            } else if(currentDocType === 'bast') {
+                if(document.getElementById('bast-no')) document.getElementById('bast-no').value = "022/BAST/DO/VI/2025";
+                if(document.getElementById('bast-date')) document.getElementById('bast-date').value = "Sabtu, 7 Juni 2025";
+                if(document.getElementById('bast-client-name')) document.getElementById('bast-client-name').value = "PT Indosat Ooredoo Hutchison";
+                if(document.getElementById('bast-client-address')) document.getElementById('bast-client-address').value = "Jalan Medan Merdeka Barat No. 21, Jakarta 10110";
+                if(document.getElementById('bast-client-phone')) document.getElementById('bast-client-phone').value = "021-300030001";
+                if(document.getElementById('bast-service-type')) document.getElementById('bast-service-type').value = "Penyediaan Layanan Sewa Bandwidth";
+                if(document.getElementById('bast-capacity')) document.getElementById('bast-capacity').value = "1G";
+                if(document.getElementById('bast-link-name')) document.getElementById('bast-link-name').value = "Proyek 7";
+                if(document.getElementById('bast-period-months')) document.getElementById('bast-period-months').value = "12";
+                if(document.getElementById('bast-link-detail')) document.getElementById('bast-link-detail').value = "Luwuk - Salakan Banggai Taliabu - Sanana";
+                if(document.getElementById('bast-site-detail')) document.getElementById('bast-site-detail').value = "Luwuk Salakan - Banggai Taliabu Sanana";
+                if(document.getElementById('bast-lti-rep-name')) document.getElementById('bast-lti-rep-name').value = "ANDRE MORRIS";
+                if(document.getElementById('bast-lti-rep-title')) document.getElementById('bast-lti-rep-title').value = "Kepala Divisi Bisnis, Layanan & Komersial";
+                if(document.getElementById('bast-client-rep-name')) document.getElementById('bast-client-rep-name').value = "RAHMA SARI DEWI";
+                if(document.getElementById('bast-client-rep-title')) document.getElementById('bast-client-rep-title').value = "VP - Head Budget Control Management";
+            } else if(currentDocType === 'bapl') {
+                if(document.getElementById('bapl-no')) document.getElementById('bapl-no').value = "002/BAPL/R/LTI/X/2023";
+                if(document.getElementById('bapl-date')) document.getElementById('bapl-date').value = "Rabu, 11 Oktober 2023";
+                if(document.getElementById('bapl-client-name')) document.getElementById('bapl-client-name').value = "PT Indosat Ooredoo Hutchison";
+                if(document.getElementById('bapl-cutoff-date')) document.getElementById('bapl-cutoff-date').value = "30 September 2023";
+                if(document.getElementById('bapl-next-billing-date')) document.getElementById('bapl-next-billing-date').value = "1 Oktober 2023";
+                if(document.getElementById('bapl-total-retro')) document.getElementById('bapl-total-retro').value = "1509450000";
+                if(document.getElementById('bapl-termin-info')) document.getElementById('bapl-termin-info').value = "1 (Satu) Termin Pembayaran";
+                if(document.getElementById('bapl-lti-rep-name')) document.getElementById('bapl-lti-rep-name').value = "Bobi Panca Nugraha";
+                if(document.getElementById('bapl-lti-rep-title')) document.getElementById('bapl-lti-rep-title').value = "Manager Komersial";
+                if(document.getElementById('bapl-client-rep-name')) document.getElementById('bapl-client-rep-name').value = "Rahma Sari Dewi";
+                if(document.getElementById('bapl-client-rep-title')) document.getElementById('bapl-client-rep-title').value = "VP - Head Budget Control Management";
+            }
+            updateLetterPreview();
+        }
+
+        function updateLetterPreview() {
+            const paper = document.getElementById('letter-paper-content');
+            if(!paper) return;
+
+            const headerHtml = `
+                <div class="border-b-2 border-slate-800 pb-3 mb-5 flex justify-between items-center text-xs">
+                    <div class="flex items-center space-x-3">
+                        <div class="font-bold text-base tracking-widest text-blue-900 flex items-center">
+                            <span class="text-red-600 font-extrabold text-lg mr-1">DEFEND</span> ID
+                        </div>
+                        <div class="h-6 w-px bg-slate-300"></div>
+                        <div>
+                            <div class="font-extrabold text-sm text-slate-800">Len Telekomunikasi Indonesia</div>
+                            <div class="text-[10px] text-slate-500 italic">A Len Industri Company</div>
+                        </div>
+                    </div>
+                    <div class="text-right text-[10px] text-slate-500 font-semibold">
+                        Holding of DEFEND ID
+                    </div>
+                </div>
+            `;
+
+            const footerHtml = `
+                <div class="mt-10 border-t border-slate-300 pt-3 text-[10px] text-slate-600 text-center space-y-0.5">
+                    <p class="font-bold">PT Len Telekomunikasi Indonesia</p>
+                    <p>Menara MTH Lt.M, Suite M-02, Jl. Letjen MT Haryono Kav.23, Jakarta 12820</p>
+                    <p>Telp. +62 21 2283 3872 / +62 81 1953 0600 | Website: https://www.len-telko.co.id/ | Email: kontak@len-telko.co.id</p>
+                    <p class="italic text-slate-400">Certified: ISO 9001:2015, ISO 14001:2015, ISO 45001:2018</p>
+                </div>
+            `;
+
+            let htmlContent = '';
+
+            if(currentDocType === 'sph') {
+                const no = document.getElementById('sph-no')?.value || '0476/LTI/TB-2/VII/2026';
+                const date = document.getElementById('sph-date')?.value || '13 Juli 2026';
+                const subject = document.getElementById('sph-subject')?.value || 'Penawaran Harga Layanan Palapa Ring Tengah';
+                const clientName = document.getElementById('sph-client-name')?.value || 'PT Lintasmaya Multi Media';
+                const clientAddress = document.getElementById('sph-client-address')?.value || '-';
+                const project = document.getElementById('sph-project')?.value || 'Proyek 4';
+                const capacity = document.getElementById('sph-capacity')?.value || '1G';
+                const monthlyPrice = parseFloat(document.getElementById('sph-price-monthly')?.value) || 9000000;
+                const periodMonths = parseInt(document.getElementById('sph-period-months')?.value) || 12;
+                const validityDays = document.getElementById('sph-validity-days')?.value || '30';
+                const ltiName = document.getElementById('sph-lti-name')?.value || 'Bobi Panca Nugraha';
+                const ltiTitle = document.getElementById('sph-lti-title')?.value || 'Manajer Penjualan dan Jaminan Jaringan';
+
+                const totalPrice = monthlyPrice * periodMonths;
+
+                htmlContent = `
+                    ${headerHtml}
+                    <div class="text-xs space-y-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <table class="text-xs">
+                                    <tr><td class="font-bold w-16">No.</td><td>: ${no}</td></tr>
+                                    <tr><td class="font-bold">Perihal</td><td>: ${subject}</td></tr>
+                                </table>
+                            </div>
+                            <div class="text-right font-semibold">
+                                Jakarta, ${date}
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <p class="font-bold">Kepada Yth,</p>
+                            <p class="font-bold text-slate-900">${clientName}</p>
+                            <p class="max-w-md text-slate-700">${clientAddress}</p>
+                        </div>
+
+                        <div class="space-y-1 leading-relaxed">
+                            <p>Yang bertandatangan di bawah ini: <strong>PT. Len Telekomunikasi Indonesia</strong></p>
+                            <p>Dalam hal ini diwakili oleh: <strong>${ltiName}</strong></p>
+                            <p>Jabatan: <strong>${ltiTitle}</strong></p>
+                        </div>
+
+                        <p class="text-justify leading-relaxed">
+                            Dengan Hormat,<br>
+                            Seiring dengan meningkatnya kebutuhan akan konektivitas digital yang handal dan stabil di wilayah Indonesia Tengah. PT Len Telekomunikasi Indonesia bermaksud mengajukan penawaran kerja sama strategis kepada <strong>${clientName}</strong>, kami percaya bahwa infrastruktur kami dapat mendukung efisiensi operasional dan ekspansi bisnis kepada <strong>${clientName}</strong>. Dengan ini kami sampaikan penawaran harga pengadaan penyediaan Layanan Palapa Ring Tengah untuk <strong>${project}</strong>.
+                        </p>
+
+                        <p>Adapun rincian penawaran harga layanan yang kami usulkan adalah sebagai berikut:</p>
+
+                        <div class="my-3">
+                            <table class="w-full text-xs text-center border-collapse border border-slate-400">
+                                <thead>
+                                    <tr class="bg-slate-100 font-bold border-b border-slate-400">
+                                        <th class="p-2 border-r border-slate-400">Project</th>
+                                        <th class="p-2 border-r border-slate-400">Kapasitas Layanan</th>
+                                        <th class="p-2 border-r border-slate-400">Total Harga Perbulan</th>
+                                        <th class="p-2 border-r border-slate-400">Periode Sewa Layanan</th>
+                                        <th class="p-2">Total Harga Sewa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-2 border-r border-slate-400 font-bold">${project}</td>
+                                        <td class="p-2 border-r border-slate-400">${capacity}</td>
+                                        <td class="p-2 border-r border-slate-400">Rp ${monthlyPrice.toLocaleString('id-ID')}</td>
+                                        <td class="p-2 border-r border-slate-400">${periodMonths} Bulan</td>
+                                        <td class="p-2 font-bold text-slate-900">Rp ${totalPrice.toLocaleString('id-ID')}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <ol class="list-decimal pl-5 space-y-1 text-slate-700">
+                            <li>Harga tersebut diatas belum termasuk Pajak Pertambahan Nilai (PPN) 11% (sebelas persen) dan pajak-pajak lain sesuai ketentuan Pemerintah yang berlaku.</li>
+                            <li>Harga tersebut berlaku selama ${validityDays} (${validityDays === '30' ? 'Tiga Puluh' : validityDays}) hari kalender terhitung sejak tanggal surat ini.</li>
+                        </ol>
+
+                        <p>Demikian surat penawaran harga ini disampaikan dalam rangka memenuhi persyaratan Pengadaan Penyediaan Layanan Palapa Ring Tengah, Terima kasih.</p>
+
+                        <div class="pt-6">
+                            <p class="font-bold">PT. Len Telekomunikasi Indonesia</p>
+                            <div class="h-16 flex items-center">
+                                <span class="italic text-slate-400 text-[10px] border border-dashed p-1 rounded">[Tanda Tangan Digital / Stempel]</span>
+                            </div>
+                            <p class="font-bold border-b border-slate-800 inline-block">${ltiName}</p>
+                            <p class="text-slate-600">${ltiTitle}</p>
+                        </div>
+                    </div>
+                    ${footerHtml}
+                `;
+            } else if(currentDocType === 'bast') {
+                const no = document.getElementById('bast-no')?.value || '022/BAST/DO/VI/2025';
+                const date = document.getElementById('bast-date')?.value || 'Sabtu, 7 Juni 2025';
+                const clientName = document.getElementById('bast-client-name')?.value || 'PT Indosat Ooredoo Hutchison';
+                const clientAddress = document.getElementById('bast-client-address')?.value || 'Jalan Medan Merdeka Barat No. 21, Jakarta 10110';
+                const clientPhone = document.getElementById('bast-client-phone')?.value || '021-300030001';
+                const serviceType = document.getElementById('bast-service-type')?.value || 'Penyediaan Layanan Sewa Bandwidth';
+                const capacity = document.getElementById('bast-capacity')?.value || '1G';
+                const linkName = document.getElementById('bast-link-name')?.value || 'Proyek 7';
+                const periodMonths = parseInt(document.getElementById('bast-period-months')?.value) || 12;
+                const linkDetail = document.getElementById('bast-link-detail')?.value || 'Luwuk - Salakan Banggai Taliabu - Sanana';
+                const siteDetail = document.getElementById('bast-site-detail')?.value || 'Luwuk Salakan - Banggai Taliabu Sanana';
+                const ltiRepName = document.getElementById('bast-lti-rep-name')?.value || 'ANDRE MORRIS';
+                const ltiRepTitle = document.getElementById('bast-lti-rep-title')?.value || 'Kepala Divisi Bisnis, Layanan & Komersial';
+                const clientRepName = document.getElementById('bast-client-rep-name')?.value || 'RAHMA SARI DEWI';
+                const clientRepTitle = document.getElementById('bast-client-rep-title')?.value || 'VP - Head Budget Control Management';
+
+                htmlContent = `
+                    ${headerHtml}
+                    <div class="text-xs space-y-3">
+                        <div class="text-center font-bold text-sm my-1">
+                            <h3 class="underline tracking-wider uppercase">BERITA ACARA SERAH TERIMA</h3>
+                            <p class="text-xs font-normal">${no}</p>
+                        </div>
+
+                        <p class="text-justify">
+                            Pada hari ini, <strong>${date}</strong> kami yang bertandatangan di bawah ini:
+                        </p>
+
+                        <div class="border border-slate-300 p-2.5 rounded space-y-1 bg-slate-50/50">
+                            <table class="w-full text-xs">
+                                <tr>
+                                    <td class="font-bold w-28">I. Nama / Alamat</td>
+                                    <td>: <strong>PT. Len Telekomunikasi Indonesia</strong> (Menara MTH Lantai M, Jl. Letjen MT Haryono Kav. 23 Jakarta Selatan)</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">No. Telepon</td>
+                                    <td>: +62 21 8378 2445 / +62 21 2283 3872</td>
+                                </tr>
+                                <tr><td colspan="2" class="py-1"><hr class="border-slate-200"></td></tr>
+                                <tr>
+                                    <td class="font-bold">II. Nama / Alamat</td>
+                                    <td>: <strong>${clientName}</strong> (${clientAddress})</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">No. Telepon</td>
+                                    <td>: ${clientPhone}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <p>Menyatakan bahwa data layanan dibawah ini:</p>
+
+                        <table class="w-full border-collapse border border-slate-400 text-xs">
+                            <tr><td class="p-1.5 border border-slate-400 font-bold bg-slate-100 w-36">Lama Perjanjian</td><td class="p-1.5 border border-slate-400">: ${periodMonths} Bulan</td></tr>
+                            <tr><td class="p-1.5 border border-slate-400 font-bold bg-slate-100">Nama Perusahaan</td><td class="p-1.5 border border-slate-400">: ${clientName}</td></tr>
+                            <tr><td class="p-1.5 border border-slate-400 font-bold bg-slate-100">Layanan</td><td class="p-1.5 border border-slate-400">: ${serviceType}</td></tr>
+                            <tr><td class="p-1.5 border border-slate-400 font-bold bg-slate-100">Kapasitas</td><td class="p-1.5 border border-slate-400">: ${capacity}</td></tr>
+                            <tr><td class="p-1.5 border border-slate-400 font-bold bg-slate-100">Nama Link/Sirkit</td><td class="p-1.5 border border-slate-400">: ${linkName}</td></tr>
+                            <tr><td class="p-1.5 border border-slate-400 font-bold bg-slate-100">Link/Sirkit</td><td class="p-1.5 border border-slate-400">: ${linkDetail}</td></tr>
+                            <tr><td class="p-1.5 border border-slate-400 font-bold bg-slate-100">Site</td><td class="p-1.5 border border-slate-400">: ${siteDetail}</td></tr>
+                        </table>
+
+                        <p class="text-justify leading-relaxed">
+                            Telah diterima dan dinyatakan untuk aktif selama <strong>${periodMonths} (${periodMonths === 12 ? 'dua belas' : periodMonths}) bulan</strong> terhitung sejak tanggal Berita Acara Serah Terima ini.
+                        </p>
+
+                        <p>Demikian Berita Acara ini dibuat sesuai dengan keadaan sebenarnya agar dapat dipergunakan sebagaimana mestinya.</p>
+
+                        <div class="grid grid-cols-2 gap-4 pt-4 text-center">
+                            <div>
+                                <p class="font-bold">PT Len Telekomunikasi Indonesia</p>
+                                <div class="h-16 flex items-center justify-center">
+                                    <span class="italic text-slate-400 text-[10px] border border-dashed p-1 rounded">[Tanda Tangan LTI]</span>
+                                </div>
+                                <p class="font-bold border-b border-slate-800 inline-block">${ltiRepName}</p>
+                                <p class="text-slate-600 text-[11px]">${ltiRepTitle}</p>
+                            </div>
+                            <div>
+                                <p class="font-bold">${clientName}</p>
+                                <div class="h-16 flex items-center justify-center">
+                                    <span class="italic text-slate-400 text-[10px] border border-dashed p-1 rounded">[Tanda Tangan Pelanggan]</span>
+                                </div>
+                                <p class="font-bold border-b border-slate-800 inline-block">${clientRepName}</p>
+                                <p class="text-slate-600 text-[11px]">${clientRepTitle}</p>
+                            </div>
+                        </div>
+                    </div>
+                    ${footerHtml}
+                `;
+            } else if(currentDocType === 'bapl') {
+                const no = document.getElementById('bapl-no')?.value || '002/BAPL/R/LTI/X/2023';
+                const date = document.getElementById('bapl-date')?.value || 'Rabu, 11 Oktober 2023';
+                const clientName = document.getElementById('bapl-client-name')?.value || 'PT Indosat Ooredoo Hutchison';
+                const cutoffDate = document.getElementById('bapl-cutoff-date')?.value || '30 September 2023';
+                const nextBillingDate = document.getElementById('bapl-next-billing-date')?.value || '1 Oktober 2023';
+                const totalRetro = parseFloat(document.getElementById('bapl-total-retro')?.value) || 1509450000;
+                const terminInfo = document.getElementById('bapl-termin-info')?.value || '1 (Satu) Termin Pembayaran';
+                const ltiRepName = document.getElementById('bapl-lti-rep-name')?.value || 'Bobi Panca Nugraha';
+                const ltiRepTitle = document.getElementById('bapl-lti-rep-title')?.value || 'Manager Komersial';
+                const clientRepName = document.getElementById('bapl-client-rep-name')?.value || 'Rahma Sari Dewi';
+                const clientRepTitle = document.getElementById('bapl-client-rep-title')?.value || 'VP - Head Budget Control Management';
+
+                htmlContent = `
+                    ${headerHtml}
+                    <div class="text-xs space-y-2.5">
+                        <div class="text-center font-bold text-sm my-1">
+                            <h3 class="underline tracking-wider uppercase">BERITA ACARA PERSETUJUAN LAYANAN - RETROACTIVE</h3>
+                            <p class="text-xs font-normal">No: ${no}</p>
+                        </div>
+
+                        <p class="text-justify">
+                            Pada hari <strong>${date}</strong>, telah dilakukan sosialisasi dan negosiasi terkait layanan kolokasi di NOC antara <strong>PT Len Telekomunikasi Indonesia ("LTI")</strong> dengan <strong>${clientName}</strong> dengan hasil sebagai berikut:
+                        </p>
+
+                        <div class="font-bold text-slate-800">1. Produk dan Layanan Kolokasi</div>
+                        <p class="text-slate-600">Layanan kolokasi indoor/outdoor sesuai Kepdirut Tarif BAKTI & Koefisien Hardship tiap proyek.</p>
+
+                        <div class="font-bold text-slate-800">2. Penetapan Periode Cut-Off Pelunasan Kolokasi</div>
+                        <p class="text-justify">
+                            Periode cut-off ditetapkan untuk mempermudah perhitungan jumlah pelunasan penagihan layanan kolokasi pelanggan:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-0.5 text-slate-700">
+                            <li>Tanggal Cut-off penempatan perangkat yang disepakati adalah <strong>${cutoffDate}</strong>.</li>
+                            <li>Tanggal dimulainya penagihan bulanan kolokasi berikutnya adalah <strong>${nextBillingDate}</strong>.</li>
+                        </ul>
+
+                        <div class="font-bold text-slate-800">3. Perhitungan Biaya Pelunasan Retroactive</div>
+                        <p class="text-justify">
+                            Berdasarkan data perangkat pelanggan yang sudah ditempatkan di NOC Palapa Ring Tengah, disepakati jumlah biaya pelunasan layanan kolokasi selama periode Cut-off adalah sebesar <strong>Rp ${totalRetro.toLocaleString('id-ID')}</strong> (Tidak termasuk PPN 11%).
+                        </p>
+
+                        <div class="font-bold text-slate-800">4. Komitmen dan Skema Pembayaran</div>
+                        <p class="text-justify">
+                            Biaya layanan kolokasi periode Cut-off senilai <strong>Rp ${totalRetro.toLocaleString('id-ID')}</strong> disepakati untuk dibagi menjadi <strong>${terminInfo}</strong>. BAKTI akan menerbitkan invoice kepada pelanggan dan pelanggan akan membayarkan tagihan maksimal 14 hari kalender sejak invoice diterima.
+                        </p>
+
+                        <p>Demikian Berita Acara ini dibuat sesuai dengan keadaan yang sebenarnya dan dipergunakan sebagaimana mestinya.</p>
+
+                        <div class="grid grid-cols-2 gap-4 pt-4 text-center">
+                            <div>
+                                <p class="font-bold">${clientName}</p>
+                                <div class="h-16 flex items-center justify-center">
+                                    <span class="italic text-slate-400 text-[10px] border border-dashed p-1 rounded">[Tanda Tangan Pelanggan]</span>
+                                </div>
+                                <p class="font-bold border-b border-slate-800 inline-block">${clientRepName}</p>
+                                <p class="text-slate-600 text-[11px]">${clientRepTitle}</p>
+                            </div>
+                            <div>
+                                <p class="font-bold">PT Len Telekomunikasi Indonesia</p>
+                                <div class="h-16 flex items-center justify-center">
+                                    <span class="italic text-slate-400 text-[10px] border border-dashed p-1 rounded">[Tanda Tangan LTI]</span>
+                                </div>
+                                <p class="font-bold border-b border-slate-800 inline-block">${ltiRepName}</p>
+                                <p class="text-slate-600 text-[11px]">${ltiRepTitle}</p>
+                            </div>
+                        </div>
+                    </div>
+                    ${footerHtml}
+                `;
+            }
+
+            paper.innerHTML = htmlContent;
+        }
+
+        function downloadAsWord() {
+            const content = document.getElementById('letter-paper-content').innerHTML;
+            const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+                "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+                "xmlns='http://www.w3.org/TR/REC-html40'>"+
+                "<head><meta charset='utf-8'><title>Dokumen Resmi LTI</title>"+
+                "<style>body{font-family:'Times New Roman', serif; font-size: 11pt;} table{border-collapse:collapse; width:100%;} td,th{border:1px solid #333; padding:4px;}</style></head><body>";
+            const footer = "</body></html>";
+            const sourceHTML = header + content + footer;
+            const blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentDocType.toUpperCase()}_Len_Telko_${new Date().toISOString().slice(0,10)}.doc`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast(`Dokumen ${currentDocType.toUpperCase()} berhasil diunduh sebagai Word (.doc)`);
+        }
+
+        function downloadAsHtml() {
+            const content = document.getElementById('letter-paper-content').innerHTML;
+            const standaloneHtml = `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>${currentDocType.toUpperCase()} - PT Len Telekomunikasi Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"><\/script>
+    <style>
+        body { font-family: 'Times New Roman', Times, serif; background: #f8fafc; padding: 20px; color: #1e293b; }
+        .a4-page { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <div class="a4-page">${content}</div>
+</body>
+</html>`;
+            const blob = new Blob([standaloneHtml], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentDocType.toUpperCase()}_Len_Telko_${new Date().toISOString().slice(0,10)}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast(`Dokumen ${currentDocType.toUpperCase()} berhasil diunduh sebagai file HTML`);
+        }
+
+        function triggerPdfPrint() {
+            window.print();
+        }
+
+        async function callGeminiProductKnowledgeAPI(userQuery) {
+            // LIVE + AMAN: kirim ke Cloudflare Worker (API key ada di server, bukan browser).
+            // Bila worker berada di domain terpisah, set: window.LTI_SOP_ENDPOINT = "https://lti-chat.<akun>.workers.dev/api/chat";
+            const endpoint = (window.LTI_SOP_ENDPOINT) || "/api/chat";
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ messages: [{ role: 'user', content: userQuery }] })
+            });
+            if(!response.ok) throw new Error("API call failed");
+            const data = await response.json();
+            const text = data.text;
+            if(!text) throw new Error("Empty response");
+            let formatted = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n\n/g, '<br><br>')
+                .replace(/\n\* /g, '<br>• ')
+                .replace(/\n- /g, '<br>• ');
+            return formatted;
+        }
+
+        function generateOfflineProductResponse(q) {
+            const queryLower = q.toLowerCase();
+
+            if(queryLower.includes('p4') || queryLower.includes('proyek 4') || queryLower.includes('kaltim') || queryLower.includes('long bagun') || queryLower.includes('sendawar')) {
+                return `
+                    <p class="font-bold text-bakti-blue"><i class="fa-solid fa-wifi mr-1"></i> Detail Tarif Proyek 4 (Kalimantan Timur - Sendawar ke Long Bagun):</p>
+                    <ul class="list-disc pl-4 space-y-1 mt-1">
+                        <li><strong>Kapasitas 1 Gbps:</strong> Rp 9.000.000 / Bulan</li>
+                        <li><strong>Kapasitas 10 Gbps:</strong> Rp 72.000.000 / Bulan</li>
+                        <li><strong>Koefisien Hardship Kolokasi NOC:</strong> 1.2</li>
+                    </ul>
+                `;
+            }
+
+            if(queryLower.includes('sop') || queryLower.includes('denda') || queryLower.includes('isolir') || queryLower.includes('kpknl')) {
+                return `
+                    <p class="font-bold text-bakti-blue"><i class="fa-solid fa-file-invoice-dollar mr-1"></i> Ketentuan SOP Penagihan & Isolir (SOP XI & XIX):</p>
+                    <ul class="list-disc pl-4 space-y-1 mt-1">
+                        <li><strong>Jatuh Tempo:</strong> H+14 Hari Kerja sejak Invoice E-PNBP.</li>
+                        <li><strong>Denda:</strong> 1 permil (0.1%) per hari kalender (Maks 5%).</li>
+                        <li><strong>Isolir H+10:</strong> Pengisoliran port layanan jika menunggak.</li>
+                        <li><strong>Pemutusan H+30:</strong> Pencabutan port fisik & pemutusan sepihak.</li>
+                        <li><strong>Pelimpahan KPKNL H+90:</strong> Pelimpahan piutang macet ke PUPN/KPKNL.</li>
+                    </ul>
+                `;
+            }
+
+            return `
+                <p>Terima kasih atas pertanyaan Anda!</p>
+                <p>PT Len Telekomunikasi Indonesia adalah BUP Palapa Ring Paket Tengah ("Semua Berhak Terhubung"). Membawahi 6 Proyek (P4 s/d P8B) melingkupi 17 Kabupaten SLA & 10 Kota Interkoneksi.</p>
+                <p class="font-bold mt-2">Kontak Tim Sales Resmi:</p>
+                <ul class="list-disc pl-4 space-y-1 text-slate-700">
+                    <li><strong>Bobi Panca Nugraha:</strong> 0821-1930-5096</li>
+                    <li><strong>Farintya Yuniastiti:</strong> 0812-8596-5152</li>
+                    <li><strong>Novia Putri Z:</strong> 0812-2377-4723</li>
+                    <li><strong>Mutiara Azana:</strong> 0819-0541-1313</li>
+                </ul>
+            `;
+        }
+
+        async function handleUserSendMessage() {
+            const inputEl = document.getElementById('chat-user-input');
+            if(!inputEl) return;
+            const message = inputEl.value.trim();
+            if(!message) return;
+
+            inputEl.value = '';
+
+            const chatMessages = document.getElementById('chat-messages');
+            if(!chatMessages) return;
+
+            const userDiv = document.createElement('div');
+            userDiv.className = "flex items-start justify-end space-x-2";
+            userDiv.innerHTML = `
+                <div class="bg-bakti-blue text-white p-3 rounded-2xl rounded-tr-none shadow-sm max-w-xl text-xs leading-relaxed">
+                    ${message}
+                </div>
+                <div class="w-7 h-7 rounded-full bg-slate-700 text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            `;
+            chatMessages.appendChild(userDiv);
+
+            const typingDiv = document.createElement('div');
+            typingDiv.className = "flex items-start space-x-2 typing-indicator-item";
+            typingDiv.innerHTML = `
+                <div class="w-7 h-7 rounded-full bg-bakti-blue text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none shadow-sm text-slate-500 text-xs flex items-center space-x-2">
+                    <i class="fa-solid fa-spinner fa-spin text-bakti-blue"></i>
+                    <span>Mencari jawaban di Product Knowledge & 19 SOP...</span>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            let botResponse = "";
+            try {
+                botResponse = await callGeminiProductKnowledgeAPI(message);
+            } catch(e) {
+                botResponse = generateOfflineProductResponse(message);
+            }
+
+            document.querySelectorAll('.typing-indicator-item').forEach(el => el.remove());
+
+            const botDiv = document.createElement('div');
+            botDiv.className = "flex items-start space-x-2";
+            botDiv.innerHTML = `
+                <div class="w-7 h-7 rounded-full bg-bakti-blue text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="bg-white border border-slate-200 p-3.5 rounded-2xl rounded-tl-none shadow-sm max-w-2xl text-slate-700 leading-relaxed space-y-2 text-xs">
+                    ${botResponse}
+                </div>
+            `;
+            chatMessages.appendChild(botDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function askPresetQuestion(qText) {
+            const inputEl = document.getElementById('chat-user-input');
+            if(inputEl) {
+                inputEl.value = qText;
+                handleUserSendMessage();
+            }
+        }
+
+        function clearChatHistory() {
+            const chatMessages = document.getElementById('chat-messages');
+            if(chatMessages) {
+                chatMessages.innerHTML = `
+                    <div class="flex items-start space-x-2">
+                        <div class="w-7 h-7 rounded-full bg-bakti-blue text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-white border border-slate-200 p-3.5 rounded-2xl rounded-tl-none shadow-sm max-w-2xl text-slate-700 leading-relaxed space-y-2 text-xs">
+                            <p class="font-bold text-bakti-blue">Riwayat percakapan dibersihkan. Ada yang ingin ditanyakan kembali?</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function switchCalcTool(toolId) {
+            document.querySelectorAll('.calc-tool-btn').forEach(btn => {
+                btn.className = "calc-tool-btn w-full text-left p-3 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 flex items-center cursor-pointer";
+            });
+            document.querySelectorAll('.calc-view').forEach(view => view.classList.add('hidden'));
+
+            const activeBtn = document.getElementById('calc-btn-' + toolId);
+            const activeView = document.getElementById('tool-' + toolId);
+
+            if(activeBtn) activeBtn.className = "calc-tool-btn w-full text-left p-3 rounded-lg text-xs font-semibold bg-blue-50 text-bakti-blue flex items-center cursor-pointer";
+            if(activeView) activeView.classList.remove('hidden');
+        }
+
+        function calculateCreditRating() {
+            const legal = document.getElementById('cr-legal')?.value;
+            const resBox = document.getElementById('res-credit-rating');
+            if(!resBox) return;
+            resBox.classList.remove('hidden');
+
+            if(legal === 'Tidak Lengkap') {
+                resBox.className = "p-4 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs";
+                resBox.innerHTML = `<strong>⚠️ Status Credit Rating: GAGAL / UNPASS</strong><br>Dokumen Legalitas tidak lengkap. Sesuai SOP I Lampiran I, kelengkapan legalitas bersifat mutlak.`;
+                return;
+            }
+
+            const komersil = parseInt(document.getElementById('cr-komersil')?.value) || 0;
+            const profit = parseInt(document.getElementById('cr-profit')?.value) || 0;
+            const der = parseInt(document.getElementById('cr-der')?.value) || 0;
+            const bangunan = parseInt(document.getElementById('cr-bangunan')?.value) || 0;
+            const kepemilikan = parseInt(document.getElementById('cr-kepemilikan')?.value) || 0;
+
+            const totalScore = komersil + profit + der + bangunan + kepemilikan;
+
+            let status = "";
+            let badgeClass = "";
+
+            if(totalScore >= 80) {
+                status = "PASS (Sangat Layak / Gold Category)";
+                badgeClass = "bg-emerald-100 text-emerald-800 border-emerald-300";
+            } else if(totalScore >= 60) {
+                status = "PASS WITH CONDITION (Memerlukan Garansi Bank / Jaminan Tambahan)";
+                badgeClass = "bg-amber-100 text-amber-800 border-amber-300";
+            } else {
+                status = "UNPASS (Risiko Tinggi / Perlu Evaluasi Direksi)";
+                badgeClass = "bg-rose-100 text-rose-800 border-rose-300";
+            }
+
+            resBox.className = "p-4 bg-blue-50 border border-blue-200 rounded-xl text-xs space-y-2";
+            resBox.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-800">Total Score Credit Rating: <span class="text-lg text-bakti-blue">${totalScore} / 105 Poin</span></span>
+                    <span class="px-2.5 py-1 rounded text-xs font-bold border ${badgeClass}">${status}</span>
+                </div>
+                <p class="text-slate-600">Rincian Skor: Legalitas (Lengkap), Komersil (${komersil}), Profitabilitas (${profit}), DER (${der}), Fisik Bangunan (${bangunan}), Status Kantor (${kepemilikan}).</p>
+            `;
+        }
+
+        function calculateBumdes() {
+            const kepeloporan = (parseInt(document.getElementById('bm-kepeloporan')?.value) || 0) * 0.20;
+            const infra = (parseInt(document.getElementById('bm-infrastruktur')?.value) || 0) * 0.25;
+            const eksisting = (parseInt(document.getElementById('bm-eksisting')?.value) || 0) * 0.20;
+            const kelayakan = (parseInt(document.getElementById('bm-kelayakan')?.value) || 0) * 0.25;
+            const pelatihan = (parseInt(document.getElementById('bm-pelatihan')?.value) || 0) * 0.10;
+
+            const finalScore = kepeloporan + infra + eksisting + kelayakan + pelatihan;
+            const discountPercent = Math.min(Math.round((finalScore / 5) * 90), 90);
+
+            const resBox = document.getElementById('res-bumdes');
+            if(!resBox) return;
+            resBox.classList.remove('hidden');
+            resBox.innerHTML = `
+                <div class="flex justify-between items-center font-bold">
+                    <span>Skor Terbobot BUMDes: ${finalScore.toFixed(2)} / 5.00</span>
+                    <span class="text-lg text-amber-800">Rekomendasi Diskon: ${discountPercent}% (Tahun Ke-1)</span>
+                </div>
+                <p class="text-xs text-amber-900 mt-1">Sesuai Perdirut 03/2024, diskon BUMDes diperuntukkan khusus layanan Bandwidth 1 Gbps untuk masa sewa 12 bulan pertama.</p>
+            `;
+        }
+
+        function calculatePPU() {
+            const inputEl = document.getElementById('ppu-gbps');
+            if(!inputEl) return;
+            const gbps = parseFloat(inputEl.value) || 0;
+            let percent = 25;
+
+            if(gbps <= 2.5) percent = 25;
+            else if(gbps <= 3) percent = 30;
+            else if(gbps <= 4) percent = 40;
+            else if(gbps <= 5) percent = 50;
+            else if(gbps <= 6) percent = 60;
+            else if(gbps <= 7) percent = 70;
+            else if(gbps <= 8) percent = 80;
+            else if(gbps <= 9) percent = 90;
+            else percent = 100;
+
+            const resBox = document.getElementById('res-ppu');
+            if(resBox) {
+                resBox.innerHTML = `
+                    <div class="flex justify-between items-center font-bold">
+                        <span>Peak Utilization: ${gbps} Gbps</span>
+                        <span class="text-bakti-blue text-sm">Persentase Tagihan: ${percent}% dari Tarif Normal 10 Gbps</span>
+                    </div>
+                    <p class="text-slate-500">Sesuai Perdirut No 03/2024 Pasal 16, jika peak utilization berada di bawah 2.5 Gbps, pelanggan tetap membayar minimal sebesar 25% (setara tarif 2.5 Gbps).</p>
+                `;
+            }
+        }
+
+        function updateBillingTimeline() {
+            const amountInput = document.getElementById('bill-amount');
+            const lateInput = document.getElementById('bill-late-days');
+            if(!amountInput || !lateInput) return;
+
+            const amount = parseFloat(amountInput.value) || 0;
+            const lateDays = parseInt(lateInput.value) || 0;
+
+            const penaltyRate = 0.001;
+            const maxPenaltyRate = 0.05;
+
+            let calculatedPenaltyRate = lateDays * penaltyRate;
+            if(calculatedPenaltyRate > maxPenaltyRate) calculatedPenaltyRate = maxPenaltyRate;
+
+            const penaltyAmount = amount * calculatedPenaltyRate;
+            const totalBill = amount + penaltyAmount;
+
+            const resBox = document.getElementById('bill-penalty-res');
+            if(resBox) {
+                resBox.innerHTML = `
+                    <div>
+                        <span class="font-bold text-rose-900 block text-sm">Simulasi Denda Keterlambatan (${lateDays} Hari Kalender):</span>
+                        <span class="text-slate-600">Tarif Pokok: Rp ${amount.toLocaleString('id-ID')} | Rate Denda: ${(calculatedPenaltyRate*100).toFixed(1)}%</span>
+                    </div>
+                    <div class="mt-2 md:mt-0 text-right">
+                        <span class="text-xs text-rose-700 block">Denda: + Rp ${penaltyAmount.toLocaleString('id-ID')}</span>
+                        <span class="text-base font-extrabold text-rose-900">Total Tagihan: Rp ${totalBill.toLocaleString('id-ID')}</span>
+                    </div>
+                `;
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if(!container) return;
+            const toast = document.createElement('div');
+            toast.className = `p-3.5 rounded-xl shadow-lg border text-xs font-semibold flex items-center justify-between transition-all duration-300 pointer-events-auto max-w-md ${
+                type === 'success' ? 'bg-emerald-800 text-white border-emerald-700' : 'bg-slate-800 text-white border-slate-700'
+            }`;
+            toast.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+                    <span>${message}</span>
+                </div>
+                <button onclick="this.parentElement.remove()" class="ml-3 text-slate-300 hover:text-white cursor-pointer">&times;</button>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => { if(toast.parentElement) toast.remove(); }, 5000);
+        }
+
+        function submitTicket() {
+            const cid = document.getElementById('t-cid')?.value || 'N/A';
+            const segment = document.getElementById('t-segment')?.value || 'N/A';
+            const channel = document.getElementById('t-channel')?.value || 'N/A';
+            const type = document.getElementById('t-type')?.value || 'N/A';
+
+            const ticketNo = 'TKT-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.floor(10 + Math.random() * 90);
+
+            const tbody = document.getElementById('ticket-list-body');
+            if(tbody) {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td class="p-2.5 font-semibold text-bakti-blue">${ticketNo}</td>
+                    <td class="p-2.5">${cid}<br><span class="text-[10px] text-slate-400">${segment}</span></td>
+                    <td class="p-2.5">${channel}</td>
+                    <td class="p-2.5"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold">&lt; 2 Menit (Passed)</span></td>
+                    <td class="p-2.5"><span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded">${type}</span></td>
+                `;
+                tbody.insertBefore(newRow, tbody.firstChild);
+            }
+
+            showToast(`Tiket ${ticketNo} berhasil didaftarkan ke sistem Halo BAKTI!`);
+        }
+
+        window.onload = function() {
+            switchTab('dashboard');
+            renderSopCards(sopData);
+            calculatePPU();
+            renderLetterFormFields(currentDocType);
+            updateLetterPreview();
+            const today = new Date();
+            const dateInput = document.getElementById('bill-start-date');
+            if(dateInput) {
+                dateInput.value = today.toISOString().split('T')[0];
+            }
+            updateBillingTimeline();
+        };
+    </script>
+<div style="position:fixed;top:8px;right:10px;z-index:99999;font-family:system-ui,Segoe UI,sans-serif;display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end">
+<a href="index.html" style="text-decoration:none;font-size:11px;font-weight:600;color:#fff;background:#0E3F72;padding:5px 9px;border-radius:7px;box-shadow:0 2px 6px rgba(0,0,0,.25)">🏠 Portal</a>
+<a href="sales.html" style="text-decoration:none;font-size:11px;font-weight:600;color:#fff;background:#1B5FA6;padding:5px 9px;border-radius:7px;box-shadow:0 2px 6px rgba(0,0,0,.25)">☁ Sales</a>
+<a href="crm.html" style="text-decoration:none;font-size:11px;font-weight:600;color:#fff;background:#226DB4;padding:5px 9px;border-radius:7px;box-shadow:0 2px 6px rgba(0,0,0,.25)">📇 CRM</a>
+<a href="peta.html" style="text-decoration:none;font-size:11px;font-weight:600;color:#fff;background:#0FA3A3;padding:5px 9px;border-radius:7px;box-shadow:0 2px 6px rgba(0,0,0,.25)">🌐 Peta</a>
+<a href="dokumen.html" style="text-decoration:none;font-size:11px;font-weight:600;color:#052a2a;background:#2FD6C0;padding:5px 9px;border-radius:7px;box-shadow:0 2px 6px rgba(0,0,0,.25)">📁 Arsip</a>
+</div>
+</body>
+</html>
