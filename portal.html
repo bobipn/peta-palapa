@@ -306,10 +306,17 @@ const CERTS = ['PMP', 'ITIL', 'HSE', 'Working at Height', 'CCNA', 'RTN Huawei'];
 
 /* ============================================================ AUTH */
 const AUTH_KEY = 'lti_portal_auth_v1';
-const CRED = {
-  user: 'bobipanca@gmail.com',
-  pass: 'LTI2026.'
-};
+const USERS = [
+  { email: 'bobi.panca@len-telko.co.id', name: 'Bobi Panca' },
+  { email: 'farintya.yuniastiti@len-telko.co.id', name: 'Farintya Yuniastiti' },
+  { email: 'mutiara.azana@len-telko.co.id', name: 'Mutiara Azana' },
+  { email: 'adella.indiany@len-telko.co.id', name: 'Adella Indiany Tristiadi' },
+  { email: 'nabila.pramesti@len-telko.co.id', name: 'Nabila Pramesti Shonigiya' },
+  { email: 'lorinda.febriani@len-telko.co.id', name: 'Lorinda Febriani' },
+  { email: 'abdul.fikar@len-telko.co.id', name: 'Abdul Fikar' },
+  { email: 'novia.putri@len-telko.co.id', name: 'Novia Putri Zahra' }
+];
+const PASS = 'LTI2026.';
 const SESSION_MS = 3 * 60 * 60 * 1000; // 3 jam
 function getSession() {
   try {
@@ -420,13 +427,16 @@ function Login({
     [show, setShow] = useState(false);
   const submit = e => {
     e.preventDefault();
-    if (u.trim().toLowerCase() === CRED.user && p === CRED.pass) {
+    const email = u.trim().toLowerCase();
+    const found = USERS.find(x => x.email === email);
+    if (found && p === PASS) {
       localStorage.setItem(AUTH_KEY, JSON.stringify({
-        user: u.trim().toLowerCase(),
+        user: found.email,
+        name: found.name,
         ts: Date.now()
       }));
       onOk();
-    } else setErr('Username atau password salah. Coba lagi.');
+    } else setErr('Email atau password salah. Coba lagi.');
   };
   return /*#__PURE__*/React.createElement("div", {
     className: "min-h-screen relative flex items-center justify-center p-5 overflow-hidden",
@@ -1747,9 +1757,8 @@ function App() {
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
 </script>
-
-<script src="/chatbot-lti.js" defer></script>
 <div id="ltiLauncher" style="display:none;position:fixed;right:16px;bottom:16px;z-index:80;font-family:Inter,sans-serif;display:none;flex-direction:column;gap:8px;align-items:flex-end">
+<a href="sop.html" style="background:#123B63;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:9px 14px;border-radius:12px;box-shadow:0 6px 18px rgba(18,59,99,.4)">📘 SOP &amp; CS AI</a>
 <a href="dokumen.html" style="background:#0FA3A3;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:9px 14px;border-radius:12px;box-shadow:0 6px 18px rgba(15,163,163,.4)">📁 Arsip Dokumen</a>
 <a href="sales.html" style="background:#1B5FA6;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:9px 14px;border-radius:12px;box-shadow:0 6px 18px rgba(27,95,166,.4)">☁ Sales Cloud</a>
 <a href="crm.html" style="background:#226DB4;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:9px 14px;border-radius:12px;box-shadow:0 6px 18px rgba(34,109,180,.4)">📇 LTI CRM</a>
