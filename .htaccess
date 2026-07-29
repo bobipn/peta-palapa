@@ -1,0 +1,46 @@
+# ==============================================================================
+# KONFIGURASI KEAMANAN SERVER LITESPEED / CPANEL - KOMERSIALLTI.MY.ID
+# ==============================================================================
+
+# 1. Matikan Directory Browsing (Mencegah publik melihat daftar file)
+Options -Indexes
+
+# 2. Sembunyikan Signature Server (V-17)
+ServerSignature Off
+
+# 3. HTTP Security Headers Kompleks (V-15)
+<IfModule mod_headers.c>
+    # Content Security Policy (CSP)
+    Header set Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data: blob: *.googleapis.com *.gstatic.com; font-src 'self' https: data: fonts.gstatic.com; connect-src 'self' https: *.googleapis.com;"
+    
+    # Mencegah Clickjacking
+    Header set X-Frame-Options "DENY"
+    
+    # Paksa HTTPS (HSTS) selama 1 tahun
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    
+    # Mencegah MIME-type Sniffing
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Kebijakan Referrer Aman
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Batasi Akses Fitur Perangkat (Permissions Policy)
+    Header set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+    
+    # Sembunyikan Server Header Detail
+    Header unset X-Powered-By
+</IfModule>
+
+# 4. Lindungi File Sensitif Repositori & Konfigurasi
+<FilesMatch "\.(ini|log|sh|sql|yml|yaml|md|zip|tar|gz|git|env)$">
+    Require all denied
+</FilesMatch>
+
+# 5. Redirect HTTP ke HTTPS Otomatis
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 6. Custom Error Page (V-17)
+ErrorDocument 404 /404.html
