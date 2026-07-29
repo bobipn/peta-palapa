@@ -1,0 +1,28 @@
+name: Deploy Website to cPanel
+
+on:
+  push:
+    branches:
+      - main  # Ubah ke 'master' jika branch utama Anda bernama master
+
+jobs:
+  web-deploy:
+    name: 🚚 Deploy Website via FTP
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+
+    # Opsional: Buka baris berikut jika proyek Anda menggunakan build step (React/Vue/Tailwind)
+    # - name: Install Dependencies & Build
+    #   run: |
+    #     npm install
+    #     npm run build
+
+    - name: 📂 Sync files to cPanel
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: /
