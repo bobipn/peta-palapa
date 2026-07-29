@@ -5,7 +5,7 @@ compatibility_date = "2024-11-01"
 
 # Variabel non-rahasia (ganti sesuai domain Anda):
 [vars]
-ALLOWED_ORIGIN = "https://peta-palapa.komersil.workers.dev"
+ALLOWED_ORIGIN = "https://komersiallti.my.id"
 # CHAT_MODEL = "claude-haiku-4-5-20251001"   # opsional, verifikasi nama model
 
 # ANTHROPIC_API_KEY di-set sebagai SECRET, bukan di sini:

@@ -6,7 +6,7 @@
  *
  * SECRET / VARIABLE (Cloudflare dashboard → Worker → Settings → Variables):
  *   ANTHROPIC_API_KEY  (Secret, wajib)
- *   ALLOWED_ORIGIN     (Variable, mis. "https://peta-palapa.komersil.workers.dev",
+ *   ALLOWED_ORIGIN     (Variable, mis. "https://komersiallti.my.id",
  *                       pisahkan dengan koma bila banyak origin)
  *   CHAT_MODEL         (Variable, opsional; verifikasi nama model di dokumentasi)
  *
@@ -38,9 +38,8 @@ const FACTS = `
 
 const CONTACT = `
 - Tim Komersial LTI. Hotline 1500-876 · Telepon 021 22833872.
-- Sales: Bobi Panca Nugraha (WA 082119305096, bobi.panca@len-telko.co.id),
-  Farintya Y (081285965152), Novia Putri Z (081223774723), Mutiara Azana (081905411313).
-- Portal: https://peta-palapa.komersil.workers.dev`;
+- Untuk penawaran & kontak sales, arahkan pengunjung ke halaman Kontak/Portofolio di portal (jangan sebutkan nomor pribadi / email personal).
+- Portal: https://komersiallti.my.id`;
 
 const SYSTEM_PROMPT = `Anda adalah asisten digital portal komersial Palapa Ring Paket Tengah (PRT) milik PT Len Telekomunikasi Indonesia.
 PERAN: bantu pengunjung memahami jaringan PRT, layanan, dan cara memulai pembicaraan komersial. Titik masuk, bukan pengganti sales.
@@ -66,7 +65,7 @@ function rateLimited(ip) {
   return rec.count > MAX_REQ;
 }
 function cors(origin, env) {
-  const allowed = (env.ALLOWED_ORIGIN || "https://peta-palapa.komersil.workers.dev").split(",").map(s => s.trim());
+  const allowed = (env.ALLOWED_ORIGIN || "https://komersiallti.my.id").split(",").map(s => s.trim());
   const ok = allowed.includes(origin) ? origin : allowed[0];
   return { "Access-Control-Allow-Origin": ok, "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Allow-Methods": "POST, OPTIONS", "Vary": "Origin" };
