@@ -1,0 +1,12 @@
+# Block All Web Crawlers from indexing internal portal pages (V-16)
+User-agent: *
+Disallow: /crm.html
+Disallow: /dokumen.html
+Disallow: /sop.html
+Disallow: /sales.html
+Disallow: /komersial.html
+Disallow: /peta.html
+Disallow: /Palapa_Ring_Tengah_Interaktif.html
+Disallow: /cgi-bin/
+
+Sitemap: https://komersiallti.my.id/sitemap.xml
