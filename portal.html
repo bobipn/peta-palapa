@@ -306,17 +306,21 @@ const CERTS = ['PMP', 'ITIL', 'HSE', 'Working at Height', 'CCNA', 'RTN Huawei'];
 
 /* ============================================================ AUTH */
 const AUTH_KEY = 'lti_portal_auth_v1';
-const USERS = [
-  { email: 'bobi.panca@len-telko.co.id', name: 'Bobi Panca' },
-  { email: 'farintya.yuniastiti@len-telko.co.id', name: 'Farintya Yuniastiti' },
-  { email: 'mutiara.azana@len-telko.co.id', name: 'Mutiara Azana' },
-  { email: 'adella.indiany@len-telko.co.id', name: 'Adella Indiany Tristiadi' },
-  { email: 'nabila.pramesti@len-telko.co.id', name: 'Nabila Pramesti Shonigiya' },
-  { email: 'lorinda.febriani@len-telko.co.id', name: 'Lorinda Febriani' },
-  { email: 'abdul.fikar@len-telko.co.id', name: 'Abdul Fikar' },
-  { email: 'novia.putri@len-telko.co.id', name: 'Novia Putri Zahra' }
-];
-const PASS = 'LTI2026.';
+/* Login ter-hash (SHA-256, ber-salt). Password & email TIDAK disimpan
+   sebagai teks di kode. USER_DB memetakan hash -> nama tampilan. */
+const SALT = 'PRT-LTI-2026-v2';
+const USER_DB = {
+  '20fcb5bc9fa2d13e93c9b725cb6abb0532e1ff031f786547551a2772d00d5638': 'Bobi Panca',
+  '32d9f4c7391337e9c12bfb89d87069714122cd38e4112e832079ffbf4306bad7': 'Farintya Yuniastiti',
+  '8c7af016eeec2a7b7ab79818ba573aed8b9f1f31d84b4c3ab99ff970ba014bd4': 'Mutiara Azana',
+  '8fe317769f207fb9beb29e826e2ec26806233df6778a829021b441ec9790e27d': 'Adella Indiany Tristiadi',
+  '5c4392a9c2e349d7885f386a88d586cd1555254652e1157a97ce1f549598725e': 'Nabila Pramesti Shonigiya',
+  'c09a5168969b11dbfbaee7e926bd25e85b2cdeb4b1bd61e36b82b275a2674071': 'Lorinda Febriani',
+  '40eb35d36c88342a3804a96862477c40cacdae11fe7807a7b04fddc77c8a64b9': 'Abdul Fikar',
+  '794d9471d1d846601f1595978b4601507c7ea488e2acfa22337f79808657e637': 'Novia Putri Zahra'
+};
+const LOCK_KEY = 'lti_login_lock', MAX_TRY = 5, LOCK_MS = 15 * 60 * 1000;
+async function sha256hex(s){ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2,'0')).join(''); }
 const SESSION_MS = 3 * 60 * 60 * 1000; // 3 jam
 function getSession() {
   try {
@@ -425,18 +429,31 @@ function Login({
     [p, setP] = useState(''),
     [err, setErr] = useState(''),
     [show, setShow] = useState(false);
-  const submit = e => {
+  const submit = async e => {
     e.preventDefault();
-    const email = u.trim().toLowerCase();
-    const found = USERS.find(x => x.email === email);
-    if (found && p === PASS) {
-      localStorage.setItem(AUTH_KEY, JSON.stringify({
-        user: found.email,
-        name: found.name,
-        ts: Date.now()
-      }));
-      onOk();
-    } else setErr('Email atau password salah. Coba lagi.');
+    try {
+      const lock = JSON.parse(localStorage.getItem(LOCK_KEY) || 'null');
+      if (lock && lock.until > Date.now()) {
+        setErr('Terlalu banyak percobaan. Coba lagi dalam ' + Math.ceil((lock.until - Date.now()) / 60000) + ' menit.');
+        return;
+      }
+      if (!(window.crypto && crypto.subtle)) { setErr('Butuh koneksi aman (HTTPS) untuk login.'); return; }
+      const email = u.trim().toLowerCase();
+      const h = await sha256hex(SALT + ':' + email + ':' + p);
+      const name = USER_DB[h];
+      if (name) {
+        localStorage.removeItem(LOCK_KEY);
+        localStorage.setItem(AUTH_KEY, JSON.stringify({ name: name, ts: Date.now() }));
+        onOk();
+      } else {
+        const rec = (lock && typeof lock.count === 'number') ? lock : { count: 0, until: 0 };
+        rec.count = (rec.count || 0) + 1;
+        if (rec.count >= MAX_TRY) { rec.until = Date.now() + LOCK_MS; rec.count = 0; }
+        localStorage.setItem(LOCK_KEY, JSON.stringify(rec));
+        const left = MAX_TRY - rec.count;
+        setErr('Email atau password salah.' + (rec.until > Date.now() ? ' Akun dikunci 15 menit.' : (left > 0 ? (' Sisa percobaan: ' + left + '.') : '')));
+      }
+    } catch (err) { setErr('Terjadi kesalahan. Coba lagi.'); }
   };
   return /*#__PURE__*/React.createElement("div", {
     className: "min-h-screen relative flex items-center justify-center p-5 overflow-hidden",
