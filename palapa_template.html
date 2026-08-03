@@ -2,6 +2,77 @@
 <html lang="id">
 <head>
 <meta charset="utf-8"/>
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<script>
+/* ============================================================
+   LTI-AUTH-GUARD — wajib login di SEMUA halaman modul.
+   Cek sinkron sebelum konten dirender + tahan cache/bfcache
+   supaya halaman yang sudah logout tidak bisa tampil lagi
+   lewat tombol back atau cache browser.
+   ============================================================ */
+(function () {
+  var AUTH_KEY = 'lti_portal_auth_v1';
+  var SESSION_MS = 3 * 60 * 60 * 1000; // 3 jam, samakan dengan portal.html
+  var LOGIN_PAGE = 'index.html';
+
+  function getSession() {
+    try {
+      var s = JSON.parse(localStorage.getItem(AUTH_KEY) || 'null');
+      if (s && s.ts && (Date.now() - s.ts) < SESSION_MS) return s;
+    } catch (e) {}
+    return null;
+  }
+
+  function gate() {
+    if (!getSession()) {
+      try { localStorage.removeItem(AUTH_KEY); } catch (e) {}
+      if (!/(^|\/)index\.html/.test(location.pathname)) {
+        location.replace(LOGIN_PAGE);
+      }
+    }
+  }
+
+  gate(); // cek langsung, sebelum HTML lain di bawah dirender
+
+  // Halaman dipulihkan dari back/forward cache browser -> cek ulang segera
+  window.addEventListener('pageshow', function (e) { if (e.persisted) gate(); });
+  // Tab kembali aktif -> cek ulang (mis. sesi expired di tab lain)
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') gate();
+  });
+  // Watchdog berkala selama halaman terbuka
+  setInterval(gate, 30000);
+
+  window.ltiLogout = function () {
+    try { localStorage.removeItem(AUTH_KEY); } catch (e) {}
+    try {
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n) document.cookie = n + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+      });
+    } catch (e) {}
+    location.replace(LOGIN_PAGE);
+  };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!getSession()) return;
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = '⏻ Keluar';
+    b.title = 'Keluar dari portal';
+    b.style.cssText = 'position:fixed;top:10px;right:10px;z-index:2147483647;' +
+      'background:#0A1B3D;color:#fff;border:none;border-radius:20px;' +
+      'padding:7px 14px;font:600 12px Inter,Arial,sans-serif;cursor:pointer;' +
+      'box-shadow:0 4px 14px rgba(0,0,0,.3);opacity:.82;transition:opacity .15s';
+    b.onmouseenter = function () { b.style.opacity = '1'; };
+    b.onmouseleave = function () { b.style.opacity = '.82'; };
+    b.addEventListener('click', function () { window.ltiLogout(); });
+    document.body.appendChild(b);
+  });
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Palapa Ring Tengah · Peta Interaktif Rute & Site</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
@@ -203,6 +274,7 @@
       <a class="pagelink" href="crm.html" style="background:linear-gradient(120deg,#226DB4,#3D8DDB);color:#fff">📇 LTI CRM · Pipeline & Leads <span>→</span></a>
       <a class="pagelink" href="sales.html" style="background:linear-gradient(120deg,#0E3F72,#2E86DE);color:#fff">☁ Sales Cloud · Dashboard <span>→</span></a>
       <a class="pagelink" href="dokumen.html" style="background:linear-gradient(120deg,#0FA3A3,#2FD6C0);color:#052a2a">📁 Arsip Dokumen (SOP) <span>→</span></a>
+      <a class="pagelink" href="sop.html" style="background:linear-gradient(120deg,#123B63,#2E86DE);color:#fff">📘 Portal SOP &amp; CS AI <span>→</span></a>
     </div>
     <div class="side-scroll">
 
@@ -382,6 +454,5 @@
 <script>
 /*__APP__*/
 </script>
-<script src="/chatbot-lti.js" defer></script>
 </body>
 </html>

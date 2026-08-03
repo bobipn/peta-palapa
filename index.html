@@ -2,6 +2,15 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"/>
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<script>
+/* Halaman dipulihkan dari back/forward cache (bfcache) -> paksa reload
+   supaya status login/sesi selalu dievaluasi ulang dari awal, bukan
+   memakai state React beku dari sebelum logout/expired. */
+window.addEventListener('pageshow', function (e) { if (e.persisted) location.reload(); });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Palapa Ring Paket Tengah · Portal LTI</title>
 <script src="https://cdn.tailwindcss.com"></script>
