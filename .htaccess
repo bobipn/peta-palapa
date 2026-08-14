@@ -39,3 +39,18 @@ RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 ErrorDocument 404 /404.html
+
+<IfModule mod_headers.c>
+    # Standar terbaru
+    Header set Permissions-Policy "camera=(self), microphone=(self), display-capture=(self), autoplay=(self)"
+    # Kompatibilitas lama (opsional; abaikan jika error)
+    Header set Feature-Policy "camera 'self'; microphone 'self'; display-capture 'self'"
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# (OPSIONAL) Paksa HTTPS — mikrofon/kamera HANYA jalan di https://
+# Aktifkan (hapus tanda #) HANYA jika SSL sudah terpasang di domain Anda.
+# ----------------------------------------------------------------------------
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
