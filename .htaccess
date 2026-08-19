@@ -89,6 +89,58 @@ ErrorDocument 404 /404.html
 #  PLUGIN KEAMANAN cPanel (mis. Imunify360 / "Security Optimization") atau oleh
 #  hosting — bukan oleh .htaccess. Solusinya: nonaktifkan/atur CSP di panel
 #  plugin tersebut agar menyertakan "blob:", atau minta bantuan hosting.
+
+<IfModule mod_headers.c>
+
+    # --- 1) Izinkan Kamera, Mikrofon, & Berbagi Layar ---
+    # PENTING: pakai '*' (bukan 'self') agar iframe Meeting (Jitsi, lintas-domain)
+    # juga boleh memakai kamera/mikrofon. 'self' saja akan MEMBLOKIR kamera/mic
+    # di dalam meeting Jitsi.
+    Header set Permissions-Policy "camera=*, microphone=*, display-capture=*, autoplay=*"
+    Header set Feature-Policy "camera *; microphone *; display-capture *"
+    # (Alternatif lebih ketat — hanya izinkan diri sendiri + server Jitsi:
+    #  Header set Permissions-Policy "camera=(self \"https://meet.jit.si\"), microphone=(self \"https://meet.jit.si\"), display-capture=(self)"
+    #  Jika Anda self-host Jitsi, ganti URL-nya ke domain Jitsi Anda.)
+
+    # --- 2) Izinkan blob: di Content-Security-Policy ---
+    # WAJIB agar PREVIEW hasil rekaman (video/audio) bisa diputar di halaman.
+    # CSP Anda saat ini: default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'
+    # (tidak ada blob: → preview rekaman diblokir).
+    #
+    # Cara A (disarankan) — sisipkan blob: ke kebijakan yang sudah ada:
+    Header always edit Content-Security-Policy "default-src" "default-src blob:"
+    Header always edit Content-Security-Policy "media-src" "media-src blob:"
+
+    # Cara B (jika Cara A tidak berpengaruh) — timpa penuh dengan kebijakan lengkap.
+    # Hapus tanda # pada baris di bawah DAN beri # pada dua baris "Header always edit" di atas.
+    # Header always set Content-Security-Policy "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; media-src 'self' https: data: blob:; img-src 'self' https: data: blob:; worker-src 'self' blob:; frame-src 'self' https:; connect-src 'self' https: wss: blob:"
+
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# (OPSIONAL) Paksa HTTPS — mikrofon/kamera HANYA jalan di https://
+# Aktifkan (hapus #) HANYA jika SSL sudah terpasang.
+# ----------------------------------------------------------------------------
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ----------------------------------------------------------------------------
+#  Lindungi kredensial JaaS — cegah config.jaas.php diakses via URL.
+# ----------------------------------------------------------------------------
+<Files "config.jaas.php">
+    Require all denied
+</Files>
+
+# ============================================================================
+#  CATATAN PENTING
+#  Jika CSP tetap memblokir setelah ini, berarti header CSP dipasang oleh
+#  PLUGIN KEAMANAN cPanel (mis. Imunify360 / "Security Optimization") atau oleh
+#  hosting — bukan oleh .htaccess. Solusinya: nonaktifkan/atur CSP di panel
+#  plugin tersebut agar menyertakan "blob:", atau minta bantuan hosting.
+#  (Aplikasi tetap aman: rekaman selalu bisa DIUNDUH walau preview diblokir,
+#   dan untuk berkas kecil aplikasi otomatis memakai data: sebagai cadangan.)
+# ============================================================================
 #  (Aplikasi tetap aman: rekaman selalu bisa DIUNDUH walau preview diblokir,
 #   dan untuk berkas kecil aplikasi otomatis memakai data: sebagai cadangan.)
 # ============================================================================
