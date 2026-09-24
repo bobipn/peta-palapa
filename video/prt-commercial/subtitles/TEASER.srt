@@ -1,0 +1,47 @@
+1
+00:00:00,600 --> 00:00:04,199
+Konektivitas adalah fondasi bisnis dan layanan publik.
+
+2
+00:00:06,000 --> 00:00:15,381
+Palapa Ring Paket Tengah: ±3.102 kilometer serat optik, 6 proyek, 17 kota layanan, dan 10 kota interkoneksi.
+
+3
+00:00:16,881 --> 00:00:23,394
+Teknologi DWDM, dengan kapasitas 100 Gbps yang dapat ditingkatkan di setiap proyek.
+
+4
+00:00:24,894 --> 00:00:28,621
+Kini tersedia untuk bisnis Anda, dalam empat layanan.
+
+5
+00:00:30,294 --> 00:00:34,915
+Sewa Kapasitas dedicated: 1G mulai Rp7 juta per bulan.
+
+6
+00:00:36,415 --> 00:00:43,799
+Sewa Core dark fiber: Rp12 juta per kilometer per tahun untuk darat, Rp36 juta untuk laut.
+
+7
+00:00:45,299 --> 00:00:51,499
+Pay Per Use: bayar sesuai utilisasi, mulai 25 persen dari tarif 10G.
+
+8
+00:00:52,999 --> 00:00:56,401
+Kolokasi 1U untuk aktivasi, tanpa biaya.
+
+9
+00:00:58,399 --> 00:01:03,809
+Untuk operator, ISP, industri, dan layanan publik, hingga wilayah 3T.
+
+10
+00:01:05,309 --> 00:01:11,393
+Hubungi tim kami, pilih layanan dan lokasi, aktivasi di NOC, dan layanan berjalan.
+
+11
+00:01:12,892 --> 00:01:18,337
+Siap menghubungkan bisnis Anda? Hotline 1500-876.
+
+12
+00:01:19,837 --> 00:01:23,007
+Palapa Ring Paket Tengah. Semua Berhak Terhubung.

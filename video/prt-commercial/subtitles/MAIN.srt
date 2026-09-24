@@ -1,0 +1,119 @@
+1
+00:00:00,450 --> 00:00:09,692
+Di era digital, konektivitas bukan lagi sekadar infrastruktur. Konektivitas menjadi fondasi bagi bisnis, layanan publik, dan pertumbuhan ekonomi.
+
+2
+00:00:10,842 --> 00:00:20,443
+Di wilayah kepulauan, laut dan jarak menjadi tantangan. Bagaimana bisnis mendapatkan konektivitas yang andal, dapat ditingkatkan, dan sesuai kebutuhan?
+
+3
+00:00:21,593 --> 00:00:32,913
+Inilah Palapa Ring Paket Tengah, dibangun, dikelola, dan dipasarkan oleh PT Len Telekomunikasi Indonesia, Badan Usaha Pelaksana yang ditunjuk Pemerintah melalui Kemkominfo.
+
+4
+00:00:34,063 --> 00:00:54,520
+Beroperasi sejak 21 Desember 2018: 6 proyek, 17 kabupaten, dan ±3.102 kilometer kabel, yaitu ±1.304 kilometer darat dan ±1.798 kilometer laut, dengan 17 kota layanan dan 10 kota interkoneksi.
+
+5
+00:00:55,670 --> 00:01:03,298
+Menggunakan teknologi DWDM terkini, dengan kapasitas 100 Gbps yang dapat ditingkatkan pada setiap proyek.
+
+6
+00:01:04,447 --> 00:01:13,863
+Enam proyek terbentang dari Long Bagun di Kalimantan Timur, melintasi Sulawesi Tengah dan Tenggara, hingga Sulawesi Utara dan Kepulauan Maluku Utara.
+
+7
+00:01:15,013 --> 00:01:25,625
+Dengan skema B2B, jaringan ini melayani penyelenggara telekomunikasi dan ISP, serta membuka peluang bagi industri, BUMDes, layanan publik, dan masyarakat.
+
+8
+00:01:26,774 --> 00:01:35,296
+Apa yang bisa diperoleh bisnis Anda dari jaringan ini? Empat layanan: Sewa Kapasitas, Sewa Core, Kolokasi, dan Pay Per Use.
+
+9
+00:01:36,446 --> 00:01:44,677
+Sewa Kapasitas: kapasitas dedicated yang terjamin, dengan port 1G, 10G, STM-4, dan STM-16.
+
+10
+00:01:45,828 --> 00:01:56,648
+Tarif ditetapkan per bulan, per proyek. Kapasitas 1G mulai dari Rp7 juta per bulan, dan kapasitas 10G mulai dari Rp56 juta per bulan.
+
+11
+00:01:57,798 --> 00:02:09,013
+Untuk seluruh jaringan, pembelian 6 proyek sekaligus: Rp90,4 juta per bulan untuk 1G, dan Rp723 juta untuk 10G.
+
+12
+00:02:10,163 --> 00:02:25,477
+Ingin mengelola jaringan sendiri? Sewa Core memberi akses jaringan pasif: 22 core atau 11 pair per proyek, disewa per proyek, per segmen, atau per titik akses. Kapasitasnya tidak terbatas, dengan perangkat aktif milik Anda.
+
+13
+00:02:26,627 --> 00:02:39,595
+Tarif dark fiber backbone: Rp12 juta per kilometer per tahun untuk darat, dan Rp36 juta untuk laut. Contoh: segmen Sendawar – Long Bagun, Rp2,30 miliar per tahun.
+
+14
+00:02:40,745 --> 00:02:50,497
+Untuk akses, tarif dihitung proporsional berdasarkan jarak antara NOC atau TS, dengan pengali 2,5 kali hingga 1 kali harga per kilometer.
+
+15
+00:02:51,648 --> 00:03:03,711
+Butuh fleksibilitas? Pay Per Use menghitung trafik berdasarkan penggunaan: minimum 2,5G, dihitung pada puncak trafik bulan tersebut, dari data pengukuran perangkat Pay Per Use BAKTI.
+
+16
+00:03:04,860 --> 00:03:18,061
+Tagihan mengikuti utilisasi: dari 25 persen tarif normal 10G, hingga 100 persen pada 9 sampai 10 Gbps. Di Proyek 8B, mulai Rp14 juta per bulan.
+
+17
+00:03:19,211 --> 00:03:34,420
+Untuk aktivasi, tempatkan perangkat Anda di site kami. Pelanggan kapasitas mendapat ruang 1U dan daya setara 10A DC atau 2A AC tanpa biaya. Pelanggan dark fiber mendapat 1U tanpa biaya untuk perangkat pasif.
+
+18
+00:03:35,570 --> 00:03:48,585
+Kebutuhan tambahan tersedia dengan biaya acuan bulanan: mulai Rp1 juta untuk 1U, hingga Rp16,85 juta untuk full rack. Tersedia juga lahan terbuka dan ruang pada menara.
+
+19
+00:03:49,735 --> 00:04:00,753
+Rumusnya: biaya acuan, kali koefisien hardship proyek, kali jumlah layanan. Contoh: tambahan 2U di Sendawar, Proyek 4: Rp1,8 juta per bulan.
+
+20
+00:04:01,903 --> 00:04:12,491
+Hasilnya, satu paket konektivitas yang utuh: kapasitas dedicated, ruang dan daya aktivasi tanpa biaya, serta interkoneksi langsung dengan jaringan Palapa Ring.
+
+21
+00:04:13,641 --> 00:04:23,962
+Cara berlangganan: hubungi tim komersial kami, tentukan layanan dan lokasi, terima penawaran, lakukan aktivasi di NOC Palapa Ring, dan layanan berjalan.
+
+22
+00:04:25,112 --> 00:04:33,169
+Kapasitas, Pay Per Use, dan kolokasi bertarif bulanan. Dark fiber bertarif tahunan. Syarat dan ketentuan berlaku.
+
+23
+00:04:34,320 --> 00:04:44,096
+Mengapa Palapa Ring Paket Tengah? Kapasitas dedicated yang dapat ditingkatkan, jangkauan hingga wilayah 3T, pilihan layanan yang lengkap, dan tarif yang jelas.
+
+24
+00:04:45,245 --> 00:04:52,861
+Untuk ISP lokal: ambil kapasitas di kota layanan Palapa Ring, lalu salurkan internet ke pelanggan di wilayah Anda.
+
+25
+00:04:54,011 --> 00:05:04,437
+Untuk operator: hubungkan BTS ke backbone, dan tempatkan antena di menara kami. Untuk industri dan layanan publik: hubungkan lokasi Anda, hingga wilayah 3T.
+
+26
+00:05:05,587 --> 00:05:15,873
+Simulasi: ISP di Tahuna, Proyek 8A, butuh kapasitas 1G: Rp30 juta per bulan, dengan kolokasi 1U tanpa biaya.
+
+27
+00:05:17,024 --> 00:05:28,657
+Pay Per Use di Proyek 5, dengan puncak trafik 4,6 Gbps: 50 persen dari Rp152 juta, yaitu Rp76 juta untuk bulan itu.
+
+28
+00:05:29,807 --> 00:05:40,511
+Apa yang dibutuhkan jaringan Anda? Kapasitas, jangkauan, keandalan, infrastruktur, atau skalabilitas. Semuanya bertemu di satu jaringan: Palapa Ring Paket Tengah.
+
+29
+00:05:41,661 --> 00:05:53,085
+Siap menghubungkan bisnis Anda? Cek ketersediaan jaringan, dan bicarakan kebutuhan Anda dengan tim komersial kami di hotline 1500-876.
+
+30
+00:05:54,235 --> 00:05:57,393
+Palapa Ring Paket Tengah. Semua Berhak Terhubung.
