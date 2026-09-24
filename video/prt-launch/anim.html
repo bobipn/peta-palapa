@@ -1,0 +1,501 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Serif;src:url(node_modules/@fontsource/source-serif-4/files/source-serif-4-latin-600-normal.woff2);font-weight:600}
+@font-face{font-family:Serif;src:url(node_modules/@fontsource/source-serif-4/files/source-serif-4-latin-400-italic.woff2);font-weight:400;font-style:italic}
+@font-face{font-family:Sans;src:url(node_modules/@fontsource/manrope/files/manrope-latin-800-normal.woff2);font-weight:800}
+@font-face{font-family:Sans;src:url(node_modules/@fontsource/manrope/files/manrope-latin-600-normal.woff2);font-weight:600}
+@font-face{font-family:Hand;src:url(node_modules/@fontsource/caveat/files/caveat-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:Pix;src:url(node_modules/@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff2)}
+html,body{margin:0;background:#000}
+canvas{display:block}
+</style></head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="data.js"></script>
+<script>
+const W=1920,H=1080,FPS=30,DUR=30;
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+// ---------- palette (LTI blue/red + Claude clay on paper) ----------
+const C={paper:'#F4EFE3',paper2:'#EAE2D0',ink:'#1B1A17',clay:'#D97757',clayD:'#B85C3E',clayL:'#EFA07F',
+  blue:'#005DA2',blueD:'#003E6E',blueL:'#4F9BD6',red:'#E3262D',sea:'#CFE0EC',cyan:'#35D0FF',gold:'#F2B63B'};
+
+// ---------- deterministic noise ----------
+function hash(a,b=0,c=0){let h=(a*374761393+b*668265263+c*1442695041)|0;h=(h^(h>>>13))*1274126177|0;h=h^(h>>>16);return (h>>>0)/4294967295}
+let BOIL=0; // changes 12x per second -> line boil
+function jit(k,amt){return (hash(BOIL,k,7)-0.5)*2*amt}
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const inv=(a,b,x)=>clamp((x-a)/(b-a));
+const eOut=t=>1-Math.pow(1-t,3), eIn=t=>t*t*t, eIO=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const eBack=t=>{const c1=2.2,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)};
+const eElastic=t=>t===0?0:t===1?1:Math.pow(2,-10*t)*Math.sin((t*10-0.75)*2.094)+1;
+
+// ---------- hand-drawn primitives ----------
+function sketchPath(pts,{color=C.ink,width=4,passes=2,j=2.2,close=false,alpha=1,seed=0,upto=1}={}){
+  const n=pts.length; if(n<2||upto<=0)return;
+  const m=Math.max(2,Math.floor(n*upto));
+  ctx.save();ctx.strokeStyle=color;ctx.lineCap='round';ctx.lineJoin='round';
+  for(let p=0;p<passes;p++){
+    ctx.globalAlpha=alpha*(p?0.55:1);ctx.lineWidth=width*(p?0.6:1);
+    ctx.beginPath();
+    for(let i=0;i<m;i++){const [x,y]=pts[i];const k=seed*997+i*13+p*71;
+      const X=x+jit(k,j),Y=y+jit(k+5,j); i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+    if(upto<1&&m<n){ // partial last segment
+      const f=n*upto-m+1; if(m<n){const a=pts[m-1],b=pts[m];ctx.lineTo(lerp(a[0],b[0],clamp(f)),lerp(a[1],b[1],clamp(f)))}}
+    if(close&&upto>=1)ctx.closePath();
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+function circlePts(cx,cy,r,n=40,over=0.08,seed=0){const pts=[];const a0=hash(seed,3)*6.28;
+  for(let i=0;i<=n*(1+over);i++){const a=a0+i/n*6.283;const rr=r*(1+(hash(seed,i%n)-.5)*0.04);pts.push([cx+Math.cos(a)*rr,cy+Math.sin(a)*rr])}return pts}
+function sketchCircle(cx,cy,r,o={}){sketchPath(circlePts(cx,cy,r,Math.max(18,r/3|0),0.1,o.seed||0),o)}
+function sketchRect(x,y,w,h,o={}){sketchPath([[x,y],[x+w,y],[x+w,y+h],[x,y+h],[x,y+2]],o)}
+function hatch(x,y,w,h,{angle=-0.8,gap=14,color=C.ink,width=2,alpha=.35,seed=0}={}){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.globalAlpha=alpha;ctx.lineCap='round';
+  const ca=Math.cos(angle),sa=Math.sin(angle),L=Math.hypot(w,h);const cx=x+w/2,cy=y+h/2;
+  ctx.beginPath();
+  for(let d=-L/2,i=0;d<L/2;d+=gap,i++){const ox=cx-sa*d,oy=cy+ca*d;
+    ctx.moveTo(ox-ca*L/2+jit(seed+i,3),oy-sa*L/2+jit(seed+i+1,3));ctx.lineTo(ox+ca*L/2+jit(seed+i+2,3),oy+sa*L/2+jit(seed+i+3,3))}
+  ctx.stroke();ctx.restore();
+}
+function text(s,x,y,{font='600 80px Serif',color=C.ink,align='center',rot=0,alpha=1,reveal=1,wob=true,stroke=null,sw=0,base='middle'}={}){
+  if(reveal<=0||alpha<=0)return;
+  ctx.save();ctx.globalAlpha=alpha;ctx.font=font;ctx.textAlign=align;ctx.textBaseline=base;
+  ctx.translate(x+(wob?jit(901,1.2):0),y+(wob?jit(902,1.2):0));ctx.rotate(rot+(wob?jit(903,0.006):0));
+  if(reveal<1){const w=ctx.measureText(s).width;const x0=align==='center'?-w/2:align==='right'?-w:0;
+    ctx.beginPath();ctx.rect(x0-20,-400,(w+40)*reveal,800);ctx.clip()}
+  if(stroke){ctx.lineJoin='round';ctx.strokeStyle=stroke;ctx.lineWidth=sw;ctx.strokeText(s,0,0)}
+  ctx.fillStyle=color;ctx.fillText(s,0,0);ctx.restore();
+}
+// marker highlight swipe behind text
+function marker(x,y,w,h,p,color,seed=0){if(p<=0)return;ctx.save();ctx.fillStyle=color;ctx.globalAlpha=.85;
+  ctx.beginPath();const ww=w*eOut(p);ctx.moveTo(x+jit(seed,3),y+jit(seed+1,4));ctx.lineTo(x+ww+jit(seed+2,3),y+4+jit(seed+3,4));
+  ctx.lineTo(x+ww-6+jit(seed+4,3),y+h+jit(seed+5,4));ctx.lineTo(x+4+jit(seed+6,3),y+h-3+jit(seed+7,4));ctx.fill();ctx.restore()}
+function arrow(x1,y1,x2,y2,p,o={}){if(p<=0)return;const pts=[];const mx=(x1+x2)/2+(y2-y1)*.25,my=(y1+y2)/2-(x2-x1)*.25;
+  for(let i=0;i<=20;i++){const t=i/20;pts.push([(1-t)*(1-t)*x1+2*(1-t)*t*mx+t*t*x2,(1-t)*(1-t)*y1+2*(1-t)*t*my+t*t*y2])}
+  sketchPath(pts,{width:5,...o,upto:p});
+  if(p>=.98){const a=Math.atan2(y2-my,x2-mx);sketchPath([[x2-Math.cos(a-.5)*26,y2-Math.sin(a-.5)*26],[x2,y2],[x2-Math.cos(a+.5)*26,y2-Math.sin(a+.5)*26]],{width:5,...o})}}
+function burst(cx,cy,r,p,color=C.ink,n=14,seed=0){if(p<=0||p>=1)return;for(let i=0;i<n;i++){const a=i/n*6.283+hash(seed,i)*.3;
+  const r1=r*(0.3+eOut(p)*0.7),r2=r1+r*0.35*(1-p);sketchPath([[cx+Math.cos(a)*r1,cy+Math.sin(a)*r1],[cx+Math.cos(a)*r2,cy+Math.sin(a)*r2]],{color,width:6*(1-p)+1,passes:1})}}
+function puff(cx,cy,r,p,seed=0){if(p<=0||p>=1)return;for(let i=0;i<6;i++){const a=Math.PI+i/5*Math.PI*-1;const d=r*eOut(p)*1.6;
+  sketchCircle(cx+Math.cos(a)*d,cy+Math.sin(a)*d*.35-r*.2,r*.35*(1-p*.7),{width:3,alpha:1-p,seed:seed+i,passes:1})}}
+
+// ---------- paper texture (static => compresses well) ----------
+const paper=document.createElement('canvas');paper.width=W+200;paper.height=H+200;
+(function(){const p=paper.getContext('2d');p.fillStyle=C.paper;p.fillRect(0,0,paper.width,paper.height);
+  const id=p.getImageData(0,0,paper.width,paper.height),d=id.data;
+  for(let i=0;i<d.length;i+=4){const n=(hash(i,1)-.5)*10;d[i]+=n;d[i+1]+=n;d[i+2]+=n}
+  p.putImageData(id,0,0);
+  p.globalAlpha=.06;p.strokeStyle='#8a7a5a';p.lineWidth=1;
+  for(let i=0;i<500;i++){const x=hash(i,2)*paper.width,y=hash(i,3)*paper.height,a=hash(i,4)*6.28,l=10+hash(i,5)*30;
+    p.beginPath();p.moveTo(x,y);p.quadraticCurveTo(x+Math.cos(a)*l/2+5,y+Math.sin(a)*l/2,x+Math.cos(a)*l,y+Math.sin(a)*l);p.stroke()}
+  const g=p.createRadialGradient(paper.width/2,paper.height/2,H*.35,paper.width/2,paper.height/2,H*1.05);
+  g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(90,60,20,.22)');p.globalAlpha=1;p.fillStyle=g;p.fillRect(0,0,paper.width,paper.height)})();
+function drawPaper(tint){ctx.drawImage(paper,-100+(BOIL%3)*0.0,-100);if(tint){ctx.save();ctx.globalAlpha=tint.a;ctx.fillStyle=tint.c;ctx.fillRect(0,0,W,H);ctx.restore()}}
+
+// ---------- CLAWD (8-bit, from the Claude Code terminal glyph) ----------
+// quadrant grid 18 x 5; each cell is 1 unit wide x 2 units tall
+const CL=[];(function(){
+  const row=(r,xs)=>xs.forEach(x=>CL.push([x,r]));const R=(a,b)=>{const o=[];for(let i=a;i<=b;i++)o.push(i);return o};
+  row(0,R(3,14));row(1,R(3,14).filter(x=>x!==5&&x!==12));row(2,R(1,16));row(3,R(3,14));})();
+const LEGS=[4,6,11,13];
+// opts: s unit px, blink 0..1, look -1..1, walk phase, arms 0(down)..1(up), shades, hat, squash
+function clawd(cx,cy,s,o={}){
+  const {blink=0,look=0,walk=null,arms=0,shades=0,hat=0,squash=0,rot=0,glow=0,mask=0}=o;
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);
+  const sx=1+squash*0.25,sy=1-squash*0.25;ctx.scale(sx,sy);
+  // anchor: bottom-center of feet
+  const ox=-9*s,oy=-10*s;
+  if(glow>0){ctx.save();ctx.globalAlpha=glow*.5;const g=ctx.createRadialGradient(0,-5*s,0,0,-5*s,16*s);g.addColorStop(0,C.cyan);g.addColorStop(1,'rgba(53,208,255,0)');ctx.fillStyle=g;ctx.fillRect(-20*s,-22*s,40*s,34*s);ctx.restore()}
+  // shadow
+  ctx.save();ctx.globalAlpha=.18;ctx.fillStyle=C.ink;ctx.beginPath();ctx.ellipse(0,s*.4,9*s,1.4*s,0,0,6.3);ctx.fill();ctx.restore();
+  const cells=CL.map(([x,r])=>[x,r]);
+  // arms up: move arm cells (x1,2,15,16 row2) to row 1/0
+  const body=cells.filter(([x,r])=>!(r===2&&(x<3||x>14)));
+  const armC=arms>0.5?[[1,1],[2,1],[1,0],[15,1],[16,1],[16,0]]:[[1,2],[2,2],[15,2],[16,2]];
+  const all=body.concat(armC);
+  for(const x of LEGS){let up=0;if(walk!==null){const ph=(x===4||x===11)?0:Math.PI;up=Math.max(0,Math.sin(walk+ph))*0.9}
+    all.push([x,4,up])}
+  const set=new Set(all.map(([x,r])=>x+','+r));
+  // fill blocks
+  for(const [x,r,up=0] of all){const X=ox+x*s,Y=oy+r*2*s-up*s;
+    ctx.fillStyle=r>=3?C.clayD:C.clay;ctx.fillRect(X-0.5+jit(x*31+r,0.6),Y-0.5+jit(x*17+r,0.6),s+1,2*s+1)}
+  // pixel highlight
+  ctx.fillStyle=C.clayL;ctx.globalAlpha=.9;ctx.fillRect(ox+4*s,oy+0.2*s,4*s,0.6*s);ctx.globalAlpha=1;
+  // outline outer edges (hand-inked)
+  const lw=Math.max(2,s*0.28);
+  for(const [x,r,up=0] of all){const X=ox+x*s,Y=oy+r*2*s-up*s,k=x*7+r*3;
+    const e=(dx,dr)=>!set.has((x+dx)+','+(r+dr))||(r===4);
+    if(e(0,-1)&&!(r===4))sketchPath([[X,Y],[X+s,Y]],{width:lw,passes:1,j:s*.06,seed:k});
+    if(r===4||!set.has(x+','+(r+1)))sketchPath([[X,Y+2*s],[X+s,Y+2*s]],{width:lw,passes:1,j:s*.06,seed:k+1});
+    if(!set.has((x-1)+','+r)||r===4)sketchPath([[X,Y],[X,Y+2*s]],{width:lw,passes:1,j:s*.06,seed:k+2});
+    if(!set.has((x+1)+','+r)||r===4)sketchPath([[X+s,Y],[X+s,Y+2*s]],{width:lw,passes:1,j:s*.06,seed:k+3});
+    if(r===0&&!set.has(x+',-1'))sketchPath([[X,Y],[X+s,Y]],{width:lw,passes:1,j:s*.06,seed:k+4});}
+  // eyes
+  ctx.fillStyle=C.ink;const eh=2*s*(1-blink*0.85),lx=look*0.35*s;
+  for(const ex of [5,12]){ctx.fillRect(ox+ex*s+lx,oy+2*s+(2*s-eh)/2,s,eh)}
+  // eye shine
+  if(blink<.5){ctx.fillStyle='#fff';for(const ex of [5,12])ctx.fillRect(ox+ex*s+lx+s*.55,oy+2.25*s,s*.3,s*.35)}
+  if(shades>0){const dy=(1-eOut(shades))*-14*s;ctx.fillStyle=C.ink;ctx.fillRect(ox+3.6*s,oy+1.8*s+dy,11*s,0.5*s);
+    ctx.fillRect(ox+4*s,oy+1.8*s+dy,3*s,2.2*s);ctx.fillRect(ox+11*s,oy+1.8*s+dy,3*s,2.2*s);
+    ctx.fillStyle=C.cyan;ctx.fillRect(ox+4.4*s,oy+2.2*s+dy,.8*s,.6*s);ctx.fillRect(ox+11.4*s,oy+2.2*s+dy,.8*s,.6*s)}
+  if(mask>0){ctx.save();ctx.globalAlpha=.55;ctx.fillStyle=C.cyan;ctx.fillRect(ox+3.8*s,oy+1.6*s,10.4*s,2.8*s);ctx.restore();
+    sketchRect(ox+3.8*s,oy+1.6*s,10.4*s,2.8*s,{width:lw,passes:1});sketchPath([[ox+15*s,oy+2*s],[ox+16*s,oy-3*s],[ox+17*s,oy-3.4*s]],{width:lw*1.3,passes:1})}
+  if(hat>0){const hy=oy-(1-eBack(hat))*10*s;ctx.fillStyle=C.blue;ctx.beginPath();ctx.moveTo(ox+6*s,hy);ctx.lineTo(ox+9*s,hy-7*s);ctx.lineTo(ox+12*s,hy);ctx.fill();
+    sketchPath([[ox+6*s,hy],[ox+9*s,hy-7*s],[ox+12*s,hy]],{width:lw,passes:1});ctx.fillStyle=C.red;ctx.fillRect(ox+8.4*s,hy-8.2*s,1.4*s,1.4*s);
+    ctx.fillStyle=C.gold;ctx.fillRect(ox+7.2*s,hy-3.5*s,1*s,1*s);ctx.fillRect(ox+9.6*s,hy-2*s,1*s,1*s)}
+  ctx.restore();
+}
+
+// ---------- map projection ----------
+const G=window.GEO;
+function proj(lon,lat,m){return [m.x+(lon-m.lon)*m.k,m.y-(lat-m.lat)*m.k]}
+function drawMap(m,{hatchLand=true,landAlpha=1}={}){
+  ctx.save();
+  // land polys
+  ctx.beginPath();
+  for(const poly of G.polys){poly.forEach(([lo,la],i)=>{const [x,y]=proj(lo,la,m);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath()}
+  ctx.globalAlpha=landAlpha;ctx.fillStyle='#E6D8B8';ctx.fill();
+  if(hatchLand){ctx.save();ctx.clip();hatch(0,0,W,H,{gap:13,alpha:.18,width:2,seed:11,angle:-.9});ctx.restore()}
+  ctx.restore();
+  let pi=0;for(const poly of G.polys){const pts=poly.map(([lo,la])=>proj(lo,la,m));
+    // cull
+    let minx=1e9,maxx=-1e9,miny=1e9,maxy=-1e9;for(const [x,y] of pts){minx=Math.min(minx,x);maxx=Math.max(maxx,x);miny=Math.min(miny,y);maxy=Math.max(maxy,y)}
+    if(maxx<-50||minx>W+50||maxy<-50||miny>H+50){pi++;continue}
+    const big=(maxx-minx)>30;sketchPath(pts,{width:big?3.2:2.2,passes:big?2:1,j:1.6,close:true,alpha:landAlpha,seed:pi++})}
+}
+function seaWaves(m,alpha=.35,off=0){ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=C.blue;ctx.lineWidth=2.5;ctx.lineCap='round';
+  for(let i=0;i<46;i++){const x=hash(i,40)*W,y=hash(i,41)*H;const dx=((off*20+x)%W+W)%W;
+    ctx.beginPath();for(let k=0;k<3;k++){ctx.moveTo(dx+k*18,y);ctx.quadraticCurveTo(dx+k*18+5,y-7+jit(i*3+k,1.5),dx+k*18+10,y)}ctx.stroke()}ctx.restore()}
+function routeLen(line,m){let L=0;for(let i=1;i<line.length;i++){const a=proj(...line[i-1],m),b=proj(...line[i],m);L+=Math.hypot(b[0]-a[0],b[1]-a[1])}return L}
+function drawRoutes(m,p,{glow=true}={}){ // p 0..1 progressive draw
+  const lines=G.marine.concat(G.inland);
+  lines.forEach((ln,i)=>{const pts=ln.map(c=>proj(c[0],c[1],m));const marine=i<G.marine.length;
+    const lp=clamp(p*1.25-(i/lines.length)*0.25);if(lp<=0)return;
+    if(glow){ctx.save();ctx.shadowColor=C.cyan;ctx.shadowBlur=18;sketchPath(pts,{color:marine?C.cyan:C.red,width:marine?6:5,passes:1,j:.8,upto:lp,seed:i});ctx.restore()}
+    sketchPath(pts,{color:marine?C.blue:C.red,width:marine?3:2.6,passes:1,j:.6,upto:lp,seed:i+300});});
+}
+
+// ---------- LTI logo (real asset, background knocked out) ----------
+const logoImg=new Image();logoImg.src='logo512.png';let LOGO=null;
+logoImg.onload=()=>{const c=document.createElement('canvas');c.width=360;c.height=360;const x=c.getContext('2d');
+  x.drawImage(logoImg,76,78,360,360,0,0,360,360);const id=x.getImageData(0,0,360,360),d=id.data;
+  for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2];const mx=Math.max(r,g,b),mn=Math.min(r,g,b);const sat=mx?(mx-mn)/mx:0;
+    if(sat<0.42){ // background or grey drop shadow -> remove
+      d[i+3]=0}else{d[i+3]=Math.min(255,(sat-0.42)*1400)}}
+  x.putImageData(id,0,0);LOGO=c;};
+function drawLogo(cx,cy,size,alpha=1,rot=0){if(!LOGO)return;ctx.save();ctx.globalAlpha=alpha;ctx.translate(cx,cy);ctx.rotate(rot);ctx.drawImage(LOGO,-size/2,-size/2,size,size);ctx.restore()}
+// sketched version of the ring mark (for draw-on), angles in degrees clockwise from +x
+function sketchRing(cx,cy,R,p,alpha=1){
+  const r1=R*0.60,r2=R;const segs=[[197,268,C.red],[134,193,C.blue],[62,130,C.blue]];
+  ctx.save();ctx.globalAlpha=alpha;
+  segs.forEach(([a,b,col],i)=>{const q=clamp(p*3-i*.6);if(q<=0)return;const bb=a+(b-a)*eOut(q);
+    ctx.beginPath();ctx.arc(cx,cy,r2,a*Math.PI/180,bb*Math.PI/180);ctx.arc(cx,cy,r1,bb*Math.PI/180,a*Math.PI/180,true);ctx.closePath();
+    ctx.fillStyle=col;ctx.fill();ctx.save();ctx.clip();hatch(cx-R,cy-R,2*R,2*R,{color:'#fff',alpha:.25,gap:10,width:2,seed:i});ctx.restore();
+    const pts=[];for(let k=0;k<=16;k++){const an=(a+(bb-a)*k/16)*Math.PI/180;pts.push([cx+Math.cos(an)*r2,cy+Math.sin(an)*r2])}
+    for(let k=16;k>=0;k--){const an=(a+(bb-a)*k/16)*Math.PI/180;pts.push([cx+Math.cos(an)*r1,cy+Math.sin(an)*r1])}
+    sketchPath(pts,{width:3,passes:1,close:true,seed:i*5})});
+  // bars
+  const bars=19;for(let k=0;k<bars;k++){const q=clamp(p*2.2-0.8-k/bars*0.6);if(q<=0)continue;const an=(275+k*(58-(-85))/bars)*Math.PI/180;
+    const col=k<10?C.red:C.blue;const len=(r2-r1)*eBack(q);
+    ctx.save();ctx.strokeStyle=col;ctx.lineWidth=R*0.045;ctx.lineCap='butt';ctx.beginPath();
+    ctx.moveTo(cx+Math.cos(an)*r1,cy+Math.sin(an)*r1);ctx.lineTo(cx+Math.cos(an)*(r1+len),cy+Math.sin(an)*(r1+len));ctx.stroke();ctx.restore()}
+  ctx.restore();
+}
+function wordmark(x,y,sc,alpha=1,reveal=1){ // LTI lockup typography next to the real ring mark
+  text('Len',x,y-34*sc,{font:`800 ${96*sc}px Sans`,color:C.blue,align:'left',alpha,reveal,wob:false});
+  text('Telekomunikasi Indonesia',x,y+36*sc,{font:`600 ${40*sc}px Sans`,color:C.blue,align:'left',alpha,reveal,wob:false});
+  text('A Len Industri Company',x+4*sc,y+80*sc,{font:`italic 400 ${24*sc}px Serif`,color:'#6b6b6b',align:'left',alpha,reveal,wob:false});
+}
+
+// ---------- camera ----------
+function camera(z,fx,fy,shake=0,rot=0){ctx.translate(W/2+jit(501,shake),H/2+jit(502,shake));ctx.rotate(rot);ctx.scale(z,z);ctx.translate(-fx,-fy)}
+function counter(v,dec=0){return Math.round(v).toLocaleString('en-US')}
+function flash(a,col='#fff'){if(a<=0)return;ctx.save();ctx.globalAlpha=a;ctx.fillStyle=col;ctx.fillRect(0,0,W,H);ctx.restore()}
+function inkWipe(p,col=C.ink,seed=0){ // hand-painted brush wipe covering screen at p=0.5, uncovering after
+  if(p<=0||p>=1)return;ctx.save();ctx.fillStyle=col;const a=p<.5?eIO(p*2):1,b=p<.5?0:eIO((p-.5)*2);
+  for(let i=0;i<9;i++){const y=i*H/8-60,h=H/8+120;const x0=-300+b*(W+600)+hash(seed,i)*80*(b>0),x1=-300+a*(W+600)+hash(seed,i+20)*120;
+    ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y+jit(i,6));ctx.quadraticCurveTo(x1+60,y+h/2,x1,y+h);ctx.lineTo(x0,y+h);ctx.fill()}
+  ctx.restore()}
+function note(s,x,y,o={}){text(s,x,y,{font:'700 54px Hand',color:o.color||C.blue,rot:o.rot||-0.04,reveal:o.reveal??1,align:o.align||'left',alpha:o.alpha??1})}
+function hud(s,x,y,a=1,col=C.ink,size=22){text(s,x,y,{font:`${size}px Pix`,color:col,align:'left',alpha:a,wob:false})}
+function speedLines(cx,cy,a,seed=0,col=C.ink){if(a<=0)return;ctx.save();ctx.globalAlpha=a;ctx.strokeStyle=col;ctx.lineCap='round';
+  for(let i=0;i<70;i++){const an=hash(seed+BOIL,i)*6.283,r1=380+hash(seed+BOIL,i+99)*300,r2=r1+200+hash(i,5)*500;ctx.lineWidth=2+hash(i,6)*6;
+    ctx.beginPath();ctx.moveTo(cx+Math.cos(an)*r1,cy+Math.sin(an)*r1);ctx.lineTo(cx+Math.cos(an)*r2,cy+Math.sin(an)*r2);ctx.stroke()}ctx.restore()}
+
+// ======================================================================
+// SCENES (t = seconds)
+// ======================================================================
+const MAPM={lon:121.6,lat:-0.9,k:108,x:W/2,y:H/2};
+
+function S1(t){ // 0 - 3.0 cold open: Clawd drops in
+  drawPaper();
+  const z=1+eIn(inv(2.45,3.0,t))*5;
+  ctx.save();camera(z,W/2,560+inv(2.45,3,t)*-40,inv(0.85,1.05,t)>0&&t<1.2?10:0);
+  // pencil ground line
+  sketchPath([[520,700],[1400,700]],{width:4,upto:eOut(inv(0.05,0.5,t)),seed:2});
+  const drop=inv(0.35,0.85,t);const y=lerp(-200,700,eIn(drop));
+  const land=inv(0.85,1.15,t);const sq=t<0.85?-0.25*drop:(land<1?Math.sin(land*Math.PI)*0.6:0);
+  const look=t>1.6&&t<2.0?-1:t>=2.0&&t<2.3?1:0;
+  clawd(W/2,y,22,{squash:sq,blink:t>1.45&&t<1.55?1:0,look,arms:t>2.1?1:0});
+  puff(W/2,705,120,inv(0.85,1.4,t),3);
+  ctx.restore();
+  if(t<2.45){
+    text('This is Palapa Ring Tengah.',W/2,215,{font:'600 104px Serif',reveal:eOut(inv(1.05,1.75,t))});
+    marker(612,850,700,70,inv(1.7,2.0,t),'rgba(242,182,59,.55)',4);
+    note('(it is way bigger than it looks)',W/2,885,{align:'center',reveal:inv(1.7,2.2,t),color:C.clayD,rot:-.02});
+    arrow(1340,860,1100,660,eOut(inv(1.9,2.3,t)),{color:C.clayD});
+  }
+  flash(inv(2.85,3.0,t)*.9,C.ink);
+}
+
+function S2(t){ // 3.0 - 6.0 the challenge: zoom out to the archipelago
+  const lt=t-3;drawPaper({c:C.sea,a:.35});
+  const z=lerp(5.5,1,eOut(inv(0,0.9,lt)));
+  const cx=lerp(proj(122.79,-1.0,MAPM)[0],W/2,eOut(inv(0,0.9,lt))),cy=lerp(proj(122.79,-1.0,MAPM)[1],H/2,eOut(inv(0,0.9,lt)));
+  ctx.save();camera(z,cx,cy,lt>2.1&&lt<2.35?14:0);
+  seaWaves(MAPM,.3,lt);drawMap(MAPM);
+  const [lx,ly]=proj(122.79,-1.0,MAPM);
+  clawd(lx,ly,4,{blink:lt>0.9&&lt<1.0?1:0,arms:lt>2.1?1:0,squash:lt>2.1&&lt<2.3?Math.sin(inv(2.1,2.3,lt)*Math.PI)*-.6:0});
+  // question marks over islands
+  [[127.5,1.0],[125.4,3.3],[115.4,0.2],[122.6,-5.0],[124.3,-1.9]].forEach(([lo,la],i)=>{const [x,y]=proj(lo,la,MAPM);const q=inv(0.9+i*.1,1.2+i*.1,lt);
+    if(lt<2.1)text('?',x,y-30,{font:`700 ${70*eBack(q)}px Hand`,color:C.red,alpha:q>0?1:0})});
+  ctx.restore();
+  // captions
+  const pop=inv(0.8,1.1,lt);
+  text('17,000+ islands.',W/2,130,{font:'600 96px Serif',stroke:C.paper,sw:12,alpha:pop>0?1:0,reveal:eOut(pop)});
+  text('Deep seas. Live volcanoes. 17 regencies waiting for broadband.',W/2,230,{font:'600 44px Sans',color:C.blueD,stroke:C.paper,sw:10,reveal:eOut(inv(1.2,1.7,lt))});
+  // stamp
+  const st=inv(2.1,2.3,lt);if(st>0){ctx.save();ctx.translate(W/2,H-180);ctx.rotate(-.08);ctx.scale(lerp(2.5,1,eOut(st)),lerp(2.5,1,eOut(st)));
+    ctx.globalAlpha=Math.min(1,st*2);sketchRect(-400,-70,800,140,{color:C.red,width:8,passes:2});
+    text('CHALLENGE ACCEPTED',0,4,{font:'800 70px Sans',color:C.red,wob:true});ctx.restore()}
+  burst(W/2,H-180,500,inv(2.1,2.6,lt),C.red,18,5);
+  inkWipe(inv(2.75,3.25,lt),C.blueD,1);
+}
+
+function S3(t){ // 6.0 - 10.0 dive: submarine cable
+  const lt=t-6;
+  // underwater bg
+  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#3B83BF');g.addColorStop(1,'#0B2A4A');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  ctx.save();ctx.globalAlpha=.08;ctx.drawImage(paper,-100,-100);ctx.restore();
+  // light rays
+  ctx.save();ctx.globalAlpha=.12;ctx.fillStyle='#fff';for(let i=0;i<5;i++){const x=200+i*380+Math.sin(lt+i)*40;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+120,0);ctx.lineTo(x+420,H);ctx.lineTo(x+200,H);ctx.fill()}ctx.restore();
+  const scroll=lt*520;
+  // sea floor (hand drawn hills)
+  const floor=[];for(let x=-40;x<=W+40;x+=40){const X=x+scroll;floor.push([x,900+Math.sin(X*0.004)*60+Math.sin(X*0.013)*18])}
+  ctx.save();ctx.fillStyle='#0A1F36';ctx.beginPath();ctx.moveTo(-40,H);floor.forEach(([x,y])=>ctx.lineTo(x,y));ctx.lineTo(W+40,H);ctx.fill();ctx.restore();
+  sketchPath(floor,{color:'#7FB6DD',width:4,passes:2,seed:9});
+  // kelp
+  for(let i=0;i<9;i++){const bx=((i*260-scroll*0.9)%(W+300)+W+300)%(W+300)-150;const pts=[];for(let k=0;k<8;k++)pts.push([bx+Math.sin(lt*3+k*.8+i)*14,930-k*26]);sketchPath(pts,{color:'#2E7D5B',width:7,passes:1,seed:i})}
+  // fish
+  for(let i=0;i<7;i++){const fx=W-((lt*700*(0.8+hash(i,8)*.6)+hash(i,9)*W)%(W+300))+150,fy=150+hash(i,10)*560;
+    ctx.save();ctx.fillStyle=i%2?C.gold:'#F07C5C';ctx.beginPath();ctx.ellipse(fx,fy,34,17,0,0,6.3);ctx.fill();ctx.beginPath();ctx.moveTo(fx+28,fy);ctx.lineTo(fx+58,fy-18);ctx.lineTo(fx+58,fy+18);ctx.fill();ctx.restore();
+    sketchCircle(fx,fy,20,{width:3,passes:1,seed:i,color:C.ink});ctx.fillStyle=C.ink;ctx.fillRect(fx-18,fy-5,6,6)}
+  // Clawd swimming + cable
+  const enter=eOut(inv(0,0.6,lt));
+  const cx=lerp(-200,760,enter)+Math.sin(lt*2.3)*30,cy=lerp(-150,520,enter)+Math.sin(lt*4)*25;
+  const cable=[];for(let k=0;k<30;k++){const tt=k/29;cable.push([cx-60-tt*900,cy-40+Math.sin(lt*5-tt*6)*30*tt+tt*260])}
+  ctx.save();ctx.shadowColor=C.cyan;ctx.shadowBlur=30;sketchPath(cable,{color:C.cyan,width:12,passes:1,seed:3});ctx.restore();
+  sketchPath(cable,{color:'#fff',width:4,passes:1,seed:4});
+  // light pulses along cable
+  for(let k=0;k<5;k++){const tt=((lt*1.6+k/5)%1);const i=Math.floor((1-tt)*29);const [px,py]=cable[i];ctx.save();ctx.fillStyle='#fff';ctx.shadowColor=C.cyan;ctx.shadowBlur=20;ctx.fillRect(px-7,py-7,14,14);ctx.restore()}
+  clawd(cx,cy,16,{rot:0.35+Math.sin(lt*4)*.08,walk:lt*14,mask:1,glow:.7,arms:Math.sin(lt*8)>0?1:0});
+  // bubbles
+  for(let i=0;i<14;i++){const bt=(lt*1.2+hash(i,1))%1;sketchCircle(cx+120+hash(i,2)*80,cy-40-bt*400,6+hash(i,3)*12,{color:'#CFEFFF',width:2.5,passes:1,seed:i,alpha:1-bt})}
+  // counter
+  const cp=eOut(inv(0.5,2.4,lt));
+  const zp=inv(0.5,0.75,lt);
+  ctx.save();ctx.translate(1370,380);ctx.scale(lerp(3,1,eOut(zp)),lerp(3,1,eOut(zp)));ctx.rotate(-.03);
+  text(counter(1823*cp)+' km',0,0,{font:'800 190px Sans',color:'#fff',stroke:C.ink,sw:14,alpha:zp>0?1:0});
+  ctx.restore();
+  text('of cable on the sea floor',1370,520,{font:'600 58px Serif',color:'#EAF6FF',reveal:eOut(inv(1.1,1.6,lt))});
+  note('(1,823.51 km, to be exact)',1370,610,{align:'center',color:C.gold,reveal:inv(1.8,2.3,lt)});
+  hud('DEPTH '+counter(40+lt*610)+' m',60,60,1,'#BFE6FF');hud('MARINE LINKS: 22',60,100,inv(1,1.2,lt),'#BFE6FF');
+  hud('SUBMARINE CABLE',1500,1040,1,'#BFE6FF',20);
+  flash(inv(3.8,4.0,lt),'#fff');
+}
+
+function S4(t){ // 10.0 - 13.5 land: jungle, mountains, volcano
+  const lt=t-10;drawPaper();
+  const scroll=lt*820;
+  // far mountains
+  const mtn=[];for(let x=-40;x<=W+40;x+=60){const X=x+scroll*.3;mtn.push([x,520-Math.abs(Math.sin(X*0.003))*220-Math.sin(X*0.011)*30])}
+  ctx.save();ctx.fillStyle='#DCCFB0';ctx.beginPath();ctx.moveTo(-40,H);mtn.forEach(p=>ctx.lineTo(...p));ctx.lineTo(W+40,H);ctx.fill();ctx.restore();sketchPath(mtn,{width:3,passes:1,seed:21,color:'#6b5d45'});
+  // volcano (erupting)
+  const vx=1350-scroll*.3+700;
+  if(vx>-400&&vx<W+400){ctx.save();ctx.fillStyle='#B9A98A';ctx.beginPath();ctx.moveTo(vx-380,700);ctx.lineTo(vx-70,300);ctx.lineTo(vx+70,300);ctx.lineTo(vx+380,700);ctx.fill();ctx.restore();
+    sketchPath([[vx-380,700],[vx-70,300],[vx+70,300],[vx+380,700]],{width:5,seed:31});
+    ctx.save();ctx.beginPath();ctx.moveTo(vx-380,700);ctx.lineTo(vx-70,300);ctx.lineTo(vx+70,300);ctx.lineTo(vx+380,700);ctx.clip();hatch(vx-400,280,800,440,{gap:16,alpha:.3,seed:4});ctx.restore();
+    // lava + smoke
+    for(let i=0;i<6;i++){const st=(lt*0.9+i/6)%1;sketchCircle(vx+Math.sin(i*2+lt)*60*st,300-st*380,40+st*110,{width:4,passes:1,seed:i+40,alpha:1-st,color:'#555'})}
+    ctx.save();ctx.fillStyle=C.red;ctx.beginPath();ctx.moveTo(vx-70,300);ctx.lineTo(vx+70,300);ctx.lineTo(vx+30,380);ctx.lineTo(vx+10,340);ctx.lineTo(vx-20,420);ctx.lineTo(vx-35,350);ctx.fill();ctx.restore();
+    // lava rocks
+    for(let i=0;i<4;i++){const rt=((lt*1.1+i*.27)%1);const rx=vx+(i-1.5)*120*rt,ry=300-Math.sin(rt*Math.PI)*300+rt*120;ctx.fillStyle=i%2?C.red:C.gold;ctx.fillRect(rx-12,ry-12,24,24);sketchRect(rx-12,ry-12,24,24,{width:3,passes:1,seed:i})}}
+  // jungle trees foreground
+  for(let i=0;i<12;i++){const tx=((i*190-scroll*.9)%(W+400)+W+400)%(W+400)-200;const h=140+hash(i,3)*90;
+    sketchPath([[tx,820],[tx+jit(i,2),820-h]],{width:9,passes:1,seed:i,color:'#5a4630'});
+    for(let k=0;k<5;k++){const a=-Math.PI/2+(k-2)*.6;const ex=tx+Math.cos(a)*120,ey=820-h+Math.sin(a)*60+40;ctx.save();ctx.fillStyle='#4E8B4A';ctx.beginPath();ctx.moveTo(tx,820-h);ctx.quadraticCurveTo((tx+ex)/2,ey-50,ex,ey);ctx.quadraticCurveTo((tx+ex)/2,ey-10,tx,820-h);ctx.fill();ctx.restore()}}
+  // ground + cable trench
+  ctx.save();ctx.fillStyle='#C9B48A';ctx.fillRect(0,820,W,H-820);ctx.restore();sketchPath([[-20,820],[W+20,822]],{width:5,seed:50});
+  hatch(0,830,W,250,{gap:18,alpha:.25,seed:5,angle:.6});
+  // Clawd running + jumping over rock
+  const jump=inv(1.3,1.9,lt);const jy=Math.sin(jump*Math.PI)*260;
+  const cx=lerp(-150,760,eOut(inv(0,0.5,lt))),cy=820-jy;
+  const cable=[[cx-40,cy-30]];for(let k=1;k<=16;k++)cable.push([cx-40-k*60,Math.min(870,cy-30+k*30)]);cable.push([-100,880]);
+  ctx.save();ctx.shadowColor=C.red;ctx.shadowBlur=18;sketchPath(cable,{color:C.red,width:10,passes:1,seed:7});ctx.restore();
+  sketchPath([[ -100,880],[cx-60,880]],{color:C.red,width:6,passes:1,seed:8});
+  // obstacle rock
+  const rx=1000-(lt-1)*820;if(rx>-200&&rx<W+200){ctx.fillStyle='#8a7b62';ctx.beginPath();ctx.moveTo(rx-90,822);ctx.lineTo(rx-40,740);ctx.lineTo(rx+50,730);ctx.lineTo(rx+100,822);ctx.fill();sketchPath([[rx-90,822],[rx-40,740],[rx+50,730],[rx+100,822]],{width:5,seed:60})}
+  clawd(cx,cy,14,{walk:lt*22,rot:jump>0&&jump<1?-0.25:0.05,arms:jump>0&&jump<1?1:0,squash:jump>0&&jump<1?-0.3:0});
+  if(jump>0&&jump<1)for(let i=0;i<4;i++)sketchPath([[cx-160-i*30,cy-60+i*30],[cx-260-i*30,cy-60+i*30]],{width:4,passes:1,seed:i});
+  // counter
+  const zp=inv(0.3,0.55,lt),cp=eOut(inv(0.3,2.2,lt));
+  ctx.save();ctx.translate(700,170);ctx.rotate(.03);ctx.scale(lerp(3,1,eOut(zp)),lerp(3,1,eOut(zp)));
+  marker(-360,-80,720,160,zp,'rgba(227,38,45,.9)',8);
+  text(counter(1320*cp)+' km',0,0,{font:'800 170px Sans',color:'#fff',alpha:zp>0?1:0});ctx.restore();
+  text('of cable over land',700,310,{font:'600 58px Serif',reveal:eOut(inv(0.9,1.4,lt))});
+  note('duct + aerial, through jungle',470,400,{reveal:inv(1.5,1.9,lt),color:C.blueD});
+  note('...and right past volcanoes!',470,460,{reveal:inv(2.0,2.4,lt),color:C.red});
+  const wp=inv(3.2,3.5,lt);if(wp>0){ctx.save();ctx.globalAlpha=wp;ctx.fillStyle=C.paper;ctx.beginPath();ctx.arc(W/2,H/2,eIn(wp)*1400,0,6.3);ctx.fill();ctx.restore()}
+}
+
+function S5(t){ // 13.5 - 17.5 the real network map
+  const lt=t-13.5;drawPaper({c:C.sea,a:.3});
+  const z=lerp(1.35,1.02,eIO(inv(0,3.8,lt)));const fx=lerp(W/2+120,W/2,eIO(inv(0,3.8,lt))),fy=H/2+10;
+  ctx.save();camera(z,fx,fy,lt>1.9&&lt<2.15?12:0,lerp(-0.03,0,eOut(inv(0,1,lt))));
+  seaWaves(MAPM,.25,lt);drawMap(MAPM);
+  const rp=eIO(inv(0.1,1.9,lt));drawRoutes(MAPM,rp);
+  // PoPs pop
+  const names=Object.keys(G.cities);
+  names.forEach((n,i)=>{const [x,y]=proj(...G.cities[n],MAPM);const q=inv(2.0+i*0.045,2.3+i*0.045,lt);if(q<=0)return;
+    const r=12*eBack(q);ctx.fillStyle=i%3===0?C.cyan:C.gold;ctx.beginPath();ctx.arc(x,y,r,0,6.3);ctx.fill();sketchCircle(x,y,r+2,{width:3,passes:1,seed:i});
+    burst(x,y,40,inv(2.0+i*.045,2.5+i*.045,lt),C.ink,8,i);
+    if(['Melonguane','Morotai','Sanana','Baubau','Long Bagun','Luwuk','Tahuna','Kendari','Sofifi','Taliabu'].includes(n))
+      text(n,x+20,y-24,{font:'700 34px Hand',align:'left',alpha:eOut(q),color:C.ink});});
+  // Clawd rides the route head
+  const all=G.marine.concat(G.inland);const ln=G.marine[Math.min(G.marine.length-1,Math.floor(rp*G.marine.length))];
+  if(rp<1&&ln){const c=ln[Math.floor((rp*G.marine.length%1)*(ln.length-1))];const [x,y]=proj(c[0],c[1],MAPM);clawd(x,y-6,3.2,{walk:lt*25,glow:.8})}
+  else{const [x,y]=proj(124.822,1.446,MAPM);clawd(x,y-6,3.6,{arms:Math.sin(lt*10)>0?1:0,blink:0})}
+  ctx.restore();
+  // stats
+  const a=inv(0.4,0.7,lt);
+  ctx.save();ctx.translate(360,150);ctx.rotate(-.04);ctx.scale(lerp(2.5,1,eOut(a)),lerp(2.5,1,eOut(a)));
+  text('3,100+ km',0,0,{font:'800 128px Sans',color:C.blueD,alpha:a>0?1:0,stroke:C.paper,sw:12});ctx.restore();
+  text('fiber backbone',360,245,{font:'600 50px Serif',reveal:eOut(inv(0.8,1.2,lt)),stroke:C.paper,sw:8});
+  const b=inv(2.0,2.3,lt);
+  ctx.save();ctx.translate(1600,860);ctx.rotate(.04);ctx.scale(lerp(2.5,1,eOut(b)),lerp(2.5,1,eOut(b)));
+  text(counter(27*eOut(inv(2.0,3.2,lt)))+' PoPs',0,0,{font:'800 128px Sans',color:C.red,alpha:b>0?1:0,stroke:C.paper,sw:12});ctx.restore();
+  text('17 service cities + 10 interconnection',1520,965,{font:'600 40px Sans',reveal:eOut(inv(2.5,3.0,lt)),stroke:C.paper,sw:8});
+  hud('KALIMANTAN · SULAWESI · MALUKU UTARA',40,1050,inv(0.4,0.6,lt),C.blueD,18);
+  inkWipe(inv(3.6,4.1,lt),C.ink,3);
+}
+
+function S6(t){ // 17.5 - 21.0 speed: 6 x 100G = 600 Gbps
+  const lt=t-17.5;
+  ctx.fillStyle='#0E1B2C';ctx.fillRect(0,0,W,H);ctx.save();ctx.globalAlpha=.07;ctx.drawImage(paper,-100,-100);ctx.restore();
+  speedLines(W/2,H/2,.35,7,'#6FD8FF');
+  const lanes=['P4','P5','P6','P7','P8A','P8B'];
+  const merge=eIO(inv(1.4,2.1,lt));
+  lanes.forEach((l,i)=>{const y0=190+i*140,y=lerp(y0,540,merge);const q=inv(0.1+i*.12,0.4+i*.12,lt);if(q<=0)return;
+    const x1=lerp(-100,1500,eOut(q));const col=i%2?C.cyan:C.red;
+    ctx.save();ctx.shadowColor=col;ctx.shadowBlur=24;sketchPath([[-100,y0+(y-y0)*0.2],[x1*0.5,lerp(y0,y,.6)],[x1,y]],{color:col,width:10,passes:1,seed:i});ctx.restore();
+    if(merge<.6){text(l,120,y0-38,{font:'22px Pix',color:'#BFE6FF',align:'left',alpha:1-merge*1.6,wob:false});text('100G',x1-30,y0-40,{font:'800 40px Sans',color:'#fff',alpha:(1-merge*1.6)*eOut(q),align:'right'})}});
+  // Clawd with shades rides the beam
+  const bob=Math.sin(lt*16)*6;
+  clawd(lerp(-200,560,eOut(inv(0,0.6,lt))),530+bob,17,{walk:lt*30,shades:inv(0.9,1.2,lt),glow:1,rot:-0.06});
+  // big number
+  const b=inv(2.05,2.25,lt);
+  if(b>0){ctx.save();ctx.translate(1330,470);const s=lerp(4,1,eOut(b))+Math.sin(inv(2.25,2.6,lt)*Math.PI)*.08;ctx.scale(s,s);ctx.rotate(-.05);
+    text('600 Gbps',0,0,{font:'800 230px Sans',color:'#fff',stroke:C.red,sw:18});ctx.restore();
+    burst(1330,470,700,inv(2.05,2.7,lt),C.cyan,22,9);flash((1-inv(2.05,2.25,lt))*(b>0)*.6,'#fff')}
+  text('6 DWDM links × 100 Gbps',1330,650,{font:'600 52px Serif',color:'#EAF6FF',reveal:eOut(inv(2.4,2.8,lt))});
+  note('(yes, it is fast)',1330,730,{align:'center',color:C.gold,reveal:inv(2.8,3.1,lt)});
+  hud('SPEED',60,60,1,'#6FD8FF');hud('▮'.repeat(Math.floor(clamp(lt/2.2)*12)),200,60,1,C.cyan);
+  flash(inv(3.35,3.5,lt),C.paper);
+}
+
+function card(x,y,w,h,rot,col,p,draw){if(p<=0)return;ctx.save();const s=lerp(1.8,1,eOut(p));ctx.translate(x,y);ctx.rotate(rot+(1-eOut(p))*0.4);ctx.scale(s,s);
+  ctx.globalAlpha=Math.min(1,p*3);ctx.fillStyle='rgba(0,0,0,.18)';ctx.fillRect(-w/2+12,-h/2+14,w,h);ctx.fillStyle=col;ctx.fillRect(-w/2,-h/2,w,h);
+  sketchRect(-w/2,-h/2,w,h,{width:4,passes:2,seed:x|0});
+  // tape
+  ctx.fillStyle='rgba(255,255,255,.55)';ctx.save();ctx.rotate(-.1);ctx.fillRect(-60,-h/2-22,120,40);ctx.restore();
+  draw();ctx.restore()}
+function S7(t){ // 21.0 - 24.5 receipts montage
+  const lt=t-21;drawPaper();
+  const zoom=1+Math.sin(lt*1.4)*0.02;ctx.save();camera(zoom,W/2,H/2,0);
+  // card 1: online since 2018
+  card(400,470,560,560,-.06,'#FFF7E0',inv(0.0,0.3,lt),()=>{
+    text('ONLINE SINCE',0,-190,{font:'800 44px Sans',color:C.blueD});
+    sketchRect(-150,-140,300,260,{width:5,passes:2});ctx.fillStyle=C.red;ctx.fillRect(-150,-140,300,64);
+    text('DEC',0,-108,{font:'800 40px Sans',color:'#fff'});text('21',0,20,{font:'800 150px Sans',color:C.ink});
+    text('2018',0,190,{font:'600 90px Serif',color:C.red});});
+  if(lt>0.2)clawd(560,196-(lt<0.6?(1-eOut(inv(0.2,0.6,lt)))*400:0),6,{hat:inv(0.5,0.9,lt),arms:1,blink:lt>1.2&&lt<1.3?1:0});
+  // card 2: KPBU
+  card(960,560,560,560,.04,'#E4F1FB',inv(1.0,1.3,lt),()=>{
+    text('KPBU / PPP',0,-190,{font:'800 52px Sans',color:C.blue});
+    text('Build · Own · Operate',0,-110,{font:'600 40px Serif'});text('· Transfer ·',0,-60,{font:'600 40px Serif'});
+    // handshake of two pixel hands
+    ctx.fillStyle=C.clay;ctx.fillRect(-150,20,140,50);ctx.fillStyle=C.blue;ctx.fillRect(-10,20,160,50);sketchRect(-150,20,300,50,{width:4,passes:1});
+    text('with BAKTI · Komdigi',0,150,{font:'700 48px Hand',color:C.blueD});text('since 2016',0,210,{font:'700 44px Hand',color:C.clayD})});
+  // card 3: capacity ready
+  card(1520,470,560,560,-.03,'#FDE8E6',inv(2.0,2.3,lt),()=>{
+    text('READY FOR YOU',0,-190,{font:'800 48px Sans',color:C.red});
+    // gauge
+    const gp=eOut(inv(2.3,3.0,lt));ctx.lineWidth=46;ctx.lineCap='butt';
+    ctx.strokeStyle='#e9d6d3';ctx.beginPath();ctx.arc(0,60,170,Math.PI,2*Math.PI);ctx.stroke();
+    ctx.strokeStyle=C.blue;ctx.beginPath();ctx.arc(0,60,170,Math.PI,Math.PI+Math.PI*0.5*gp);ctx.stroke();
+    ctx.strokeStyle=C.cyan;ctx.setLineDash([12,10]);ctx.beginPath();ctx.arc(0,60,170,Math.PI*1.5,Math.PI*(1.5+0.5*gp));ctx.stroke();ctx.setLineDash([]);
+    sketchPath(circlePts(0,60,196,40,0,3).slice(20,41),{width:4,passes:1});
+    text(counter(300*gp)+' Gbps',0,34,{font:'800 62px Sans',color:C.ink});
+    text('of open capacity',0,120,{font:'600 40px Serif'});
+    text('for operators, ISPs & enterprise',0,200,{font:'700 40px Hand',color:C.blueD})});
+  ctx.restore();
+  flash(inv(3.3,3.5,lt)*.9,'#fff');
+}
+
+function S8(t){ // 24.5 - 30.0 logo reveal + end card
+  const lt=t-24.5;drawPaper();
+  const R=250,cx=W/2,cy=430;
+  // Clawd leaps into ring center
+  const jp=inv(0.0,0.7,lt);
+  const sp=inv(0.3,1.3,lt);
+  const ringScale=lerp(1,0.62,eIO(inv(2.3,3.0,lt)));const rx=lerp(cx,560,eIO(inv(2.3,3.0,lt))),ry=lerp(cy,H/2-40,eIO(inv(2.3,3.0,lt)));
+  ctx.save();ctx.translate(rx,ry);ctx.scale(ringScale,ringScale);ctx.rotate((1-eOut(sp))*-1.2);
+  const real=inv(1.5,2.1,lt);
+  sketchRing(0,0,R,eOut(sp),1-real);
+  drawLogo(0,0,R*2*1.02,real);
+  ctx.restore();
+  burst(rx,ry,R*1.8*ringScale,inv(1.3,1.9,lt),C.blue,24,12);
+  const clX=lerp(-150,rx,eOut(jp)),clY=lerp(900,ry+50*ringScale,eOut(jp))-Math.sin(jp*Math.PI)*300;
+  clawd(clX,clY,7.6*ringScale,{arms:lt>0.8&&Math.floor(lt*4)%2===0?1:0,blink:lt>2.0&&lt<2.1?1:0,look:lt>3.6&&lt<4.2?1:0,squash:jp>=1&&lt<0.9?Math.sin(inv(0.7,0.9,lt)*Math.PI)*.5:0});
+  // title (centered under ring before shift)
+  const tA=1-inv(2.1,2.4,lt);
+  text('Introducing',cx,cy+R+80,{font:'italic 400 60px Serif',color:C.clayD,alpha:tA,reveal:eOut(inv(0.9,1.3,lt))});
+  text('Palapa Ring Tengah',cx,cy+R+170,{font:'600 124px Serif',alpha:tA,reveal:eOut(inv(1.1,1.8,lt))});
+  // end card lockup
+  const e=inv(2.7,3.3,lt);
+  wordmark(820,H/2-120,1.35,1,eOut(e));
+  sketchPath([[820,H/2+60],[1700,H/2+60]],{width:4,color:C.clayD,upto:eOut(inv(3.1,3.6,lt)),passes:1});
+  text('Palapa Ring Tengah',820,H/2+140,{font:'600 88px Serif',align:'left',reveal:eOut(inv(3.2,3.8,lt))});
+  text('Connecting Central Indonesia.',820,H/2+235,{font:'600 50px Sans',color:C.blueD,align:'left',reveal:eOut(inv(3.6,4.1,lt))});
+  note('Menghubungkan Indonesia Tengah',824,H/2+310,{reveal:inv(3.9,4.4,lt),color:C.red,rot:-.02});
+  text('len-telko.co.id',W/2,H-60,{font:'22px Pix',color:C.ink,alpha:inv(4.2,4.5,lt),wob:false});
+  marker(W/2-190,H-82,380,44,inv(4.3,4.7,lt),'rgba(242,182,59,.5)',9);
+  text('len-telko.co.id',W/2,H-60,{font:'22px Pix',color:C.ink,alpha:inv(4.3,4.5,lt),wob:false});
+  // fade out
+  flash(inv(5.15,5.5,lt),C.paper);
+  if(lt>5.3){drawLogo(W/2,H/2-40,200,inv(5.3,5.5,lt))}
+}
+
+function render(t){
+  BOIL=Math.floor(t*12);
+  ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.clearRect(0,0,W,H);
+  if(t<3)S1(t);else if(t<6)S2(t);else if(t<10)S3(t);else if(t<13.5)S4(t);else if(t<17.5)S5(t);else if(t<21)S6(t);else if(t<24.5)S7(t);else S8(t);
+  // film frame jitter overlay: subtle border
+}
+window.renderFrame=i=>{render(i/FPS);return cv.toDataURL('image/jpeg',0.93)};
+window.ready=()=>document.fonts.ready.then(()=>Promise.all(['600 10px Serif','italic 400 10px Serif','800 10px Sans','600 10px Sans','700 10px Hand','10px Pix'].map(f=>document.fonts.load(f)))).then(()=>new Promise(r=>{const w=()=>LOGO?r(true):setTimeout(w,50);w()}));
+if(location.hash){const t=parseFloat(location.hash.slice(1));window.ready().then(()=>render(t))}
+</script></body></html>
