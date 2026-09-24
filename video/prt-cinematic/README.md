@@ -1,6 +1,6 @@
 # Palapa Ring Tengah — cinematic network visualization
 
-`PRT_Cinematic_Ecosystem.mp4`: 1920×1080, 30 fps, 52 s, H.264 + AAC, 34 MB.
+`PRT_Cinematic_Ecosystem.mp4`: 1920×1080, 30 fps, 52 s, H.264 + AAC, ~26 MB.
 
 The film follows one continuous path: orbit → the real PRT backbone map → submarine cable (seabed, articulated pipe, layered cable cutaway) → beach manhole and cable landing station → buried duct and aerial fibre → PoP → 42 m BTS (4G/5G) → connected community → wide end shot with the end card.
 
