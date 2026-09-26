@@ -1,0 +1,92 @@
+{
+  "_catatan": [
+    "Daftar topik & kata kunci Google News. Edit bebas, tidak perlu ubah kode.",
+    "Tips: pakai kueri sederhana (satu frasa, atau 2-3 kata = AND). Kombinasi OR + AND di Google News sering mengembalikan 0 hasil.",
+    "locale: id = Indonesia/Bahasa, en = Indonesia/English, sg = Singapura/English.",
+    "lookback_hours: jendela waktu berita per topik (default dari env LOOKBACK_HOURS, 30 jam). Berita yang sudah pernah terkirim tidak dikirim ulang.",
+    "keywords: judul yang mengandung kata ini diprioritaskan sebelum dipotong ke batas maksimal per topik."
+  ],
+  "topics": [
+    {
+      "key": "kabel_laut",
+      "title": "Kabel Laut (SKKL) Indonesia & Internasional",
+      "emoji": "🌊",
+      "keywords": ["kabel laut", "bawah laut", "skkl", "submarine", "subsea", "undersea", "landing", "cable system", "petabit", "sea-me-we", "bifrost", "apricot", "echo", "sjc", "adc", "indigo", "palapa ring", "telin", "inet"],
+      "queries": [
+        {"q": "\"kabel laut\"", "locale": "id"},
+        {"q": "\"kabel bawah laut\"", "locale": "id"},
+        {"q": "\"sistem komunikasi kabel laut\"", "locale": "id"},
+        {"q": "\"submarine cable\" Indonesia", "locale": "en"},
+        {"q": "\"subsea cable\" Indonesia", "locale": "en"},
+        {"q": "\"undersea cable\" Indonesia", "locale": "en"},
+        {"q": "\"submarine cable\"", "locale": "sg"},
+        {"q": "\"subsea cable\"", "locale": "sg"}
+      ]
+    },
+    {
+      "key": "data_center",
+      "title": "Pembangunan Data Center Indonesia",
+      "emoji": "🏢",
+      "keywords": ["data center", "data centre", "pusat data", "hyperscale", "colocation", "kolokasi", "mw", "megawatt", "campus", "groundbreaking", "neutradc", "dci", "edgeconnex", "princeton", "bdx", "equinix", "nongsa", "batam", "cikarang", "karawang"],
+      "queries": [
+        {"q": "\"data center\" Indonesia", "locale": "id"},
+        {"q": "\"pusat data\" Indonesia", "locale": "id"},
+        {"q": "\"data center\" Indonesia", "locale": "en"},
+        {"q": "\"data centre\" Indonesia", "locale": "en"},
+        {"q": "\"data center\" Batam", "locale": "id"},
+        {"q": "\"data center\" Jakarta", "locale": "en"}
+      ]
+    },
+    {
+      "key": "operator",
+      "title": "Ekspansi Telkom, TIF, XL, Indosat, Lintasarta",
+      "emoji": "📡",
+      "keywords": ["jaringan", "ekspansi", "fiber", "serat optik", "backbone", "infrastruktur", "capex", "5g", "bts", "tower", "menara", "kemitraan", "akuisisi", "data center", "kabel", "infranexia", "tif", "neutradc", "telin", "lintasarta", "network", "investasi"],
+      "queries": [
+        {"q": "\"Telkom Indonesia\" jaringan", "locale": "id"},
+        {"q": "\"Telkom Indonesia\" infrastruktur", "locale": "id"},
+        {"q": "Telkomsel jaringan", "locale": "id"},
+        {"q": "\"Telkom Infrastruktur Indonesia\"", "locale": "id"},
+        {"q": "InfraNexia", "locale": "id"},
+        {"q": "XLSmart jaringan", "locale": "id"},
+        {"q": "XLSmart ekspansi", "locale": "id"},
+        {"q": "Indosat jaringan", "locale": "id"},
+        {"q": "Indosat ekspansi", "locale": "id"},
+        {"q": "Lintasarta", "locale": "id"}
+      ]
+    },
+    {
+      "key": "trafik",
+      "title": "Trafik Data Indonesia & Singapura",
+      "emoji": "📈",
+      "lookback_hours": 168,
+      "keywords": ["trafik", "lalu lintas data", "traffic", "bandwidth", "internet exchange", "ixp", "iix", "apjii", "sgix", "petabyte", "terabit", "tbps", "gbps", "payload", "konsumsi data", "lonjakan"],
+      "queries": [
+        {"q": "\"trafik data\"", "locale": "id"},
+        {"q": "\"trafik internet\"", "locale": "id"},
+        {"q": "\"lalu lintas data\"", "locale": "id"},
+        {"q": "\"lonjakan trafik\"", "locale": "id"},
+        {"q": "\"internet exchange\" Indonesia", "locale": "id"},
+        {"q": "\"data traffic\" Indonesia", "locale": "en"},
+        {"q": "\"internet traffic\" Singapore", "locale": "sg"},
+        {"q": "\"data traffic\" Singapore", "locale": "sg"},
+        {"q": "\"internet exchange\" Singapore", "locale": "sg"}
+      ]
+    },
+    {
+      "key": "ai",
+      "title": "Infrastruktur AI & Data Center AI Indonesia",
+      "emoji": "🤖",
+      "keywords": ["ai data center", "data center ai", "gpu", "nvidia", "ai factory", "sovereign ai", "komputasi", "compute", "kecerdasan artifisial", "infrastruktur ai", "ai infrastructure", "danantara", "cloud"],
+      "queries": [
+        {"q": "\"AI data center\" Indonesia", "locale": "en"},
+        {"q": "\"data center AI\" Indonesia", "locale": "id"},
+        {"q": "GPU Indonesia", "locale": "id"},
+        {"q": "\"AI factory\" Indonesia", "locale": "id"},
+        {"q": "\"sovereign AI\" Indonesia", "locale": "en"},
+        {"q": "\"infrastruktur AI\" Indonesia", "locale": "id"},
+        {"q": "\"kecerdasan artifisial\" infrastruktur", "locale": "id"}
+      ]
+    }
+  ]
+}
