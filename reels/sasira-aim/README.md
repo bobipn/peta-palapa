@@ -15,4 +15,4 @@ Fully procedural motion graphics (canvas) plus a synthesized 120 BPM track. Ever
 
 Rebuild: `node render.js` (Playwright) → `python3 audio.py` → ffmpeg
 `-framerate 30 -i frames/f%04d.png -i track.wav -c:v libx264 -crf 18 -pix_fmt yuv420p -c:a aac`.
-Fonts: Anton, Playfair Display, Space Mono (SIL OFL).
+Fonts: Anton, Playfair Display, Space Mono (SIL OFL 1.1, licenses in `OFL-*.txt`).
