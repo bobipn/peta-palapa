@@ -1,0 +1,21 @@
+{
+  "bar_seconds": 3600,
+  "bars_per_year": 8760.0,
+  "horizon": 1,
+  "train_window": 2160,
+  "min_train": 720,
+  "refit_every": 168,
+  "l2": 1.0,
+  "p_min": 0.55,
+  "p_exit": 0.5,
+  "kelly_fraction": 0.25,
+  "max_position": 1.0,
+  "min_trade_frac": 0.05,
+  "fee_bps": 10.0,
+  "slippage_bps": 5.0,
+  "max_drawdown": 0.15,
+  "near_limit_frac": 0.75,
+  "max_daily_loss": 0.03,
+  "kill_switch_path": "KILL",
+  "initial_equity": 10000.0
+}

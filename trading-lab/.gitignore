@@ -1,0 +1,6 @@
+data/
+state/
+reports/
+KILL
+__pycache__/
+*.pyc
