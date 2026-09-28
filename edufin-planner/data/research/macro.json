@@ -1,0 +1,1099 @@
+{
+  "researched_at": "2026-09-27",
+  "inflation_series": [
+    {
+      "series": "headline_cpi_national",
+      "period": "2019-12",
+      "measure": "yoy",
+      "value_pct": 2.72,
+      "base_year": "2012=100 (see note)",
+      "verbatim": "Desember 2019 2.72 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      },
+      "note": "Base year: BPS changed the CPI base to 2018=100 in 2020 (CNBC Indonesia, 2024-02-01: 'BPS terakhir melakukan perubahan tahun dasar pada 2020, dengan acuan 2018'), so Dec-2019 data were published on the earlier base; the 2012=100 label comes from BPS table titles seen only in search results."
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2020-12",
+      "measure": "yoy",
+      "value_pct": 1.68,
+      "base_year": "2018=100",
+      "verbatim": "Desember 2020 1.68 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      },
+      "corroborating_sources": [
+        {
+          "verbatim": "Selama tahun 2020 atau Januari hingga Desember terjadi inflasi sebesar 1,68 persen atau terjadi kenaikan indeks dari 103,93 pada Desember 2019 menjadi 105,68 pada Desember 2020.",
+          "source": {
+            "url": "https://www.tempo.co/ekonomi/bps-inflasi-tahun-2020-1-68-persen-terendah-sejak-2014-551324",
+            "title": "BPS: Inflasi Tahun 2020 1,68 Persen, Terendah Sejak 2014",
+            "publisher": "Tempo.co",
+            "source_type": "news_media",
+            "published_date": "2021-01-04",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "local_evidence_file": "macro_tmp/tempo_2020.txt",
+            "note": "Quotes BPS Deputi Setianto, press conference 4 Jan 2021."
+          }
+        }
+      ]
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2021-12",
+      "measure": "yoy",
+      "value_pct": 1.87,
+      "base_year": "2018=100",
+      "verbatim": "Desember 2021 1.87 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      },
+      "corroborating_sources": [
+        {
+          "verbatim": "Badan Pusat Statistik (BPS) mencatat inflasi pada bulan Desember 2021 tercatat sebesar 0,57 persen. Dengan begitu, inflasi secara tahunan ( year on year /yoy) mencapai 1,87 persen.",
+          "source": {
+            "url": "https://money.kompas.com/read/2022/01/03/114839326/inflasi-desember-2021-capai-angka-tertinggi-dalam-2-tahun-terakhir?page=all",
+            "title": "Inflasi Desember 2021 Capai Angka Tertinggi dalam 2 Tahun Terakhir",
+            "publisher": "Kompas.com",
+            "source_type": "news_media",
+            "published_date": "2022-01-03",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "local_evidence_file": "macro_tmp/kompas_dec2021.txt"
+          }
+        }
+      ]
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2022-12",
+      "measure": "yoy",
+      "value_pct": 5.51,
+      "base_year": "2018=100",
+      "verbatim": "Desember 2022 5.51 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      },
+      "corroborating_sources": [
+        {
+          "verbatim": "Pada Desember 2022 terjadi inflasi Year on Year (y-on-y) sebesar 5,51 persen dengan Indeks Harga Konsumen (IHK) sebesar 113,59.",
+          "source": {
+            "url": "https://www.beritadaerah.co.id/index.php/2023/01/02/desember-2022-inflasi-551-persen-y-on-y/",
+            "title": "Desember 2022 Inflasi 5,51 persen y-on-y",
+            "publisher": "Berita Daerah",
+            "source_type": "news_media",
+            "published_date": "2023-01-02",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "local_evidence_file": "macro_tmp/beritadaerah_dec2022.txt",
+            "note": "Text reproduces the BPS BRS wording for December 2022."
+          }
+        }
+      ]
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2023-12",
+      "measure": "yoy",
+      "value_pct": 2.61,
+      "base_year": "2018=100",
+      "verbatim": "Desember 2023 2.61 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      },
+      "corroborating_sources": [
+        {
+          "verbatim": "Badan Pusat Statistik (BPS) mencatat pada Desember 2023 terjadi inflasi year on year (y-on-y) sebesar 2,61 persen dengan Indeks Harga Konsumen (IHK) sebesar 116,56.",
+          "source": {
+            "url": "https://emitennews.com/news/bps-catat-inflasi-desember-2023-sebesar-261-persen-yoy",
+            "title": "BPS Catat Inflasi Desember 2023 Sebesar 2,61 Persen (YoY)",
+            "publisher": "EmitenNews.com",
+            "source_type": "news_media",
+            "published_date": "2024-01-03",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "local_evidence_file": "macro_tmp/emiten_dec2023.txt",
+            "note": "Quotes Plt Kepala BPS Amalia Adininggar Widyasanti."
+          }
+        }
+      ]
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2024-12",
+      "measure": "yoy",
+      "value_pct": 1.57,
+      "base_year": "2022=100",
+      "verbatim": "Desember 2024 1.57 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      },
+      "corroborating_sources": [
+        {
+          "verbatim": "Badan Pusat Statistik (BPS) mencatat pada Desember 2024 terjadi inflasi year on year (y-on-y) sebesar 1,57 persen dengan Indeks Harga Konsumen (IHK) sebesar 106,80.",
+          "source": {
+            "url": "https://mediabangsa.co.id/inflasi-desember-2024-sebesar-157-persen/",
+            "title": "Inflasi Desember 2024 Sebesar 1,57 Persen",
+            "publisher": "Media Bangsa",
+            "source_type": "news_media",
+            "published_date": "2025-01-03",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "local_evidence_file": "macro_tmp/mediabangsa_dec2024.txt",
+            "note": "Quotes BPS Deputi Pudji Ismartini at the 2 Jan 2025 press conference."
+          }
+        },
+        {
+          "verbatim": "Jakarta (ANTARA) - Badan Pusat Statistik (BPS) mencatat laju inflasi tahunan mencapai sebesar 1,57 persen (yoy) pada Desember 2024.",
+          "source": {
+            "url": "https://jabar.antaranews.com/berita/570030/inflasi-ri-tahunan-157-persen-pada-desember-2024?page=all",
+            "title": "Inflasi RI tahunan 1,57 persen pada Desember 2024",
+            "publisher": "ANTARA News Jawa Barat",
+            "source_type": "news_media",
+            "published_date": "2025-01-02",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "local_evidence_file": "macro_tmp/antarajabar_dec2024.txt"
+          }
+        }
+      ]
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2025-12",
+      "measure": "yoy",
+      "value_pct": 2.92,
+      "base_year": "2022=100",
+      "verbatim": "Desember 2025 2.92 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      },
+      "corroborating_sources": [
+        {
+          "verbatim": "Pada Desember 2025 terjadi inflasi year on year (y-on-y) sebesar 2,92 persen dengan Indeks Harga Konsumen (IHK) sebesar 109,92.",
+          "source": {
+            "url": "https://www.niaga.asia/inflasi-desember-2025-sebesar-292-persen/",
+            "title": "Inflasi Desember 2025 Sebesar 2,92 persen",
+            "publisher": "Niaga.Asia",
+            "source_type": "news_media",
+            "published_date": "2026-01-05",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "local_evidence_file": "macro_tmp/niaga_dec2025.txt",
+            "note": "Reproduces BPS press-conference statements (Deputi BPS Pudji Ismartini)."
+          }
+        }
+      ]
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2026-01",
+      "measure": "yoy",
+      "value_pct": 3.55,
+      "base_year": "2022=100",
+      "verbatim": "Januari 2026 3.55 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      }
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2026-02",
+      "measure": "yoy",
+      "value_pct": 4.76,
+      "base_year": "2022=100",
+      "verbatim": "Februari 2026 4.76 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      }
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2026-03",
+      "measure": "yoy",
+      "value_pct": 3.48,
+      "base_year": "2022=100",
+      "verbatim": "Maret 2026 3.48 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      }
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2026-04",
+      "measure": "yoy",
+      "value_pct": 2.42,
+      "base_year": "2022=100",
+      "verbatim": "April 2026 2.42 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      }
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2026-05",
+      "measure": "yoy",
+      "value_pct": 3.08,
+      "base_year": "2022=100",
+      "verbatim": "Mei 2026 3.08 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      }
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2026-06",
+      "measure": "yoy",
+      "value_pct": 3.34,
+      "base_year": "2022=100",
+      "verbatim": "Juni 2026 3.34 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      },
+      "corroborating_sources": [
+        {
+          "verbatim": "Badan Pusat Statistik BPS mencatat inflasi year-on-year y-on-y Juni 2026 sebesar 3,34 persen dengan Indeks Harga Konsumen IHK 111,89.",
+          "source": {
+            "url": "https://emitennews.com/news/inflasi-juni-2026-tembus-334-persen-semua-kelompok-pengeluaran-naik",
+            "title": "Inflasi Juni 2026 Tembus 3,34 Persen, Semua Kelompok Pengeluaran Naik",
+            "publisher": "EmitenNews.com",
+            "source_type": "news_media",
+            "published_date": "2026-07-01",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "local_evidence_file": "macro_tmp/emiten_jun2026.txt"
+          }
+        }
+      ]
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2026-07",
+      "measure": "yoy",
+      "value_pct": 2.88,
+      "base_year": "2022=100",
+      "verbatim": "Juli 2026 2.88 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      }
+    },
+    {
+      "series": "headline_cpi_national",
+      "period": "2026-08",
+      "measure": "yoy",
+      "value_pct": 3.19,
+      "base_year": "2022=100",
+      "verbatim": "Agustus 2026 3.19 %",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/data-inflasi.aspx",
+        "title": "Data Inflasi (tabel + unduhan 'Data Inflasi.xlsx')",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_inflasi_export.tsv",
+        "note": "Downloaded via the page's own 'Unduh' (export) button; rows are 'Periode' + 'Data Inflasi'. The table does not label the measure, but the figures match BPS y-on-y press-release titles (e.g. Des 2025 2,92; Feb 2025 -0,09) and news quoting BPS y-on-y, so it is treated as headline CPI y-on-y."
+      },
+      "note": "Latest available month as of 2026-09-27 (September 2026 CPI is released by BPS on 1 Oct 2026).",
+      "corroborating_sources": [
+        {
+          "verbatim": "Badan Pusat Statistik (BPS) mencatatkan, tingkat inflasi tahunan Indonesia pada Agustus 2026 mencapai 3,19 persen secara tahunan/ year on year (yoy).",
+          "source": {
+            "url": "https://ekonomi.republika.co.id/berita/tkoab4423/bps-catat-inflasi-tahunan-indonesia-pada-agustus-2026-capai-319-persen",
+            "title": "BPS Catat Inflasi Tahunan Indonesia pada Agustus 2026 Capai 3,19 Persen",
+            "publisher": "Republika Online",
+            "source_type": "news_media",
+            "published_date": "2026-09-01",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "local_evidence_file": "macro_tmp/republika_aug2026.txt"
+          }
+        }
+      ]
+    },
+    {
+      "series": "education_group_national",
+      "period": "2020-12",
+      "measure": "yoy (calendar-year Jan-Dec 2020 = Dec 2020 vs Dec 2019)",
+      "value_pct": 1.4,
+      "base_year": "2018=100",
+      "verbatim": "\"Selama tahun 2020 sebagian besar kelompok pengeluaran mengalami inflasi,\" ujarnya. [...] kelompok pendidikan sebesar 1,40 persen;",
+      "source": {
+        "url": "https://www.tempo.co/ekonomi/bps-inflasi-tahun-2020-1-68-persen-terendah-sejak-2014-551324",
+        "title": "BPS: Inflasi Tahun 2020 1,68 Persen, Terendah Sejak 2014",
+        "publisher": "Tempo.co",
+        "source_type": "news_media",
+        "published_date": "2021-01-04",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/tempo_2020.txt",
+        "note": "Quotes BPS Deputi Setianto, press conference 4 Jan 2021."
+      },
+      "note": "Source states calendar-year 2020 group inflation. BPS Kota Depok (Inflasi Kota Depok 2024, p.2.2) notes that calendar-year inflation in December equals year-on-year inflation ('Laju inflasi tahun kalender ... pada bulan Desember akan sama dengan laju inflasi tahun ke tahun')."
+    },
+    {
+      "series": "education_group_national",
+      "period": "2022-12",
+      "measure": "yoy",
+      "value_pct": 2.77,
+      "base_year": "2018=100",
+      "verbatim": "Inflasi y-on-y terjadi karena adanya kenaikan harga yang ditunjukkan oleh naiknya sebagian besar indeks kelompok pengeluaran, yaitu: [...] kelompok pendidikan sebesar 2,77 persen;",
+      "source": {
+        "url": "https://www.beritadaerah.co.id/index.php/2023/01/02/desember-2022-inflasi-551-persen-y-on-y/",
+        "title": "Desember 2022 Inflasi 5,51 persen y-on-y",
+        "publisher": "Berita Daerah",
+        "source_type": "news_media",
+        "published_date": "2023-01-02",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/beritadaerah_dec2022.txt",
+        "note": "Text reproduces the BPS BRS wording for December 2022."
+      }
+    },
+    {
+      "series": "education_group_national",
+      "period": "2023-12",
+      "measure": "yoy",
+      "value_pct": 1.97,
+      "base_year": "2018=100",
+      "verbatim": "\"Inflasi y-on-y terjadi karena adanya kenaikan harga yang ditunjukkan oleh naiknya seluruh indeks kelompok pengeluaran. [...] kelompok pendidikan sebesar 1,97 persen;",
+      "source": {
+        "url": "https://emitennews.com/news/bps-catat-inflasi-desember-2023-sebesar-261-persen-yoy",
+        "title": "BPS Catat Inflasi Desember 2023 Sebesar 2,61 Persen (YoY)",
+        "publisher": "EmitenNews.com",
+        "source_type": "news_media",
+        "published_date": "2024-01-03",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/emiten_dec2023.txt",
+        "note": "Quotes Plt Kepala BPS Amalia Adininggar Widyasanti."
+      }
+    },
+    {
+      "series": "education_group_national",
+      "period": "2024-12",
+      "measure": "yoy",
+      "value_pct": 1.94,
+      "base_year": "2022=100",
+      "verbatim": "Deputi Bidang Statistik Distribusi dan Jasa BPS Pudji Ismartini mengatakan iflasi y-on-y terjadi karena adanya kenaikan harga yang ditunjukkan oleh naiknya sebagian besar indeks kelompok pengeluaran. [...] Selanjutnya kelompok pendidikan sebesar 1,94 persen,",
+      "source": {
+        "url": "https://mediabangsa.co.id/inflasi-desember-2024-sebesar-157-persen/",
+        "title": "Inflasi Desember 2024 Sebesar 1,57 Persen",
+        "publisher": "Media Bangsa",
+        "source_type": "news_media",
+        "published_date": "2025-01-03",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/mediabangsa_dec2024.txt",
+        "note": "Quotes BPS Deputi Pudji Ismartini at the 2 Jan 2025 press conference."
+      },
+      "note": "Single secondary source (smaller outlet) - consider re-verifying against the BPS BRS when bps.go.id is reachable."
+    },
+    {
+      "series": "education_group_national",
+      "period": "2025-12",
+      "measure": "yoy",
+      "value_pct": 1.22,
+      "base_year": "2022=100",
+      "verbatim": "Inflasi y-on-y terjadi karena adanya kenaikan harga yang ditunjukkan oleh naiknya sebagian besar indeks kelompok pengeluaran, yaitu: [...] kelompok pendidikan sebesar 1,22 persen;",
+      "source": {
+        "url": "https://www.niaga.asia/inflasi-desember-2025-sebesar-292-persen/",
+        "title": "Inflasi Desember 2025 Sebesar 2,92 persen",
+        "publisher": "Niaga.Asia",
+        "source_type": "news_media",
+        "published_date": "2026-01-05",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/niaga_dec2025.txt",
+        "note": "Reproduces BPS press-conference statements (Deputi BPS Pudji Ismartini)."
+      }
+    },
+    {
+      "series": "education_group_national",
+      "period": "2026-06",
+      "measure": "yoy",
+      "value_pct": 1.27,
+      "base_year": "2022=100",
+      "verbatim": "Badan Pusat Statistik BPS mencatat inflasi year-on-year y-on-y Juni 2026 sebesar 3,34 persen dengan Indeks Harga Konsumen IHK 111,89. [...] pendidikan 1,27 persen,",
+      "source": {
+        "url": "https://emitennews.com/news/inflasi-juni-2026-tembus-334-persen-semua-kelompok-pengeluaran-naik",
+        "title": "Inflasi Juni 2026 Tembus 3,34 Persen, Semua Kelompok Pengeluaran Naik",
+        "publisher": "EmitenNews.com",
+        "source_type": "news_media",
+        "published_date": "2026-07-01",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/emiten_jun2026.txt"
+      },
+      "note": "Latest month for which a national education-group y-on-y figure was found (July/August 2026 not found)."
+    },
+    {
+      "series": "headline_cpi_kota_depok",
+      "period": "2022-12",
+      "measure": "yoy (calendar-year 2022)",
+      "value_pct": 6.06,
+      "base_year": "2018=100",
+      "verbatim": "Inflasi tahun kalender tahun 2022 sebesar 6,06 persen sedangkan tahun 2023 sebesar 2,49 persen.",
+      "source": {
+        "url": "https://web-api.bps.go.id/download.php?f=K8I+KXCjyHc/1g15ZTnVjktIdzdTaUUzRmNnaHhxVDNIeGR6cXZLcDgrbXlKNTNKUlZsclBRWFNNTmxHa3RkZ2RGRWxISWtoTngwQWE1bVV5TUsvTzV2SHJ5V0ZHQ1JjT0N3R05DUzR5VWgrWEV0VEVrcmllemQvNDA2dFhLMEVlMXVGYk1UMUQ5OFMxUjEyL0ZMUjRRVk43cmJCclkyTnVYaGxtT1g3L05mbWlJQ0hFZjNmQkMvQk5TelJFUGRCL2lqakpwU3FscldacjdVSEVlUzlNcWZqamRKTGk1cHV1QTUyaWpXRFU2d1ZwZW1IT2pycTRVd3V3alhKWEc3c3BEeE9idEd6QzZsSVdPdVY%3D",
+        "title": "Inflasi Kota Depok 2023",
+        "publisher": "BPS Kota Depok",
+        "source_type": "government",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/depok_inflasi_2023.txt",
+        "note": "PDF (54 pp.) downloaded from BPS web-api; foreword dated 'Depok, Januari 2024'. Lampiran 4 'Inflasi Tahunan (year on year) Kota Depok Tahun 2023, 2018 = 100'."
+      }
+    },
+    {
+      "series": "headline_cpi_kota_depok",
+      "period": "2023-12",
+      "measure": "yoy",
+      "value_pct": 2.49,
+      "base_year": "2018=100",
+      "verbatim": "Laju inflasi tahun kalender 202 3 pada bulan Desember sebesar 2,49 persen dan laju inflasi tahun ke tahun (Desember 2023 terhadap Desember 2022) sebesar 2,49 persen.",
+      "source": {
+        "url": "https://web-api.bps.go.id/download.php?f=K8I+KXCjyHc/1g15ZTnVjktIdzdTaUUzRmNnaHhxVDNIeGR6cXZLcDgrbXlKNTNKUlZsclBRWFNNTmxHa3RkZ2RGRWxISWtoTngwQWE1bVV5TUsvTzV2SHJ5V0ZHQ1JjT0N3R05DUzR5VWgrWEV0VEVrcmllemQvNDA2dFhLMEVlMXVGYk1UMUQ5OFMxUjEyL0ZMUjRRVk43cmJCclkyTnVYaGxtT1g3L05mbWlJQ0hFZjNmQkMvQk5TelJFUGRCL2lqakpwU3FscldacjdVSEVlUzlNcWZqamRKTGk1cHV1QTUyaWpXRFU2d1ZwZW1IT2pycTRVd3V3alhKWEc3c3BEeE9idEd6QzZsSVdPdVY%3D",
+        "title": "Inflasi Kota Depok 2023",
+        "publisher": "BPS Kota Depok",
+        "source_type": "government",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/depok_inflasi_2023.txt",
+        "note": "PDF (54 pp.) downloaded from BPS web-api; foreword dated 'Depok, Januari 2024'. Lampiran 4 'Inflasi Tahunan (year on year) Kota Depok Tahun 2023, 2018 = 100'."
+      }
+    },
+    {
+      "series": "education_group_kota_depok",
+      "period": "2023-12",
+      "measure": "yoy",
+      "value_pct": 2.16,
+      "base_year": "2018=100",
+      "verbatim": "Inflasi Tahunan (year on year) Kota Depok Tahun 2023 Kelompok Pengeluaran 2018 = 100 [...] Pendidikan 5,70 5,70 5,70 5,70 5,70 5,70 6,58 2,16 2,16 2,16 2,16 2,16",
+      "source": {
+        "url": "https://web-api.bps.go.id/download.php?f=K8I+KXCjyHc/1g15ZTnVjktIdzdTaUUzRmNnaHhxVDNIeGR6cXZLcDgrbXlKNTNKUlZsclBRWFNNTmxHa3RkZ2RGRWxISWtoTngwQWE1bVV5TUsvTzV2SHJ5V0ZHQ1JjT0N3R05DUzR5VWgrWEV0VEVrcmllemQvNDA2dFhLMEVlMXVGYk1UMUQ5OFMxUjEyL0ZMUjRRVk43cmJCclkyTnVYaGxtT1g3L05mbWlJQ0hFZjNmQkMvQk5TelJFUGRCL2lqakpwU3FscldacjdVSEVlUzlNcWZqamRKTGk1cHV1QTUyaWpXRFU2d1ZwZW1IT2pycTRVd3V3alhKWEc3c3BEeE9idEd6QzZsSVdPdVY%3D",
+        "title": "Inflasi Kota Depok 2023",
+        "publisher": "BPS Kota Depok",
+        "source_type": "government",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/depok_inflasi_2023.txt",
+        "note": "PDF (54 pp.) downloaded from BPS web-api; foreword dated 'Depok, Januari 2024'. Lampiran 4 'Inflasi Tahunan (year on year) Kota Depok Tahun 2023, 2018 = 100'."
+      },
+      "note": "Row values are Jan..Des 2023; December value = 2,16. Tabel 1 (tahun kalender 2023) also shows Pendidikan 2,16."
+    },
+    {
+      "series": "headline_cpi_kota_depok",
+      "period": "2024-12",
+      "measure": "yoy",
+      "value_pct": 1.95,
+      "base_year": "2022=100",
+      "verbatim": "Inflasi Tahunan (year on year) Kota Depok Tahun 2024 Kelompok Pengeluaran 2022 = 100 [...] U m u m 2.34 2.36 2.73 2.72 2.43 2.22 1.92 2.24 2.11 1.94 1.9 1.95",
+      "source": {
+        "url": "https://webapi.bps.go.id/download.php?f=RrS6HUMr69JVUZ2LzcDE%2FjhyUi9Qcm4rVHN4ZjZ1a1J3Rk5BQnRhZTFwcGFLVGovV2QveU8yQUI2b1RjY0wvdmVwL2tJV2p2RWN2TjdIeURseFNJKzlCTXFwRWowOGswTER6ZFhlTmlwYlJsenY0RHFNeG9aaXBoTWhGZjk3Nk9RdnlKTjlISnRLSExkM1lGSm5MM3NKOGpJNVltQTRUMCt4dzlyL2gxZXlyVGxmcERoRk5BYlJ5YUt2YW4xb294TlZHUFBuOURaWnV2dkMvdVhmWDRXeHh3ZnlnVEhJWVREN1d4Vkhtc3JQSWg2VGdjQUN5cVJmRHhaSXZRNjlMNDJKeUxHcDM4QWpjUW91SEk%3D",
+        "title": "Inflasi Kota Depok 2024 (Nomor Publikasi 32760.25002, Katalog 7102004.3276)",
+        "publisher": "BPS Kota Depok",
+        "source_type": "government",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/depok_inflasi_2024.txt",
+        "note": "PDF (55 pp.) downloaded from BPS web-api; foreword dated 'Depok, Januari 2025'. Table 'Inflasi Tahunan (year on year) Kota Depok Tahun 2024, 2022 = 100'."
+      },
+      "note": "Row values are Jan..Des 2024; December value = 1.95.",
+      "corroborating_sources": [
+        {
+          "verbatim": "\"Data inflasi Kota Depok tahun 2024 sebesar 1,95 persen menurun dibandingkan pada tahun 2023 sebesar 2,49 persen,\" ungkap Agus kepada berita.depok.go.id, Rabu (15/01/25).",
+          "source": {
+            "url": "https://berita.depok.go.id/selama-2024-kota-depok-alami-deflasi-3-bulan-beruntun-dan-inflasi-delapan-kali",
+            "title": "Selama 2024, Kota Depok Alami Deflasi 3 Bulan Beruntun dan Inflasi Delapan Kali",
+            "publisher": "Pemerintah Kota Depok (berita.depok.go.id)",
+            "source_type": "government",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "local_evidence_file": "macro_tmp/depok_2024_annual.txt",
+            "note": "Quotes Kepala BPS Kota Depok Agus Marzuki, interview dated Rabu (15/01/25)."
+          }
+        }
+      ]
+    },
+    {
+      "series": "education_group_kota_depok",
+      "period": "2024-12",
+      "measure": "yoy",
+      "value_pct": 1.67,
+      "base_year": "2022=100",
+      "verbatim": "Pendidikan 2.18 2.18 2.18 2.18 2.18 2.18 1.21 1.43 1.67 1.67 1.67 1.67",
+      "source": {
+        "url": "https://webapi.bps.go.id/download.php?f=RrS6HUMr69JVUZ2LzcDE%2FjhyUi9Qcm4rVHN4ZjZ1a1J3Rk5BQnRhZTFwcGFLVGovV2QveU8yQUI2b1RjY0wvdmVwL2tJV2p2RWN2TjdIeURseFNJKzlCTXFwRWowOGswTER6ZFhlTmlwYlJsenY0RHFNeG9aaXBoTWhGZjk3Nk9RdnlKTjlISnRLSExkM1lGSm5MM3NKOGpJNVltQTRUMCt4dzlyL2gxZXlyVGxmcERoRk5BYlJ5YUt2YW4xb294TlZHUFBuOURaWnV2dkMvdVhmWDRXeHh3ZnlnVEhJWVREN1d4Vkhtc3JQSWg2VGdjQUN5cVJmRHhaSXZRNjlMNDJKeUxHcDM4QWpjUW91SEk%3D",
+        "title": "Inflasi Kota Depok 2024 (Nomor Publikasi 32760.25002, Katalog 7102004.3276)",
+        "publisher": "BPS Kota Depok",
+        "source_type": "government",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/depok_inflasi_2024.txt",
+        "note": "PDF (55 pp.) downloaded from BPS web-api; foreword dated 'Depok, Januari 2025'. Table 'Inflasi Tahunan (year on year) Kota Depok Tahun 2024, 2022 = 100'."
+      },
+      "note": "Same table ('Inflasi Tahunan (year on year) Kota Depok Tahun 2024'); row values Jan..Des 2024; December value = 1.67. Jan-Jun 2024 education y-on-y was 2.18."
+    },
+    {
+      "series": "headline_cpi_kota_depok",
+      "period": "2025-12",
+      "measure": "yoy",
+      "value_pct": 2.51,
+      "base_year": "2022=100",
+      "verbatim": "Desember 2025 Inflasi Year on Year (y-on-y) Kota Depok sebesar 2,51 persen.",
+      "source": {
+        "url": "https://depokkota.bps.go.id/en/pressrelease/2026/01/05/242/desember-2025-inflasi-year-on-year--y-on-y--kota-depok-sebesar-2-51-persen-.html",
+        "title": "Desember 2025 Inflasi Year on Year (y-on-y) Kota Depok sebesar 2,51 persen",
+        "publisher": "BPS Kota Depok",
+        "source_type": "government",
+        "published_date": "2026-01-05",
+        "accessed_date": "2026-09-27",
+        "evidence": "search_snippet_only",
+        "note": "Page itself returned HTTP 403 (Cloudflare) to curl; value is from the press-release title/URL shown in web search results only. Needs verification."
+      }
+    },
+    {
+      "series": "headline_cpi_kota_bogor",
+      "period": "2023-12",
+      "measure": "yoy",
+      "value_pct": 3.36,
+      "base_year": "2018=100 (as originally published; see note)",
+      "verbatim": "Tingkat inflasi t-ke-t dan inflasi tahun kalender untuk Desember 2023 dan Desember 2024 masing-masing sebesar 3,36 persen dan 1,75 persen.",
+      "source": {
+        "url": "https://web-api.bps.go.id/download.php?f=ncpXgoX4Aoj3IX3m44dsdWo1bkQ2NVBkNUVTZm5ZL29mQUh2cWFJUFRWMVVCbHl1V3V3VGNOSW9NR0l1aGNBVFBaWEd4TllKUEZNUk5SNTZYSFF5UVlReDNaMWthOE5RYlJ4QWJIemtpeGZHK01vU3cvRTB2bjBkNGFLVW1PdHB4VTdMcjFvSVpOeWQ4Y0tnZ0RBOU5ycTBpdktFcXdYZnd5cnFPOHZUQUJzQXNESTNHTU5XbkkxQkVZcEx1NUJBcnhIVUJTU1p3QmUwaUMwL0xsVDdKcE1KSHFPVHgxVlV2bzVMajlSaTZaTE5pekNYbWtRanA5WWxXVXJxRVMwV0JQN1MzYXVOcnh1Qy9KSmk%3D",
+        "title": "Perkembangan Indeks Harga Konsumen Kota Bogor Desember 2025 (BRS No. 24/01/3271/Th. XXVIII, 5 Januari 2026)",
+        "publisher": "BPS Kota Bogor",
+        "source_type": "government",
+        "published_date": "2026-01-05",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bogor_ihk.txt",
+        "note": "12-page BRS PDF downloaded from BPS web-api. Tabel 1 is labelled '(2022=100)'."
+      },
+      "note": "The Dec-2023 BPS Kota Bogor release title (search snippet only) gives IHK 119,42, i.e. the 2018=100 series."
+    },
+    {
+      "series": "headline_cpi_kota_bogor",
+      "period": "2024-12",
+      "measure": "yoy",
+      "value_pct": 1.75,
+      "base_year": "2022=100",
+      "verbatim": "Tingkat inflasi t-ke-t dan inflasi tahun kalender untuk Desember 2023 dan Desember 2024 masing-masing sebesar 3,36 persen dan 1,75 persen.",
+      "source": {
+        "url": "https://web-api.bps.go.id/download.php?f=ncpXgoX4Aoj3IX3m44dsdWo1bkQ2NVBkNUVTZm5ZL29mQUh2cWFJUFRWMVVCbHl1V3V3VGNOSW9NR0l1aGNBVFBaWEd4TllKUEZNUk5SNTZYSFF5UVlReDNaMWthOE5RYlJ4QWJIemtpeGZHK01vU3cvRTB2bjBkNGFLVW1PdHB4VTdMcjFvSVpOeWQ4Y0tnZ0RBOU5ycTBpdktFcXdYZnd5cnFPOHZUQUJzQXNESTNHTU5XbkkxQkVZcEx1NUJBcnhIVUJTU1p3QmUwaUMwL0xsVDdKcE1KSHFPVHgxVlV2bzVMajlSaTZaTE5pekNYbWtRanA5WWxXVXJxRVMwV0JQN1MzYXVOcnh1Qy9KSmk%3D",
+        "title": "Perkembangan Indeks Harga Konsumen Kota Bogor Desember 2025 (BRS No. 24/01/3271/Th. XXVIII, 5 Januari 2026)",
+        "publisher": "BPS Kota Bogor",
+        "source_type": "government",
+        "published_date": "2026-01-05",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bogor_ihk.txt",
+        "note": "12-page BRS PDF downloaded from BPS web-api. Tabel 1 is labelled '(2022=100)'."
+      }
+    },
+    {
+      "series": "headline_cpi_kota_bogor",
+      "period": "2025-12",
+      "measure": "yoy",
+      "value_pct": 2.85,
+      "base_year": "2022=100",
+      "verbatim": "Pada Desember 2025, Kota Bogor mengalami inflasi tahun-ke-tahun (t-ke-t) sebesar 2,85 persen dengan Indeks Harga Konsumen (IHK) sebesar 110,47.",
+      "source": {
+        "url": "https://web-api.bps.go.id/download.php?f=ncpXgoX4Aoj3IX3m44dsdWo1bkQ2NVBkNUVTZm5ZL29mQUh2cWFJUFRWMVVCbHl1V3V3VGNOSW9NR0l1aGNBVFBaWEd4TllKUEZNUk5SNTZYSFF5UVlReDNaMWthOE5RYlJ4QWJIemtpeGZHK01vU3cvRTB2bjBkNGFLVW1PdHB4VTdMcjFvSVpOeWQ4Y0tnZ0RBOU5ycTBpdktFcXdYZnd5cnFPOHZUQUJzQXNESTNHTU5XbkkxQkVZcEx1NUJBcnhIVUJTU1p3QmUwaUMwL0xsVDdKcE1KSHFPVHgxVlV2bzVMajlSaTZaTE5pekNYbWtRanA5WWxXVXJxRVMwV0JQN1MzYXVOcnh1Qy9KSmk%3D",
+        "title": "Perkembangan Indeks Harga Konsumen Kota Bogor Desember 2025 (BRS No. 24/01/3271/Th. XXVIII, 5 Januari 2026)",
+        "publisher": "BPS Kota Bogor",
+        "source_type": "government",
+        "published_date": "2026-01-05",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bogor_ihk.txt",
+        "note": "12-page BRS PDF downloaded from BPS web-api. Tabel 1 is labelled '(2022=100)'."
+      }
+    },
+    {
+      "series": "education_group_kota_bogor",
+      "period": "2025-12",
+      "measure": "yoy",
+      "value_pct": 1.81,
+      "base_year": "2022=100",
+      "verbatim": "Inflasi tahun-ke-tahun (t-ke-t) terjadi karena adanya kenaikan harga pada seluruh kelompok pengeluaran, yaitu [...] Kelompok Pendidikan sebesar 1,81 persen;",
+      "source": {
+        "url": "https://web-api.bps.go.id/download.php?f=ncpXgoX4Aoj3IX3m44dsdWo1bkQ2NVBkNUVTZm5ZL29mQUh2cWFJUFRWMVVCbHl1V3V3VGNOSW9NR0l1aGNBVFBaWEd4TllKUEZNUk5SNTZYSFF5UVlReDNaMWthOE5RYlJ4QWJIemtpeGZHK01vU3cvRTB2bjBkNGFLVW1PdHB4VTdMcjFvSVpOeWQ4Y0tnZ0RBOU5ycTBpdktFcXdYZnd5cnFPOHZUQUJzQXNESTNHTU5XbkkxQkVZcEx1NUJBcnhIVUJTU1p3QmUwaUMwL0xsVDdKcE1KSHFPVHgxVlV2bzVMajlSaTZaTE5pekNYbWtRanA5WWxXVXJxRVMwV0JQN1MzYXVOcnh1Qy9KSmk%3D",
+        "title": "Perkembangan Indeks Harga Konsumen Kota Bogor Desember 2025 (BRS No. 24/01/3271/Th. XXVIII, 5 Januari 2026)",
+        "publisher": "BPS Kota Bogor",
+        "source_type": "government",
+        "published_date": "2026-01-05",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bogor_ihk.txt",
+        "note": "12-page BRS PDF downloaded from BPS web-api. Tabel 1 is labelled '(2022=100)'."
+      },
+      "note": "Tabel 1 row: 'Pendidikan 107,08 109,02 109,02 ~0 1,81 1,81 ~0 0,10' (IHK Des 2024, Nov 2025, Des 2025; b-ke-b; tahun kalender; t-ke-t; andil)."
+    }
+  ],
+  "policies": [
+    {
+      "topic": "sd_smp_negeri_free",
+      "summary": "Permendikbud 44/2012 prohibits government-run basic-education units (SD/SMP negeri) from levying 'biaya satuan pendidikan' (pungutan); voluntary 'sumbangan' remain allowed (Pasal 12).",
+      "effective_date": "2012-06-28",
+      "status_as_of_2026": "Regulation text verified; whether it is still in force unamended as of 2026 needs verification (not checked against JDIH).",
+      "verbatim": "Pasal 9 (1) Satuan pendidikan dasar yang diselenggarakan oleh Pemerintah, dan/atau pemerintah daerah dilarang memungut biaya satuan pendidikan.",
+      "source": {
+        "url": "https://disdikbud.batangkab.go.id/lamp/info/20231015212458-14-0-Permendikbud442012_ttg_Pungutan_dan_Sumbangan_Biaya_Pendidikan_pada_Dikdas.pdf",
+        "title": "Permendikbud Nomor 44 Tahun 2012 tentang Pungutan dan Sumbangan Biaya Pendidikan pada Satuan Pendidikan Dasar (Berita Negara RI 2012 No. 665)",
+        "publisher": "Kemendikbud (copy hosted by Disdikbud Kabupaten Batang)",
+        "source_type": "government (regulation text)",
+        "published_date": "2012-06-29",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/permendikbud44_2012.txt",
+        "note": "Ditetapkan 28 Juni 2012, diundangkan 29 Juni 2012."
+      },
+      "related_verbatim": "Pasal 12 (1) Masyarakat di luar penyelenggara dan satuan pendidikan dasar yang didirikan masyarakat, serta peserta didik atau orang tua/walinya dapat memberikan sumbangan pendidikan kepada satuan pendidikan dasar."
+    },
+    {
+      "topic": "sd_smp_negeri_free",
+      "summary": "UU 20/2003 (Sisdiknas) Pasal 34 ayat (2) is the statutory basis for fee-free compulsory basic education; as conditionally reinterpreted by the Constitutional Court (27 May 2025) it covers both government-run and community-run (private) basic-education units.",
+      "effective_date": "2025-05-27",
+      "status_as_of_2026": "Binding reinterpretation in force since the ruling; implementation for private schools contested (see mk_ruling entries).",
+      "verbatim": "Menyatakan Pasal 34 ayat (2) Undang-Undang Nomor 20 Tahun 2003 tentang Sistem Pendidikan Nasional bertentangan dengan Undang-Undang Dasar Negara Republik Indonesia Tahun 1945 dan tidak mempunyai kekuatan hukum mengikat secara bersyarat sepanjang tidak dimaknai ‘Pemerintah dan Pemerintah Daerah menjamin terselenggaranya wajib belajar minimal pada jenjang pendidikan dasar tanpa memungut biaya, baik untuk satuan pendidikan dasar yang diselenggarakan oleh pemerintah maupun satuan pendidikan dasar yang diselenggarakan oleh masyarakat,",
+      "source": {
+        "url": "https://www.nu.or.id/nasional/diambil-mbg-putusan-mk-soal-sekolah-gratis-belum-dilaksanakan-pemerintah-wLD5F",
+        "title": "Diambil MBG, Putusan MK soal Sekolah Gratis Belum Dilaksanakan Pemerintah",
+        "publisher": "NU Online",
+        "source_type": "news_media",
+        "published_date": "2026-05-26",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/nu_mk_mbg.txt"
+      }
+    },
+    {
+      "topic": "sd_smp_negeri_free",
+      "summary": "BOS operational funding for 2025/2026 is governed by Permendikdasmen Nomor 8 Tahun 2025 (Juknis Pengelolaan Dana BOSP). Only the title was seen; the text was not accessed.",
+      "effective_date": null,
+      "status_as_of_2026": "Needs verification (BPK JDIH PDF returned HTTP 403).",
+      "verbatim": "PERATURAN MENTERI PENDIDIKAN DASAR DAN MENENGAH REPUBLIK INDONESIA NOMOR 8 TAHUN 2025 TENTANG PETUNJUK TEKNIS PENGELOLAAN DANA BANTUAN OPERASIONAL SATUAN PENDIDIKAN",
+      "source": {
+        "url": "https://peraturan.bpk.go.id/Download/396056/Permen%20Dikdasmen%20Nomor%208%20Tahun%202025.pdf",
+        "title": "Permen Dikdasmen Nomor 8 Tahun 2025",
+        "publisher": "Kemendikdasmen (via JDIH BPK / regulasip.id listing)",
+        "source_type": "government (regulation)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "search_snippet_only",
+        "note": "Title as shown in search results (regulasip.id listing); document not opened."
+      }
+    },
+    {
+      "topic": "mk_ruling_free_basic_education",
+      "summary": "Constitutional Court Decision No. 3/PUU-XXII/2024 (read 27 May 2025, petition by JPPI and three mothers) requires central and regional government to guarantee fee-free compulsory basic education (SD/SMP/madrasah) in both public and private schools; private schools may still collect funds per regulations and state aid goes to private schools meeting conditions.",
+      "effective_date": "2025-05-27",
+      "status_as_of_2026": "See the implementation entries: DPR Komisi X said (Jul 2025) phased implementation from 2026, full coverage around 2027-2028 (estimate); in May 2026 JPPI said it had not been implemented.",
+      "verbatim": "Mendikdasmen Abdul Mu’ti menyebut dirinya menunggu arahan Presiden Prabowo Subianto, dan hasil koordinasi bersama Kementerian Keuangan untuk menindaklanjuti Putusan MK Nomor 3/PUU-XXII/2024 yang dibacakan oleh majelis hakim pada 27 Mei 2025.",
+      "source": {
+        "url": "https://www.antaranews.com/berita/4873825/menkeu-pelajari-putusan-mk-soal-sekolah-gratis-negeri-swasta",
+        "title": "Menkeu pelajari putusan MK soal sekolah gratis negeri, swasta",
+        "publisher": "ANTARA News",
+        "source_type": "news_media",
+        "published_date": "2025-06-02",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/antara_mk_menkeu.txt"
+      },
+      "related_verbatim": "MK menegaskan sekolah swasta tetap dapat membiayai pendidikan dari peserta didik atau sumber lain sesuai aturan yang berlaku. Namun, bantuan pendidikan dari pemerintah hanya diberikan kepada sekolah swasta yang memenuhi syarat tertentu.",
+      "related_source": {
+        "url": "https://www.nu.or.id/nasional/diambil-mbg-putusan-mk-soal-sekolah-gratis-belum-dilaksanakan-pemerintah-wLD5F",
+        "title": "Diambil MBG, Putusan MK soal Sekolah Gratis Belum Dilaksanakan Pemerintah",
+        "publisher": "NU Online",
+        "source_type": "news_media",
+        "published_date": "2026-05-26",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/nu_mk_mbg.txt"
+      }
+    },
+    {
+      "topic": "mk_ruling_free_basic_education",
+      "summary": "Implementation plan (July 2025): DPR Komisi X member Lalu Hadrian said Kemendikdasmen agreed to implement and budget from 2026, phased for selected schools, with full coverage estimated at 2027-2028 and cost around Rp181 trillion (his estimate).",
+      "effective_date": "2026 (planned start, phased)",
+      "status_as_of_2026": "Plan statement from July 2025; actual 2026 rollout scope not verified.",
+      "verbatim": "Lalu mengatakan keputusan itu telah disepakati pihaknya dalam rapat dengan Kementerian Pendidikan Dasar dan Menengah (Kemendikdasmen) beberapa waktu lalu. [...] Namun Lalu menyebut program tersebut akan diberlakukan secara bertahap hanya untuk beberapa sekolah. [...] Dia memperkirakan program itu akan diberlakukan secara total di semua wilayah pada 2027-2028.",
+      "source": {
+        "url": "https://www.cnnindonesia.com/nasional/20250712153650-32-1249930/dpr-putusan-mk-soal-sd-smp-swasta-gratis-berlaku-2026-secara-bertahap",
+        "title": "DPR: Putusan MK Soal SD-SMP Swasta Gratis Berlaku 2026 Secara Bertahap",
+        "publisher": "CNN Indonesia",
+        "source_type": "news_media",
+        "published_date": "2025-07-12",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/cnn_mk_2026.txt"
+      }
+    },
+    {
+      "topic": "mk_ruling_free_basic_education",
+      "summary": "Status claim (May 2026): JPPI coordinator Ubaid Matraji (one of the petitioners) said central and regional governments had not implemented the ruling one year on, and criticised funding of MBG from the education budget. This is an advocacy group's claim, not an official status report.",
+      "effective_date": null,
+      "status_as_of_2026": "Contested: per JPPI (26 May 2026) not implemented; no official 2026 government implementation report was verified.",
+      "verbatim": "Salah satu Pemohon dari Jaringan Pemantau Pendidikan Indonesia (JPPI), Ubaid Matraji menerangkan, pemerintah baik pusat maupun daerah nyatanya belum melaksanakan putusan tersebut sedari setahun yang lalu.",
+      "source": {
+        "url": "https://www.nu.or.id/nasional/diambil-mbg-putusan-mk-soal-sekolah-gratis-belum-dilaksanakan-pemerintah-wLD5F",
+        "title": "Diambil MBG, Putusan MK soal Sekolah Gratis Belum Dilaksanakan Pemerintah",
+        "publisher": "NU Online",
+        "source_type": "news_media",
+        "published_date": "2026-05-26",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/nu_mk_mbg.txt"
+      }
+    },
+    {
+      "topic": "jabar_sma_smk_negeri_fees",
+      "summary": "Governor Dedi Mulyadi says free education (no SPP) for SMA/SMK negeri in Jawa Barat started in school year 2025/2026, and in July 2026 he rejected proposals from some Disdik branch offices (KCD) to Komisi V DPRD to reactivate SPP, arguing BOS plus provincial operational funds suffice.",
+      "effective_date": "2025/2026 school year",
+      "status_as_of_2026": "As of July 2026: SPP not reinstated; governor publicly rejects reactivation for SMA/SMK negeri.",
+      "verbatim": "Dedi mengingatkan bahwa kebijakan pendidikan gratis bagi siswa SMA dan SMK negeri di Jawa Barat baru mulai diberlakukan pada tahun ajaran 2025/2026. [...] Pernyataan tersebut sekaligus merespons usulan reaktivasi SPP di SMA dan SMK negeri yang sebelumnya disampaikan sejumlah Kantor Cabang Dinas Pendidikan Provinsi Jawa Barat kepada Komisi V DPRD Jawa Barat.",
+      "source": {
+        "url": "https://bandung.kompas.com/read/2026/07/19/064142778/dedi-mulyadi-ungkap-dugaan-penyalahgunaan-dana-bos-rp-4-miliar-tolak-spp-sma?page=all",
+        "title": "Dedi Mulyadi Ungkap Dugaan Penyalahgunaan Dana BOS Rp 4 Miliar, Tolak SPP SMA-SMK Negeri",
+        "publisher": "Kompas.com (source: Tribun Jabar)",
+        "source_type": "news_media",
+        "published_date": "2026-07-19",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/kompas_kdm_spp.txt"
+      }
+    },
+    {
+      "topic": "jabar_sma_smk_negeri_fees",
+      "summary": "Disdik Jabar circular SE Nomor 32283/PK.02.01.04/SEKRE on financing rules for school year 2026/2027: SMA/SMK/SLB negeri may not discuss, offer, set or collect any payment from parents at re-registration (SPMB 2026); it also prohibits selling uniforms/books and threatens sanctions.",
+      "effective_date": "2026-07 (SPMB 2026 re-registration, 13-14 July 2026)",
+      "status_as_of_2026": "In effect for school year 2026/2027 per the circular as reported.",
+      "verbatim": "mengeluarkan Surat Edaran (SE) Nomor 32283/PK.02.01.04/SEKRE tentang Ketentuan Pembiayaan pada Satuan Pendidikan Tahun Ajaran 2026/2027. [...] Membahas pembiayaan Menawarkan atau menyepakati biaya Menetapkan biaya Memungut pembayaran dalam bentuk apa pun kepada orang tua/wali murid.",
+      "source": {
+        "url": "https://jabar.tribunnews.com/jabar-istimewa/1178425/disdik-jabar-tegaskan-larangan-sekolah-negeri-bahas-biaya-hingga-jual-seragam-saat-daftar-ulang",
+        "title": "Disdik Jabar Tegaskan Larangan Sekolah Negeri Bahas Biaya hingga Jual Seragam saat Daftar Ulang",
+        "publisher": "Tribunjabar.id",
+        "source_type": "news_media",
+        "published_date": "2026-07-14",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/tribunjabar_se2026.txt"
+      },
+      "related_verbatim": "Surat Edaran Gubernur Jawa Barat Nomor 45/PK.03.03/KESRA tentang 9 Langkah Pembangunan Pendidikan Jawa Barat Menuju Gapura Panca Waluya Surat Kepala Dinas Pendidikan Provinsi Jawa Barat Nomor 16739/PW.03/SEKRE tentang Pengelolaan Pembiayaan serta Larangan Penjualan Seragam dan Buku Mata Pelajaran di SMA/SMK/SLB Negeri."
+    },
+    {
+      "topic": "other",
+      "summary": "Governor's education circular (May 2025) with 9 points for all school levels in Jawa Barat, including a ban on picnic-style 'study tours' that add costs for parents and a ban on graduation ceremonies (wisuda) from PAUD to secondary level.",
+      "effective_date": "2025-05",
+      "status_as_of_2026": "Reported as issued May 2025; the SE number differs between sources (Kompas: 43/PK.03.04/KESRA; Tribun Jabar 2026: 45/PK.03.03/KESRA). Needs verification.",
+      "verbatim": "Dikeluarkannya SE bernomor 43/PK.03.04/KESRA ini secara khusus ditujukan kepada seluruh satuan pendidikan dan siswa-siswi di wilayah Jawa Barat. [...] \"Larangan sekolah membuat kegiatan piknik yang dibungkus dengan kegiatan study tour, yang memiliki dampak pada penambahan beban orang tua, dan meminta kegiatan tersebut bisa diganti dengan berbagai aktivitas berbasis inovasi,\" bunyi SE itu. [...] \"Poin selanjutnya, sekolah dilarang membuat kegiatan wisuda pada seluruh jenjang pendidikan, mulai dari pendidikan usia dini, pendidikan dasar, sampai dengan pendidikan menengah.\"",
+      "source": {
+        "url": "https://www.kompas.com/jawa-barat/read/2025/05/03/160306188/isi-surat-edaran-kebijakan-dedi-mulyadi-ada-larangan-study-tour-dan?page=all",
+        "title": "Isi Surat Edaran Kebijakan Dedi Mulyadi, Ada Larangan Study Tour dan Penghapusan Wisuda",
+        "publisher": "Kompas.com",
+        "source_type": "news_media",
+        "published_date": "2025-05-03",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/kompas_se_kdm2025.txt"
+      }
+    }
+  ],
+  "market_rates": [
+    {
+      "indicator": "bi_rate",
+      "as_of": "2026-09-23",
+      "value_pct": 5.75,
+      "verbatim": "No Tanggal BI-Rate Pranala Siaran Pers 1 23 September 2026 5.75 % Lihat",
+      "source": {
+        "url": "https://www.bi.go.id/id/statistik/indikator/bi-rate.aspx",
+        "title": "BI-Rate",
+        "publisher": "Bank Indonesia",
+        "source_type": "government (central bank)",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/bi_rate.txt"
+      },
+      "note": "Same table: 19 Agustus 2026 5.75 %, 22 Juli 2026 5.75 %, 18 Juni 2026 5.75 %, 9 Juni 2026 5.50 %, 20 Mei 2026 5.25 %, 22 April 2026 4.75 %."
+    },
+    {
+      "indicator": "lps_deposit_rate_bank_umum_idr",
+      "as_of": "2026-07-01",
+      "value_pct": 3.75,
+      "verbatim": "Lembaga Penjamin Simpanan (LPS) memutuskan untuk menaikkan Tingkat Bunga Penjaminan (TBP) masing-masing sebesar 25 bps untuk simpanan Rupiah di bank umum dan Bank Perekonomian Rakyat, ke level 3,75% dan 6,25%, serta mempertahankan TBP untuk valuta asing di bank umum sebesar 2,00%. Tingkat Bunga Penjaminan tersebut berlaku sejak 1 Juli 2026 sampai dengan 30 September 2026.",
+      "source": {
+        "url": "https://lps.go.id/lps-sesuaikan-tbp-guna-memperkuat-stabilitas-perbankan/",
+        "title": "LPS Sesuaikan TBP, Guna Memperkuat Stabilitas Perbankan",
+        "publisher": "Lembaga Penjamin Simpanan",
+        "source_type": "government",
+        "published_date": "2026-06-25",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/lps_tbp.txt"
+      },
+      "note": "Valid 1 Jul - 30 Sep 2026. The rate for the period starting 1 Oct 2026 had not been found as of 2026-09-27; needs live verification.",
+      "valid_from": "2026-07-01",
+      "valid_until": "2026-09-30"
+    },
+    {
+      "indicator": "sbn_10y_yield",
+      "as_of": "2026-09-25",
+      "value_pct": 7.08,
+      "verbatim": "Imbal hasil Obligasi 10 Tahun Indonesia naik menjadi 7,08% pada 25 September 2026, menandai kenaikan 0,08 poin persentase dari sesi sebelumnya.",
+      "source": {
+        "url": "https://id.tradingeconomics.com/indonesia/government-bond-yield",
+        "title": "Imbal Hasil Obligasi Pemerintah Indonesia 10 Tahun",
+        "publisher": "Trading Economics",
+        "source_type": "data_aggregator",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/te_id_bond.txt",
+        "note": "Based on OTC interbank quotes per the page; not a DJPPR/BI primary source."
+      }
+    }
+  ],
+  "education_inflation_estimates": [
+    {
+      "who": "OCBC Indonesia (bank; article on ocbc.id)",
+      "claim": "Education costs such as entry fees (uang pangkal) rise 10-15% per year; its planning tips assume education cost inflation of 'usually 10-15% per year'. Some private schools raise entry fees up to 20% per year.",
+      "value_pct_min": 10,
+      "value_pct_max": 15,
+      "basis": "The article attributes the 10-15% to 'data Badan Pusat Statistik (BPS)' but cites no specific BPS table or release; not verifiable, and far above the BPS CPI education-group y-on-y figures found here (1.22-2.77% in Dec 2022-Dec 2025). Treat as an unverified marketing estimate.",
+      "verbatim": "Menurut data Badan Pusat Statistik (BPS), biaya pendidikan seperti uang pangkal mengalami inflasi dan naik 10-15% setiap tahun. [...] Mengestimasi inflasi biaya pendidikan (biasanya 10–15% per tahun).",
+      "source": {
+        "url": "https://www.ocbc.id/id/article/2025/06/04/segini-biaya-pendidikan-anak-dari-sd-sampai-kuliah-jangan-kaget",
+        "title": "Segini Biaya Pendidikan Anak dari SD sampai Kuliah, Jangan Kaget!",
+        "publisher": "OCBC Indonesia",
+        "source_type": "bank_content",
+        "published_date": "2025-06-05",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/ocbc_edu.txt",
+        "note": "datePublished metadata 20250605T170000Z; URL path shows 2025/06/04."
+      }
+    },
+    {
+      "who": "Kompas.com article (Ayunda Pininta Kasih) built on a Lifepal press statement (Benny Fajarai, Co-Founder & CMO Lifepal)",
+      "claim": "Education costs rise 15-20% per year on average.",
+      "value_pct_min": 15,
+      "value_pct_max": 20,
+      "basis": "No basis given; the figure is stated by the article itself, which relies on a Lifepal (insurance marketplace) press statement.",
+      "verbatim": "biaya pendidikan rata-rata naik 15 persen hingga 20 persen per tahun.",
+      "source": {
+        "url": "https://www.kompas.com/edu/read/2023/01/25/111430871/biaya-pendidikan-naik-15-persen-per-tahun-ini-cara-menyiapkannya?page=all",
+        "title": "Biaya Pendidikan Naik 15 Persen Per Tahun, Ini Cara Menyiapkannya",
+        "publisher": "Kompas.com",
+        "source_type": "news_media",
+        "published_date": "2023-01-25",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/kompas_edu15.txt"
+      }
+    },
+    {
+      "who": "Prudential Syariah (insurer content)",
+      "claim": "Average SD education cost 2020/2021 was Rp3.24 million, 35% higher than 2017/2018 (Rp2.4 million); SMP rose 32%, SMA 19% over the same period. This is a multi-year cumulative change, not an annual rate.",
+      "value_pct_min": null,
+      "value_pct_max": null,
+      "basis": "Attributed to a BPS report (not named); not verified against BPS.",
+      "verbatim": "Menurut laporan Badan Pusat Statistik (BPS), rata-rata biaya pendidikan untuk jenjang sekolah dasar (SD) pada tahun ajaran 2020/2021 tercatat sebesar Rp3,24 juta, meningkat 35% dibanding tahun ajaran 2017/2018 yang sebesar Rp2,4 juta.",
+      "source": {
+        "url": "https://www.prudentialsyariah.co.id/id/wujudkan-keberkahan/article/inflasi-pendidikan-di-indonesia-faktor-penyebab-dampak-dan-strategi/",
+        "title": "Menghadapi Inflasi Pendidikan di Indonesia: Perencanaan dan Strategi Keuangan yang Tepat",
+        "publisher": "Prudential Syariah",
+        "source_type": "insurer_content",
+        "published_date": "2026-04-02",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/prudsyariah_edu.txt",
+        "note": "published-date metadata; may be a last-updated date."
+      }
+    }
+  ],
+  "gaps": [
+    "BPS websites (bps.go.id, depokkota.bps.go.id, bogorkota.bps.go.id statistics tables and press releases) returned Cloudflare HTTP 403 to both curl and WebFetch. National headline figures therefore come from Bank Indonesia's Data Inflasi table; group figures come from news media quoting BPS; Depok/Bogor figures come from BPS PDFs downloadable via web-api.bps.go.id.",
+    "National education group, Dec 2019: not recorded. Under the 2012=100 base the group was 'Pendidikan, Rekreasi, dan Olahraga', which is not comparable with later years. The Kemendag Satu Data table (satudata.kemendag.go.id, 'Inflasi Menurut Kelompok Pengeluaran, 1990-2019') lists 2019 values, but its column alignment looks inconsistent: the only negative Dec-2019 monthly value sits under 'Kesehatan', while search results said the education-recreation-sport group was the one that fell in Dec 2019. So no value was taken.",
+    "National education group, Dec 2021 (y-on-y): not found. The Dec-2021 BPS release text focused on month-to-month change, and search-engine summaries confused the month-to-month 'tidak mengalami perubahan' with the yearly figure.",
+    "National education group, July and August 2026 (y-on-y): not found; the latest found is June 2026 (1.27%). Bloomberg Technoz (2026-08-03) reports 'Kelompok pendidikan mengalami inflasi 0,55%' for July 2026 in a monthly-inflation context without labelling the measure, so it was not recorded.",
+    "Kota Depok: education group Dec 2025 not found; Dec 2025 headline (2.51%) is search-snippet only. Depok 2019-2021 not researched (fetch budget).",
+    "Kota Bogor: education group Dec 2023 and Dec 2024 not found; 2019-2022 not researched. A guessed Bapperida Kota Bogor URL for the Dec 2024 BRS returned 404.",
+    "MK ruling 3/PUU-XXII/2024: no official 2026 government report on implementation (e.g. which private SD/SMP became fee-free in 2026/2027, or the budget actually spent) was verified. The only 2026 status found is the petitioner JPPI's claim (May 2026) that the ruling has not been implemented. mkri.id returned 403.",
+    "Jabar SMA/SMK negeri: the SE Gubernur number differs between sources (43/PK.03.04/KESRA per Kompas, May 2025, vs 45/PK.03.03/KESRA per Tribun Jabar, July 2026); it may be a different or updated circular. The fee arrangements (IPP/SPP/iuran komite) before 2025/2026 and any provincial regulation (Pergub) behind 'sekolah gratis' were not verified.",
+    "Permendikbud 44/2012 current in-force status and the Permendikdasmen 8/2025 (Juknis BOSP) text were not verified (peraturan.bpk.go.id returned 403).",
+    "LPS guarantee rate for the period starting 1 Oct 2026 (normally set at the late-September RDK) was not found; needs live verification.",
+    "The 10-year SBN yield comes from Trading Economics (an aggregator); no DJPPR/BI/PHEI primary benchmark yield was obtained.",
+    "Education cost inflation estimates found (10-15%, 15-20% per year) come from bank or insurer marketing content and a media article with no stated method. No bank-research or government source giving a method-based estimate of education cost inflation was found."
+  ],
+  "base_year_notes": [
+    {
+      "summary": "National CPI moved to base 2022=100 from January 2024 (150 cities); the previous rebase was in 2020 to 2018=100. Series before and after a rebase are not strictly comparable.",
+      "verbatim": "Badan Pusat Statistik (BPS) mengubah perhitungan tahun dasar dan cakupan Indeks Harga Konsumen (IHK) mulai 1 Januari 2024. Pemutakhiran ini mencakup perubahan tahun dasar mengacu ke tahun 2022. Sebagai catatan, BPS terakhir melakukan perubahan tahun dasar pada 2020, dengan acuan 2018.",
+      "source": {
+        "url": "https://www.cnbcindonesia.com/news/20240201120048-4-510811/bps-ubah-penghitungan-inflasi-mulai-2024",
+        "title": "BPS Ubah Penghitungan Inflasi Mulai 2024",
+        "publisher": "CNBC Indonesia",
+        "source_type": "news_media",
+        "published_date": "2024-02-01",
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/cnbc_base2022.txt"
+      }
+    },
+    {
+      "summary": "Kota Depok 2024 CPI computed on base 2022=100 (BPS Kota Depok via Pemkot Depok portal).",
+      "verbatim": "Hasil tersebut dihitung berdasarkan survei harga konsumen yang diperoleh dari indeks harga konsumen yang dihitung berdasarkan perhitungan survei biaya hidup tahun dasar 2022=100 selama tahun 2024.",
+      "source": {
+        "url": "https://berita.depok.go.id/selama-2024-kota-depok-alami-deflasi-3-bulan-beruntun-dan-inflasi-delapan-kali",
+        "title": "Selama 2024, Kota Depok Alami Deflasi 3 Bulan Beruntun dan Inflasi Delapan Kali",
+        "publisher": "Pemerintah Kota Depok (berita.depok.go.id)",
+        "source_type": "government",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/depok_2024_annual.txt",
+        "note": "Quotes Kepala BPS Kota Depok Agus Marzuki, interview dated Rabu (15/01/25)."
+      }
+    },
+    {
+      "summary": "Kota Depok 2023 CPI computed on base 2018=100.",
+      "verbatim": "berdasarkan perhitungan Survei Biaya Hidup tahun dasar 2018=100 selama Tahun 2023.",
+      "source": {
+        "url": "https://web-api.bps.go.id/download.php?f=K8I+KXCjyHc/1g15ZTnVjktIdzdTaUUzRmNnaHhxVDNIeGR6cXZLcDgrbXlKNTNKUlZsclBRWFNNTmxHa3RkZ2RGRWxISWtoTngwQWE1bVV5TUsvTzV2SHJ5V0ZHQ1JjT0N3R05DUzR5VWgrWEV0VEVrcmllemQvNDA2dFhLMEVlMXVGYk1UMUQ5OFMxUjEyL0ZMUjRRVk43cmJCclkyTnVYaGxtT1g3L05mbWlJQ0hFZjNmQkMvQk5TelJFUGRCL2lqakpwU3FscldacjdVSEVlUzlNcWZqamRKTGk1cHV1QTUyaWpXRFU2d1ZwZW1IT2pycTRVd3V3alhKWEc3c3BEeE9idEd6QzZsSVdPdVY%3D",
+        "title": "Inflasi Kota Depok 2023",
+        "publisher": "BPS Kota Depok",
+        "source_type": "government",
+        "published_date": null,
+        "accessed_date": "2026-09-27",
+        "evidence": "curl_verbatim",
+        "local_evidence_file": "macro_tmp/depok_inflasi_2023.txt",
+        "note": "PDF (54 pp.) downloaded from BPS web-api; foreword dated 'Depok, Januari 2024'. Lampiran 4 'Inflasi Tahunan (year on year) Kota Depok Tahun 2023, 2018 = 100'."
+      }
+    }
+  ],
+  "method_note": "Every value with evidence 'curl_verbatim' was grep-checked against the locally saved page/PDF text (macro_tmp/*.txt) by build_macro.py. Evidence 'search_snippet_only' means the page could not be opened. No statistic was computed, rounded or inferred; base-year labels are metadata."
+}

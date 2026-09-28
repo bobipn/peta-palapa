@@ -1,0 +1,3912 @@
+{
+  "region": "Kota Depok",
+  "province": "Jawa Barat",
+  "researched_at": "2026-09-27",
+  "schools": [
+    {
+      "school_name": "Ummu’l Quro Depok Islamic School (TKIT, SDIT, SMPIT Ummu'l Quro Depok)",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Beji",
+      "address": "Jl. M.H. Sanim No.16, Kukusan, Kecamatan Beji (per KalderaNews 2023; Mommies Daily 2021 writes 'Jl. Mandor Sanim, Kukusan Beji, Depok')",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "TK",
+        "SD",
+        "SMP"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [
+        "kurikulum nasional-Agama (as stated for SDIT)"
+      ],
+      "official_website": "https://ummulqurodepok.sch.id/",
+      "fees": [
+        {
+          "level": "TK",
+          "grade_or_program": "TKIT - siswa baru (jalur umum)",
+          "academic_year": "2027/2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Formulir (jalur umum)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "BIAYA FORMULIR | 2 | UMUM | Rp 500.000",
+              "notes": "Internal (alumni/saudara): Rp 400.000"
+            },
+            {
+              "name": "Biaya PMB",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 17450000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "BIAYA PMB DAN SPP | 1 | BIAYA PMB | Rp 17.450.000",
+              "notes": "Brochure: 'Biaya PMB sudah termasuk mendapatkan 4 (empat) setel seragam, souvenir, dan alat tulis (media belajar).' Can be paid in installments up to 1 year after MoU."
+            },
+            {
+              "name": "Biaya SPP per bulan",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1050000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 | BIAYA SPP PER BULAN | Rp 1.050.000",
+              "notes": "Brochure: 'Tidak ada kenaikan SPP selama siswa sekolah di TKIT Ummu'l Quro Depok.' SPP Juli 2027 is paid together with Biaya PMB. 'Terdapat Biaya Daftar Ulang setiap tahun' (amount not published)."
+            },
+            {
+              "name": "Tambahan biaya psikotes lanjutan (observasi PMB) - inklusi",
+              "category": "optional",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "BIAYA INKLUSI | 1 | TAMBAHAN BIAYA PSIKOTES LANJUTAN (OBSERVASI PMB) | Rp 500.000",
+              "notes": null
+            },
+            {
+              "name": "SPP bulanan tambahan - kategori inklusi sedang",
+              "category": "optional",
+              "frequency": "monthly",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 | SPP BULANAN - KATEGORI INKLUSI SEDANG | Rp 500.000",
+              "notes": "Excludes special therapy and shadow teacher."
+            }
+          ],
+          "source": {
+            "url": "https://ummulqurodepok.sch.id/biaya-ppdb-sit-ummul-quro-depok/",
+            "title": "Biaya PMB Ummu’l Quro Depok Islamic School",
+            "publisher": "Ummu’l Quro Depok Islamic School",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Page text (incl. 'Rincian biaya PMB/PPDB ... tahun ajaran 2027/2028') extracted via curl; the fee tables are official images downloaded via curl and transcribed visually: TK https://ummulqurodepokschi3bd95.zapwp.com/wp-content/uploads/2026/08/PMB-TKIT.webp ; SD .../uploads/2026/08/PMB-SDIT.webp ; SMP .../uploads/2026/09/PMB-SMPIT-1.webp"
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "SDIT - kelas 1 siswa baru (jalur umum)",
+          "academic_year": "2027/2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Formulir (jalur umum)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 550000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "BIAYA FORMULIR | 2 | UMUM | Rp 550.000",
+              "notes": "Internal (alumni/saudara): Rp 450.000"
+            },
+            {
+              "name": "Biaya PMB",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 35975000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "PMB DAN SPP | 1 | BIAYA PMB | Rp 35.975.000",
+              "notes": "Brochure: 'Biaya PMB sudah termasuk 6 setel seragam, souvenir, dan buku paket tahun pertama.' Installments up to 1 year after MoU."
+            },
+            {
+              "name": "Biaya SPP per bulan",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1875000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 | BIAYA SPP PER BULAN | Rp 1.875.000",
+              "notes": "Brochure: 'Biaya SPP sudah termasuk fasilitas katering siswa...'; 'Kenaikan SPP per tahun maksimal 8%.'"
+            },
+            {
+              "name": "Biaya Kegiatan tahunan (mulai kelas 2)",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 1200000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya Kegiatan tahunan di kelas 2 sebesar Rp1.200.000,-, dan kenaikan per tahun maksimal 15%.",
+              "notes": "Applies from kelas 2 onward; max +15%/year."
+            },
+            {
+              "name": "Tambahan biaya psikotes lanjutan (observasi PMB) - inklusi",
+              "category": "optional",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "BIAYA INKLUSI | 1 | TAMBAHAN BIAYA PSIKOTES LANJUTAN (OBSERVASI PMB) | Rp 500.000",
+              "notes": null
+            },
+            {
+              "name": "SPP bulanan tambahan - kategori inklusi sedang",
+              "category": "optional",
+              "frequency": "monthly",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 | SPP BULANAN - KATEGORI INKLUSI SEDANG | Rp 500.000",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://ummulqurodepok.sch.id/biaya-ppdb-sit-ummul-quro-depok/",
+            "title": "Biaya PMB Ummu’l Quro Depok Islamic School",
+            "publisher": "Ummu’l Quro Depok Islamic School",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Page text (incl. 'Rincian biaya PMB/PPDB ... tahun ajaran 2027/2028') extracted via curl; the fee tables are official images downloaded via curl and transcribed visually: TK https://ummulqurodepokschi3bd95.zapwp.com/wp-content/uploads/2026/08/PMB-TKIT.webp ; SD .../uploads/2026/08/PMB-SDIT.webp ; SMP .../uploads/2026/09/PMB-SMPIT-1.webp"
+          }
+        },
+        {
+          "level": "SMP",
+          "grade_or_program": "SMPIT - kelas 7 siswa baru (jalur umum)",
+          "academic_year": "2027/2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Formulir (jalur umum)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 550000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "BIAYA FORMULIR | 2 | UMUM | Rp 550.000",
+              "notes": "Internal (alumni/saudara): Rp 450.000"
+            },
+            {
+              "name": "Biaya PMB",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 36605000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "PMB DAN SPP | 1 | BIAYA PMB | Rp 36.605.000",
+              "notes": "Brochure: 'Biaya PMB sudah termasuk 6 setel seragam, souvenir, dan buku paket tahun pertama.'"
+            },
+            {
+              "name": "Biaya SPP per bulan",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1895000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 | BIAYA SPP PER BULAN | Rp 1.895.000",
+              "notes": "Includes catering. Brochure: 'Tidak ada kenaikan SPP selama siswa sekolah di SMPIT Ummu'l Quro Depok.' 'Terdapat Biaya Daftar Ulang setiap tahun' (amount not published)."
+            },
+            {
+              "name": "Tambahan biaya psikotes lanjutan (observasi PMB) - inklusi",
+              "category": "optional",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "BIAYA INKLUSI | 1 | TAMBAHAN BIAYA PSIKOTES LANJUTAN (OBSERVASI PMB) | Rp 500.000",
+              "notes": null
+            },
+            {
+              "name": "SPP bulanan tambahan - kategori inklusi sedang",
+              "category": "optional",
+              "frequency": "monthly",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 | SPP BULANAN - KATEGORI INKLUSI SEDANG | Rp 500.000",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://ummulqurodepok.sch.id/biaya-ppdb-sit-ummul-quro-depok/",
+            "title": "Biaya PMB Ummu’l Quro Depok Islamic School",
+            "publisher": "Ummu’l Quro Depok Islamic School",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Page text (incl. 'Rincian biaya PMB/PPDB ... tahun ajaran 2027/2028') extracted via curl; the fee tables are official images downloaded via curl and transcribed visually: TK https://ummulqurodepokschi3bd95.zapwp.com/wp-content/uploads/2026/08/PMB-TKIT.webp ; SD .../uploads/2026/08/PMB-SDIT.webp ; SMP .../uploads/2026/09/PMB-SMPIT-1.webp"
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "SDIT Ummul Quro - kelas 1 siswa baru",
+          "academic_year": "2022/2023",
+          "academic_year_normalized": "2022/2023",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Form pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 350000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Form pendaftaran: Rp 350.000 | Psikotes untuk anak belum cukup usia: Rp 300.000",
+              "notes": null
+            },
+            {
+              "name": "Tambahan biaya jalur inklusi",
+              "category": "optional",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Tambahan biaya jalur inklusi: Rp 500.000",
+              "notes": null
+            },
+            {
+              "name": "Uang pangkal (Gelombang I-III)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": null,
+              "amount_min": 22045725,
+              "amount_max": 23545725,
+              "verbatim": "Uang pangkal Gelombang I (Oktober-Desember 2021): Rp 22.045.725 | Gelombang II (Januari - Februari 2022): Rp 23.045.725 | Gelombang III (Maret - April 2022): Rp 23.545.725",
+              "notes": "Price depends on registration wave (Gel I 22.045.725; Gel II 23.045.725; Gel III 23.545.725)."
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1450000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 1.450.000/bulan",
+              "notes": "Article: 'Kenaikan SPP per tahun maksimal 8%'"
+            },
+            {
+              "name": "Kegiatan tahunan",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 700000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Kegiatan tahunan: Rp 700.000 (tiap tahun naik maksimal 20%)",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://mommiesdaily.com/2021/10/18/biaya-masuk-sd-di-depok-tahun-ajaran-2022-2023/",
+            "title": "Biaya Masuk SD di Depok Tahun 2022",
+            "publisher": "Mommies Daily (contributor 'dewdew')",
+            "source_type": "blog",
+            "published_date": "2021-10-18",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Parenting media site; article by a contributor who describes herself as a blogger; no primary source cited. Classified conservatively as blog."
+          }
+        },
+        {
+          "level": "SMP",
+          "grade_or_program": "SMPIT Ummul Quro - kelas 7 siswa baru (umum)",
+          "academic_year": "2024/2025",
+          "academic_year_normalized": "2024/2025",
+          "academic_year_inferred": true,
+          "components": [
+            {
+              "name": "Form pendaftaran (umum)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 300000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Form pendaftaran | Umum: Rp 300.000 | Anak inklusi: Rp 900.000",
+              "notes": "Anak inklusi: Rp 900.000"
+            },
+            {
+              "name": "Uang Pangkal (Gelombang I-II)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": null,
+              "amount_min": 27500000,
+              "amount_max": 28500000,
+              "verbatim": "Uang Pangkal | Gelombang I: Rp 27.500.000 | Gelombang II: Rp 28.500.000 | SPP: Rp 1.495.000/bulan",
+              "notes": "Article: uniform included in Uang Pangkal; Rp 1.000.000 discount if paid in full up front."
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1495000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 1.495.000/bulan",
+              "notes": "Article: 'Tidak ada kenaikan SPP per tahunnya.'"
+            }
+          ],
+          "source": {
+            "url": "https://www.kalderanews.com/2023/11/daftar-smp-swasta-terbaik-di-depok-beserta-rincian-biayanya-ada-yang-spp-nya-cuma-rp-400-ribu/",
+            "title": "Daftar SMP Swasta Terbaik di Depok Beserta Rincian Biayanya, Ada yang SPP-nya Cuma Rp 400 Ribu!",
+            "publisher": "KalderaNews.com (Tiara Apriyani)",
+            "source_type": "news_media",
+            "published_date": "2023-11-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Academic year not stated; article (10 Nov 2023) addresses parents of kelas 6 choosing a school for 'tahun ajaran depan', so 2024/2025 is inferred. No primary source cited. Same list was republished by milenianews.com on 2024-04-02."
+          }
+        }
+      ],
+      "notes": "2027/2028 figures are the list 'Biaya PMB' before wave discounts. Official discount table (deducted from Biaya PMB) - TK: Gel I Sep-Des 2026 internal 2.000.000 / umum 1.000.000 / jamaah haji umrah UQ 1.500.000; Gel II Jan-Jul 2027 1.000.000 / - / 500.000. SD: Gel I 3.500.000 / 1.500.000 / 2.000.000; Gel II 1.500.000 / - / 500.000. SMP: Gel I 5.000.000 / 3.000.000 / 3.500.000; Gel II 3.000.000 / 1.500.000 / 2.000.000. Extra Rp1.000.000 off for full early payment of Biaya PMB. Historical records (2022/2023 SD from Mommies Daily; 2024/2025-inferred SMP from KalderaNews) are secondary sources; the 2022/2023 'uang pangkal' is a wave-dependent price, so compare with 2027/2028 list price with care. Address not shown in extracted official page text."
+    },
+    {
+      "school_name": "Sekolah Islam Terpadu Insan Mandiri Depok (PGIT/TKIT/SDIT Insan Mandiri Cinere-Depok)",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Limo",
+      "address": "Komplek Diamond Golden Cinere No. 17B, Jln. Krukut Raya Kel. Grogol, Kec. Limo, Depok",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "TK",
+        "SD"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "https://insanmandiridepok.sch.id/",
+      "fees": [
+        {
+          "level": "TK",
+          "grade_or_program": "PGIT (Playgroup) - siswa baru",
+          "academic_year": "2027-2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Invest pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "PGIT Insan Mandiri Depok | Invest pendaftaran | Normal 600.000 | Gelombang 1 600.000 | Gelombang 2 600.000 | Gelombang 3 600.000",
+              "notes": null
+            },
+            {
+              "name": "SPP Bulanan",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 350000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "PGIT Insan Mandiri Depok | SPP Bulanan | Normal 350.000",
+              "notes": null
+            },
+            {
+              "name": "Invest Awal Masuk",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 5150000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "PGIT Insan Mandiri Depok | Invest Awal Masuk | Normal 5.150.000 | Gelombang 1 Sep-Des 2026 4.690.000 | Gelombang 2 Jan-mar 2027 4.845.000 | Gelombang 3 Apr-Jun 2027 4.920.000",
+              "notes": "Normal (list) price; discounted by registration wave: Gel 1 (Sep-Des 2026) 4.690.000, Gel 2 (Jan-Mar 2027) 4.845.000, Gel 3 (Apr-Jun 2027) 4.920.000. Page: 'Invest awal masuk meliputi pembayaran biaya pengembangan SDM dan Sarpras, Buku Belajar, Seragam Sekolah ukuran standar, uang kegiatan dan uang komite bulan juli 2026' ('juli 2026' appears on a 2027-2028 page - probable typo in source). Source 'Total Invest' (normal) = 6.100.000 (= pendaftaran + SPP + awal masuk)."
+            }
+          ],
+          "source": {
+            "url": "https://insanmandiridepok.sch.id/ppdb/",
+            "title": "PPDB - Sekolah Islam Terpadu Insan Mandiri Depok",
+            "publisher": "Sekolah Islam Terpadu Insan Mandiri Depok (IMCD)",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Page text ('BIAYA PENERIMAAN ... TAHUN AJARAN 2027-2028') extracted via curl; fee table is an official image downloaded via curl and transcribed visually: https://insanmandiridepok.sch.id/wp-content/uploads/2026/08/Opera-Snapshot_2026-08-18_173752_docs.google.com_.png"
+          }
+        },
+        {
+          "level": "TK",
+          "grade_or_program": "TKIT - siswa baru",
+          "academic_year": "2027-2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Invest pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "TKIT Insan Mandiri Depok | Invest pendaftaran | Normal 600.000 | Gelombang 1 600.000 | Gelombang 2 600.000 | Gelombang 3 600.000",
+              "notes": null
+            },
+            {
+              "name": "SPP Bulanan",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 450000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "TKIT Insan Mandiri Depok | SPP Bulanan | Normal 450.000",
+              "notes": null
+            },
+            {
+              "name": "Invest Awal Masuk",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 6300000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "TKIT Insan Mandiri Depok | Invest Awal Masuk | Normal 6.300.000 | Gelombang 1 Sep-Des 2026 5.800.000 | Gelombang 2 Jan-mar 2027 5.925.000 | Gelombang 3 Apr-Jun 2027 6.050.000",
+              "notes": "Normal (list) price; discounted by registration wave: Gel 1 (Sep-Des 2026) 5.800.000, Gel 2 (Jan-Mar 2027) 5.925.000, Gel 3 (Apr-Jun 2027) 6.050.000. Page: 'Invest awal masuk meliputi pembayaran biaya pengembangan SDM dan Sarpras, Buku Belajar, Seragam Sekolah ukuran standar, uang kegiatan dan uang komite bulan juli 2026' ('juli 2026' appears on a 2027-2028 page - probable typo in source). Source 'Total Invest' (normal) = 7.350.000 (= pendaftaran + SPP + awal masuk)."
+            }
+          ],
+          "source": {
+            "url": "https://insanmandiridepok.sch.id/ppdb/",
+            "title": "PPDB - Sekolah Islam Terpadu Insan Mandiri Depok",
+            "publisher": "Sekolah Islam Terpadu Insan Mandiri Depok (IMCD)",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Page text ('BIAYA PENERIMAAN ... TAHUN AJARAN 2027-2028') extracted via curl; fee table is an official image downloaded via curl and transcribed visually: https://insanmandiridepok.sch.id/wp-content/uploads/2026/08/Opera-Snapshot_2026-08-18_173752_docs.google.com_.png"
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "SDIT - kelas 1 siswa baru",
+          "academic_year": "2027-2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Invest pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SDIT Insan Mandiri Depok | Invest pendaftaran | Normal 600.000 | Gelombang 1 600.000 | Gelombang 2 600.000 | Gelombang 3 600.000",
+              "notes": null
+            },
+            {
+              "name": "SPP Bulanan",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 800000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SDIT Insan Mandiri Depok | SPP Bulanan | Normal 800.000",
+              "notes": null
+            },
+            {
+              "name": "Invest Awal Masuk",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 12000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SDIT Insan Mandiri Depok | Invest Awal Masuk | Normal 12.000.000 | Gelombang 1 Sep-Des 2026 10.840.000 | Gelombang 2 Jan-mar 2027 11.130.000 | Gelombang 3 Apr-Jun 2027 11.420.000",
+              "notes": "Normal (list) price; discounted by registration wave: Gel 1 (Sep-Des 2026) 10.840.000, Gel 2 (Jan-Mar 2027) 11.130.000, Gel 3 (Apr-Jun 2027) 11.420.000. Page: 'Invest awal masuk meliputi pembayaran biaya pengembangan SDM dan Sarpras, Buku Belajar, Seragam Sekolah ukuran standar, uang kegiatan dan uang komite bulan juli 2026' ('juli 2026' appears on a 2027-2028 page - probable typo in source). Source 'Total Invest' (normal) = 13.400.000 (= pendaftaran + SPP + awal masuk)."
+            }
+          ],
+          "source": {
+            "url": "https://insanmandiridepok.sch.id/ppdb/",
+            "title": "PPDB - Sekolah Islam Terpadu Insan Mandiri Depok",
+            "publisher": "Sekolah Islam Terpadu Insan Mandiri Depok (IMCD)",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Page text ('BIAYA PENERIMAAN ... TAHUN AJARAN 2027-2028') extracted via curl; fee table is an official image downloaded via curl and transcribed visually: https://insanmandiridepok.sch.id/wp-content/uploads/2026/08/Opera-Snapshot_2026-08-18_173752_docs.google.com_.png"
+          }
+        }
+      ],
+      "notes": "Registration allowed with 40% of total invest; 60% by July before classes start. Extra discounts on sarpras: 25% for TKIT IMCD continuers, 15% DGC residents, 5% siblings; 100% free for orphans living in Asrama Yatim Insan Mandiri (after survey). Fee table is a screenshot of a Google document ('Opera Snapshot 2026-08-18')."
+    },
+    {
+      "school_name": "Nurul Fikri Islamic School (SIT Nurul Fikri: TKIT/SDIT/SMPIT/SMAIT Nurul Fikri)",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Cimanggis",
+      "address": "Jl. Tugu Raya No.61, Tugu, Cimanggis, Depok - Jawa Barat",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "TK",
+        "SD",
+        "SMP",
+        "SMA"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "https://ppdb.nurulfikri.sch.id/",
+      "fees": [
+        {
+          "level": "TK",
+          "grade_or_program": "PG / TK A - siswa baru",
+          "academic_year": "2027/2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Pendaftaran dan Seleksi (asal non Nurul Fikri)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Asal Non Nurul Fikri Islamic School | Rp. 200,000 | Rp. 500,000 | Rp. 650,000 | Rp. 850,000 | Rp. 900,000",
+              "notes": null
+            },
+            {
+              "name": "Dana Pengembangan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 9000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pengembangan | Rp. 9,000,000 | Rp. 6,000,000 | Rp. 22,500,000 | Rp. 22,500,000 | Rp. 22,500,000",
+              "notes": "Page: 'Komponen Dana Pengembangan, dan Dana Pendidikan (termasuk sarana dan bahan ajar untuk tahun pertama) dibayarkan satu kali selama menempuh pendidikan di unit terkait'. Early full-payment discount applies (see school notes)."
+            },
+            {
+              "name": "Dana Pendidikan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 9000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pendidikan | Rp. 9,000,000 | Rp. 8,000,000 | Rp. 14,000,000 | Rp. 16,000,000 | Rp. 16,000,000",
+              "notes": "Page: 'Komponen Dana Pengembangan, dan Dana Pendidikan (termasuk sarana dan bahan ajar untuk tahun pertama) dibayarkan satu kali selama menempuh pendidikan di unit terkait'."
+            },
+            {
+              "name": "Seragam Putra",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1400000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putra | Rp. 1,400,000 | Rp. 1,400,000 | Rp. 2,000,000 | Rp. 2,100,000 | Rp. 2,200,000",
+              "notes": "Boys; girls' uniform is a separate row."
+            },
+            {
+              "name": "Seragam Putri",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1700000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putri | Rp. 1,700,000 | Rp. 1,700,000 | Rp. 2,600,000 | Rp. 3,000,000 | Rp. 3,000,000",
+              "notes": "Girls; pay either putra or putri, not both."
+            },
+            {
+              "name": "SPP (TK A, tahun ke-1)",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "TK A | Dana Tahunan | - | Rp. 2.000.000 | - | - | - | - | | SPP | Rp. 1.750.000 | Rp. 1.850.000",
+              "notes": "Period not labelled in the main table; treated as monthly because the page calls SPP 'dibayarkan mulai bulan Juli' and labels related SPP rows 'SPP Bulanan'/'SPP/Bulan' (Mommies Daily 2021 also reports NF SPP 'per bulan'). Schedule TK A: yr1 1.750.000, yr2 1.850.000; Play Group: yr1 1.750.000, yr2 1.850.000, yr3 1.950.000."
+            },
+            {
+              "name": "Dana Tahunan (TK A tahun ke-2)",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 2000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "TK A | Dana Tahunan | - | Rp. 2.000.000",
+              "notes": "Payable from 2nd year (Play Group: yr2 and yr3 Rp 2.000.000 each)."
+            }
+          ],
+          "source": {
+            "url": "https://ppdb.nurulfikri.sch.id/biaya",
+            "title": "Education Fees - PPDB Online - SIT Nurul Fikri (Academic Year 2027/2028)",
+            "publisher": "Nurul Fikri Islamic School (PPDB Online)",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "HTML table text extracted via curl. Column order in rows: section A 'CCEC | TK | SD | SMP | SMA'; section B 'PG / TK A | TK B | SD | SMP | SMA'; SPP/Dana Tahunan rows are 'Tahun ke-1 ... Tahun ke-6'."
+          }
+        },
+        {
+          "level": "TK",
+          "grade_or_program": "TK B - siswa baru",
+          "academic_year": "2027/2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Pendaftaran dan Seleksi (asal non Nurul Fikri)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Asal Non Nurul Fikri Islamic School | Rp. 200,000 | Rp. 500,000 | Rp. 650,000 | Rp. 850,000 | Rp. 900,000",
+              "notes": null
+            },
+            {
+              "name": "Dana Pengembangan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 6000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pengembangan | Rp. 9,000,000 | Rp. 6,000,000 | Rp. 22,500,000 | Rp. 22,500,000 | Rp. 22,500,000",
+              "notes": "Page: 'Komponen Dana Pengembangan, dan Dana Pendidikan (termasuk sarana dan bahan ajar untuk tahun pertama) dibayarkan satu kali selama menempuh pendidikan di unit terkait'."
+            },
+            {
+              "name": "Dana Pendidikan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 8000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pendidikan | Rp. 9,000,000 | Rp. 8,000,000 | Rp. 14,000,000 | Rp. 16,000,000 | Rp. 16,000,000",
+              "notes": "Page: 'Komponen Dana Pengembangan, dan Dana Pendidikan (termasuk sarana dan bahan ajar untuk tahun pertama) dibayarkan satu kali selama menempuh pendidikan di unit terkait'."
+            },
+            {
+              "name": "Seragam Putra",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1400000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putra | Rp. 1,400,000 | Rp. 1,400,000 | Rp. 2,000,000 | Rp. 2,100,000 | Rp. 2,200,000",
+              "notes": null
+            },
+            {
+              "name": "Seragam Putri",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1700000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putri | Rp. 1,700,000 | Rp. 1,700,000 | Rp. 2,600,000 | Rp. 3,000,000 | Rp. 3,000,000",
+              "notes": null
+            },
+            {
+              "name": "SPP (TK B)",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "TK B | Dana Tahunan | - | - | - | - | - | - | | SPP | Rp. 1.750.000",
+              "notes": "Period not labelled in the main table; treated as monthly because the page calls SPP 'dibayarkan mulai bulan Juli' and labels related SPP rows 'SPP Bulanan'/'SPP/Bulan' (Mommies Daily 2021 also reports NF SPP 'per bulan')."
+            }
+          ],
+          "source": {
+            "url": "https://ppdb.nurulfikri.sch.id/biaya",
+            "title": "Education Fees - PPDB Online - SIT Nurul Fikri (Academic Year 2027/2028)",
+            "publisher": "Nurul Fikri Islamic School (PPDB Online)",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "HTML table text extracted via curl. Column order in rows: section A 'CCEC | TK | SD | SMP | SMA'; section B 'PG / TK A | TK B | SD | SMP | SMA'; SPP/Dana Tahunan rows are 'Tahun ke-1 ... Tahun ke-6'."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "SDIT - kelas 1 siswa baru",
+          "academic_year": "2027/2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Pendaftaran dan Seleksi (asal non Nurul Fikri)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 650000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Asal Non Nurul Fikri Islamic School | Rp. 200,000 | Rp. 500,000 | Rp. 650,000 | Rp. 850,000 | Rp. 900,000",
+              "notes": null
+            },
+            {
+              "name": "Dana Pengembangan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 22500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pengembangan | Rp. 9,000,000 | Rp. 6,000,000 | Rp. 22,500,000 | Rp. 22,500,000 | Rp. 22,500,000",
+              "notes": "Page: 'Komponen Dana Pengembangan, dan Dana Pendidikan (termasuk sarana dan bahan ajar untuk tahun pertama) dibayarkan satu kali selama menempuh pendidikan di unit terkait'. Early full-payment discount applies (see school notes)."
+            },
+            {
+              "name": "Dana Pendidikan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 14000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pendidikan | Rp. 9,000,000 | Rp. 8,000,000 | Rp. 14,000,000 | Rp. 16,000,000 | Rp. 16,000,000",
+              "notes": "Page: 'Komponen Dana Pengembangan, dan Dana Pendidikan (termasuk sarana dan bahan ajar untuk tahun pertama) dibayarkan satu kali selama menempuh pendidikan di unit terkait'."
+            },
+            {
+              "name": "Seragam Putra",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 2000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putra | Rp. 1,400,000 | Rp. 1,400,000 | Rp. 2,000,000 | Rp. 2,100,000 | Rp. 2,200,000",
+              "notes": "Boys; girls' uniform is a separate row."
+            },
+            {
+              "name": "Seragam Putri",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 2600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putri | Rp. 1,700,000 | Rp. 1,700,000 | Rp. 2,600,000 | Rp. 3,000,000 | Rp. 3,000,000",
+              "notes": "Girls; pay either putra or putri, not both."
+            },
+            {
+              "name": "SPP (tahun ke-1)",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2400000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SD | Dana Tahunan | - | Rp. 4.500.000 | Rp. 5.000.000 | Rp. 5.200.000 | Rp. 5.400.000 | Rp. 5.600.000 | | SPP | Rp. 2.400.000 | Rp. 2.500.000 | Rp. 2.600.000 | Rp. 2.700.000 | Rp. 2.800.000 | Rp. 2.850.000",
+              "notes": "Period not labelled in the main table; treated as monthly because the page calls SPP 'dibayarkan mulai bulan Juli' and labels related SPP rows 'SPP Bulanan'/'SPP/Bulan' (Mommies Daily 2021 also reports NF SPP 'per bulan'). Published SPP schedule by year of study: 1: 2.400.000; 2: 2.500.000; 3: 2.600.000; 4: 2.700.000; 5: 2.800.000; 6: 2.850.000. Excludes catering and transport."
+            },
+            {
+              "name": "Dana Tahunan (daftar ulang, mulai tahun ke-2)",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 4500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SD | Dana Tahunan | - | Rp. 4.500.000 | Rp. 5.000.000 | Rp. 5.200.000 | Rp. 5.400.000 | Rp. 5.600.000",
+              "notes": "Schedule: yr2 4.500.000; yr3 5.000.000; yr4 5.200.000; yr5 5.400.000; yr6 5.600.000. Covers dana kegiatan, sarana belajar, perangkat pembelajaran."
+            }
+          ],
+          "source": {
+            "url": "https://ppdb.nurulfikri.sch.id/biaya",
+            "title": "Education Fees - PPDB Online - SIT Nurul Fikri (Academic Year 2027/2028)",
+            "publisher": "Nurul Fikri Islamic School (PPDB Online)",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "HTML table text extracted via curl. Column order in rows: section A 'CCEC | TK | SD | SMP | SMA'; section B 'PG / TK A | TK B | SD | SMP | SMA'; SPP/Dana Tahunan rows are 'Tahun ke-1 ... Tahun ke-6'."
+          }
+        },
+        {
+          "level": "SMP",
+          "grade_or_program": "SMPIT - kelas 7 siswa baru",
+          "academic_year": "2027/2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Pendaftaran dan Seleksi (asal non Nurul Fikri)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 850000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Asal Non Nurul Fikri Islamic School | Rp. 200,000 | Rp. 500,000 | Rp. 650,000 | Rp. 850,000 | Rp. 900,000",
+              "notes": null
+            },
+            {
+              "name": "Dana Pengembangan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 22500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pengembangan | Rp. 9,000,000 | Rp. 6,000,000 | Rp. 22,500,000 | Rp. 22,500,000 | Rp. 22,500,000",
+              "notes": "Page: 'Komponen Dana Pengembangan, dan Dana Pendidikan (termasuk sarana dan bahan ajar untuk tahun pertama) dibayarkan satu kali selama menempuh pendidikan di unit terkait'. Early full-payment discount applies (see school notes)."
+            },
+            {
+              "name": "Dana Pendidikan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 16000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pendidikan | Rp. 9,000,000 | Rp. 8,000,000 | Rp. 14,000,000 | Rp. 16,000,000 | Rp. 16,000,000",
+              "notes": "Page: 'Komponen Dana Pengembangan, dan Dana Pendidikan (termasuk sarana dan bahan ajar untuk tahun pertama) dibayarkan satu kali selama menempuh pendidikan di unit terkait'."
+            },
+            {
+              "name": "Seragam Putra",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 2100000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putra | Rp. 1,400,000 | Rp. 1,400,000 | Rp. 2,000,000 | Rp. 2,100,000 | Rp. 2,200,000",
+              "notes": "Boys; girls' uniform is a separate row."
+            },
+            {
+              "name": "Seragam Putri",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 3000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putri | Rp. 1,700,000 | Rp. 1,700,000 | Rp. 2,600,000 | Rp. 3,000,000 | Rp. 3,000,000",
+              "notes": "Girls; pay either putra or putri, not both."
+            },
+            {
+              "name": "SPP (tahun ke-1)",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SMP | Dana Tahunan | - | Rp. 5.000.000 | Rp. 5.500.000 | - | - | - | | SPP | Rp. 2.500.000 | Rp. 2.600.000 | Rp. 2.650.000",
+              "notes": "Period not labelled in the main table; treated as monthly because the page calls SPP 'dibayarkan mulai bulan Juli' and labels related SPP rows 'SPP Bulanan'/'SPP/Bulan' (Mommies Daily 2021 also reports NF SPP 'per bulan'). Schedule: yr1 2.500.000; yr2 2.600.000; yr3 2.650.000."
+            },
+            {
+              "name": "Dana Tahunan (mulai tahun ke-2)",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 5000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SMP | Dana Tahunan | - | Rp. 5.000.000 | Rp. 5.500.000",
+              "notes": "yr2 5.000.000; yr3 5.500.000."
+            },
+            {
+              "name": "Tabungan program Umrah plus Quran Character Camp (kelas IX)",
+              "category": "optional",
+              "frequency": null,
+              "amount": 48000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Kelas IX Umroh plus QCC (Makkah Madinah 30 hari): perkiraan Januari 2030 | (*waktu keberangkatan disesuaikan kondisi) | Rp. 48,000,000",
+              "notes": "Self-funded programme cost (estimate), saved over 3 years per the page's savings simulation; not part of mandatory fees."
+            }
+          ],
+          "source": {
+            "url": "https://ppdb.nurulfikri.sch.id/biaya",
+            "title": "Education Fees - PPDB Online - SIT Nurul Fikri (Academic Year 2027/2028)",
+            "publisher": "Nurul Fikri Islamic School (PPDB Online)",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "HTML table text extracted via curl. Column order in rows: section A 'CCEC | TK | SD | SMP | SMA'; section B 'PG / TK A | TK B | SD | SMP | SMA'; SPP/Dana Tahunan rows are 'Tahun ke-1 ... Tahun ke-6'."
+          }
+        },
+        {
+          "level": "SMA",
+          "grade_or_program": "SMAIT - kelas 10 siswa baru",
+          "academic_year": "2027/2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Pendaftaran dan Seleksi (asal non Nurul Fikri)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Asal Non Nurul Fikri Islamic School | Rp. 200,000 | Rp. 500,000 | Rp. 650,000 | Rp. 850,000 | Rp. 900,000",
+              "notes": null
+            },
+            {
+              "name": "Dana Pengembangan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 22500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pengembangan | Rp. 9,000,000 | Rp. 6,000,000 | Rp. 22,500,000 | Rp. 22,500,000 | Rp. 22,500,000",
+              "notes": "Page: 'Komponen Dana Pengembangan, dan Dana Pendidikan (termasuk sarana dan bahan ajar untuk tahun pertama) dibayarkan satu kali selama menempuh pendidikan di unit terkait'. Early full-payment discount applies (see school notes)."
+            },
+            {
+              "name": "Dana Pendidikan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 16000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pendidikan | Rp. 9,000,000 | Rp. 8,000,000 | Rp. 14,000,000 | Rp. 16,000,000 | Rp. 16,000,000",
+              "notes": "Page: 'Komponen Dana Pengembangan, dan Dana Pendidikan (termasuk sarana dan bahan ajar untuk tahun pertama) dibayarkan satu kali selama menempuh pendidikan di unit terkait'."
+            },
+            {
+              "name": "Seragam Putra",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 2200000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putra | Rp. 1,400,000 | Rp. 1,400,000 | Rp. 2,000,000 | Rp. 2,100,000 | Rp. 2,200,000",
+              "notes": "Boys; girls' uniform is a separate row."
+            },
+            {
+              "name": "Seragam Putri",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 3000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putri | Rp. 1,700,000 | Rp. 1,700,000 | Rp. 2,600,000 | Rp. 3,000,000 | Rp. 3,000,000",
+              "notes": "Girls; pay either putra or putri, not both."
+            },
+            {
+              "name": "SPP (tahun ke-1)",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SMA | Dana Tahunan | - | Rp. 5.750.000 | Rp. 6.250.000 | - | - | - | | SPP | Rp. 2.500.000 | Rp. 2.600.000 | Rp. 2.650.000",
+              "notes": "Period not labelled in the main table; treated as monthly because the page calls SPP 'dibayarkan mulai bulan Juli' and labels related SPP rows 'SPP Bulanan'/'SPP/Bulan' (Mommies Daily 2021 also reports NF SPP 'per bulan'). Schedule: yr1 2.500.000; yr2 2.600.000; yr3 2.650.000."
+            },
+            {
+              "name": "Dana Tahunan (mulai tahun ke-2)",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 5750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SMA | Dana Tahunan | - | Rp. 5.750.000 | Rp. 6.250.000",
+              "notes": "yr2 5.750.000; yr3 6.250.000."
+            },
+            {
+              "name": "Tabungan Impruf (Immersion Program) luar negeri (kelas XI)",
+              "category": "optional",
+              "frequency": null,
+              "amount": 38000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Kelas XI Impruf (Immersion Program) ke luar negeri (kurang lebih 10 hari): November 2029 | (*waktu keberangkatan disesuaikan kondisi) | Rp. 38,000,000",
+              "notes": "Self-funded programme cost (estimate); not part of mandatory fees."
+            }
+          ],
+          "source": {
+            "url": "https://ppdb.nurulfikri.sch.id/biaya",
+            "title": "Education Fees - PPDB Online - SIT Nurul Fikri (Academic Year 2027/2028)",
+            "publisher": "Nurul Fikri Islamic School (PPDB Online)",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "HTML table text extracted via curl. Column order in rows: section A 'CCEC | TK | SD | SMP | SMA'; section B 'PG / TK A | TK B | SD | SMP | SMA'; SPP/Dana Tahunan rows are 'Tahun ke-1 ... Tahun ke-6'."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "SDIT Nurul Fikri - kelas 1 siswa baru",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": null,
+              "amount_min": 500000,
+              "amount_max": 650000,
+              "verbatim": "Biaya Pendaftaran: Rp 500.000 - Rp 650.000",
+              "notes": null
+            },
+            {
+              "name": "Dana Pengembangan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 22500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pengembangan: Rp 22.500.000",
+              "notes": null
+            },
+            {
+              "name": "Dana Pendidikan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 14000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana Pendidikan: Rp 14.000.000",
+              "notes": null
+            },
+            {
+              "name": "Seragam Putra",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putra: Rp 1.900.000",
+              "notes": null
+            },
+            {
+              "name": "Seragam Putri",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 2500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam Putri: Rp 2.500.000",
+              "notes": null
+            },
+            {
+              "name": "Daftar Ulang/Dana Tahunan (tahun berikutnya)",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 3750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Daftar Ulang/Dana Tahunan (tahun berikutnya): Rp 3.750.000",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://www.popmama.com/big-kid/6-9-years-old/biaya-sekolah-sd-swasta-di-depok-tahun-ajaran-2026-2027-00-bbqjr-302fg6",
+            "title": "10 Biaya Sekolah SD Swasta di Depok untuk Tahun Ajaran 2026/2027",
+            "publisher": "Popmama.com (IDN Media); penulis Ninda Anisya, editor Novy Agrina",
+            "source_type": "news_media",
+            "published_date": "2026-02-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Article text extracted via curl. Article states figures are 'estimasi rincian biaya' compiled 'melansir dari berbagai sumber' and advises confirming with schools."
+          }
+        },
+        {
+          "level": "SMP",
+          "grade_or_program": "SMPIT Nurul Fikri - kelas 7 siswa baru",
+          "academic_year": "2024/2025",
+          "academic_year_normalized": "2024/2025",
+          "academic_year_inferred": true,
+          "components": [
+            {
+              "name": "Formulir pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 650000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SMP IT Nurul Fikri | Jl. Raya No.61, Jl. Klp. Dua Raya No.RT. 07/07, Tugu; Website: smpit.nurulfikri.sch.id | Formulir pendaftaran: Rp 650.000",
+              "notes": null
+            },
+            {
+              "name": "Dana pengembangan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 22500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana pengembangan: Rp 22.500.000 | Dana pendidikan: Rp 15.000.000",
+              "notes": null
+            },
+            {
+              "name": "Dana pendidikan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 15000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Dana pendidikan: Rp 15.000.000",
+              "notes": null
+            },
+            {
+              "name": "Komite Sekolah tahun pertama",
+              "category": "operational",
+              "frequency": null,
+              "amount": 450000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Komite Sekolah tahun pertama: Rp 450.000",
+              "notes": null
+            },
+            {
+              "name": "Seragam putra",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam putra: Rp 1.900.000 | Seragam putri: Rp 2.650.000",
+              "notes": null
+            },
+            {
+              "name": "Seragam putri",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 2650000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam putri: Rp 2.650.000",
+              "notes": null
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2100000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam putri: Rp 2.650.000 | SPP: Rp 2.100.000",
+              "notes": "Period not stated in article; monthly per school convention (official page labels SPP by month)."
+            }
+          ],
+          "source": {
+            "url": "https://www.kalderanews.com/2023/11/daftar-smp-swasta-terbaik-di-depok-beserta-rincian-biayanya-ada-yang-spp-nya-cuma-rp-400-ribu/",
+            "title": "Daftar SMP Swasta Terbaik di Depok Beserta Rincian Biayanya, Ada yang SPP-nya Cuma Rp 400 Ribu!",
+            "publisher": "KalderaNews.com (Tiara Apriyani)",
+            "source_type": "news_media",
+            "published_date": "2023-11-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Academic year not stated; article (10 Nov 2023) addresses parents of kelas 6 choosing a school for 'tahun ajaran depan', so 2024/2025 is inferred. No primary source cited. Same list was republished by milenianews.com on 2024-04-02."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "SDIT Nurul Fikri - kelas 1 siswa baru",
+          "academic_year": "2022/2023",
+          "academic_year_normalized": "2022/2023",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Form pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 525000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Form pendaftaran: Rp 525.000",
+              "notes": null
+            },
+            {
+              "name": "Uang Pangkal Putra (sudah termasuk seragam)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 39100000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal Putra: Rp 39.100.000 (sudah termasuk seragam)",
+              "notes": null
+            },
+            {
+              "name": "Uang Pangkal Putri",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 39700000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal Putri: Rp 39.700.000 juta",
+              "notes": "Source text has a redundant 'juta' after the full figure."
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 1.900.000 per bulan",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://mommiesdaily.com/2021/10/18/biaya-masuk-sd-di-depok-tahun-ajaran-2022-2023/",
+            "title": "Biaya Masuk SD di Depok Tahun 2022",
+            "publisher": "Mommies Daily (contributor 'dewdew')",
+            "source_type": "blog",
+            "published_date": "2021-10-18",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Parenting media site; article by a contributor who describes herself as a blogger; no primary source cited. Classified conservatively as blog."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "SDIT Nurul Fikri - kelas 1 siswa baru",
+          "academic_year": "2021/2022",
+          "academic_year_normalized": "2021/2022",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang pangkal Putra",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 36250000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang pangkal | Putra: Rp 36.250.000 | Putri: Rp 36.850.000 | SPP: Rp 1.550.000 per bulan",
+              "notes": null
+            },
+            {
+              "name": "Uang pangkal Putri",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 36850000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Putri: Rp 36.850.000",
+              "notes": null
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1550000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 1.550.000 per bulan",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://mommiesdaily.com/2020/10/22/biaya-masuk-sd-di-depok-bekasi-dan-bogor-tahun-ajaran-2021-2022/",
+            "title": "Biaya Masuk SD Tahun 2021 di Depok, Bekasi, dan Bogor",
+            "publisher": "Mommies Daily (contributor 'dewdew')",
+            "source_type": "blog",
+            "published_date": "2020-10-22",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Parenting media site; article by a contributor who describes herself as a blogger; no primary source cited. Classified conservatively as blog."
+          }
+        }
+      ],
+      "notes": "Official 2027/2028 page: early full-payment discount on Dana Pengembangan if paid by 31 Okt / 30 Nov / 31 Des 2026: TK 4.000.000 / 3.000.000 / 2.000.000; SD, SMP, SMA 4.000.000 / 2.000.000 / 1.500.000. Registration fee for applicants from NF: TK 400.000, SD 500.000, SMP 550.000, SMA 550.000. Add-ons for students needing further support: assessment Rp 500.000; SPP bulanan Kategori A +Rp 200.000, Kategori B +Rp 700.000; therapy Rp 150.000/session. SPP excludes catering and transport. Historical 2021/22 and 2022/23 'uang pangkal' figures (Mommies Daily) appear to bundle components that the 2027/28 page splits (Dana Pengembangan + Dana Pendidikan + seragam), so compare totals, not line items. The 2026/2027 SD record comes from Popmama (news media), not the school."
+    },
+    {
+      "school_name": "SMAIT Raflesia",
+      "foundation": "Yayasan Raflesia",
+      "city": "Kota Depok",
+      "district": "Cimanggis",
+      "address": "Komp. Pondok Duta 1, Jl. Mahkota Raya No.32B / Jl. H Saman Rt.10/08 Kel. Tugu, Cimanggis - Depok 16451",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SMA"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "http://smait.raflesia.sch.id/",
+      "fees": [
+        {
+          "level": "SMA",
+          "grade_or_program": "Kelas 10 siswa baru (pembayaran lunas)",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang Pangkal (BPP)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 6500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal (BPP) | 6.500.000",
+              "notes": null
+            },
+            {
+              "name": "Pakaian Seragam",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1200000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Pakaian Seragam | 1.200.000 | Kembali ke siswa",
+              "notes": "'Kembali ke siswa' = delivered to the student as uniforms."
+            },
+            {
+              "name": "Uang bulanan (SPP)",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang bulanan (SPP) | 500.000 | SPP bulan Juli",
+              "notes": "The listed amount is the July SPP paid at entry."
+            }
+          ],
+          "source": {
+            "url": "http://smait.raflesia.sch.id/p/biaya-masuk.html",
+            "title": "RINCIAN BIAYA MASUK ~ SMAIT RAFLESIA",
+            "publisher": "SMAIT Raflesia",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "HTML table text extracted via curl ('BIAYA MASUK SISWA/I SMAIT RAFLESIA TAHUN 2026/2027')."
+          }
+        }
+      ],
+      "notes": "Source total 'JUMLAH 8.200.000'. Page: '*Note : Belum Termasuk Uang Kegiatan Tahunan dan Buku (dapat ditanyakan langsung ke sekolah)'. Foundation name taken from the sister SMK Raflesia brochure ('Murid aktif Yayasan Raflesia'); the SMAIT page itself only says 'Sekretariat Yayasan'."
+    },
+    {
+      "school_name": "SMK Raflesia Depok",
+      "foundation": "Yayasan Raflesia",
+      "city": "Kota Depok",
+      "district": null,
+      "address": null,
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SMK"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "http://www.smkraflesiadepok.sch.id/",
+      "fees": [
+        {
+          "level": "SMK",
+          "grade_or_program": "Kelas 10 - Program Keahlian: Layanan Kesehatan",
+          "academic_year": "2027/2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Pendaftaran (Gratis)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 0,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Program Keahlian : Layanan Kesehatan | 1 | Pendaftaran (Gratis) | Rp0,00",
+              "notes": null
+            },
+            {
+              "name": "Pangkal/Gedung",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 6500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 | Pangkal/Gedung | Rp6.500.000,00",
+              "notes": "DP minimal 60% di awal; sisanya dapat diangsur sampai Desember 2027 (20% ASTS + 20% ASAS). Source 'Total Biaya Pendaftaran' Rp8.750.000; 'Total Keseluruhan' Rp14.424.000."
+            },
+            {
+              "name": "Seragam",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "3 | Seragam | Rp1.750.000,00",
+              "notes": null
+            },
+            {
+              "name": "SPP bulan Juli",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "4 | SPP bulan Juli | Rp500.000,00",
+              "notes": "Amount of the monthly SPP (July instalment paid at registration)."
+            },
+            {
+              "name": "Perkiraan Buku 1 Tahun",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 1462000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "5 | Perkiraan Buku 1 Tahun | Rp1.462.000,00 | Biaya Tahun Ajaran 2027/2028",
+              "notes": "School's own estimate ('Perkiraan')."
+            },
+            {
+              "name": "Perkiraan Kegiatan 1 Tahun",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 4212000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "6 | Perkiraan Kegiatan 1 Tahun | Rp4.212.000,00",
+              "notes": "School's own estimate; covers ASTS/ASAS, ekstrakurikuler, OSIS, LDKS, santunan & pesantren Ramadhan, kunjungan industri, kemah."
+            }
+          ],
+          "source": {
+            "url": "http://www.smkraflesiadepok.sch.id/p/biaya-suk.html",
+            "title": "Biaya Penerimaan Peserta Didik Baru ~ SMK RAFLESIA DEPOK",
+            "publisher": "SMK Raflesia Depok",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Fee table is an official image ('Rincian Biaya SPMB 2027-2028.jpg', blogger.googleusercontent.com) embedded in the page, downloaded via curl and transcribed visually."
+          }
+        },
+        {
+          "level": "SMK",
+          "grade_or_program": "Kelas 10 - Program Keahlian: Pengembangan Perangkat Lunak dan Gim",
+          "academic_year": "2027/2028",
+          "academic_year_normalized": "2027/2028",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Pendaftaran (Gratis)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 0,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Program Keahlian : Pengembangan Perangkat Lunak dan Gim | 1 | Pendaftaran (Gratis) | Rp0,00",
+              "notes": null
+            },
+            {
+              "name": "Pangkal/Gedung",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 4300000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 | Pangkal/Gedung | Rp4.300.000,00",
+              "notes": "DP minimal 60% di awal; sisanya dapat diangsur sampai Desember 2027 (20% ASTS + 20% ASAS). Source 'Total Biaya Pendaftaran' Rp6.375.000; 'Total Keseluruhan' Rp11.868.000."
+            },
+            {
+              "name": "Seragam",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "3 | Seragam | Rp1.750.000,00",
+              "notes": null
+            },
+            {
+              "name": "SPP bulan Juli",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 325000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "4 | SPP bulan Juli | Rp325.000,00",
+              "notes": "Amount of the monthly SPP (July instalment paid at registration)."
+            },
+            {
+              "name": "Perkiraan Buku 1 Tahun",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 1281000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "5 | Perkiraan Buku 1 Tahun | Rp1.281.000,00 | Biaya Tahun Ajaran 2027/2028",
+              "notes": "School's own estimate ('Perkiraan')."
+            },
+            {
+              "name": "Perkiraan Kegiatan 1 Tahun",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 4212000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "6 | Perkiraan Kegiatan 1 Tahun | Rp4.212.000,00",
+              "notes": "School's own estimate; covers ASTS/ASAS, ekstrakurikuler, OSIS, LDKS, santunan & pesantren Ramadhan, kunjungan industri, kemah."
+            }
+          ],
+          "source": {
+            "url": "http://www.smkraflesiadepok.sch.id/p/biaya-suk.html",
+            "title": "Biaya Penerimaan Peserta Didik Baru ~ SMK RAFLESIA DEPOK",
+            "publisher": "SMK Raflesia Depok",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Fee table is an official image ('Rincian Biaya SPMB 2027-2028.jpg', blogger.googleusercontent.com) embedded in the page, downloaded via curl and transcribed visually."
+          }
+        }
+      ],
+      "notes": "Vocational school (programs: Layanan Kesehatan/keperawatan; Pengembangan Perangkat Lunak dan Gim). Listed as 'SMK Islam Raflesia' in the SMAIT Raflesia unit menu. Official lunas discounts: Gel 1 (s/d 31 Jan 2027) Rp600.000; Gel 2 (1 Feb-30 Apr 2027) Rp350.000; Gel 3 (1 Mei-31 Jul 2027) Rp200.000; family of active Yayasan Raflesia pupils Rp250.000; neighbours RW.08/RW.14 Rp100.000; SMPIT Raflesia 2026/2027 graduates Rp2.000.000 (until 31 Des 2026). Address not found on the page."
+    },
+    {
+      "school_name": "Sekolah Cakra Buana",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Pancoran Mas",
+      "address": "Jl. Raya Sawangan No.91, Mampang, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16433",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "TK",
+        "SD",
+        "SMP",
+        "SMA"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Nasional"
+      ],
+      "curriculum": [],
+      "official_website": "https://cakrabuanaschool.sch.id/",
+      "fees": [
+        {
+          "level": "TK",
+          "grade_or_program": "PG (Playgroup) - siswa baru",
+          "academic_year": "2026 - 2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya formulir pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "* Biaya formulir pendaftaran Rp 900.000",
+              "notes": null
+            },
+            {
+              "name": "Uang Pangkal (normal)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 11000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "PG | UANG PANGKAL NORMAL Rp. 11.000.000 | GELOMBANG 2 Rp. 9.000.000",
+              "notes": "List price; Gelombang 2 price Rp. 9.000.000. 'Harga Khusus' for siblings, alumni and continuing students."
+            },
+            {
+              "name": "Biaya Pendidikan Bulanan",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "PG | BIAYA PENDIDIKAN BULANAN Rp. 1.500.000",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://cakrabuanaschool.sch.id/biaya-pendidikan/",
+            "title": "Biaya Pendidikan - Sekolah Cakra Buana",
+            "publisher": "Sekolah Cakra Buana",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Fee table is an official image ('Biaya Pendidikan Cakra Buana Tahun Ajaran 2026 - 2027', https://cakrabuanaschool.sch.id/wp-content/uploads/2026/03/Landing-Page-Harga-2.png) downloaded via curl and transcribed visually."
+          }
+        },
+        {
+          "level": "TK",
+          "grade_or_program": "TK - siswa baru",
+          "academic_year": "2026 - 2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya formulir pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "* Biaya formulir pendaftaran Rp 900.000",
+              "notes": null
+            },
+            {
+              "name": "Uang Pangkal (normal)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 15000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "TK | UANG PANGKAL NORMAL Rp. 15.000.000 | GELOMBANG 2 Rp. 13.000.000",
+              "notes": "List price; Gelombang 2 price Rp. 13.000.000. 'Harga Khusus' for siblings, alumni and continuing students."
+            },
+            {
+              "name": "Biaya Pendidikan Bulanan",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "TK | BIAYA PENDIDIKAN BULANAN Rp. 1.750.000",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://cakrabuanaschool.sch.id/biaya-pendidikan/",
+            "title": "Biaya Pendidikan - Sekolah Cakra Buana",
+            "publisher": "Sekolah Cakra Buana",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Fee table is an official image ('Biaya Pendidikan Cakra Buana Tahun Ajaran 2026 - 2027', https://cakrabuanaschool.sch.id/wp-content/uploads/2026/03/Landing-Page-Harga-2.png) downloaded via curl and transcribed visually."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "SD - siswa baru",
+          "academic_year": "2026 - 2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya formulir pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "* Biaya formulir pendaftaran Rp 900.000",
+              "notes": null
+            },
+            {
+              "name": "Uang Pangkal (normal)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 35000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SD | UANG PANGKAL NORMAL Rp. 35.000.000 | GELOMBANG 2 Rp. 32.000.000",
+              "notes": "List price; Gelombang 2 price Rp. 32.000.000. 'Harga Khusus' for siblings, alumni and continuing students."
+            },
+            {
+              "name": "Biaya Pendidikan Bulanan",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2250000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SD | BIAYA PENDIDIKAN BULANAN Rp. 2.250.000",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://cakrabuanaschool.sch.id/biaya-pendidikan/",
+            "title": "Biaya Pendidikan - Sekolah Cakra Buana",
+            "publisher": "Sekolah Cakra Buana",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Fee table is an official image ('Biaya Pendidikan Cakra Buana Tahun Ajaran 2026 - 2027', https://cakrabuanaschool.sch.id/wp-content/uploads/2026/03/Landing-Page-Harga-2.png) downloaded via curl and transcribed visually."
+          }
+        },
+        {
+          "level": "SMP",
+          "grade_or_program": "SMP - siswa baru",
+          "academic_year": "2026 - 2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya formulir pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "* Biaya formulir pendaftaran Rp 900.000",
+              "notes": null
+            },
+            {
+              "name": "Uang Pangkal (normal)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 38000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SMP | UANG PANGKAL NORMAL Rp. 38.000.000 | GELOMBANG 2 Rp. 34.000.000",
+              "notes": "List price; Gelombang 2 price Rp. 34.000.000. 'Harga Khusus' for siblings, alumni and continuing students."
+            },
+            {
+              "name": "Biaya Pendidikan Bulanan",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2700000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SMP | BIAYA PENDIDIKAN BULANAN Rp. 2.700.000",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://cakrabuanaschool.sch.id/biaya-pendidikan/",
+            "title": "Biaya Pendidikan - Sekolah Cakra Buana",
+            "publisher": "Sekolah Cakra Buana",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Fee table is an official image ('Biaya Pendidikan Cakra Buana Tahun Ajaran 2026 - 2027', https://cakrabuanaschool.sch.id/wp-content/uploads/2026/03/Landing-Page-Harga-2.png) downloaded via curl and transcribed visually."
+          }
+        },
+        {
+          "level": "SMA",
+          "grade_or_program": "SMA - siswa baru",
+          "academic_year": "2026 - 2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya formulir pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "* Biaya formulir pendaftaran Rp 900.000",
+              "notes": null
+            },
+            {
+              "name": "Uang Pangkal (normal)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 39000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SMA | UANG PANGKAL NORMAL Rp. 39.000.000 | GELOMBANG 2 Rp. 35.000.000",
+              "notes": "List price; Gelombang 2 price Rp. 35.000.000. 'Harga Khusus' for siblings, alumni and continuing students."
+            },
+            {
+              "name": "Biaya Pendidikan Bulanan",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SMA | BIAYA PENDIDIKAN BULANAN Rp. 2.900.000",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://cakrabuanaschool.sch.id/biaya-pendidikan/",
+            "title": "Biaya Pendidikan - Sekolah Cakra Buana",
+            "publisher": "Sekolah Cakra Buana",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Fee table is an official image ('Biaya Pendidikan Cakra Buana Tahun Ajaran 2026 - 2027', https://cakrabuanaschool.sch.id/wp-content/uploads/2026/03/Landing-Page-Harga-2.png) downloaded via curl and transcribed visually."
+          }
+        }
+      ],
+      "notes": "Image uploaded 2026/03 (per file path); marked 'LIMITED TIME ONLY'. Formulir fee Rp 900.000 is a single footnote, assumed by the brochure layout to apply to all levels. Category 'Nasional' is a label choice (no religious affiliation stated); curriculum not verified. KalderaNews (Nov 2023) lists an 'SMP Cakra Buana' at Jl. KH. Abdurrahman, Pondok Jaya, Cipayung (site cakrabuana.sch.id, unreachable); its relation to this school is unverified, so those figures are not included."
+    },
+    {
+      "school_name": "Pondok Pesantren Modern Nurussalam (SMP - SMA) Modern Islamic Boarding School",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Sawangan",
+      "address": "Jalan Madrasah No. 86 Kp. Panggulan Pengasinan Sawangan Kota Depok",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SMP",
+        "SMA"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic",
+        "Boarding"
+      ],
+      "curriculum": [],
+      "official_website": "https://www.nurussalam86.sch.id/",
+      "fees": [
+        {
+          "level": "SMP",
+          "grade_or_program": "Santri baru SMP - jalur reguler (boarding)",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 350000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Membayar Biaya Pendaftaran Tingkat SMP (Rp 350.000,-)",
+              "notes": null
+            },
+            {
+              "name": "Biaya Sarana Prasarana",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 6500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "1 | Biaya Sarana Prasarana | Rp 6,500,000 | Rp 7,000,000",
+              "notes": "Discounts on sarpras by wave (SMP): 50% Okt-Des 2025 (Rp 3,250,000), 25% 'Januari s/d Maret 2025' [sic] (Rp 1,625,000), 10% 'April s/d Juni 2025' [sic] (Rp 650,000)."
+            },
+            {
+              "name": "Lemari dan Kasur",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 | Lemari dan Kasur | Rp 1,500,000 | Rp 1,500,000",
+              "notes": null
+            },
+            {
+              "name": "Buku Paket Pelajaran",
+              "category": "entry",
+              "frequency": null,
+              "amount": 1300000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "3 | Buku Paket Pelajaran | Rp 1,300,000 | Rp 1,500,000",
+              "notes": "Frequency not stated in the image."
+            },
+            {
+              "name": "Baju Seragam",
+              "category": "entry",
+              "frequency": null,
+              "amount": 1500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "4 | Baju Seragam | Rp 1,500,000 | Rp 1,800,000",
+              "notes": "Frequency not stated in the image."
+            },
+            {
+              "name": "Kegiatan Tahunan",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 1500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "5 | Kegiatan Tahunan | Rp 1,500,000 | Rp 2,000,000",
+              "notes": null
+            },
+            {
+              "name": "Psikotest",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 250000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "6 | Psikotest | Rp 250,000 | Rp 250,000",
+              "notes": null
+            },
+            {
+              "name": "Asuransi",
+              "category": "operational",
+              "frequency": null,
+              "amount": 20000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "7 | Asuransi | Rp 20,000 | Rp 20,000",
+              "notes": "Frequency not stated in the image."
+            },
+            {
+              "name": "Kesehatan per Tahun",
+              "category": "operational",
+              "frequency": "annual",
+              "amount": 1000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "7 | Kesehatan per Tahun | Rp 1,000,000 | Rp 1,000,000",
+              "notes": null
+            },
+            {
+              "name": "Jaket Almamater",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 550000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "8 | Jaket Almamater | Rp 550,000 | Rp 600,000",
+              "notes": null
+            },
+            {
+              "name": "Loundry",
+              "category": "operational",
+              "frequency": null,
+              "amount": 185000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "9 | Loundry | Rp 185,000 | Rp 185,000",
+              "notes": "Frequency not stated in the image."
+            },
+            {
+              "name": "SPP (sekolah, asrama & makan)",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "9 | SPP (sekolah, asrama & makan) | Rp 1,500,000 | Rp 1,700,000",
+              "notes": "Covers school, dormitory and meals ('sekolah, asrama & makan'). Period not printed in the table; the same page speaks of 'gratis SPP bulan Juli 2026', i.e. SPP is charged per month. Image TOTAL (excl. pendaftaran) Rp 15,805,000."
+            }
+          ],
+          "source": {
+            "url": "https://www.nurussalam86.sch.id/read/114/informasi-pendaftaran-santri-baru-20252026",
+            "title": "INFORMASI PENDAFTARAN SANTRI BARU 2026/2027 | Pondok Pesantren Modern Nurussalam",
+            "publisher": "Pondok Pesantren Modern Nurussalam",
+            "source_type": "official_school_website",
+            "published_date": "2025-09-18",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Registration fees from page text via curl; other fees from the official image https://nurussalam86.sch.id/media_library/posts/mceclip07.png (downloaded via curl, transcribed visually; transcription reconciles with the image totals SMP 15,805,000 / SMA 17,555,000, which exclude PENDAFTARAN). Components read from the page/PDF text layer and machine-verified against the saved text: Biaya Pendaftaran. All other components were transcribed visually from the official image/rendering."
+          }
+        },
+        {
+          "level": "SMA",
+          "grade_or_program": "Santri baru SMA - jalur reguler (boarding)",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 400000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Membayar Biaya Pendaftaran Tingkat SMA (Rp 400.000,-)",
+              "notes": null
+            },
+            {
+              "name": "Biaya Sarana Prasarana",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 7000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "1 | Biaya Sarana Prasarana | Rp 6,500,000 | Rp 7,000,000",
+              "notes": "Discounts on sarpras by wave (SMA): 50% Okt-Des 2025 (Rp 3,500,000), 25% (Rp 1,750,000), 10% (Rp 700,000)."
+            },
+            {
+              "name": "Lemari dan Kasur",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 | Lemari dan Kasur | Rp 1,500,000 | Rp 1,500,000",
+              "notes": null
+            },
+            {
+              "name": "Buku Paket Pelajaran",
+              "category": "entry",
+              "frequency": null,
+              "amount": 1500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "3 | Buku Paket Pelajaran | Rp 1,300,000 | Rp 1,500,000",
+              "notes": "Frequency not stated in the image."
+            },
+            {
+              "name": "Baju Seragam",
+              "category": "entry",
+              "frequency": null,
+              "amount": 1800000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "4 | Baju Seragam | Rp 1,500,000 | Rp 1,800,000",
+              "notes": "Frequency not stated in the image."
+            },
+            {
+              "name": "Kegiatan Tahunan",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 2000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "5 | Kegiatan Tahunan | Rp 1,500,000 | Rp 2,000,000",
+              "notes": null
+            },
+            {
+              "name": "Psikotest",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 250000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "6 | Psikotest | Rp 250,000 | Rp 250,000",
+              "notes": null
+            },
+            {
+              "name": "Asuransi",
+              "category": "operational",
+              "frequency": null,
+              "amount": 20000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "7 | Asuransi | Rp 20,000 | Rp 20,000",
+              "notes": "Frequency not stated in the image."
+            },
+            {
+              "name": "Kesehatan per Tahun",
+              "category": "operational",
+              "frequency": "annual",
+              "amount": 1000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "7 | Kesehatan per Tahun | Rp 1,000,000 | Rp 1,000,000",
+              "notes": null
+            },
+            {
+              "name": "Jaket Almamater",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "8 | Jaket Almamater | Rp 550,000 | Rp 600,000",
+              "notes": null
+            },
+            {
+              "name": "Loundry",
+              "category": "operational",
+              "frequency": null,
+              "amount": 185000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "9 | Loundry | Rp 185,000 | Rp 185,000",
+              "notes": "Frequency not stated in the image."
+            },
+            {
+              "name": "SPP (sekolah, asrama & makan)",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1700000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "9 | SPP (sekolah, asrama & makan) | Rp 1,500,000 | Rp 1,700,000",
+              "notes": "Covers school, dormitory and meals ('sekolah, asrama & makan'). Period not printed in the table; the same page speaks of 'gratis SPP bulan Juli 2026', i.e. SPP is charged per month. Image TOTAL (excl. pendaftaran) Rp 17,555,000."
+            }
+          ],
+          "source": {
+            "url": "https://www.nurussalam86.sch.id/read/114/informasi-pendaftaran-santri-baru-20252026",
+            "title": "INFORMASI PENDAFTARAN SANTRI BARU 2026/2027 | Pondok Pesantren Modern Nurussalam",
+            "publisher": "Pondok Pesantren Modern Nurussalam",
+            "source_type": "official_school_website",
+            "published_date": "2025-09-18",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "Registration fees from page text via curl; other fees from the official image https://nurussalam86.sch.id/media_library/posts/mceclip07.png (downloaded via curl, transcribed visually; transcription reconciles with the image totals SMP 15,805,000 / SMA 17,555,000, which exclude PENDAFTARAN). Components read from the page/PDF text layer and machine-verified against the saved text: Biaya Pendaftaran. All other components were transcribed visually from the official image/rendering."
+          }
+        }
+      ],
+      "notes": "Year labelling is inconsistent in the source: page title says 2026/2027 (and mentions 'biaya masuk santri baru tahun 2026', 'Regular Gel. 3 (April s/d Juni 2026)', 'gratis SPP bulan Juli 2026'), the URL slug says 20252026, the regular fee image carries no year, and the separate 'jalur prestasi' image is titled 'BIAYA MASUK SANTRI BARU 2025 / 2026'. Recorded as 2026/2027 per page title. Columns in verbatims are 'SMP | SMA'. Entry fees payable min 50% after acceptance, in up to 3 instalments (50/25/25)."
+    },
+    {
+      "school_name": "SMAIT Pesantren Nururrahman",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Pancoran Mas",
+      "address": "Jl. Raya Sawangan No.Km.2. No.11, Pancoran Mas, Depok, Jabar 16436",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SMA"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic",
+        "Boarding"
+      ],
+      "curriculum": [],
+      "official_website": "https://smaitpnr.sch.id/",
+      "fees": [
+        {
+          "level": "SMA",
+          "grade_or_program": "Siswa baru reguler (kelas 10)",
+          "academic_year": "T.P 2026-2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang Formulir Pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 400000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Formulir Pendaftaran | Rp 400.000,-",
+              "notes": null
+            },
+            {
+              "name": "Uang Pangkal",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 12000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal | Rp 12.000.000,-",
+              "notes": null
+            },
+            {
+              "name": "Uang SPP (Per bulan)",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 802500,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang SPP (Per bulan) | Rp 802.500,-",
+              "notes": null
+            },
+            {
+              "name": "Uang Kesiswaaan (Per tahun)",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 3000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Kesiswaaan (Per tahun) | Rp 3.000.000,-",
+              "notes": null
+            },
+            {
+              "name": "Uang Iuran Air Minum (Per tahun)",
+              "category": "operational",
+              "frequency": "annual",
+              "amount": 300000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Iuran Air Minum (Per tahun) | Rp 300.000,-",
+              "notes": null
+            },
+            {
+              "name": "Biaya Asrama",
+              "category": "optional",
+              "frequency": null,
+              "amount": 1500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "TOTAL BIAYA SISWA REGULER | Rp 16.502.500* | | 1 | Biaya Asrama | Rp 1.500.000,-",
+              "notes": "Listed after the 'siswa reguler' total; frequency not stated (could be one-off or periodic) - verify with school."
+            }
+          ],
+          "source": {
+            "url": "https://spmb.smaitpnr.sch.id/",
+            "title": "SPMB ONLINE | SMAIT PESANTREN NURURRAHMAN",
+            "publisher": "SMAIT Pesantren Nururrahman",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Fee table text ('Info Biaya Pendaftaran T.P 2026-2027') extracted via curl. Address from official contact page https://smaitpnr.sch.id/contact/ (curl)."
+          }
+        }
+      ],
+      "notes": "Source total 'TOTAL BIAYA SISWA REGULER Rp 16.502.500*' (= formulir + pangkal + 1 month SPP + kesiswaan + air minum; excludes asrama). '* Biaya belum termasuk buku dan seragam'. Whether boarding is compulsory is not stated; 'Boarding' category reflects the pesantren name and asrama fee."
+    },
+    {
+      "school_name": "SD Alam Kampung Sawah Depok (Sekolah Alam Kampung Sawah)",
+      "foundation": "Yayasan Sahabat Istimewa Indonesia",
+      "city": "Kota Depok",
+      "district": "Cilodong",
+      "address": "Jl. SMPN 6 Kalibaru, Kav Bni D6 No.7, Kalibaru, Cilodong, Depok City, Jawa Barat 16412 (per Popmama 2026)",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "TK",
+        "SD"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "https://sekolahalamkampungsawah.id/",
+      "fees": [
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 - KELAS INKLUSI",
+          "academic_year": "2026- 2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Infak Pendidikan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 16500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "1 Infak Pendidikan 16.500.000 Dibayarkan sekali saat masuk",
+              "notes": null
+            },
+            {
+              "name": "Uang Kegiatan Tahunan",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 4500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 Uang Kegiatan Tahunan 4.500.000 Dibayarkan setiap kenaikan kelas",
+              "notes": null
+            },
+            {
+              "name": "Seragam Outdoor, T Shirt dan Buku Sahabat Qur'an",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "3 Seragam Outdoor, T Shirt dan Buku Sahabat Qur'an 500.000 Dibayarkan sekali saat masuk",
+              "notes": null
+            },
+            {
+              "name": "SPP per tahun",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 12000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP per tahun sebesar : Rp12.000.000 SPP bisa dibayarkan perbulan sebesar : Rp1.000.000/Bulan",
+              "notes": "May be paid monthly at Rp1.000.000/bulan. Excludes shadow teacher and therapy."
+            },
+            {
+              "name": "Biaya Assesmen (psikolog)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya Assesmen : Rp600.000",
+              "notes": null
+            },
+            {
+              "name": "Biaya Formulir dan Sit In",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 350000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya FORMULIR DAN SIT IN : Rp350.000",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://sekolahalamkampungsawah.id/web/content/4058?unique=56a05dba4e019cdeefb440fd28b7fd81f7b68f49&download=true",
+            "title": "RINCIAN BIAYA MASUK SD ALAM KAMPUNG SAWAH DEPOK TAHUN AJARAN 2026- 2027 KELAS INKLUSI",
+            "publisher": "Sekolah Alam Kampung Sawah (Yayasan Sahabat Istimewa Indonesia)",
+            "source_type": "official_brochure_pdf",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "PDF downloaded via curl; text layer extracted with pypdf. PDF metadata CreationDate 2025-08-14."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 - reguler (as reported)",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Formulir dan Sit In",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 350000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya Formulir dan Sit In: Rp 350.000",
+              "notes": null
+            },
+            {
+              "name": "Infag Pendidikan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 14900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Infag Pendidikan: Rp 14.900.000 (sekali saat masuk)",
+              "notes": null
+            },
+            {
+              "name": "SPP per Tahun",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 9600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP per Tahun: Rp 9.600.000 (bisa dibayar per bulan Rp 800.000)",
+              "notes": "Or Rp 800.000/bulan."
+            },
+            {
+              "name": "Uang Kegiatan Tahunan",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 3600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Kegiatan Tahunan: Rp 3.600.000",
+              "notes": null
+            },
+            {
+              "name": "T-shirt dan Buku Sahabat Quran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "T-shirt dan Buku Sahabat Quran: Rp 500.000 (sekali saat masuk)",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://www.popmama.com/big-kid/6-9-years-old/biaya-sekolah-sd-swasta-di-depok-tahun-ajaran-2026-2027-00-bbqjr-302fg6",
+            "title": "10 Biaya Sekolah SD Swasta di Depok untuk Tahun Ajaran 2026/2027",
+            "publisher": "Popmama.com (IDN Media); penulis Ninda Anisya, editor Novy Agrina",
+            "source_type": "news_media",
+            "published_date": "2026-02-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Article text extracted via curl. Article states figures are 'estimasi rincian biaya' compiled 'melansir dari berbagai sumber' and advises confirming with schools."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 - reguler",
+          "academic_year": "2025 - 2026",
+          "academic_year_normalized": "2025/2026",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Infak Pendidikan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 14750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "1 Infak Pendidikan 14,750,000.00 Dibayarkan sekali saat masuk",
+              "notes": null
+            },
+            {
+              "name": "Uang Kegiatan Tahunan",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 3250000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "2 Uang Kegiatan Tahunan 3,250,000.00 Dibayarkan setiap kenaikan kelas",
+              "notes": null
+            },
+            {
+              "name": "T-shirt dan Buku Sahabat Qur'an",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "3 T-shirt dan Buku Sahabat Qur'an 500,000.00 Dibayarkan sekali saat masuk",
+              "notes": null
+            },
+            {
+              "name": "SPP per tahun",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 9600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP per tahun sebesar : Rp. 9.600.000,- SPP bisa dibayarkan perbulan sebesar : Rp. 800.000,-/Bulan",
+              "notes": "Or Rp. 800.000/bulan."
+            },
+            {
+              "name": "Biaya Formulir dan Sit In",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 250000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya FORMULIR DAN SIT IN : Rp. 250.000,-",
+              "notes": null
+            },
+            {
+              "name": "Assesmen psikolog (hanya jika ada indikasi berkebutuhan khusus)",
+              "category": "optional",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "assesmen dengan psikolog sekolah dengan biaya sebesar Rp.500.000,-",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://sekolahalamkampungsawah.id/web/content/1114?unique=3ffb1a2be5c1f1e2aa757644c309b55c43f27024&download=true",
+            "title": "RINCIAN BIAYA MASUK SD ALAM KAMPUNG SAWAH DEPOK TAHUN AJARAN 2025 - 2026",
+            "publisher": "Sekolah Alam Kampung Sawah (Yayasan Sahabat Istimewa Indonesia)",
+            "source_type": "official_brochure_pdf",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "PDF downloaded via curl; text layer extracted with pypdf. PDF metadata ModDate 2024-08-28."
+          }
+        }
+      ],
+      "notes": "Nature school (sekolah alam), inclusive. Official 2026-2027 brochure found is for the INKLUSI class only (total 21.500.000). The 2026/2027 regular-class figures come from Popmama (news media), which does not say which class type it covers; they differ from the inklusi brochure and are close to the official 2025-2026 regular brochure (total 18,500,000), so they likely refer to the regular class - unverified. Down payment Rp5.000.000 after MoU; balance cash or max 3 instalments. 'Islamic' category is based on 'Infak'/'Buku Sahabat Qur'an' wording, not an explicit statement. Address is from Popmama, not the school."
+    },
+    {
+      "school_name": "Sekolah Islam Dian Didaktika (SD/SMP/SMA Islam Dian Didaktika)",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Cinere",
+      "address": "Jl. Rajawali Blok F No. 16 Cinere, Depok, Jawa Barat. Kode Pos : 16512",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "TK",
+        "SD",
+        "SMP",
+        "SMA"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic",
+        "Cambridge"
+      ],
+      "curriculum": [
+        "Kurikulum Nasional",
+        "Cambridge (SD, SMP per leaflet)"
+      ],
+      "official_website": "https://www.diandidaktika.sch.id/",
+      "fees": [
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 - calon dari luar (FORM B)",
+          "academic_year": "2026 / 2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang Pendaftaran & Observasi",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal Uang Pendaftaran & Observasi Rp 550.000 Rp 600.000 Rp 28.000.000 Rp 32.000.000",
+              "notes": "PDF text layer lists the two row labels before the values; rows are 'Uang Pendaftaran & Observasi 550.000 / 600.000' and 'Uang Pangkal 28.000.000 / 32.000.000' (consistent with the printed totals). FORM A (from TK Islam Dian Didaktika): 550.000."
+            },
+            {
+              "name": "Uang Pangkal",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 32000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal Uang Pendaftaran & Observasi Rp 550.000 Rp 600.000 Rp 28.000.000 Rp 32.000.000",
+              "notes": "FORM A: 28.000.000."
+            },
+            {
+              "name": "Uang Seragam",
+              "category": "entry",
+              "frequency": null,
+              "amount": 1700000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Seragam Rp 1.700.000 Rp 1.700.000",
+              "notes": "Listed in the entry 'Biaya Pendidikan' package; whether it recurs each year is not stated."
+            },
+            {
+              "name": "Uang Buku Paket",
+              "category": "entry",
+              "frequency": null,
+              "amount": 2750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Buku Paket Rp 2.750.000 Rp 2.750.000",
+              "notes": "Listed in the entry 'Biaya Pendidikan' package; whether it recurs each year is not stated."
+            },
+            {
+              "name": "Uang SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang SPP Rp 2.750.000 Rp 2.750.000",
+              "notes": "Leaflet does not print the period; treated as monthly (Popmama 10 Feb 2026 reports the SD figure as 'SPP: Rp 2.750.000/bulan'). The package total includes one SPP instalment."
+            },
+            {
+              "name": "Uang POMG",
+              "category": "operational",
+              "frequency": null,
+              "amount": 20000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang POMG Rp 20.000 Rp 20.000",
+              "notes": "Parents-teachers association fee; period not stated."
+            },
+            {
+              "name": "Uang Kegiatan",
+              "category": "recurring",
+              "frequency": null,
+              "amount": 4000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Kegiatan Rp 4.000.000 Rp 4.000.000",
+              "notes": "Listed in the entry 'Biaya Pendidikan' package; whether it recurs each year is not stated. Source TOTAL: FORM A Rp 39.770.000; FORM B Rp 43.820.000."
+            }
+          ],
+          "source": {
+            "url": "https://infopsb.diandidaktika.sch.id/assets/leaflet/leaflet-sd.pdf",
+            "title": "Pendaftaran Siswa Baru Tahun Ajaran 2026 / 2027 SD Islam Dian Didaktika (leaflet)",
+            "publisher": "Sekolah Islam Dian Didaktika",
+            "source_type": "official_brochure_pdf",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "PDF downloaded via curl; text layer extracted with pypdf (PDF CreationDate 2025-08-27; leaflet shows '01 September 2025'). Columns 'FORM A' = calon dari unit Dian Didaktika, 'FORM B' = calon dari luar; amounts recorded are FORM B."
+          }
+        },
+        {
+          "level": "SMP",
+          "grade_or_program": "Kelas 7 - calon dari luar (FORM B), jalur reguler",
+          "academic_year": "2026 / 2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang Pendaftaran & Psikotes",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pendaftaran & Psikotes Rp 550.000 Rp 600.000",
+              "notes": "This row is missing from the PDF text layer; read from a rendering of the same PDF page (pymupdf). FORM A: 550.000."
+            },
+            {
+              "name": "Uang Pangkal",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 26000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal Rp 22.500.000 Rp 26.000.000",
+              "notes": "FORM A: 22.500.000. Jalur prestasi (akademik/lomba): 25% keringanan uang pangkal."
+            },
+            {
+              "name": "Uang Buku Paket",
+              "category": "entry",
+              "frequency": null,
+              "amount": 3250000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Buku Paket Rp 3.250.000 Rp 3.250.000",
+              "notes": "Listed in the entry 'Biaya Pendidikan' package; whether it recurs each year is not stated."
+            },
+            {
+              "name": "Uang Seragam",
+              "category": "entry",
+              "frequency": null,
+              "amount": 1800000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Seragam Rp 1.800.000 Rp 1.800.000",
+              "notes": "Listed in the entry 'Biaya Pendidikan' package; whether it recurs each year is not stated."
+            },
+            {
+              "name": "Uang SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang SPP Rp 2.750.000 Rp 2.750.000",
+              "notes": "Leaflet does not print the period; treated as monthly (Popmama 10 Feb 2026 reports the SD figure as 'SPP: Rp 2.750.000/bulan'). The package total includes one SPP instalment."
+            },
+            {
+              "name": "Uang POMG",
+              "category": "operational",
+              "frequency": null,
+              "amount": 20000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang POMG Rp 20.000 Rp 20.000",
+              "notes": "Period not stated."
+            },
+            {
+              "name": "Uang Kegiatan",
+              "category": "recurring",
+              "frequency": null,
+              "amount": 6500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Kegiatan Rp 6.500.000 Rp 6.500.000",
+              "notes": "Listed in the entry 'Biaya Pendidikan' package; whether it recurs each year is not stated. Source TOTAL: FORM A Rp 37.370.000; FORM B Rp 40.920.000."
+            }
+          ],
+          "source": {
+            "url": "https://infopsb.diandidaktika.sch.id/assets/leaflet/leaflet-smp.pdf",
+            "title": "Pendaftaran Siswa Baru Tahun Ajaran 2026 / 2027 SMP Islam Dian Didaktika (leaflet)",
+            "publisher": "Sekolah Islam Dian Didaktika",
+            "source_type": "official_brochure_pdf",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_image_transcription",
+            "evidence_detail": "PDF downloaded via curl; text layer extracted with pypdf (PDF CreationDate 2025-08-28; leaflet shows '01 September 2025'). Columns 'FORM A' = calon dari unit Dian Didaktika, 'FORM B' = calon dari luar; amounts recorded are FORM B. Components read from the page/PDF text layer and machine-verified against the saved text: Uang Pangkal; Uang Buku Paket; Uang Seragam; Uang SPP; Uang POMG; Uang Kegiatan. All other components were transcribed visually from the official image/rendering."
+          }
+        },
+        {
+          "level": "SMA",
+          "grade_or_program": "Kelas 10 - calon dari luar (FORM B), jalur reguler",
+          "academic_year": "2026 / 2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang Pendaftaran & Psikotes",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 650000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pendaftaran & Psikotes Rp 600.000 Rp 650.000",
+              "notes": "FORM A: 600.000."
+            },
+            {
+              "name": "Uang Pangkal",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 29000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal Rp 24.500.000 Rp 29.000.000",
+              "notes": "FORM A: 24.500.000."
+            },
+            {
+              "name": "Uang Buku Paket",
+              "category": "entry",
+              "frequency": null,
+              "amount": 2000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Buku Paket Rp 2.000.000 Rp 2.000.000",
+              "notes": "Listed in the entry 'Biaya Pendidikan' package; whether it recurs each year is not stated."
+            },
+            {
+              "name": "Uang Seragam",
+              "category": "entry",
+              "frequency": null,
+              "amount": 2100000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Seragam Rp 2.100.000 Rp 2.100.000",
+              "notes": "Listed in the entry 'Biaya Pendidikan' package; whether it recurs each year is not stated."
+            },
+            {
+              "name": "Uang SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang SPP Rp 2.750.000 Rp 2.750.000",
+              "notes": "Leaflet does not print the period; treated as monthly (Popmama 10 Feb 2026 reports the SD figure as 'SPP: Rp 2.750.000/bulan'). The package total includes one SPP instalment."
+            },
+            {
+              "name": "Uang POMG",
+              "category": "operational",
+              "frequency": null,
+              "amount": 20000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang POMG Rp 20.000 Rp 20.000",
+              "notes": "Period not stated."
+            },
+            {
+              "name": "Uang Kegiatan",
+              "category": "recurring",
+              "frequency": null,
+              "amount": 7000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Kegiatan Rp 7.000.000 Rp 7.000.000",
+              "notes": "Listed in the entry 'Biaya Pendidikan' package; whether it recurs each year is not stated. Source TOTAL: FORM A Rp 38.970.000; FORM B Rp 43.520.000."
+            }
+          ],
+          "source": {
+            "url": "https://infopsb.diandidaktika.sch.id/assets/leaflet/leaflet-sma.pdf",
+            "title": "Pendaftaran Siswa Baru Tahun Ajaran 2026 / 2027 SMA Islam Dian Didaktika (leaflet)",
+            "publisher": "Sekolah Islam Dian Didaktika",
+            "source_type": "official_brochure_pdf",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "PDF downloaded via curl; text layer extracted with pypdf (PDF CreationDate 2025-08-27; leaflet shows '01 September 2025'). Columns 'FORM A' = calon dari unit Dian Didaktika, 'FORM B' = calon dari luar; amounts recorded are FORM B."
+          }
+        }
+      ],
+      "notes": "SD/SMP leaflets state 'Kurikulum Nasional dan Cambridge'; SMA leaflet states 'Kurikulum Nasional'. Popmama (10 Feb 2026) reproduces the same SD figures, corroborating the leaflet."
+    },
+    {
+      "school_name": "SMP Tahfizhpreneur CQ (Cahaya Qur'an)",
+      "foundation": "Yayasan Islam Cahaya Qur'an",
+      "city": "Kota Depok",
+      "district": "Sukmajaya",
+      "address": "Jl. H. Dimun Raya (Gg. Merah delima), Kp. Sidamukti 01/01 Sukmajaya - Depok",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SMP"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "https://smp.cahayaquran.sch.id/",
+      "fees": [
+        {
+          "level": "SMP",
+          "grade_or_program": "Kelas 7 siswa baru",
+          "academic_year": "2024/2025",
+          "academic_year_normalized": "2024/2025",
+          "academic_year_inferred": true,
+          "components": [
+            {
+              "name": "Biaya administrasi PSB",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "membayar biaya administrasi PSB sebesar Rp500k",
+              "notes": null
+            },
+            {
+              "name": "BPP",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 7500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya Pendidikan 12jt, dengan perincian: | - BPP ( 7,5jt );",
+              "notes": "Part of 'Biaya Pendidikan 12jt'."
+            },
+            {
+              "name": "Seragam 5 stel",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1850000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam 5 stel (1850k)",
+              "notes": null
+            },
+            {
+              "name": "Biaya Kegiatan - KBM setahun",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 2650000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya Kegiatan- KBM setahun ( 2,65jt )",
+              "notes": null
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 850000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP : 850k / bln | (Mulai Juli 2024)",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://smp.cahayaquran.sch.id/content/event/651051dc5fdc9",
+            "title": "Yayasan Cahaya Quran - SMP Tahfizhpreneur CQ (info PSB)",
+            "publisher": "Yayasan Islam Cahaya Qur'an",
+            "source_type": "official_school_website",
+            "published_date": null,
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Page text extracted via curl. Academic year not written as such; 'SPP : 850k / bln (Mulai Juli 2024)' and 'Jadwal Interview mulai 02 Oktober 2023' imply TA 2024/2025."
+          }
+        }
+      ],
+      "notes": "Amounts written in shorthand on the page (e.g. '7,5jt', '1850k', '850k'); converted to Rupiah without rounding. Pupils with (potential) special needs must provide a shadow teacher. Same foundation as SDIT Cahaya Quran (separate record)."
+    },
+    {
+      "school_name": "Ar-Rahman Islamic School Cinere",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Cinere",
+      "address": "Jl. Bukit Cinere Raya No.15C Cinere, Gandul, Depok (per Popmama)",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SD"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "https://arrahman-islamic.sch.id/",
+      "fees": [
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 450000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Pendaftaran: Rp 450.000 | Uang Gedung: Rp 23.500.000",
+              "notes": null
+            },
+            {
+              "name": "Uang Gedung",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 23500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Gedung: Rp 23.500.000",
+              "notes": null
+            },
+            {
+              "name": "Kegiatan",
+              "category": "recurring",
+              "frequency": null,
+              "amount": 3450000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Kegiatan: Rp 3.450.000",
+              "notes": "Period not stated."
+            },
+            {
+              "name": "Peralatan",
+              "category": "entry",
+              "frequency": null,
+              "amount": 2457000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Peralatan: Rp 2.457.000",
+              "notes": "Period not stated."
+            },
+            {
+              "name": "Seragam",
+              "category": "entry",
+              "frequency": null,
+              "amount": 1356000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam: Rp 1.356.000",
+              "notes": "Period not stated."
+            },
+            {
+              "name": "SPP Juli 2026",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP Juli 2026: Rp 1.750.000",
+              "notes": "Monthly SPP amount (July 2026 instalment)."
+            }
+          ],
+          "source": {
+            "url": "https://www.popmama.com/big-kid/6-9-years-old/biaya-sekolah-sd-swasta-di-depok-tahun-ajaran-2026-2027-00-bbqjr-302fg6",
+            "title": "10 Biaya Sekolah SD Swasta di Depok untuk Tahun Ajaran 2026/2027",
+            "publisher": "Popmama.com (IDN Media); penulis Ninda Anisya, editor Novy Agrina",
+            "source_type": "news_media",
+            "published_date": "2026-02-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Article text extracted via curl. Article states figures are 'estimasi rincian biaya' compiled 'melansir dari berbagai sumber' and advises confirming with schools."
+          }
+        }
+      ],
+      "notes": "Only source is Popmama (news media, 'estimasi', compiled from various sources). School website appeared in search results but was not opened."
+    },
+    {
+      "school_name": "Lazuardi Al-Falah Depok (SD Lazuardi Al Falah)",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": null,
+      "address": "Kompleks LIA Depok, Jl. Margonda Raya No. 200, Depok (per Popmama; Mommies Daily 2021 gives the same)",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SD",
+        "SMP"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "https://depok.lazuardialfalah.sch.id/",
+      "fees": [
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 725000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Pendaftaran: Rp 725.000 | SPP: Rp 2.100.000",
+              "notes": null
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2100000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Pendaftaran: Rp 725.000 | SPP: Rp 2.100.000",
+              "notes": "Period not stated by Popmama; Mommies Daily 2021 reports this school's SPP 'per bulan'."
+            },
+            {
+              "name": "Biaya Semester (by registration wave)",
+              "category": "recurring",
+              "frequency": "semester",
+              "amount": null,
+              "amount_min": 5500000,
+              "amount_max": 6100000,
+              "verbatim": "Biaya Semester Gel. 2: Rp 5.500.000 | Biaya Semester Gel. 3: Rp 5.800.000 | Biaya Semester Gel. 4: Rp 6.100.000",
+              "notes": "Gel. 2 5.500.000; Gel. 3 5.800.000; Gel. 4 6.100.000. Per Mommies Daily 2021 the school replaces a lump-sum uang pangkal with a per-semester fee."
+            },
+            {
+              "name": "Biaya Seragam",
+              "category": "entry",
+              "frequency": null,
+              "amount": null,
+              "amount_min": 1400000,
+              "amount_max": 1600000,
+              "verbatim": "Biaya Seragam: Rp 1.400.000 - Rp 1.600.000",
+              "notes": "Range as published; period not stated."
+            },
+            {
+              "name": "Biaya Buku",
+              "category": "entry",
+              "frequency": null,
+              "amount": 1100000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya Buku: Rp 1.100.000",
+              "notes": "Period not stated."
+            }
+          ],
+          "source": {
+            "url": "https://www.popmama.com/big-kid/6-9-years-old/biaya-sekolah-sd-swasta-di-depok-tahun-ajaran-2026-2027-00-bbqjr-302fg6",
+            "title": "10 Biaya Sekolah SD Swasta di Depok untuk Tahun Ajaran 2026/2027",
+            "publisher": "Popmama.com (IDN Media); penulis Ninda Anisya, editor Novy Agrina",
+            "source_type": "news_media",
+            "published_date": "2026-02-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Article text extracted via curl. Article states figures are 'estimasi rincian biaya' compiled 'melansir dari berbagai sumber' and advises confirming with schools."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2022/2023",
+          "academic_year_normalized": "2022/2023",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Form pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 700000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Form pendaftaran: Rp 700.000",
+              "notes": null
+            },
+            {
+              "name": "Uang semester",
+              "category": "recurring",
+              "frequency": "semester",
+              "amount": 5000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang semester: Rp 5.000.000 (terdapat discount bila dibayarkan di gelombang I & II)",
+              "notes": null
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 2.000.000/bulan (terdapat discount bila dibayarkan di gelombang I & II)",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://mommiesdaily.com/2021/10/18/biaya-masuk-sd-di-depok-tahun-ajaran-2022-2023/",
+            "title": "Biaya Masuk SD di Depok Tahun 2022",
+            "publisher": "Mommies Daily (contributor 'dewdew')",
+            "source_type": "blog",
+            "published_date": "2021-10-18",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Parenting media site; article by a contributor who describes herself as a blogger; no primary source cited. Classified conservatively as blog."
+          }
+        }
+      ],
+      "notes": "Inclusive school (quota 2 per class per Mommies Daily 2021). 2026/2027 estimate excludes ABK assistance, extracurriculars, transport, catering and end-of-year show. No official fee page found (FAQ has no amounts)."
+    },
+    {
+      "school_name": "SIT Darul Abidin (SDIT / SMPIT Darul Abidin)",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Beji",
+      "address": "Jl. Karet Hijau No.52, Beji Tim, Kecamatan Beji, Kota Depok, Jawa Barat 16422 (SD, per Popmama); SMPIT: Jl. Karet Hijau No.23, Beji Tim. (per KalderaNews)",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SD",
+        "SMP"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "https://ppdb.darulabidin.sch.id/",
+      "fees": [
+        {
+          "level": "SD",
+          "grade_or_program": "SDIT - kelas 1 siswa baru",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Formulir Pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": null,
+              "amount_min": 475000,
+              "amount_max": 525000,
+              "verbatim": "Formulir Pendaftaran: Rp 475.000 - Rp 525.000",
+              "notes": null
+            },
+            {
+              "name": "Biaya Masuk Tahap I",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": null,
+              "amount_min": 25200000,
+              "amount_max": 28700000,
+              "verbatim": "Biaya Masuk Tahap I: Rp 25.200.000 - Rp 28.700.000",
+              "notes": null
+            },
+            {
+              "name": "Biaya Masuk Tahap II",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 2500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya Masuk Tahap II: Rp 2.500.000",
+              "notes": null
+            },
+            {
+              "name": "Biaya Masuk Tahap III",
+              "category": "entry",
+              "frequency": "monthly",
+              "amount": 300000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya Masuk Tahap III: Rp 300.000 per bulan (selama 36 bulan)",
+              "notes": "Entry-fee instalment payable monthly for 36 months."
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2080000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 2.080.000",
+              "notes": "Period not stated by the source; monthly is inferred from the term 'SPP' (verify)."
+            }
+          ],
+          "source": {
+            "url": "https://www.popmama.com/big-kid/6-9-years-old/biaya-sekolah-sd-swasta-di-depok-tahun-ajaran-2026-2027-00-bbqjr-302fg6",
+            "title": "10 Biaya Sekolah SD Swasta di Depok untuk Tahun Ajaran 2026/2027",
+            "publisher": "Popmama.com (IDN Media); penulis Ninda Anisya, editor Novy Agrina",
+            "source_type": "news_media",
+            "published_date": "2026-02-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Article text extracted via curl. Article states figures are 'estimasi rincian biaya' compiled 'melansir dari berbagai sumber' and advises confirming with schools."
+          }
+        },
+        {
+          "level": "SMP",
+          "grade_or_program": "SMPIT - kelas 7 siswa baru",
+          "academic_year": "2024/2025",
+          "academic_year_normalized": "2024/2025",
+          "academic_year_inferred": true,
+          "components": [
+            {
+              "name": "Uang pangkal (Gelombang I-II)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": null,
+              "amount_min": 29500000,
+              "amount_max": 31000000,
+              "verbatim": "Gelombang I: Rp 29.500.000 | Gelombang II: Rp 31.000.000 | SPP: Rp 1.320.000",
+              "notes": "Article: can be paid in 5 instalments; Rp 1.000.000 discount if paid in full; includes uniform; no re-registration fee when moving up a grade."
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1320000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Gelombang II: Rp 31.000.000 | SPP: Rp 1.320.000",
+              "notes": "Period not stated by the source; monthly is inferred from the term 'SPP' (verify)."
+            }
+          ],
+          "source": {
+            "url": "https://www.kalderanews.com/2023/11/daftar-smp-swasta-terbaik-di-depok-beserta-rincian-biayanya-ada-yang-spp-nya-cuma-rp-400-ribu/",
+            "title": "Daftar SMP Swasta Terbaik di Depok Beserta Rincian Biayanya, Ada yang SPP-nya Cuma Rp 400 Ribu!",
+            "publisher": "KalderaNews.com (Tiara Apriyani)",
+            "source_type": "news_media",
+            "published_date": "2023-11-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Academic year not stated; article (10 Nov 2023) addresses parents of kelas 6 choosing a school for 'tahun ajaran depan', so 2024/2025 is inferred. No primary source cited. Same list was republished by milenianews.com on 2024-04-02."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "SDIT - kelas 1 siswa baru",
+          "academic_year": "2022/2023",
+          "academic_year_normalized": "2022/2023",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang pangkal (Gelombang I-II)",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": null,
+              "amount_min": 30500000,
+              "amount_max": 31500000,
+              "verbatim": "Uang pangkal gelombang I (10-30 September 2021): Rp 30.500.000 | Uang pangkal gelombang II (13 Oktober - 11 November 2021): Rp 31.500.000",
+              "notes": "Article: no re-registration fee in later years."
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": null,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 1.4500.000/bulan",
+              "notes": "Figure is malformed in the source ('1.4500.000'); amount left null rather than guessed."
+            }
+          ],
+          "source": {
+            "url": "https://mommiesdaily.com/2021/10/18/biaya-masuk-sd-di-depok-tahun-ajaran-2022-2023/",
+            "title": "Biaya Masuk SD di Depok Tahun 2022",
+            "publisher": "Mommies Daily (contributor 'dewdew')",
+            "source_type": "blog",
+            "published_date": "2021-10-18",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Parenting media site; article by a contributor who describes herself as a blogger; no primary source cited. Classified conservatively as blog."
+          }
+        }
+      ],
+      "notes": "No official fee page reachable (ppdb.darulabidin.sch.id / .com fee URLs returned 404). All figures are secondary sources."
+    },
+    {
+      "school_name": "Semut-Semut The Natural School (SD Semut-Semut)",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Cimanggis",
+      "address": "Jl. Industri Kapal Dalam No. 25A RTM, Kelapa Dua, Cimanggis, Depok (per Popmama)",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "TK",
+        "SD"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "https://semut-semut.sch.id/",
+      "fees": [
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Formulir",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Formulir: Rp 600.000 | Uang Pendaftaran dan DPPOS: Rp 29.500.000",
+              "notes": null
+            },
+            {
+              "name": "Uang Pendaftaran dan DPPOS",
+              "category": "entry",
+              "frequency": null,
+              "amount": 29500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pendaftaran dan DPPOS: Rp 29.500.000",
+              "notes": "Popmama: 'Biaya DPPOS juga biasanya akan ada kenaikan setiap kelas 3 dan 5' (i.e. further DPPOS payments at kelas 3 and 5; amounts not given)."
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1875000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 1.875.000 | Seragam: Rp 875.000",
+              "notes": "Period not stated by the source; monthly is inferred from the term 'SPP' (verify)."
+            },
+            {
+              "name": "Seragam",
+              "category": "entry",
+              "frequency": null,
+              "amount": 875000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Seragam: Rp 875.000",
+              "notes": "Period not stated."
+            }
+          ],
+          "source": {
+            "url": "https://www.popmama.com/big-kid/6-9-years-old/biaya-sekolah-sd-swasta-di-depok-tahun-ajaran-2026-2027-00-bbqjr-302fg6",
+            "title": "10 Biaya Sekolah SD Swasta di Depok untuk Tahun Ajaran 2026/2027",
+            "publisher": "Popmama.com (IDN Media); penulis Ninda Anisya, editor Novy Agrina",
+            "source_type": "news_media",
+            "published_date": "2026-02-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Article text extracted via curl. Article states figures are 'estimasi rincian biaya' compiled 'melansir dari berbagai sumber' and advises confirming with schools."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2022/2023",
+          "academic_year_normalized": "2022/2023",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Form pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Form pendaftaran: Rp 500.000 | Uang pangkal: Rp 28.000.000 | SPP: Rp 1.550.000 (akan ada kenaikan di tahun ke-4)",
+              "notes": null
+            },
+            {
+              "name": "Uang pangkal",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 28000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang pangkal: Rp 28.000.000 | SPP: Rp 1.550.000 (akan ada kenaikan di tahun ke-4)",
+              "notes": null
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1550000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 1.550.000 (akan ada kenaikan di tahun ke-4)",
+              "notes": "Period not stated by the source; monthly is inferred from the term 'SPP' (verify)."
+            },
+            {
+              "name": "Uang seragam (bahan)",
+              "category": "entry",
+              "frequency": null,
+              "amount": 800000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang seragam: Rp 800.000 (berupa bahan kecuali baju olahraga)",
+              "notes": null
+            },
+            {
+              "name": "Uang kegiatan tahunan dan operasional sekolah",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 4900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Akan ada uang kegiatan tahunan dan operasional sekolah sebesar Rp 4.900.000",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://mommiesdaily.com/2021/10/18/biaya-masuk-sd-di-depok-tahun-ajaran-2022-2023/",
+            "title": "Biaya Masuk SD di Depok Tahun 2022",
+            "publisher": "Mommies Daily (contributor 'dewdew')",
+            "source_type": "blog",
+            "published_date": "2021-10-18",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Parenting media site; article by a contributor who describes herself as a blogger; no primary source cited. Classified conservatively as blog."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2021/2022",
+          "academic_year_normalized": "2021/2022",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang Pangkal",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 26500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal: Rp 26.500.000 | SPP: Rp 1.500.000",
+              "notes": null
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal: Rp 26.500.000 | SPP: Rp 1.500.000",
+              "notes": "Period not stated by the source; monthly is inferred from the term 'SPP' (verify)."
+            }
+          ],
+          "source": {
+            "url": "https://mommiesdaily.com/2020/10/22/biaya-masuk-sd-di-depok-bekasi-dan-bogor-tahun-ajaran-2021-2022/",
+            "title": "Biaya Masuk SD Tahun 2021 di Depok, Bekasi, dan Bogor",
+            "publisher": "Mommies Daily (contributor 'dewdew')",
+            "source_type": "blog",
+            "published_date": "2020-10-22",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Parenting media site; article by a contributor who describes herself as a blogger; no primary source cited. Classified conservatively as blog."
+          }
+        }
+      ],
+      "notes": "Nature school; inclusive (per Mommies Daily 2021); Mommies Daily calls it 'salah satu SD Islam di Depok'. 2026/2027 estimate excludes catering, transport, extracurriculars. School website SD page has no fee info."
+    },
+    {
+      "school_name": "Sekolah Karakter Cimanggis (SD Karakter IHF - Indonesia Heritage Foundation)",
+      "foundation": "Indonesia Heritage Foundation (IHF) - per Mommies Daily naming",
+      "city": "Kota Depok",
+      "district": "Cimanggis",
+      "address": "Jl. Raya Jakarta Bogor Km. 31 No. 46, Cimanggis, Depok (per Popmama; Mommies Daily 2021: 'Jl. Raya Jakarta Bogor Km31 No.46, Cimanggis Depok')",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SD"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Nasional"
+      ],
+      "curriculum": [],
+      "official_website": null,
+      "fees": [
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Pendaftaran, TKS, dan Orientasi",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Pendaftaran, TKS, dan Orientasi: Rp 600.000",
+              "notes": null
+            },
+            {
+              "name": "Uang Pangkalan",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 25000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkalan: Rp 25.000.000",
+              "notes": null
+            },
+            {
+              "name": "Uang Kegiatan Tahunan",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 6500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Kegiatan Tahunan: Rp 6.500.000",
+              "notes": null
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1600000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Kegiatan Tahunan: Rp 6.500.000 | SPP: Rp 1.600.000",
+              "notes": "Period not stated by the source; monthly is inferred from the term 'SPP' (verify)."
+            },
+            {
+              "name": "Biaya Seragam dan Literatur",
+              "category": "entry",
+              "frequency": null,
+              "amount": 800000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya Seragam dan Literatur: Rp 800.000",
+              "notes": "Period not stated."
+            }
+          ],
+          "source": {
+            "url": "https://www.popmama.com/big-kid/6-9-years-old/biaya-sekolah-sd-swasta-di-depok-tahun-ajaran-2026-2027-00-bbqjr-302fg6",
+            "title": "10 Biaya Sekolah SD Swasta di Depok untuk Tahun Ajaran 2026/2027",
+            "publisher": "Popmama.com (IDN Media); penulis Ninda Anisya, editor Novy Agrina",
+            "source_type": "news_media",
+            "published_date": "2026-02-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Article text extracted via curl. Article states figures are 'estimasi rincian biaya' compiled 'melansir dari berbagai sumber' and advises confirming with schools."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2021/2022",
+          "academic_year_normalized": "2021/2022",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang pangkal",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 29100000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang pangkal: Rp 29.100.000 | SPP: Rp 1.400.000 per bulan",
+              "notes": null
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1400000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang pangkal: Rp 29.100.000 | SPP: Rp 1.400.000 per bulan",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://mommiesdaily.com/2020/10/22/biaya-masuk-sd-di-depok-bekasi-dan-bogor-tahun-ajaran-2021-2022/",
+            "title": "Biaya Masuk SD Tahun 2021 di Depok, Bekasi, dan Bogor",
+            "publisher": "Mommies Daily (contributor 'dewdew')",
+            "source_type": "blog",
+            "published_date": "2020-10-22",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Parenting media site; article by a contributor who describes herself as a blogger; no primary source cited. Classified conservatively as blog."
+          }
+        }
+      ],
+      "notes": "Same address in both sources, so treated as the same school. 2026/2027 uang pangkal (25.0M) is lower than 2021/2022 (29.1M) while an annual activity fee (6.5M) is listed separately in 2026/2027 - fee structure probably changed; do not compute inflation from uang pangkal alone. 'Nasional' is a label choice (character-education school; no religious affiliation stated)."
+    },
+    {
+      "school_name": "Sekolah Pribadi Depok (Pribadi Bilingual School / SD Pribadi)",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": null,
+      "address": "Jl. Margonda Raya No. 229, Depok, Jawa Barat (per Popmama; Mommies Daily 2021 gives the same)",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SD",
+        "SMP",
+        "SMA"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Nasional Plus",
+        "Cambridge"
+      ],
+      "curriculum": [
+        "Cambridge (Checkpoint test included in 'perlengkapan' per Popmama)"
+      ],
+      "official_website": "https://pribadidepok.sch.id/",
+      "fees": [
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Pendaftaran",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 1500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Pendaftaran: Rp 1.500.000 | Uang Pangkat: Rp 53.000.000",
+              "notes": null
+            },
+            {
+              "name": "Uang Pangkal",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 53000000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkat: Rp 53.000.000",
+              "notes": "Source typo 'Uang Pangkat' = uang pangkal."
+            },
+            {
+              "name": "SPP per tahun",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 69850000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 69.850.000/tahun",
+              "notes": null
+            },
+            {
+              "name": "Perlengkapan (tahun pertama)",
+              "category": "entry",
+              "frequency": "annual",
+              "amount": 13350000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Perlengkapan (tahun pertama): Rp 13.350.000",
+              "notes": "Popmama: includes seragam, Cambridge Checkpoint Test, buku, platform pendidikan, outing class, kegiatan, kompetisi."
+            },
+            {
+              "name": "Perlengkapan (tahun selanjutnya)",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 8850000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Perlengkapan (tahun selanjutnya): Rp 8.850.000",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://www.popmama.com/big-kid/6-9-years-old/biaya-sekolah-sd-swasta-di-depok-tahun-ajaran-2026-2027-00-bbqjr-302fg6",
+            "title": "10 Biaya Sekolah SD Swasta di Depok untuk Tahun Ajaran 2026/2027",
+            "publisher": "Popmama.com (IDN Media); penulis Ninda Anisya, editor Novy Agrina",
+            "source_type": "news_media",
+            "published_date": "2026-02-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Article text extracted via curl. Article states figures are 'estimasi rincian biaya' compiled 'melansir dari berbagai sumber' and advises confirming with schools."
+          }
+        },
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2021/2022",
+          "academic_year_normalized": "2021/2022",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang Pangkal",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 32550000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal: Rp 32.550.000",
+              "notes": "Early-payment discount 5% per month in advance (per article)."
+            },
+            {
+              "name": "SPP per tahun",
+              "category": "recurring",
+              "frequency": "annual",
+              "amount": 41500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 41.500.000 per tahun",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://mommiesdaily.com/2020/10/22/biaya-masuk-sd-di-depok-bekasi-dan-bogor-tahun-ajaran-2021-2022/",
+            "title": "Biaya Masuk SD Tahun 2021 di Depok, Bekasi, dan Bogor",
+            "publisher": "Mommies Daily (contributor 'dewdew')",
+            "source_type": "blog",
+            "published_date": "2020-10-22",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Parenting media site; article by a contributor who describes herself as a blogger; no primary source cited. Classified conservatively as blog."
+          }
+        }
+      ],
+      "notes": "CAUTION: the school does not publish fees (official FAQ: 'Untuk informasi biaya pendidikan silahkan untuk menanyakan secara langsung pada pihak admission'). Figures are unverified media estimates. A search-engine summary (not a page we opened) attributed identical 2026 figures (Rp1.500.000 / Rp53.000.000 / Rp69.850.000 per year) to a different school ('Lentera Kasih'); treat the attribution with extra caution."
+    },
+    {
+      "school_name": "SDIT Cahaya Quran Depok",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Cilodong",
+      "address": "Jl. Merah Delima No.11, Sukemaju, Kec. Cilodong, Kota Depok, Jawa Barat 16415 (per Popmama)",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SD"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "https://cahayaquran.sch.id/",
+      "fees": [
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2026/2027",
+          "academic_year_normalized": "2026/2027",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Biaya Masuk Gelombang",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 18250000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Biaya Masuk Gelombang: Rp 18.250.000 (sudah termasuk uang pangkalan, seragam 6 setel, uang kegiatan dan buku 1 tahun)",
+              "notes": null
+            },
+            {
+              "name": "SPP Kelas 1-3",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 750000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP Kelas 1-3: Rp 750.000",
+              "notes": "Period not stated by the source; monthly is inferred from the term 'SPP' (verify). Kelas 4-6: Rp 850.000."
+            },
+            {
+              "name": "SPP Kelas 4-6",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 850000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP Kelas 4-6: Rp 850.000",
+              "notes": "Applies from kelas 4 (future cost)."
+            }
+          ],
+          "source": {
+            "url": "https://www.popmama.com/big-kid/6-9-years-old/biaya-sekolah-sd-swasta-di-depok-tahun-ajaran-2026-2027-00-bbqjr-302fg6",
+            "title": "10 Biaya Sekolah SD Swasta di Depok untuk Tahun Ajaran 2026/2027",
+            "publisher": "Popmama.com (IDN Media); penulis Ninda Anisya, editor Novy Agrina",
+            "source_type": "news_media",
+            "published_date": "2026-02-10",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Article text extracted via curl. Article states figures are 'estimasi rincian biaya' compiled 'melansir dari berbagai sumber' and advises confirming with schools."
+          }
+        }
+      ],
+      "notes": "Only source is Popmama (news media). Likely the same foundation as SMP Tahfizhpreneur CQ (Yayasan Islam Cahaya Qur'an) but not confirmed by an opened source; kept as a separate record."
+    },
+    {
+      "school_name": "SD Islam Al-Haraki (SIT Al Haraki)",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": "Pancoran Mas",
+      "address": "Jl. Belimbing 3 No.1-2, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431 (per Mommies Daily 2020)",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "TK",
+        "SD",
+        "SMP",
+        "SMA"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "Islamic"
+      ],
+      "curriculum": [],
+      "official_website": "https://alharaki.sch.id/",
+      "fees": [
+        {
+          "level": "SD",
+          "grade_or_program": "Kelas 1 siswa baru",
+          "academic_year": "2021/2022",
+          "academic_year_normalized": "2021/2022",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang Pangkal",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 27400000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SD Islam Al-Haraki | Jl. Belimbing 3 No.1-2, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431. No telepon: 021-7777008 | Uang Pangkal: Rp 27.400.000 | SPP: Rp 1.400.000 per bulan",
+              "notes": null
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 1400000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Uang Pangkal: Rp 27.400.000 | SPP: Rp 1.400.000 per bulan",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://mommiesdaily.com/2020/10/22/biaya-masuk-sd-di-depok-bekasi-dan-bogor-tahun-ajaran-2021-2022/",
+            "title": "Biaya Masuk SD Tahun 2021 di Depok, Bekasi, dan Bogor",
+            "publisher": "Mommies Daily (contributor 'dewdew')",
+            "source_type": "blog",
+            "published_date": "2020-10-22",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Parenting media site; article by a contributor who describes herself as a blogger; no primary source cited. Classified conservatively as blog."
+          }
+        }
+      ],
+      "notes": "OLD DATA ONLY (2021/2022). Official site (alharaki.sch.id, incl. FAQ/PSB pages) blocked automated access (Cloudflare 403 for curl and WebFetch), so current fees could not be captured. Levels per the site's PSB page titles in search results (KB/TK, SD, SMP, SMA)."
+    },
+    {
+      "school_name": "Kinderfield Primary School (Depok)",
+      "foundation": null,
+      "city": "Kota Depok",
+      "district": null,
+      "address": "Jl. Mentengan Raya No.72, Kemiri Muka, Depok (per Mommies Daily 2020)",
+      "latitude": null,
+      "longitude": null,
+      "levels_offered": [
+        "SD"
+      ],
+      "ownership": "swasta",
+      "categories": [
+        "International",
+        "Cambridge"
+      ],
+      "curriculum": [],
+      "official_website": null,
+      "fees": [
+        {
+          "level": "SD",
+          "grade_or_program": "Primary - siswa baru",
+          "academic_year": "2021/2022",
+          "academic_year_normalized": "2021/2022",
+          "academic_year_inferred": false,
+          "components": [
+            {
+              "name": "Uang Pangkal",
+              "category": "entry",
+              "frequency": "one_time",
+              "amount": 44500000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "Kinderfield Primary School | Jl. Mentengan Raya No.72, Kemiri Muka, Depok. No telp. 021-22072600 | Uang Pangkal: Rp 44.500.000",
+              "notes": null
+            },
+            {
+              "name": "SPP",
+              "category": "recurring",
+              "frequency": "monthly",
+              "amount": 2900000,
+              "amount_min": null,
+              "amount_max": null,
+              "verbatim": "SPP: Rp 2.900.000,- per bulan",
+              "notes": null
+            }
+          ],
+          "source": {
+            "url": "https://mommiesdaily.com/2020/10/22/biaya-masuk-sd-di-depok-bekasi-dan-bogor-tahun-ajaran-2021-2022/",
+            "title": "Biaya Masuk SD Tahun 2021 di Depok, Bekasi, dan Bogor",
+            "publisher": "Mommies Daily (contributor 'dewdew')",
+            "source_type": "blog",
+            "published_date": "2020-10-22",
+            "accessed_date": "2026-09-27",
+            "evidence": "curl_verbatim",
+            "evidence_detail": "Parenting media site; article by a contributor who describes herself as a blogger; no primary source cited. Classified conservatively as blog."
+          }
+        }
+      ],
+      "notes": "OLD DATA ONLY (2021/2022). 'International/Cambridge' category is based on depok24jam.com (25/08/2026) describing 'Kinderfield Highfield School Depok' as an international (Cambridge) school; that article's fee numbers were not used (explicitly cross-year 2023-2026 estimates) and it gives a different address (Jl. Margonda Raya No. 229), so the campus/branding link is unverified. No official Depok fee source found."
+    }
+  ],
+  "search_log": [
+    "Queries (WebSearch): 'rincian biaya PPDB 2026/2027 sekolah Depok uang pangkal SPP'; 'biaya masuk SD Islam Terpadu Depok 2026 2027'; 'biaya sekolah internasional Depok uang pangkal SPP 2026'; 'biaya masuk SMA swasta Depok 2026/2027 rincian'; 'Biaya PPDB SD di Depok dan Bekasi ... mommiesdaily'; 'SDIT Nurul Fikri Depok biaya PPDB 2026/2027'; 'Sekolah Pribadi Depok biaya ...'; 'Lazuardi Al Falah Depok biaya ...'; 'SPMB Kota Depok 2026 ... gratis'; 'biaya masuk SMK swasta Depok 2026/2027'; 'Depok biaya SMP swasta 2026/2027 SMPIT'; 'Darul Abidin Depok biaya PPDB'; 'Sekolah Cakra Buana Depok biaya'; 'Prestasi Global Depok biaya'; 'pribadidepok.sch.id admission fee'; 'pesantren boarding school Depok biaya masuk 2026/2027'; 'SMAIT Pesantren Nururrahman alamat Depok'; 'SMA negeri Jawa Barat 2026/2027 ... SPP gratis'; 'Semut-Semut / Sekolah Alam Kampung Sawah biaya'; 'Kinderfield Depok fees'; 'SMA Mardi Yuana Depok biaya'; domain-restricted searches on lazuardialfalah.sch.id, diandidaktika.sch.id/arrahman-islamic.sch.id/cahayaquran.sch.id/sekolahkarakter.sch.id, alharaki.sch.id/darulabidin.*.",
+    "~56 fetch attempts (curl, plus 1 WebFetch). Images/PDFs were downloaded with curl and read visually or via pypdf/pymupdf; verbatim strings from HTML/PDF text were machine-checked against the saved text.",
+    "EXCLUDED (not in Kota Depok): SD Islam Al-Falaah (sekolahal-falaah.sch.id) - footer address Villa Mutiara, Sawah Baru, Ciputat, Tangerang Selatan; YAPIDH (ppdbyapidh.com) - Jatiasih, Kota Bekasi. SMA Dwiwarna appeared in results but was not opened (appears to be outside Depok; not verified).",
+    "BLOCKED: alharaki.sch.id (Cloudflare 403 via curl and WebFetch); kumparan.com 2026/2027 SD article (403); news.fin.co.id 2026-02-11 article (403); web.archive.org CDX/availability (429 / connection reset) - so no Wayback history was retrieved.",
+    "404 / unreachable: ppdb.sdislamdarulfalah.sch.id fee page; ppdb.darulabidin.sch.id/biaya-pendidikan(-sdit)/; ppdb.darulabidin.com/biaya-pendidikan-sdit/ and /biaya-pendidikan; psb.nurulfikri.sch.id/biaya; cakrabuana.sch.id (connection failed).",
+    "NO FEES PUBLISHED on opened pages: pribadidepok.sch.id/daftar/ (FAQ says ask admission); lazuardialfalah.sch.id/faq; semut-semut.sch.id SD page; smamardiyuanadepok.sch.id SPMB 2026/2027 post (banner has contact numbers only); sddepok.mardiyuana.sch.id SPMB form (only 'Biaya pendaftaran sebesar 225.000,00', academic year blank - not recorded); berita.depok.go.id SPMB 2026 article (schedule only).",
+    "EXCLUDED FOR QUALITY: depok24jam.com 2026-08-25 '9 SMA Swasta Termahal di Depok' (states all figures are 'estimasi ... lintas tahun ajaran (2023 sampai 2026)', no per-school year; its Nurul Fikri SMA estimate conflicts with the official 2027/2028 page); foodforkids.co.id 2025-05-19 blog (its '2025-2026' SD Karakter IHF figures are identical to Mommies Daily 2021/2022 - stale); milenianews.com 2024-04-02 (republishes the KalderaNews list); Kinderfield 'Depok' fee pages in results were SEO-spam mirrors; search-engine answer summaries (observed misattributing Ummul Quro 2022 fees to 'SDIT Luqman Al-Hakim' and Pribadi fees to 'Lentera Kasih') were never used as data.",
+    "NOT INCLUDED (low value / single old secondary record): SD Prestasi Global, SD Tunas Global, Global Islamic Lab School (Mommies Daily 2022/2023); SMP Indonesia Natural School, SMPIT Arafah, SMP Avicenna Cinere, SMP Lazuardi (Limo), SMP Cakra Buana Cipayung (KalderaNews 2023) - available in the saved sources if wanted.",
+    "NEGERI: no school-specific negeri cost document found, so no negeri record was created. Context: Detik (15 Jul 2026, 'Alasan Pemprov Jabar Bakal Aktifkan Lagi Pembayaran SPP Sekolah Negeri') reports SMA/SMK negeri in Jawa Barat are currently free of SPP, and a proposal to reinstate SPP for desil 6-10 families is under discussion ('belum menjadi keputusan resmi' per Kadisdik Jabar) - live verification needed before assuming Rp0. Tempo (1 Jul 2025) reports Kota Depok's Rintisan Sekolah Swasta Gratis (free kelas 7 at 33 SMP + 11 MTs swasta in 2025/2026; cash aid 'senilai SPP dan juga uang muka', no amounts).",
+    "Conventions: academic_year is copied exactly as the source writes it; academic_year_normalized (extra field) gives it as YYYY/YYYY. 'amount' = list/normal price for new students; wave (gelombang) discounts are in notes unless the source gives only wave prices (then amount=null with amount_min/amount_max). Source totals are kept in notes, not as components, to avoid double counting. frequency=null means the source does not state the period. source.evidence_detail (extra field) explains image/PDF handling."
+  ]
+}

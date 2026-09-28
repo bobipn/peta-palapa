@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Light/dark are both selected (not auto-inverted): values follow the
+ * validated reference palette for charts, with semantic status colors reserved for state.
+ */
+:root {
+  color-scheme: light;
+  --page: #f5f5f2;
+  --card: #fcfcfb;
+  --card-2: #f3f3ef;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #7a7872;
+  --line: rgba(11, 11, 11, 0.1);
+  --line-strong: rgba(11, 11, 11, 0.18);
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --accent: #2a78d6;
+  --accent-ink: #1c5cab;
+  --accent-soft: #e6f0fc;
+  --good: #0ca30c;
+  --good-ink: #006300;
+  --good-soft: #e5f5e5;
+  --warning: #fab219;
+  --warning-soft: #fdf3dc;
+  --serious: #ec835a;
+  --serious-soft: #fcebe3;
+  --critical: #d03b3b;
+  --critical-soft: #fae6e6;
+  --info-soft: #e8f1fc;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --series-7: #4a3aa7;
+  --series-8: #e34948;
+  --seq-100: #cde2fb;
+  --seq-200: #9ec5f4;
+  --seq-300: #6da7ec;
+  --seq-400: #3987e5;
+  --seq-500: #256abf;
+  --seq-600: #184f95;
+  --seq-700: #0d366b;
+  --deemph: #c9c7bf;
+  --shadow: 0 1px 2px rgba(11, 11, 11, 0.04), 0 1px 1px rgba(11, 11, 11, 0.02);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --card: #1a1a19;
+    --card-2: #232321;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #97958e;
+    --line: rgba(255, 255, 255, 0.1);
+    --line-strong: rgba(255, 255, 255, 0.18);
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --accent: #3987e5;
+    --accent-ink: #86b6ef;
+    --accent-soft: #16263a;
+    --good-ink: #0ca30c;
+    --good-soft: #13261a;
+    --warning-soft: #2e2512;
+    --serious-soft: #2e1d15;
+    --critical-soft: #2e1616;
+    --info-soft: #152234;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+    --series-6: #008300;
+    --series-7: #9085e9;
+    --series-8: #e66767;
+    --seq-100: #104281;
+    --seq-200: #184f95;
+    --seq-300: #1c5cab;
+    --seq-400: #256abf;
+    --seq-500: #3987e5;
+    --seq-600: #6da7ec;
+    --seq-700: #b7d3f6;
+    --deemph: #4a4945;
+    --shadow: none;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --card: #1a1a19;
+  --card-2: #232321;
+  --ink: #ffffff;
+  --ink-2: #c3c2b7;
+  --muted: #97958e;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --accent: #3987e5;
+  --accent-ink: #86b6ef;
+  --accent-soft: #16263a;
+  --good-ink: #0ca30c;
+  --good-soft: #13261a;
+  --warning-soft: #2e2512;
+  --serious-soft: #2e1d15;
+  --critical-soft: #2e1616;
+  --info-soft: #152234;
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+  --series-7: #9085e9;
+  --series-8: #e66767;
+  --seq-100: #104281;
+  --seq-200: #184f95;
+  --seq-300: #1c5cab;
+  --seq-400: #256abf;
+  --seq-500: #3987e5;
+  --seq-600: #6da7ec;
+  --seq-700: #b7d3f6;
+  --deemph: #4a4945;
+  --shadow: none;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-good: var(--good);
+  --color-good-ink: var(--good-ink);
+  --color-good-soft: var(--good-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-serious: var(--serious);
+  --color-serious-soft: var(--serious-soft);
+  --color-critical: var(--critical);
+  --color-critical-soft: var(--critical-soft);
+  --color-info-soft: var(--info-soft);
+  --font-sans: system-ui, -apple-system, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Base and component styles live in cascade layers so Tailwind utilities (pl-9, bg-card-2, …) can override them. */
+@layer base {
+  html,
+  body {
+    background: var(--page);
+    color: var(--ink);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .hairline {
+    border-color: var(--line);
+  }
+
+  /* Inputs share one quiet style */
+  .field {
+    width: 100%;
+    background: var(--card);
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.925rem;
+    line-height: 1.3;
+    outline: none;
+    transition: border-color 120ms, box-shadow 120ms;
+  }
+  .field:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .field:disabled {
+    opacity: 0.6;
+  }
+
+  .scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Tables: aligned numbers, hairlines */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .data-table th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--ink-2);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--line-strong);
+    vertical-align: bottom;
+    background: var(--card);
+  }
+  .data-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .data-table td.num,
+  .data-table th.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  /* Numbers never wrap; numeric headers may, so wide tables fit without horizontal scroll. */
+  .data-table td.num {
+    white-space: nowrap;
+  }
+  .data-table tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .card {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+  .print-break {
+    break-before: page;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

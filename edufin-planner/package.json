@@ -1,0 +1,50 @@
+{
+  "name": "edufin-planner",
+  "version": "0.1.0",
+  "private": true,
+  "description": "EduFin Planner — data-driven family education financial planning (Next.js + Supabase).",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "npx serve out",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "seed:sql": "node scripts/generate-seed-sql.mjs",
+    "check": "npm run typecheck && npm run lint && npm run test",
+    "smoke": "node scripts/smoke.mjs",
+    "build:seed": "node scripts/build-seed.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.117.2",
+    "clsx": "2.1.1",
+    "exceljs": "4.4.0",
+    "jspdf": "4.2.1",
+    "jspdf-autotable": "5.0.8",
+    "lucide-react": "1.48.0",
+    "next": "16.3.6",
+    "papaparse": "5.7.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "recharts": "3.10.1",
+    "zod": "4.6.5",
+    "zustand": "5.0.15"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "22.20.4",
+    "@types/papaparse": "5.5.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.3.6",
+    "playwright-core": "1.63.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "vitest": "5.0.2"
+  },
+  "engines": {
+    "node": ">=20.9"
+  }
+}
