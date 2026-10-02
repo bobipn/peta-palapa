@@ -64,4 +64,6 @@ ffmpeg -i video_hq.mp4 -i audio.wav -map 0:v -map 1:a -c:v libx264 -preset slowe
 | **28.0–40.0** | **All-in-one** | Hub 9 aplikasi untuk pelanggan, Peta Rute & Site, Helpdesk/Meeting/Jadwal, "Rp 0 · akses platform" + "Biaya aktivasi gratis untuk kontrak ≥ 12 bulan" |
 | 40.0–45.0 | End card | Logo, tagline, komersiallti.my.id, "Daftar sekarang di market.komersiallti.my.id" |
 
+**Brand C-RING (versi terbaru):** palet seluruh film mengikuti logo C-RING · Connex-Ring — navy `#0D2150` / `#0B1C3E`, aksen biru `#2E6BDB`, biru muda `#6FA3FF` untuk rute di peta gelap, latar ice `#F1F4F9`. App icon, mark dan wordmark diambil dari aset logo asli (`brand/`: `app_icon.png`, `mark.png`, `logo_word.png` — wordmark dibersihkan dari board logo dengan upscale + threshold) dan disematkan di `source45/brand.js`. Logo "L" diganti app icon C-RING (termasuk tag kalung maskot dan header market); intro dan end card memakai wordmark C-RING + "BACKBONE TO BUSINESS".
+
 Fitur, label dan alur market diverifikasi dengan login ke market.komersiallti.my.id dan screenshot mobile dari pemilik akun (2–3 Okt 2026). Video tidak menampilkan saldo, nomor rekening, nomor order, ataupun angka harga.
