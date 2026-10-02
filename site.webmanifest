@@ -1,0 +1,17 @@
+{
+  "name": "C-Ring · Connex-Ring",
+  "short_name": "C-Ring",
+  "description": "Backbone to Business — portal komersial Palapa Ring Paket Tengah, PT Len Telekomunikasi Indonesia.",
+  "lang": "id",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#060B18",
+  "theme_color": "#0A1B3D",
+  "icons": [
+    { "src": "/brand/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/brand/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/brand/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

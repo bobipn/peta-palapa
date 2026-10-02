@@ -30,9 +30,13 @@ ServerSignature Off
     </FilesMatch>
 </IfModule>
 
-<FilesMatch "\.(ini|log|sh|sql|yml|yaml|md|zip|tar|gz|git|env)$">
+<FilesMatch "\.(ini|log|sh|sql|yml|yaml|md|zip|tar|gz|git|env|py)$">
     Require all denied
 </FilesMatch>
+
+# Tipe MIME aset brand C-Ring (favicon SVG & manifest PWA)
+AddType image/svg+xml .svg
+AddType application/manifest+json .webmanifest
 
 RewriteEngine On
 RewriteCond %{HTTPS} off
