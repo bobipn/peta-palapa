@@ -41,3 +41,31 @@ ffmpeg -i video_hq.mp4 -i audio.wav -map 0:v -map 1:a -c:v libx264 -preset slowe
 ```
 
 `node preview.js 1.5 9.2 27` renders stills to `prev/` for quick checks.
+
+---
+
+# Versi 45 detik (customer cut) — `komersiallti_launch_45s.mp4`
+
+1920×1080, 30 fps, 45.0 s, H.264 High + AAC 160 kbps, ~16 MB. Sumber ada di `source45/` (`film.html`, `audio45.py`). Teks di layar berbahasa Indonesia, kecuali tagline penutup yang memakai bahasa Inggris sesuai brief awal.
+
+| Waktu | Scene | Isi |
+|---|---|---|
+| 0–5.5 | Intro · Ctrl+K · Suite | "Introducing Portal Komersial", palet perintah, 15 modul nyata — "Aplikasi kelas dunia. Satu platform." |
+| 5.5–8.0 | Nilai | Banyak aplikasi terpisah ditarik kucing menjadi satu platform — "Satu platform. Tanpa biaya akses." |
+| **8.0–28.0** | **Connectivity Market (20 dtk)** | |
+| 8.0–9.0 | Bab 01 | Connectivity Market · market.komersiallti.my.id |
+| 9.0–12.25 | Estimasi rute | Jenis layanan (Dark Fiber / Lit 1G / 10G / 100G), Titik Asal–Tujuan, Kontrak, "Cari Rute & Harga" |
+| 12.25–15.75 | 3 opsi jalur | Termurah / Terpendek / Diversitas di atas jaringan kabel PRT nyata, DC terdekat + kolokasi (jalur opsi = **ilustrasi**) |
+| 15.75–17.75 | Keranjang | Tambah ke Keranjang → Keranjang Estimasi → Ajukan Penawaran Resmi (dengan disclaimer estimasi) |
+| 17.75–21.25 | On-Demand | LTI Link (L2) / LTI Wave (L1) / LTI Net (L3), slider bandwidth 100 Mbps–10 Gbps, kontrak 1–36 bulan, Pesan Sekarang |
+| 21.25–24.25 | Layanan Saya | Diajukan → Studi kelayakan → Provisioning → Aktif; Ubah bandwidth / Perpanjang / Lapor gangguan / Unduh ringkasan |
+| 24.25–28.0 | Self-service | Tiket · Tagihan · Saldo |
+| **28.0–40.0** | **All-in-one** | |
+| 28.0–29.0 | Bab 02 | Satu platform, semua aplikasi |
+| 29.0–32.25 | Hub | 9 aplikasi untuk pelanggan terhubung ke komersiallti |
+| 32.25–35.0 | Peta | Peta Rute & Site PRT — "lihat jaringan sebelum memesan" |
+| 35.0–37.5 | Bantuan | Helpdesk (WhatsApp, Email, Web Chat, Telepon), Ruang Meeting, Jadwal / Booking |
+| 37.5–40.0 | Gratis | Label "Rp 0 · akses platform" + stempel GRATIS; "Biaya hanya untuk layanan konektivitas yang Anda pesan." |
+| 40.0–45.0 | End card | Logo, tagline, komersiallti.my.id, "Daftar sekarang di market.komersiallti.my.id" |
+
+Fitur market diambil dari kode `market.komersiallti.my.id/app.html` (menu, label, tag opsi rute, alur status, produk). Kredensial portal tidak berlaku untuk login market, jadi layar hasil asli tidak bisa dilihat; semua layar market digambar ulang sebagai sketsa tanpa angka harga.
