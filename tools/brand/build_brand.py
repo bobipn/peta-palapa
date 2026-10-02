@@ -320,11 +320,15 @@ def main():
     o = lambda n: os.path.join(OUT, n)
     R(o('c-ring-logo-on-light.svg'), o('c-ring-logo-on-light.png'), 2400)
     R(o('c-ring-logo-on-dark.svg'), o('c-ring-logo-on-dark.png'), 2400)
+    R(o('c-ring-wordmark-on-light.svg'), o('c-ring-wordmark-on-light.png'), 2400)
+    R(o('c-ring-wordmark-on-dark.svg'), o('c-ring-wordmark-on-dark.png'), 2400)
     R(o('c-ring-mark-on-light.svg'), o('c-ring-mark-on-light.png'), 1024)
     R(o('c-ring-mark-on-dark.svg'), o('c-ring-mark-on-dark.png'), 1024)
     R(o('c-ring-og.svg'), o('c-ring-og.png'), 1200)
-    for s in (192, 512):
+    for s in (192, 512, 1024):
         R(o('c-ring-app-icon.svg'), o(f'icon-{s}.png'), s)
+    # persegi penuh tanpa sudut membulat: foto profil WhatsApp/LinkedIn (dipotong lingkaran oleh aplikasinya)
+    R(o('c-ring-apple-touch.svg'), o('c-ring-avatar-1024.png'), 1024)
     R(o('c-ring-maskable.svg'), o('icon-maskable-512.png'), 512)
     R(o('c-ring-apple-touch.svg'), os.path.join(ROOT, 'apple-touch-icon.png'), 180)
     for s in (16, 32, 48):
