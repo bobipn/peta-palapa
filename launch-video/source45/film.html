@@ -438,7 +438,7 @@ function sFree(t){cam(punch(0)*(1+t*.03),W/2,H/2,0,...shake(.8,.3,18));
  const sk2=prog(t,.65,.85);const cs=1.05,cx=lerp(1150,1080,E.out(prog(t,.4,.7))),cy=1000;cat(cx,cy,cs,{armR:t<.65?-1.4:t<.85?-.4:-.9,armL:PI/2+.3,sq:t>.75&&t<.9?.9:1,happy:t>.9,look:[-8,-6],flip:true});
  stamp(860,330,'GRATIS',prog(t,.75,.9),110);
  const L=['Connectivity Market','Peta Rute & Site','Helpdesk & Tiket','Ruang Meeting','Jadwal / Booking'];L.forEach((s,i)=>{const a=prog(t,.95+i*.1,1.1+i*.1);if(a<=0)return;const y=280+i*92;sk(rrect(1240,y-36,46,46,8),{closed:true,w:3,a});txt(s,1310,y,{size:34,weight:700,a});checkMark(1263,y-14,38,E.out(prog(t,1.0+i*.1,1.15+i*.1)))});
- txt('Biaya hanya untuk layanan konektivitas yang Anda pesan.',W/2,960,{size:28,weight:600,align:'center',c:GREY,a:prog(t,1.6,1.9)});
+ txt('Biaya aktivasi gratis untuk kontrak ≥ 12 bulan.',300,820,{size:30,weight:800,c:OR2,a:prog(t,1.5,1.8)});txt('Bayar hanya layanan konektivitas yang Anda pesan.',300,864,{size:26,weight:600,c:GREY,a:prog(t,1.65,1.95)});
 }
 /* 40.0–45.0 : end card */
 function sEnd45(t){sEnd(Math.min(t,3.0)+Math.max(0,t-3.0)*.5);
@@ -462,6 +462,7 @@ function darkMap(R,P,o={}){const {land=LAND,lb=LANDB,prt=1,extra=null,legend=tru
  if(prt>0)ROUTES.forEach(r=>{const pts=r.p.map(q=>[P.x(q[1]),P.y(q[0])]);if(r.t==='i')sk(pts,{p:prt,w:4,c:OR,passes:1,amp:1,step:14});else sk(pts,{p:prt,w:2.5,c:'#CFCFCF',passes:1,amp:1,step:14,dash:[10,8]})});
  if(extra)extra();
  ctx.restore();
+ if(o.analisis!==false){fillP(rrect(R[0]+18,R[1]+18,150,46,12),INK);sk(rrect(R[0]+18,R[1]+18,150,46,12),{closed:true,w:2,c:'#666',passes:1});txt('Analisis',R[0]+93,R[1]+48,{size:19,weight:800,c:'#fff',align:'center'})}
  if(legend){const lx=R[0]+18,ly=R[1]+R[3]-84;fillP(rrect(lx,ly,250,66,12),'rgba(0,0,0,.75)');sk([[lx+16,ly+22],[lx+50,ly+22]],{w:3,c:'#CFCFCF',passes:1,dash:[8,6]});txt('Rute Marine',lx+62,ly+29,{size:17,weight:600,c:'#fff'});sk([[lx+16,ly+46],[lx+50,ly+46]],{w:4,c:OR,passes:1});txt('Rute Inland',lx+62,ly+53,{size:17,weight:600,c:'#fff'})}
 }
 function dot(x,y,k,c='#fff',r=8){if(k<=0)return;ctx.save();ctx.translate(x,y);ctx.scale(k,k);fillP(ell(0,0,r,r),c);sk(ell(0,0,r,r),{closed:true,w:2.5,c:INK,passes:1});ctx.restore()}
@@ -481,7 +482,7 @@ function lab(s,x,y){txt(s,x,y,{size:15,fam:MONO,weight:500,c:GREY})}
 function chipsRow(x,y,maxW,items,sel,o={}){const size=o.size||18,h=o.h||42,g=10;let cx=x,cy=y;const pos=[];items.forEach((s,i)=>{const w=mw(s,size,700)+30;if(cx+w>x+maxW){cx=x;cy+=h+g}pos.push([cx+w/2,cy]);if(i===sel)fillP(rrect(cx,cy,w,h,10),OR);else{fillP(rrect(cx,cy,w,h,10),'#fff');sk(rrect(cx,cy,w,h,10),{closed:true,w:2,passes:1})}txt(s,cx+w/2,cy+h/2+size*.36,{size,weight:700,c:i===sel?'#fff':INK,align:'center'});cx+=w+g});return pos}
 const OPT2=[['Termurah',['mks','mdo','tte']],['Terpendek',['mks','palu','luwuk','tte']],['Diversitas',['mks','kdi','sanana','tte']]].map(([n,w])=>[n,crs(w.map(k=>LL(P1,GEO[k])),16)]);
 const GPATH=crs(['mks','batam','changi','fangshan','geoje','miura'].map(k=>LL(PG,GEO[k])),18);
-const GHOPS=[['Makassar','mks'],['Batam','batam'],['Changi · Singapura','changi'],['Fangshan · Taiwan','fangshan'],['Geoje · Korea Selatan','geoje'],['Miura · Jepang','miura']];
+const GCAB=[['Asia Connect Cable 1 (ACC1)',1],['MIC-1',0],['EAC-C2C',0],['Southeast Asia-Japan Cable 2 (SJC2)',1],['SeaMeWe-3',0],['FLAG Europe-Asia (FEA)',0]];
 /* 9.0–11.75 : route form */
 function sForm2(t){cam(punch(0)*(1+t*.015),W/2,H/2);const x0=FX+28,w=pw0-56;
  const ta=prog(t,.75,1.05),tb=prog(t,1.2,1.6);
@@ -496,7 +497,7 @@ function sForm2(t){cam(punch(0)*(1+t*.015),W/2,H/2);const x0=FX+28,w=pw0-56;
  btn(x0,895,w,66,'Cari Rute & Harga',{dark:false,press:t>2.3&&t<2.5?1:0,icon:'search',size:24});ripple(x0+w/2,928,2.32,INK);
  const tg=t<.75?[x0+w*.6,465]:t<1.15?[x0+200,570]:t<1.7?[x0+260,730]:t<2.2?[x0+150,840]:[x0+w/2,928];
  const cx=900,cy=1005,s=.85;cat(cx,cy,s,{flip:true,armR:aim(cx,cy,s,true,tg[0],tg[1]),look:[-8,-6],sq:t>2.3&&t<2.45?.93:1});
- hand('dihitung dari jalur kabel nyata',1340,215,{size:44,c:'#fff',align:'center',p:E.out(prog(t,1.9,2.3))});
+ hand('Dark Fiber hingga Lit 100G',1340,215,{size:44,c:'#fff',align:'center',p:E.out(prog(t,1.9,2.3))});
 }
 /* 11.75–14.5 : 3 route options + nearest DC */
 function sResults(t){cam(punch(0)*(1+t*.015),W/2,H/2);const x0=FX+28,w=pw0-56;const act=t>1.6;
@@ -525,10 +526,11 @@ function sGlobal(t){cam(lerp(1.08,1,E.out(prog(t,0,.6))),W/2,H/2);const x0=FX+28
    sk(GPATH,{p:f,w:8,c:OR,passes:1,amp:1.2,step:12});const q=ptAt(GPATH,Math.max(.002,f));if(f>0&&f<1)cat(q[0],q[1]+4,.32,{walk:t*26,flip:Math.cos(q[2])<0});
    const a=LL(PG,GEO.mks),b=LL(PG,GEO.tyo);dot(a[0],a[1],1,OR,10);mlabel('Makassar',a[0]+18,a[1]+6);const kb=E.back(prog(t,1.3,1.5));dot(b[0],b[1],kb,OR,10);if(kb>0)mlabel('Tokyo',b[0]-16,b[1]+30,kb,'right');
    const sg=LL(PG,GEO.sg);mlabel('Singapore',sg[0]-14,sg[1]+30,prog(t,.5,.7),'right')}})});
- fillP(rrect(x0,240,110,34,17),INK);txt('GLOBAL',x0+55,263,{size:16,weight:800,c:'#fff',align:'center',fam:MONO});
- txt('Makassar → Tokyo',x0,330,{size:40,weight:800});txt('PoP PRT hingga gateway & data center global',x0,368,{size:20,weight:500,c:GREY});
- GHOPS.forEach(([n],i)=>{const fi=i/(GHOPS.length-1);const on=f>=fi-.001;const yy=430+i*82;if(i)sk([[x0+18,yy-70],[x0+18,yy-12]],{w:4,c:on?OR:'#D6D6D6',passes:1});fillP(ell(x0+18,yy,12,12),on?OR:'#fff');sk(ell(x0+18,yy,12,12),{closed:true,w:3,passes:1,c:on?OR2:INK});txt(n,x0+50,yy+8,{size:24,weight:on?800:500,c:on?INK:GREY})});
- hand('rute · bandwidth · data center · global',1340,215,{size:44,c:'#fff',align:'center',p:E.out(prog(t,.4,.9))});
+ fillP(rrect(x0,236,110,34,17),INK);txt('GLOBAL',x0+55,259,{size:16,weight:800,c:'#fff',align:'center',fam:MONO});const tw=mw('Termurah · Terpendek',16,800)+30;fillP(rrect(x0+122,236,tw,34,17),OR);txt('Termurah · Terpendek',x0+122+tw/2,259,{size:16,weight:800,c:'#fff',align:'center'});
+ txt('Makassar → Tokyo',x0,318,{size:38,weight:800});txt('Batam → Changi → Taiwan → Korea Selatan → Jepang',x0,352,{size:19,weight:600,c:GREY});
+ GCAB.forEach(([n,plan],i)=>{const on=f>=i/GCAB.length;const k=E.back(prog(f,i/GCAB.length,i/GCAB.length+.12));const yy=380+i*58;if(!on){sk(rrect(x0,yy,w,46,10),{closed:true,w:2,c:'#D6D6D6',passes:1});return}ctx.save();ctx.translate(x0,yy+23);ctx.scale(1,k);fillP(rrect(0,-23,w,46,10),SOFT);txt(n,16,7,{size:19,weight:700,c:OR2});if(plan){const pw2=mw('RENCANA',14,800)+20;fillP(rrect(w-pw2-12,-13,pw2,26,13),INK);txt('RENCANA',w-12-pw2/2,6,{size:14,weight:800,c:'#fff',align:'center'})}ctx.restore()});
+ const dk=prog(t,1.3,1.5);if(dk>0){ctx.save();ctx.globalAlpha*=dk;fillP(rrect(x0,738,w,58,10),'#F5F5F5');txt('DC terdekat: DC Tokyo · kolokasi 1U',x0+18,774,{size:19,weight:700});fillP(rrect(x0,806,w,58,10),'#FFF4E8');txt('Melewati kabel berstatus RENCANA',x0+18,842,{size:18,weight:700,c:OR2});ctx.restore()}
+ hand('dihitung dari jalur kabel nyata',1250,212,{size:44,c:'#fff',align:'center',p:E.out(prog(t,.4,.9))});
 }
 /* 16.25–17.75 : cart -> official quote */
 function sCart2(t){cam(punch(0)*(1+t*.02),W/2,H/2);const x0=FX+28,w=pw0-56;const n=t>.55?1:0;
@@ -549,7 +551,10 @@ function sCart2(t){cam(punch(0)*(1+t*.02),W/2,H/2);const x0=FX+28,w=pw0-56;const
 const BWS=['100 Mbps','200 Mbps','500 Mbps','1 Gbps','2 Gbps','5 Gbps','10 Gbps'],TERMS=['1 hari','7 hari','14 hari','1 bln','3 bln','6 bln','12 bln','36 bln'];
 function sOrder(t){cam(punch(0)*(1+t*.015),W/2,H/2,0,...shake(2.45,.2,10));const x0=FX+28,w=pw0-56;
  mframe(2,{cart:1,map:R=>darkMap(R,P1,{extra:()=>{sk(OPT2[0][1],{w:7,c:OR,passes:1,amp:1.2,step:12,p:E.out(prog(t,.6,1.1))});const a=LL(P1,GEO.mks),b=LL(P1,GEO.tte);dot(a[0],a[1],1,OR,10);dot(b[0],b[1],1,OR,10);mlabel('Titik A · Makassar',a[0]+18,a[1]+6);mlabel('Titik B · Ternate INT',b[0]-18,b[1]-22,1,'right');
-   if(t>2.55){const k=E.back(prog(t,2.55,2.75));ctx.save();ctx.translate(R[0]+R[2]/2,R[1]+R[3]-70);ctx.scale(k,k);fillP(rrect(-210,-34,420,68,34),OR);checkMark(-170,0,26,1,'#fff',6);txt('Pesanan diajukan',16,10,{size:26,weight:800,c:'#fff',align:'center'});ctx.restore()}}})});
+   const bk=E.out(prog(t,1.95,2.25));if(bk>0){const bw=560,bh=380,bx=R[0]+R[2]-bw-24,by=lerp(R[1]+R[3]+20,R[1]+R[3]-bh-24,bk);box(bx,by,bw,bh,{r:16,shadow:false});txt('Makassar → Manado → Ternate INT',bx+24,by+46,{size:20,weight:800});
+    [['Transport 1 Gbps',0],['Port A + B',0],['Faktor volume × kontrak',0],['Biaya aktivasi (sekali)',1],['Pembayaran awal (bulan ke-1)',0],['Total kontrak 12 bln',0]].forEach(([s,g],i)=>{const yy=by+96+i*44;if(g){fillP(rrect(bx+12,yy-28,bw-24,42,8),SOFT)}txt(s,bx+24,yy,{size:18,weight:g?800:500,c:g?INK:GREY});if(g)txt('Gratis (kontrak ≥ 12 bln)',bx+bw-24,yy,{size:18,weight:900,c:OR2,align:'right'});else ph(bx+bw-150,yy-6,126,INK,8)});
+    stamp(bx+bw-70,by+40,'GRATIS',prog(t,2.15,2.3),46)}
+   if(t>2.55){const k=E.back(prog(t,2.55,2.75));ctx.save();ctx.translate(R[0]+R[2]/2,R[1]+150);ctx.scale(k,k);fillP(rrect(-210,-34,420,68,34),OR);checkMark(-170,0,26,1,'#fff',6);txt('Pesanan diajukan',16,10,{size:26,weight:800,c:'#fff',align:'center'});ctx.restore()}}})});
  hero(x0,240,w,120,'Koneksi On-Demand',['Pesan koneksi antar-PoP/DC sendiri: pilih produk, titik,','bandwidth, dan masa kontrak.']);
  lab('PRODUK',x0,392);const pr=[['LTI Link','Layer-2 Ethernet · fleksibel'],['LTI Wave','Layer-1 Lambda · dedicated']];pr.forEach(([a,b],i)=>{const bx=x0+i*(w/2+6),bw=w/2-6;const on=i===0&&t>.35;box(bx,404,bw,80,{r:14,c:on?OR:INK,w:on?4:2.5,shadow:false});txt(a,bx+18,438,{size:22,weight:800,c:on?OR2:INK});txt(b,bx+18,466,{size:16,weight:500,c:GREY})});
  box(x0,494,w,64,{r:14,shadow:false,w:2.5});txt('LTI Net',x0+18,522,{size:22,weight:800});txt('Layer-3 · IP Transit / internet dedicated di titik A',x0+18,546,{size:16,weight:500,c:GREY});
@@ -559,7 +564,7 @@ function sOrder(t){cam(punch(0)*(1+t*.015),W/2,H/2,0,...shake(2.45,.2,10));const
  // the cat hops chip to chip
  let cx,cy,sq=1,hop=0;if(t<.75){cx=bp[0][0];cy=lerp(1150,bp[0][1],E.out(prog(t,.4,.75)))}else if(t<1.45){const k=clamp((t-.8)/.16,0,3);const i=Math.floor(k),f=k-i;const a=bp[Math.min(3,i)],b=bp[Math.min(3,i+1)];cx=lerp(a[0],b[0],f);cy=lerp(a[1],b[1],f)-Math.sin(f*PI)*40;hop=f}else if(t<2.0){const k=E.io(prog(t,1.45,2.0));const a=bp[3],b=tp[6];cx=lerp(a[0],b[0],k);cy=lerp(a[1],b[1],k)-Math.sin(k*PI)*90}else{cx=tp[6][0];cy=tp[6][1]}
  cat(cx,cy,.42,{sq:hop>.05&&hop<.95?1.1:1,happy:t>2.0,armR:t>2.0?-1.2:null,armL:t>2.0?-1.9:null});
- hand('bandwidth bisa diubah selama kontrak',1340,215,{size:44,c:'#fff',align:'center',p:E.out(prog(t,1.0,1.5))});
+ hand(t<1.95?'bandwidth bisa diubah selama kontrak':'',1340,215,{size:44,c:'#fff',align:'center',p:E.out(prog(t,1.0,1.5))});
 }
 /* 20.75–23.5 : Layanan Saya — real status flow + actions */
 const STG=['Diajukan','Studi','Provisioning','Aktif'];const LOGS=['Pesanan diajukan','Dibayar dari saldo','Status: diajukan → studi kelayakan','Status: studi kelayakan → provisioning','Status: provisioning → aktif'];
@@ -570,41 +575,48 @@ function sLayanan(t){cam(punch(0)*(1+t*.015),W/2,H/2,0,...shake(2.2,.2,10));cons
  box(x0,320,w,680,{r:18,c:stage===3?OR:INK,w:stage===3?4:3,shadow:false});
  txt('LTI Link 1 Gbps',x0+28,376,{size:28,weight:800});txt('Makassar → Manado → Ternate INT',x0+28,410,{size:19,weight:600,c:GREY});
  const L=['DIAJUKAN','STUDI KELAYAKAN','PROVISIONING','AKTIF'][stage];const lw=mw(L,16,800)+32;fillP(rrect(x0+w-28-lw,350,lw,36,18),stage===3?OR:INK);txt(L,x0+w-28-lw/2,374,{size:16,weight:800,c:'#fff',align:'center'});
- const NX=[0,1,2,3].map(i=>x0+70+i*((w-140)/3)),ny=490;let fx=NX[0];for(let i=1;i<4;i++){const k=E.io(prog(t,tt[i-1]+.15,tt[i]));if(k>0)fx=lerp(NX[i-1],NX[i],k)}
- sk([[NX[0],ny],[NX[3],ny]],{w:7,c:'#E2E2E2',passes:1});sk([[NX[0],ny],[fx,ny]],{w:7,c:OR,passes:1});
- NX.forEach((x,i)=>{const done=t>=tt[i];fillP(ell(x,ny,22,22),done?OR:'#fff');sk(ell(x,ny,22,22),{closed:true,w:3.5,c:done?OR2:INK,passes:1});if(done)checkMark(x,ny+2,22*E.back(prog(t,tt[i],tt[i]+.2)),1,'#fff',5);txt(STG[i],x,ny+56,{size:20,weight:done?800:500,c:done?INK:GREY,align:'center'})});
- cat(fx,ny-24,.45,{walk:t>.3&&t<2.05?t*24:null,happy:t>2.05,armR:t>2.05?-1.3:null,armL:t>2.05?-1.9:null,mouth:t>2.05&&t<2.3?'open':null});
+ const ny=490,sw=(w-56-30)/4;let fx=x0+28;for(let i=0;i<4;i++){const sx=x0+28+i*(sw+10);fillP(rrect(sx,ny-7,sw,14,7),'#E6E6E6');const k=E.io(prog(t,tt[i]-.3,tt[i]));if(k>0){fillP(rrect(sx,ny-7,Math.max(14,sw*k),14,7),OR);fx=sx+sw*k}const done=t>=tt[i];txt(STG[i],i===0?sx:i===3?sx+sw:sx+sw/2,ny+44,{size:20,weight:done?800:500,c:done?INK:GREY,align:i===0?'left':i===3?'right':'center'})}
+ cat(fx,ny-8,.45,{walk:t<2.05?t*24:null,happy:t>2.05,armR:t>2.05?-1.3:null,armL:t>2.05?-1.9:null,mouth:t>2.05&&t<2.3?'open':null});
  txt('Rp',x0+28,612,{size:26,weight:900});ph(x0+70,604,120,INK,10);txt('/bln · estimasi · 12 bln',x0+206,612,{size:18,weight:600,c:GREY});
  let bx=x0+28;[['Bayar dari saldo',true],['Ubah bandwidth'],['Lapor gangguan'],['Unduh ringkasan']].forEach(([s,pri],i)=>{const bw=mw(s,18,700)+36;const paid=t>.5;if(pri){fillP(rrect(bx,650,bw,50,12),paid?'#E9E9E9':OR);txt(paid?'Lunas':s,bx+bw/2,682,{size:18,weight:800,c:paid?GREY:'#fff',align:'center'});if(t>.3&&t<.45)ripple(bx+bw/2,675,.32,INK)}else{fillP(rrect(bx,650,bw,50,12),'#fff');sk(rrect(bx,650,bw,50,12),{closed:true,w:2.5,passes:1});txt(s,bx+bw/2,682,{size:18,weight:700,align:'center'})}bx+=bw+12});
  lab('RIWAYAT',x0+28,750);const shown=[0,.42,tt[1],tt[2],tt[3]];LOGS.forEach((s,i)=>{const a=prog(t,shown[i],shown[i]+.15);if(a<=0)return;txt('·  '+s,x0+28,790+i*40,{size:19,weight:i===4?800:500,c:i===4?OR2:INK,a})});
 }
 /* 23.5–28.0 : Ringkasan · Tiket · Saldo */
-function sRingkasan(t){cam(punch(0,.14)*(1+t*.03),W/2,H/2);const pw=980,x0=FX+28,w=pw-56;
- mframe(0,{pw,cart:1,map:R=>{const P={x:lon=>R[0]+(lon-118.5)*R[2]/10,y:lat=>R[1]+40+(3.2-lat)*R[2]/10};darkMap(R,P,{legend:false,extra:()=>{const b=LL(P,GEO.tte);const k=(T*1.3)%1;sk(ell(b[0],b[1],12+40*k,12+40*k),{closed:true,w:3,c:OR,a:1-k,passes:1});dot(b[0],b[1],1,OR,10);mlabel('Titik layanan aktif',b[0]-18,b[1]-24,1,'right')}})}});
- txt('Halo!',x0,270,{size:40,weight:800});txt('Ringkasan layanan Anda.',x0,306,{size:20,weight:500,c:GREY});
- [['layanan aktif'],['kapasitas aktif'],['sedang diproses'],['tiket terbuka']].forEach(([s],i)=>{const k=E.back(prog(t,.05+i*.06,.3+i*.06));if(k<=0)return;const bx=x0+(i%2)*(w/2+8),by=340+Math.floor(i/2)*150,bw=w/2-8;ctx.save();ctx.translate(bx+bw/2,by+65);ctx.scale(k,k);ctx.translate(-bw/2,-65);box(0,0,bw,130,{r:16,shadow:false,c:i===2?OR:INK,w:i===2?4:2.5});ph(26,52,lerp(30,90,E.out(prog(t,.3,.8))),i===2?OR:INK,22);txt(s,26,104,{size:20,weight:600,c:GREY});ctx.restore()});
- lab('STATUS PESANAN',x0,680);const st=['Menunggu pembayaran','Diajukan','Studi kelayakan','Provisioning','Aktif'];let sx=x0;st.forEach((s,i)=>{const sw=mw(s,16,700)+28;const on=i===Math.min(4,Math.floor(t*3.2));fillP(rrect(sx,696,sw,40,20),on?OR:'#F1F1F1');txt(s,sx+sw/2,722,{size:16,weight:700,c:on?'#fff':INK,align:'center'});sx+=sw+8});
- lab('AKTIVITAS TERBARU',x0,790);for(let i=0;i<3;i++){const a=prog(t,.4+i*.15,.55+i*.15);if(a<=0)continue;ctx.save();ctx.globalAlpha*=a;fillP(ell(x0+8,820+i*48,5,5),i===0?OR:INK);ph(x0+28,820+i*48,[420,360,300][i],'#D3D3D3',9);ctx.restore()}
- btn(x0+w-330,940,330,56,'Pesan koneksi baru',{dark:false,size:20});
- cat(x0+w-120,330,.55,{flip:true,look:[-6,6],tailSpeed:5});
+function sMobile(t){cam(punch(0,.14)*(1+t*.03),W/2,H/2);
+ const k=E.back(prog(t,0,.35));const px=640,py=lerp(1200,90,k),pwid=440,ph2=900;ctx.save();ctx.translate(px+pwid/2,py+ph2/2);ctx.rotate(lerp(.12,-.03,k));ctx.translate(-pwid/2,-ph2/2);
+ fillP(rrect(14,18,pwid,ph2,56),'rgba(20,20,20,.18)');fillP(rrect(0,0,pwid,ph2,56),INK);fillP(rrect(14,14,pwid-28,ph2-28,44),'#fff');
+ ctx.save();ctx.beginPath();ctx.rect(14,14,pwid-28,ph2-28);ctx.clip();
+ fillP(rrect(14,14,pwid-28,74,8),INK);fillP(rrect(32,32,38,38,9),'#fff');txt('L',51,60,{size:24,weight:800,align:'center'});txt('Connectivity Market',82,60,{size:20,weight:800,c:'#fff'});fillP(rrect(pwid-82,30,52,42,10),OR);
+ const R=[14,88,pwid-28,250];const P={x:lon=>R[0]+(lon-118.3)*R[2]/9.6,y:lat=>R[1]+10+(2.2-lat)*R[2]/9.6};darkMap(R,P,{legend:false,analisis:false,extra:()=>{sk(crs(['mks','mdo','tte'].map(c=>LL(P,GEO[c])),12),{w:5,c:OR,passes:1})}});fillP(rrect(28,104,110,34,10),INK);txt('Analisis',83,127,{size:15,weight:800,c:'#fff',align:'center'});
+ const tabs=['Ringkasan','Rute','Pesan','Layanan','Tiket'];let tx=24-lerp(0,60,E.io(prog(t,.4,.7)));fillP(rrect(24,352,pwid-48,46,12),'#F3F3F3');tabs.forEach(n=>{const tw=mw(n,15,700)+18;if(n==='Layanan')fillP(rrect(tx+4,358,tw,34,9),INK);txt(n,tx+4+tw/2,381,{size:15,weight:700,c:n==='Layanan'?'#fff':INK,align:'center'});tx+=tw+6});
+ box(24,414,pwid-48,450,{r:16,shadow:false,w:2.5});txt('LTI Link 1 Gbps',44,456,{size:22,weight:800});fillP(rrect(pwid-186,434,140,30,15),SOFT);txt('PROVISIONING',pwid-116,455,{size:14,weight:800,c:OR2,align:'center'});
+ const sw=(pwid-48-40-24)/4;for(let i=0;i<4;i++){const sx=44+i*(sw+8);fillP(rrect(sx,488,sw,10,5),'#E6E6E6');const kk=E.io(prog(t,.45+i*.15,.6+i*.15));if(i<3&&kk>0)fillP(rrect(sx,488,Math.max(10,sw*kk),10,5),OR)}
+ ['Diajukan','Studi','Provisioning','Aktif'].forEach((n,i)=>txt(n,44+i*(sw+8)+(i===3?sw:0),524,{size:13,weight:600,c:GREY,align:i===3?'right':'left'}));
+ txt('Makassar → Batam → Changi → Taiwan →',44,566,{size:16,weight:600,c:GREY});txt('Korea Selatan → Jepang',44,590,{size:16,weight:600,c:GREY});txt('Rp',44,634,{size:22,weight:900});ph(78,627,110,INK,9);txt('/bln · estimasi',200,634,{size:15,weight:600,c:OR2});
+ fillP(rrect(44,660,190,46,12),INK);txt('Bayar dari saldo',139,690,{size:16,weight:800,c:'#fff',align:'center'});[['Ubah bandwidth',246,660],['Lapor gangguan',44,718],['Unduh ringkasan',214,718]].forEach(([n,x,y])=>{const bw=mw(n,16,700)+28;sk(rrect(x,y,bw,46,12),{closed:true,w:2,passes:1});txt(n,x+bw/2,y+30,{size:16,weight:700,align:'center'})});
+ ctx.restore();ctx.restore();
+ cat(1260,1010,1.0,{flip:true,armR:aim(1260,1010,1.0,true,900,600),look:[-8,-6],happy:t>.9});
+ hand('lengkap juga di ponsel',1450,380,{size:64,align:'center',p:E.out(prog(t,.3,.8))});hand('pesan · pantau · bayar · lapor',1450,470,{size:44,align:'center',c:GREY,p:E.out(prog(t,.6,1.05))});
 }
+
 function sTiket2(t){cam(punch(0,.14)*(1+t*.03),W/2,H/2);const pw=980,x0=FX+28,w=pw-56;
  mframe(4,{pw,cart:1,map:R=>darkMap(R,{x:lon=>R[0]+(lon-118.5)*R[2]/10,y:lat=>R[1]+40+(3.2-lat)*R[2]/10},{legend:false})});
  txt('Tiket',x0,270,{size:40,weight:800});txt('Laporkan gangguan, ajukan permintaan teknis, atau tanyakan tagihan.',x0,306,{size:19,weight:500,c:GREY});txt('Tim NOC/komersial LTI membalas di sini.',x0,332,{size:19,weight:700,c:OR2});
- lab('KATEGORI',x0,380);chipsRow(x0,392,w,['Gangguan','Permintaan teknis','Tagihan','Lainnya'],t>.1?0:-1);
- lab('PRIORITAS',x0,478);chipsRow(x0,490,w,['rendah','sedang','tinggi','kritis'],t>.25?2:-1);
- field(x0,575,w,'Layanan terkait','LTI Link · Makassar → Ternate INT',prog(t,.3,.45));
- field(x0,685,w,'Judul','Mohon cek kualitas link',prog(t,.45,.75));
- btn(x0,820,300,66,'Kirim tiket',{press:t>.95&&t<1.1?1:0,size:23});ripple(x0+150,853,.97);if(t>1.02){const f=E.out(prog(t,1.02,1.45));plane(lerp(x0+150,FX+pw+200,f),lerp(853,300,f),1.3,-.6)}
- const cx=x0+w-120,cy=1000,s=.8;cat(cx,cy,s,{flip:true,armR:aim(cx,cy,s,true,t<.9?x0+400:x0+150,t<.9?720:853),look:[-8,-4]});
+ const dd=(x,y,ww,l,v,p)=>{field(x,y,ww,l,v,p);sk([[x+ww-34,y+40],[x+ww-26,y+32],[x+ww-18,y+40]],{w:2.5,passes:1});sk([[x+ww-34,y+50],[x+ww-26,y+58],[x+ww-18,y+50]],{w:2.5,passes:1})};
+ dd(x0,370,w/2-10,'Kategori','Gangguan',prog(t,.05,.15));dd(x0+w/2+10,370,w/2-10,'Prioritas',t<.3?'sedang':'tinggi',1.2);
+ dd(x0,475,w,'Layanan terkait','LTI Link · Makassar → Ternate INT',prog(t,.3,.42));
+ field(x0,580,w,'Judul','Link down sejak 09.00 WITA',prog(t,.42,.7));
+ lab('DESKRIPSI',x0,690);box(x0,704,w,90,{r:12,shadow:false,w:2.5});ph(x0+22,750,lerp(0,520,E.out(prog(t,.7,.9))),'#BDBDBD',8);
+ btn(x0,822,300,66,'Kirim tiket',{dark:false,press:t>.95&&t<1.1?1:0,size:23});ripple(x0+150,855,.97,INK);if(t>1.02){const f=E.out(prog(t,1.02,1.45));plane(lerp(x0+150,FX+pw+200,f),lerp(855,300,f),1.3,-.6)}
+ const cx=x0+w-120,cy=1000,s=.8;cat(cx,cy,s,{flip:true,armR:aim(cx,cy,s,true,t<.9?x0+400:x0+150,t<.9?620:855),look:[-8,-4]});
 }
 function sSaldo2(t){cam(punch(0,.14)*(1+t*.03),W/2,H/2);const pw=980,x0=FX+28,w=pw-56;
  mframe(6,{pw,cart:1,map:R=>darkMap(R,{x:lon=>R[0]+(lon-118.5)*R[2]/10,y:lat=>R[1]+40+(3.2-lat)*R[2]/10},{legend:false})});
  txt('Saldo LTI',x0,270,{size:40,weight:800});txt('Saldo prabayar untuk membayar layanan di portal.',x0,306,{size:20,weight:500,c:GREY});
  const wx=x0,wy=340;fillP(rrect(wx+10,wy+12,w,220,26),'rgba(20,20,20,.12)');fillP(rrect(wx,wy,w,220,26),INK);fillP(rrect(wx+w-230,wy+70,230,90,18),OR);fillP(ell(wx+w-180,wy+115,15,15),'#fff');
  txt('SALDO',wx+36,wy+60,{size:18,fam:MONO,weight:500,c:'#9A9A9A'});txt('Rp ··· ···',wx+36,wy+140,{size:56,weight:800,c:'#fff'});
- lab('ISI SALDO',x0,598);field(x0,640,w/2-10,'Jumlah (Rp)','·····',prog(t,.2,.4));field(x0+w/2+10,640,w/2-10,'No. referensi transfer','·······',prog(t,.4,.6));
- btn(x0,770,420,64,'Kirim konfirmasi top-up',{dark:false,size:21,press:t>.7&&t<.85?1:0});ripple(x0+210,802,.72,INK);
+ lab('ISI SALDO',x0,620);field(x0,632,w/2-10,'Jumlah (Rp)','·····',prog(t,.2,.4));field(x0+w/2+10,632,w/2-10,'No. referensi transfer','·······',prog(t,.4,.6));
+ btn(x0,760,420,64,'Kirim konfirmasi top-up',{dark:false,size:21,press:t>.7&&t<.85?1:0});ripple(x0+210,792,.72,INK);
  txt('Diverifikasi tim Keuangan LTI.',x0,870,{size:19,weight:600,c:GREY});txt('Kredit SLA yang disetujui masuk sebagai saldo.',x0,902,{size:19,weight:800,c:OR2});
  for(let i=0;i<4;i++){const t0=.8+i*.1;const k=prog(t,t0,t0+.35);if(k<=0||k>=1)continue;const f=E.in(k);const x=lerp(FX+pw+260,wx+w-120,f)+Math.sin(i*2)*20,y=lerp(600,wy+115,f)-Math.sin(f*PI)*180;fillP(ell(x,y,30,30),OR);sk(ell(x,y,30,30),{closed:true,w:4,passes:1});txt('Rp',x,y+8,{size:21,weight:900,c:'#fff',align:'center'})}
  cat(FX+pw+260,700,.9,{flip:true,armR:-1.0,look:[-8,-4],happy:t>1.0});
@@ -612,7 +624,7 @@ function sSaldo2(t){cam(punch(0,.14)*(1+t*.03),W/2,H/2);const pw=980,x0=FX+28,w=
 
 /* ================= TIMELINE ================= */
 const SC=[[0,2.5,sIntro],[2.5,3.25,sPalette],[3.25,5.5,sGrid],[5.5,8,sValue],
- [8,9,t=>chapter(t,'01','Connectivity ','Market','.','mag','rute · bandwidth · data center · global')],[9,11.75,sForm2],[11.75,14.5,sResults],[14.5,16.25,sGlobal],[16.25,17.75,sCart2],[17.75,20.75,sOrder],[20.75,23.5,sLayanan],[23.5,25,sRingkasan],[25,26.5,sTiket2],[26.5,28,sSaldo2],
+ [8,9,t=>chapter(t,'01','Connectivity ','Market','.','mag','rute · bandwidth · data center · global')],[9,11.75,sForm2],[11.75,14.5,sResults],[14.5,16.25,sGlobal],[16.25,17.75,sCart2],[17.75,20.75,sOrder],[20.75,23.5,sLayanan],[23.5,25,sMobile],[25,26.5,sTiket2],[26.5,28,sSaldo2],
  [28,29,t=>chapter(t,'02','Satu ','platform',', semua aplikasi.','plug','kelas dunia · terpadu · tanpa biaya akses')],[29,32.25,sHub],[32.25,35,sNetMap],[35,37.5,sHelp],[37.5,40,sFree],[40,45.01,sEnd45]];
 function hud(){const a=(T<39.8?1:1-prog(T,39.8,40.1))*(T>8.9&&T<28.1?0:1);if(a<=0)return;ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=a;
  const f=Math.floor(T*30+1e-6);const ss=String(Math.floor(f/30)).padStart(2,'0'),ff=String(f%30).padStart(2,'0');
