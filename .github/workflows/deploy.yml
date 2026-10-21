@@ -26,3 +26,11 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         server-dir: /
+        # virtual-testbed/ adalah aplikasi Node (server + source) untuk subdomain
+        # virtual.komersiallti.my.id — JANGAN ikut tersinkron ke web root situs statis.
+        # Catatan: menyetel `exclude` menimpa default action, jadi default-nya ditulis ulang.
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          virtual-testbed/**

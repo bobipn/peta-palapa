@@ -1,0 +1,59 @@
+{
+  "name": "cring-virtual-testbed",
+  "version": "0.1.0",
+  "private": true,
+  "description": "C-Ring Market Digital Twin & Virtual Network Testbed — SIMULATED marketplace + network, no production integration",
+  "type": "module",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "tsx watch server/src/index.ts",
+    "dev:web": "vite --config web/vite.config.ts",
+    "build": "npm run build:api && npm run build:web",
+    "build:api": "tsc -p server/tsconfig.build.json",
+    "build:web": "vite build --config web/vite.config.ts",
+    "start": "node dist/server/src/index.js",
+    "db:migrate": "tsx server/src/db/cli.ts migrate",
+    "db:seed": "tsx server/src/db/cli.ts seed",
+    "db:reset-demo": "tsx server/src/db/cli.ts reset-demo",
+    "openapi:export": "tsx server/src/openapi-export.ts",
+    "typecheck": "tsc -p server/tsconfig.json --noEmit && tsc -p web/tsconfig.json --noEmit",
+    "lint": "eslint server web/src",
+    "test": "vitest run",
+    "test:pg": "TEST_DATABASE_URL=${TEST_DATABASE_URL:-postgres://postgres@localhost:5432/cring_test} vitest run",
+    "test:e2e": "playwright test -c e2e/playwright.config.ts"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.3.0",
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/rate-limit": "^11.2.1",
+    "@fastify/static": "^10.1.6",
+    "@fastify/swagger": "^9.5.0",
+    "@fastify/swagger-ui": "^6.1.2",
+    "@fastify/type-provider-typebox": "^5.1.0",
+    "@sinclair/typebox": "^0.34.33",
+    "fastify": "^5.3.2",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.0",
+    "@types/pg": "^8.15.2",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "@vitejs/plugin-react": "^5.0.0",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.27.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.0",
+    "tsx": "^4.19.4",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.32.1",
+    "vite": "^7.1.0",
+    "vitest": "^4.1.12"
+  }
+}
