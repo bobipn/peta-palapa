@@ -110,7 +110,9 @@ export async function getIncident(q: Queryable, who: Principal, id: string) {
   const events = (await q.query(`SELECT * FROM incident_events WHERE incident_id=$1 ORDER BY id`, [id])).rows.map((e) => ({ ...e, sim_time: simTimeOf(sim, e.tick) }));
   const alarms = (await q.query(`SELECT * FROM alarms WHERE incident_id=$1 ORDER BY raised_tick`, [id])).rows;
   const faults = (await q.query(`SELECT * FROM injected_faults WHERE group_id=$1 ORDER BY created_at`, [inc.fault_group])).rows;
-  const restorations = events.filter((e) => e.kind === 'SERVICE_RESTORED').map((e) => ({ serviceId: e.data.serviceId, seconds: e.data.restorationSeconds, tick: e.tick }));
+  const restorations = events
+    .filter((e) => e.kind === 'SERVICE_RESTORED' || (e.kind === 'PROTECTION_SWITCH' && e.data.switchMs !== undefined))
+    .map((e) => ({ serviceId: e.data.serviceId, seconds: e.kind === 'PROTECTION_SWITCH' ? e.data.switchMs / 1000 : e.data.restorationSeconds, tick: e.tick, via: e.kind === 'PROTECTION_SWITCH' ? 'protection switch' : 'restoration' }));
   return { incident: inc, events, alarms, faults, restorations, tickSeconds: sim.tickSeconds, simulated: true };
 }
 
