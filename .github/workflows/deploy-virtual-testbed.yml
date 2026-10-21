@@ -1,0 +1,40 @@
+name: Deploy virtual testbed (manual)
+
+# Manual only. Builds virtual-testbed/ and uploads the runtime bundle to the
+# directory of the cPanel Node.js app behind virtual.komersiallti.my.id.
+# Required secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, VIRTUAL_FTP_DIR
+# (e.g. /cring-virtual/ — must be OUTSIDE public_html). After upload, in cPanel:
+# Setup Node.js App -> Run NPM Install -> Restart. See virtual-testbed/docs/deploy.md.
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: virtual-testbed
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: virtual-testbed/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - name: Assemble runtime bundle
+        run: |
+          mkdir -p ../bundle
+          cp -r dist package.json package-lock.json .npmrc app.cjs ../bundle/
+      - name: Upload bundle via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./bundle/
+          server-dir: ${{ secrets.VIRTUAL_FTP_DIR }}

@@ -25,7 +25,6 @@ export function useApi<T>(fn: () => Promise<T>, deps: unknown[] = [], pollMs = 0
     if (!pollMs) return;
     const t = setInterval(() => { if (!document.hidden) load(); }, pollMs);
     return () => clearInterval(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
   return { data, error, loading, reload: load, setData };
 }

@@ -1,0 +1,1657 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "C-Ring Market Virtual Testbed API (SIMULATED)",
+    "version": "0.1.0",
+    "description": "Digital twin of a connectivity marketplace and its network. Every provider, cable, price and metric is SIMULATED. No call is made to real providers, devices, billing or payment systems. Mutating endpoints accept an Idempotency-Key header; every response carries X-Request-ID."
+  },
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "cring_sid"
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/meta": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "maxLength": 200,
+                    "type": "string"
+                  },
+                  "password": {
+                    "maxLength": 200,
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/locations": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/products": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/sla-profiles": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/sla-profiles/{id}": {
+      "put": {
+        "tags": [
+          "catalog"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "latencyMs",
+                  "jitterMs",
+                  "lossPct",
+                  "availabilityPct"
+                ],
+                "properties": {
+                  "latencyMs": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 1000,
+                    "type": "number"
+                  },
+                  "jitterMs": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 500,
+                    "type": "number"
+                  },
+                  "lossPct": {
+                    "minimum": 0,
+                    "maximum": 100,
+                    "type": "number"
+                  },
+                  "availabilityPct": {
+                    "minimum": 90,
+                    "maximum": 100,
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/topology": {
+      "get": {
+        "tags": [
+          "network"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/topology/nodes/{id}": {
+      "get": {
+        "tags": [
+          "network"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/topology/segments/{id}": {
+      "get": {
+        "tags": [
+          "network"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/routes/search": {
+      "post": {
+        "tags": [
+          "marketplace"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "aLocationId",
+                  "bLocationId",
+                  "bandwidthMbps",
+                  "protection"
+                ],
+                "properties": {
+                  "aLocationId": {
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "type": "string"
+                  },
+                  "bLocationId": {
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "type": "string"
+                  },
+                  "bandwidthMbps": {
+                    "minimum": 1,
+                    "maximum": 400000,
+                    "type": "integer"
+                  },
+                  "protection": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "NONE"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "PROTECTED"
+                        ]
+                      }
+                    ]
+                  },
+                  "slaProfileId": {
+                    "type": "string"
+                  },
+                  "productId": {
+                    "type": "string"
+                  },
+                  "objective": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "LATENCY"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "COST"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "BALANCED"
+                        ]
+                      }
+                    ]
+                  },
+                  "excludeProviders": {
+                    "maxItems": 10,
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/quotes": {
+      "post": {
+        "tags": [
+          "marketplace"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "aLocationId",
+                  "bLocationId",
+                  "bandwidthMbps",
+                  "protection",
+                  "slaProfileId",
+                  "productId",
+                  "termMonths"
+                ],
+                "properties": {
+                  "aLocationId": {
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "type": "string"
+                  },
+                  "bLocationId": {
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "type": "string"
+                  },
+                  "bandwidthMbps": {
+                    "minimum": 1,
+                    "maximum": 400000,
+                    "type": "integer"
+                  },
+                  "protection": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "NONE"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "PROTECTED"
+                        ]
+                      }
+                    ]
+                  },
+                  "slaProfileId": {
+                    "allOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "productId": {
+                    "allOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "objective": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "LATENCY"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "COST"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "BALANCED"
+                        ]
+                      }
+                    ]
+                  },
+                  "excludeProviders": {
+                    "maxItems": 10,
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "termMonths": {
+                    "minimum": 1,
+                    "maximum": 120,
+                    "type": "integer"
+                  },
+                  "routeSignature": {
+                    "maxLength": 2000,
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/quotes/{id}": {
+      "get": {
+        "tags": [
+          "marketplace"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/quotes/{id}/accept": {
+      "post": {
+        "tags": [
+          "marketplace"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/orders": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/pay": {
+      "post": {
+        "tags": [
+          "orders"
+        ],
+        "description": "SIMULATED checkout. No payment gateway is called.",
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/cancel": {
+      "post": {
+        "tags": [
+          "orders"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "maxLength": 500,
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/provider/suborders": {
+      "get": {
+        "tags": [
+          "provider"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/provider/suborders/{id}/respond": {
+      "post": {
+        "tags": [
+          "provider"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "decision"
+                ],
+                "properties": {
+                  "decision": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "ACCEPT"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "REJECT"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "CLARIFY"
+                        ]
+                      }
+                    ]
+                  },
+                  "note": {
+                    "maxLength": 1000,
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/provider/assets": {
+      "get": {
+        "tags": [
+          "provider"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/provider/segments/{id}": {
+      "patch": {
+        "tags": [
+          "provider"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pricePerGbpsMonth": {
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "adminStatus": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "UP"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "DOWN"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/provider/settings": {
+      "patch": {
+        "tags": [
+          "provider"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "autoAccept": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/services": {
+      "get": {
+        "tags": [
+          "services"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/services/{id}": {
+      "get": {
+        "tags": [
+          "services"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/services/{id}/telemetry": {
+      "get": {
+        "tags": [
+          "services"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "fromTick",
+            "required": false
+          },
+          {
+            "schema": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "toTick",
+            "required": false
+          },
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/services/{id}/tests": {
+      "post": {
+        "tags": [
+          "services"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/services/{id}/terminate": {
+      "post": {
+        "tags": [
+          "services"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/provisioning/workflows": {
+      "get": {
+        "tags": [
+          "provisioning"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/provisioning/workflows/{id}": {
+      "get": {
+        "tags": [
+          "provisioning"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/provisioning/run": {
+      "post": {
+        "tags": [
+          "provisioning"
+        ],
+        "description": "Run the workflow scheduler once (normally runs in the background).",
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/noc/overview": {
+      "get": {
+        "tags": [
+          "assurance"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/sla/summary": {
+      "get": {
+        "tags": [
+          "assurance"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/alarms": {
+      "get": {
+        "tags": [
+          "assurance"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "ACTIVE"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "CLEARED"
+                  ]
+                }
+              ]
+            },
+            "in": "query",
+            "name": "state",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/alarms/{id}/ack": {
+      "post": {
+        "tags": [
+          "assurance"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/incidents": {
+      "get": {
+        "tags": [
+          "assurance"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/incidents/{id}": {
+      "get": {
+        "tags": [
+          "assurance"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/simulation/state": {
+      "get": {
+        "tags": [
+          "simulation"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/simulation/scenarios": {
+      "get": {
+        "tags": [
+          "simulation"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/simulation/tick": {
+      "post": {
+        "tags": [
+          "simulation"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "count"
+                ],
+                "properties": {
+                  "count": {
+                    "minimum": 1,
+                    "maximum": 1440,
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/simulation/faults": {
+      "post": {
+        "tags": [
+          "simulation"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "targetType"
+                ],
+                "properties": {
+                  "type": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "FIBER_CUT"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "NODE_DOWN"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "PORT_DOWN"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "CAPACITY_EXHAUSTION"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "HIGH_LATENCY"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "PACKET_LOSS"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "PROVIDER_API_TIMEOUT"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "PROVISIONING_FAILURE"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "SCHEDULED_MAINTENANCE"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "CUSTOMER_SIDE_OUTAGE"
+                        ]
+                      }
+                    ]
+                  },
+                  "targetType": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "SEGMENT"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "NODE"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "PORT"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "PROVIDER"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "SERVICE"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "GLOBAL"
+                        ]
+                      }
+                    ]
+                  },
+                  "targetId": {
+                    "maxLength": 80,
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "addMs": {
+                        "minimum": 0,
+                        "maximum": 5000,
+                        "type": "number"
+                      },
+                      "addPct": {
+                        "minimum": 0,
+                        "maximum": 100,
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/simulation/faults/{id}/restore": {
+      "post": {
+        "tags": [
+          "simulation"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/simulation/scenarios/{code}/run": {
+      "post": {
+        "tags": [
+          "simulation"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "maxLength": 60,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "code",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/simulation/reset": {
+      "post": {
+        "tags": [
+          "simulation"
+        ],
+        "description": "Clears faults, telemetry, alarms and incidents; sim clock -> 0. Orders/services kept.",
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/simulation/settings": {
+      "patch": {
+        "tags": [
+          "simulation"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "autoTick"
+                ],
+                "properties": {
+                  "autoTick": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/settlement/summary": {
+      "get": {
+        "tags": [
+          "settlement"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/settlement/ledger": {
+      "get": {
+        "tags": [
+          "settlement"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/settlement/orders/{id}/settle": {
+      "post": {
+        "tags": [
+          "settlement"
+        ],
+        "description": "Marks entries SETTLED_SIMULATED. No money moves.",
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/settings": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/settings/{key}": {
+      "put": {
+        "tags": [
+          "admin"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "value"
+                ],
+                "properties": {
+                  "value": {}
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "maxLength": 60,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "key",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/audit": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minimum": 1,
+              "maximum": 1000,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/events": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "aggregateType",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "aggregateId",
+            "required": false
+          },
+          {
+            "schema": {
+              "minimum": 1,
+              "maximum": 1000,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/admin/reset-demo": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "description": "Truncates demo data and re-seeds. Schema and migration history are kept.",
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/integrations": {
+      "get": {
+        "tags": [
+          "integrations"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/integrations/sonata/orders/{id}": {
+      "get": {
+        "tags": [
+          "integrations"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/mock/sonata/productOrder": {
+      "post": {
+        "tags": [
+          "integrations"
+        ],
+        "description": "MOCK Sonata seller (illustrative, no conformance claim). Validates the illustrative contract and returns acknowledged.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "session": []
+    }
+  ]
+}

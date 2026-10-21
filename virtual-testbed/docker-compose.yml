@@ -1,0 +1,26 @@
+# Local stack: app + PostgreSQL 16. Everything is SIMULATED; no outbound integrations.
+#   DEMO_PASSWORD=choose-one docker compose up --build   ->  http://localhost:8080
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: cring
+      POSTGRES_USER: cring
+      POSTGRES_PASSWORD: cring-local-only
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cring -d cring"]
+      interval: 5s
+      retries: 20
+  app:
+    build: .
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      DATABASE_URL: postgres://cring:cring-local-only@db:5432/cring
+      DEMO_PASSWORD: ${DEMO_PASSWORD:?set DEMO_PASSWORD}
+      COOKIE_SECURE: "false"   # local http; keep true behind HTTPS
+      TRUST_PROXY: "false"
+    ports: ["8080:8080"]
+volumes:
+  pgdata:
