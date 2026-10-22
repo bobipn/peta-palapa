@@ -358,9 +358,13 @@ const HANDLERS: Record<string, Handler> = {
     const r = await ctx.sim.createVirtualService({
       serviceId: wf.service_id, bandwidthMbps: quote.bandwidth_mbps,
       primarySegmentIds: quote.route.primary.segmentIds, protectionSegmentIds: quote.route.protection?.segmentIds ?? null, providerIds,
+      nodeIds: [...new Set<string>([...quote.route.primary.nodeIds, ...(quote.route.protection?.nodeIds ?? [])])],
     });
     await ctx.db.query(`UPDATE services SET sim_handle=$2 WHERE id=$1`, [wf.service_id, r.handle]);
-    const result = { handle: r.handle, readyAt: r.readyAt.toISOString(), adapter: (await ctx.sim.status()).mode };
+    const result = {
+      handle: r.handle, readyAt: r.readyAt.toISOString(), adapter: (await ctx.sim.status()).mode,
+      nodePlan: r.nodePlan.map((n) => ({ nodeId: n.nodeId, readyAt: n.readyAt.toISOString() })),
+    };
     return r.readyAt <= ctx.clock.now() ? { kind: 'DONE', result } : { kind: 'WAIT', until: r.readyAt, result, note: 'Simulated provisioning delay' };
   },
 

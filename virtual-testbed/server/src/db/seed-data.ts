@@ -114,7 +114,7 @@ export const DEFAULT_SETTINGS: Record<string, unknown> = {
   payment_timeout_minutes: 30,
   provider_acceptance_timeout_minutes: 10,
   hold_ttl_minutes: 30,
-  provisioning_delay_s_per_segment: 1,
+  provisioning_delay_s_per_node: 2,
   protection_revertive: false,
   protection_switch_ms: 50,
   reroute_ticks: 2,

@@ -33,10 +33,14 @@ export class DeterministicSimulationAdapter implements NetworkSimulationAdapter 
     const down = spec.primarySegmentIds.filter((s) => ns.segDown.has(s));
     if (down.length) throw new SimulationError('PATH_DOWN', `Cannot provision over down segment(s): ${down.join(', ')}`, true);
     const settings = await getSettings(db);
-    const segCount = spec.primarySegmentIds.length + (spec.protectionSegmentIds?.length ?? 0);
+    // Nodes are brought up one after another (simulated device boot + config push).
+    const start = clock.now().getTime();
+    const step = settings.provisioning_delay_s_per_node * 1000;
+    const nodePlan = spec.nodeIds.map((nodeId, i) => ({ nodeId, readyAt: new Date(start + (i + 1) * step) }));
     return {
       handle: `vsvc-${spec.serviceId}`,
-      readyAt: new Date(clock.now().getTime() + segCount * settings.provisioning_delay_s_per_segment * 1000),
+      readyAt: nodePlan.at(-1)?.readyAt ?? new Date(start),
+      nodePlan,
     };
   }
 

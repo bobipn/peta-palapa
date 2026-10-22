@@ -14,6 +14,8 @@ export interface VirtualServiceSpec {
   bandwidthMbps: number;
   primarySegmentIds: string[];
   protectionSegmentIds: string[] | null;
+  /** Nodes in bring-up order (primary path first, then protection-only nodes). */
+  nodeIds: string[];
   providerIds: string[];
 }
 
@@ -70,7 +72,7 @@ export interface AdapterStatus {
 
 export interface NetworkSimulationAdapter {
   status(): Promise<AdapterStatus>;
-  createVirtualService(spec: VirtualServiceSpec): Promise<{ handle: string; readyAt: Date }>;
+  createVirtualService(spec: VirtualServiceSpec): Promise<{ handle: string; readyAt: Date; nodePlan: { nodeId: string; readyAt: Date }[] }>;
   activateService(handle: string): Promise<void>;
   deactivateService(handle: string): Promise<void>;
   getServiceStatus(handle: string): Promise<{ handle: string; state: string; activePath: string | null; operStatus: string }>;

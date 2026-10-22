@@ -22,6 +22,9 @@
   --shadow: 0 1px 2px rgba(15, 27, 45, 0.06), 0 2px 8px rgba(15, 27, 45, 0.04);
   --radius: 10px;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sea: #dcebf5;
+  --land: #f7f5ef;
+  --land-edge: #b9c3cf;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -29,14 +32,14 @@
     --bg: #0b1220; --surface: #121b2d; --surface-2: #0f1828; --border: #23314a; --text: #e6edf7; --muted: #93a3bb;
     --accent: #4aa3ff; --accent-soft: #14294a; --ok: #34d399; --ok-soft: #0f2e25; --warn: #f2b84b; --warn-soft: #33270f;
     --bad: #f87171; --bad-soft: #3a1717; --info: #a78bfa; --info-soft: #241c45; --side: #070d19; --side-text: #9fb0c9;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3); color-scheme: dark;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3); --sea: #0d2238; --land: #1c2a3d; --land-edge: #34465e; color-scheme: dark;
   }
 }
 :root[data-theme='dark'] {
   --bg: #0b1220; --surface: #121b2d; --surface-2: #0f1828; --border: #23314a; --text: #e6edf7; --muted: #93a3bb;
   --accent: #4aa3ff; --accent-soft: #14294a; --ok: #34d399; --ok-soft: #0f2e25; --warn: #f2b84b; --warn-soft: #33270f;
   --bad: #f87171; --bad-soft: #3a1717; --info: #a78bfa; --info-soft: #241c45; --side: #070d19; --side-text: #9fb0c9;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3); color-scheme: dark;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3); --sea: #0d2238; --land: #1c2a3d; --land-edge: #34465e; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -176,3 +179,9 @@ button.sm { padding: 3px 9px; font-size: 12px; }
 .empty { padding: 24px; text-align: center; color: var(--muted); }
 code { font-family: var(--mono); font-size: 12px; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
 pre { font-family: var(--mono); font-size: 12px; background: var(--surface-2); padding: 10px; border-radius: 8px; overflow: auto; max-height: 360px; border: 1px solid var(--border); }
+
+/* Live provisioning map */
+.live-map svg { aspect-ratio: auto; }
+.live-map text { stroke: none; }
+.device { transition: opacity 0.2s; }
+.map svg.device-badge { width: auto; display: inline-block; background: none; border: none; border-radius: 0; }

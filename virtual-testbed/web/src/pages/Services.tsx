@@ -4,6 +4,7 @@ import { bw, dt, get, ms, pct, post } from '../api';
 import { hasRole, useAuth } from '../App';
 import { Badge, Empty, ErrorBox, Kpi, LineChart, Loading, PageHead, PathChain, SimBadge, Tabs, Timeline, useAction, useApi } from '../components/ui';
 import { TopologyMap } from '../components/TopologyMap';
+import { ProvisioningLiveView } from '../components/ProvisioningLiveView';
 
 export function ServicesPage() {
   const s = useApi(() => get('/api/services'), [], 4000);
@@ -41,7 +42,7 @@ export function ServiceDetailPage() {
   const d = useApi(() => get(`/api/services/${id}`), [id], 4000);
   const tel = useApi(() => get(`/api/services/${id}/telemetry`), [id], 4000);
   const topo = useApi(() => (hasRole(user, 'ADMIN', 'NOC', 'AUDITOR', 'PROVIDER', 'COMMERCIAL') ? get('/api/topology') : Promise.resolve(null)), [], 8000);
-  const [tab, setTab] = useState('Monitoring');
+  const [tab, setTab] = useState('Live view');
   const act = useAction();
   const highlight = useMemo(() => {
     if (!d.data) return undefined;
@@ -72,7 +73,9 @@ export function ServiceDetailPage() {
         <Kpi label="Last loss" value={pct(samples.at(-1)?.loss_pct, 4)} sub={`target ≤ ${s.sla_loss_pct} %`} />
       </div>
 
-      <Tabs tabs={['Monitoring', 'Path', 'Activation tests', 'Events & alarms']} value={tab} onChange={setTab} />
+      <Tabs tabs={['Live view', 'Monitoring', 'Path', 'Activation tests', 'Events & alarms']} value={tab} onChange={setTab} />
+
+      {tab === 'Live view' ? <div className="card"><ProvisioningLiveView serviceId={s.id} /></div> : null}
 
       {tab === 'Monitoring' ? (
         <div className="stack">

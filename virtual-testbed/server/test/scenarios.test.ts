@@ -8,6 +8,7 @@ import { capacityConsistency, reserve } from '../src/modules/capacity.js';
 import { resetDemo } from '../src/db/seed.js';
 import { tick } from '../src/modules/simulation/engine.js';
 import { systemMeta } from '../src/modules/context.js';
+import { runOnce } from '../src/modules/orchestrator.js';
 
 let env: TestEnv;
 let custA: Api, custB: Api, noc: Api, admin: Api, alpha: Api, bravo: Api, delta: Api, auditor: Api, commercial: Api;
@@ -406,5 +407,49 @@ describe('Scenario H — repeatability', () => {
     const b = await scripted();
     expect(b).toBe(a);
     expect(JSON.parse(a).samples.length).toBeGreaterThan(40);
+  });
+});
+
+describe('Live provisioning view (per-node device state)', () => {
+  it('brings nodes up one by one: PENDING (red) -> BOOTING -> CONFIGURED -> ACTIVE (green); fault -> DOWN', async () => {
+    await fresh();
+    const { orderId, serviceId } = await placeOrder(custA, { a: 'jkt', b: 'tte', mbps: 1000, sla: 'sla-domestic' });
+    let live = (await custA.get(`/api/services/${serviceId}/live`)).body;
+    expect(live.nodes.length).toBeGreaterThan(2);
+    expect(live.nodes.every((n: any) => n.state === 'PENDING')).toBe(true);
+    expect(live.links.every((l: any) => ['PLANNED', 'RESERVED'].includes(l.state))).toBe(true);
+
+    for (let i = 0; i < 30 && live.serviceState !== 'PROVISIONING'; i++) {
+      await runOnce(env.ctx);
+      env.clock.advance(1000);
+      live = (await custA.get(`/api/services/${serviceId}/live`)).body;
+    }
+    void orderId;
+    expect(live.nodes.filter((n: any) => n.state === 'BOOTING').length).toBe(1);
+    const seen = new Set<string>();
+    for (let i = 0; i < 30 && live.serviceState !== 'ACTIVE'; i++) {
+      live.nodes.forEach((n: any) => seen.add(n.state));
+      // Node bring-up is strictly ordered: no PENDING node may precede a CONFIGURED one.
+      const order = live.nodes.map((n: any) => n.state);
+      const firstPending = order.indexOf('PENDING');
+      if (firstPending >= 0) expect(order.slice(firstPending).every((s: string) => s === 'PENDING')).toBe(true);
+      env.clock.advance(1000);
+      await runOnce(env.ctx);
+      live = (await custA.get(`/api/services/${serviceId}/live`)).body;
+    }
+    expect([...seen]).toEqual(expect.arrayContaining(['BOOTING', 'CONFIGURED']));
+    expect(live.serviceState).toBe('ACTIVE');
+    expect(live.nodes.every((n: any) => n.state === 'ACTIVE')).toBe(true);
+    expect(live.links.every((l: any) => l.state === 'ACTIVE')).toBe(true);
+    expect(live.progress).toMatchObject({ pct: 100 });
+
+    await noc.post('/api/simulation/faults', { type: 'NODE_DOWN', targetType: 'NODE', targetId: live.nodes[1].id });
+    live = (await custA.get(`/api/services/${serviceId}/live`)).body;
+    expect(live.nodes[1].state).toBe('DOWN');
+    expect(live.links.some((l: any) => l.state === 'DOWN')).toBe(true);
+    expect((await custB.get(`/api/services/${serviceId}/live`)).status).toBe(404);
+
+    const topo = (await noc.get('/api/topology')).body;
+    expect(topo.nodes.find((n: any) => n.id === 'nd-jkt').active_services).toBeGreaterThanOrEqual(0);
   });
 });

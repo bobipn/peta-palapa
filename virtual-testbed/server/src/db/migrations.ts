@@ -514,4 +514,13 @@ CREATE TABLE idempotency_keys (
 );
 `,
   },
+  {
+    // Provisioning is now scheduled node by node (live view). Existing databases
+    // keep their other settings; the old per-segment key is renamed in place.
+    id: '002_node_provisioning_delay',
+    sql: /* sql */ `
+UPDATE platform_settings SET key = 'provisioning_delay_s_per_node', value = '2'::jsonb
+WHERE key = 'provisioning_delay_s_per_segment';
+`,
+  },
 ];

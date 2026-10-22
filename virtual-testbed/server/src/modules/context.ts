@@ -64,7 +64,7 @@ export interface Settings {
   payment_timeout_minutes: number;
   provider_acceptance_timeout_minutes: number;
   hold_ttl_minutes: number;
-  provisioning_delay_s_per_segment: number;
+  provisioning_delay_s_per_node: number;
   protection_revertive: boolean;
   protection_switch_ms: number;
   reroute_ticks: number;

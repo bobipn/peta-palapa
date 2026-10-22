@@ -17,6 +17,9 @@ Per span: base latency = length × 0.0049 ms/km (fibre group index ≈ 1.47); ba
 Per service: sum of span latencies + 0.05 ms per node; jitter = √Σjitter²; loss = 1 − Π(1 − pᵢ); throughput = bandwidth × diurnal demand (50–95 %) × (1 − loss).
 OSNR, optical power, dispersion and wavelength behaviour are **not modelled**; optical channels exist only as an inventory list.
 
+## Node bring-up (live view)
+PROVISION_VIRTUAL produces a per-node plan (primary path nodes first, then protection-only nodes; `provisioning_delay_s_per_node`, default 2 s). `/api/services/:id/live` derives each node's state (PENDING → BOOTING → CONFIGURED → TESTING → ACTIVE/STANDBY, DOWN under node faults, OFF after failure) and each link's state server-side from that plan, the service lifecycle and active faults. It is a visualisation of simulated steps, not device telemetry.
+
 ## Time
 - Wall clock: orders, timeouts, provisioning delays (default 1 s per span — demo-scaled).
 - Simulation clock: ticks of 60 s simulated time. Auto-tick every 5 s real time (configurable), or manual `+1/+10/+60`.

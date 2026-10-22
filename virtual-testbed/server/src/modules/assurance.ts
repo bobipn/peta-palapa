@@ -3,6 +3,7 @@ import { scopeFor, type Principal } from '../domain/rbac.js';
 import { availability } from '../domain/sla.js';
 import { conflict, notFound } from '../lib/util.js';
 import { audit, getSimState, simTimeOf, type Ctx, type Meta } from './context.js';
+import { computeNetState } from './simulation/engine.js';
 
 /** Service visibility: customer -> own; provider -> services crossing its assets; staff -> all. */
 function serviceScope(who: Principal, alias = 'sv', p = 1) {
@@ -178,4 +179,111 @@ export async function runServiceTests(ctx: Ctx, meta: Meta, who: Principal, id: 
     await audit(q, ctx, meta, { action: 'service.tests.run', entityType: 'service', entityId: id });
   });
   return { runId, results };
+}
+
+// ------------------------------------------------------------------ live provisioning view
+
+export type LiveNodeState = 'PENDING' | 'BOOTING' | 'CONFIGURED' | 'TESTING' | 'ACTIVE' | 'STANDBY' | 'DOWN' | 'OFF';
+export type LiveLinkState = 'PLANNED' | 'RESERVED' | 'LINK_UP' | 'ACTIVE' | 'STANDBY' | 'DOWN' | 'OFF';
+
+/**
+ * Per-node / per-link state of one service, derived on the server from the
+ * persisted provisioning task (its node bring-up plan), the service lifecycle
+ * and the active simulated faults. The UI only renders it.
+ */
+export async function serviceLive(ctx: Ctx, who: Principal, id: string) {
+  const q = ctx.db;
+  const { service: svc, paths } = await getService(q, who, id);
+  const order = (await q.query(`SELECT id, state, state_reason FROM orders WHERE id=$1`, [svc.order_id])).rows[0];
+  const wf = (await q.query(`SELECT id, state FROM provisioning_workflows WHERE service_id=$1 ORDER BY created_at DESC LIMIT 1`, [id])).rows[0];
+  const prov = wf ? (await q.query(`SELECT state, result, started_at FROM provisioning_tasks WHERE workflow_id=$1 AND type='PROVISION_VIRTUAL'`, [wf.id])).rows[0] : null;
+  const plan = new Map<string, number>(((prov?.result?.nodePlan ?? []) as { nodeId: string; readyAt: string }[]).map((p) => [p.nodeId, new Date(p.readyAt).getTime()]));
+  const ns = await computeNetState(q);
+  const now = ctx.clock.now().getTime();
+
+  const live = paths.filter((p: any) => p.status !== 'RELEASED');
+  const shown = live.length ? live : paths.filter((p: any) => p.role !== 'REROUTE');
+  const activeRole = svc.active_path ?? 'PRIMARY';
+  const activePath = shown.find((p: any) => p.role === activeRole) ?? shown.find((p: any) => p.role === 'PRIMARY');
+  const carrying = new Set<string>(activePath?.node_ids ?? []);
+  const carryingSegs = new Set<string>(activePath?.segment_ids ?? []);
+  const nodeIds: string[] = [...new Set<string>(shown.flatMap((p: any) => p.node_ids))];
+  const segIds: string[] = [...new Set<string>(shown.flatMap((p: any) => p.segment_ids))];
+
+  const nodeRows = (await q.query(
+    `SELECT n.id, n.name, n.role, p.kind AS pop_kind, p.name AS pop_name, l.id AS location_id, l.city, l.lat, l.lon, e.model, e.vendor
+     FROM nodes n JOIN pops p ON p.id=n.pop_id JOIN locations l ON l.id=p.location_id LEFT JOIN equipment e ON e.node_id=n.id WHERE n.id = ANY($1)`, [nodeIds])).rows;
+  const segRows = (await q.query(
+    `SELECT s.id, s.a_node_id, s.b_node_id, s.length_km, pr.name AS provider_name FROM cable_segments s JOIN providers pr ON pr.id=s.provider_id WHERE s.id = ANY($1)`, [segIds])).rows;
+  const committed = new Set((await q.query(`SELECT segment_id FROM reservations WHERE order_id=$1 AND status <> 'RELEASED'`, [svc.order_id])).rows.map((r) => r.segment_id));
+
+  const pendingReady = [...plan.entries()].filter(([, t]) => t > now).sort((a, b) => a[1] - b[1]);
+  const booting = pendingReady[0]?.[0] ?? null;
+
+  const nodeState = (n: string): LiveNodeState => {
+    switch (svc.state) {
+      case 'ACTIVE':
+        if (ns.nodeDown.has(n)) return 'DOWN';
+        return carrying.has(n) ? 'ACTIVE' : 'STANDBY';
+      case 'FAILED':
+      case 'DECOMMISSIONED':
+        return 'OFF';
+      case 'CONFIGURED':
+      case 'TESTING':
+        return 'TESTING';
+      case 'PROVISIONING': {
+        const t = plan.get(n);
+        if (t === undefined) return 'PENDING';
+        if (t <= now) return 'CONFIGURED';
+        return n === booting ? 'BOOTING' : 'PENDING';
+      }
+      default:
+        return 'PENDING';
+    }
+  };
+  const states = new Map(nodeIds.map((n) => [n, nodeState(n)]));
+  const UP: LiveNodeState[] = ['CONFIGURED', 'TESTING', 'ACTIVE', 'STANDBY'];
+
+  const links = segRows.map((s) => {
+    const a = states.get(s.a_node_id)!, b = states.get(s.b_node_id)!;
+    let state: LiveLinkState;
+    if (['FAILED', 'DECOMMISSIONED'].includes(svc.state)) state = 'OFF';
+    else if (ns.segDown.has(s.id)) state = 'DOWN';
+    else if (svc.state === 'ACTIVE') state = carryingSegs.has(s.id) ? 'ACTIVE' : 'STANDBY';
+    else if (UP.includes(a) && UP.includes(b)) state = 'LINK_UP';
+    else state = committed.has(s.id) ? 'RESERVED' : 'PLANNED';
+    const roles = shown.filter((p: any) => p.segment_ids.includes(s.id)).map((p: any) => p.role);
+    return { id: s.id, aNodeId: s.a_node_id, bNodeId: s.b_node_id, lengthKm: s.length_km, provider: s.provider_name, roles, state };
+  });
+
+  const nodes = nodeIds.map((n) => {
+    const r = nodeRows.find((x) => x.id === n)!;
+    const t = plan.get(n);
+    return {
+      id: n, name: r.name, city: r.city, lat: r.lat, lon: r.lon, popKind: r.pop_kind, popName: r.pop_name,
+      device: { model: r.model ?? 'SIM-OTN', vendor: r.vendor ?? 'SIMULATED', role: r.role },
+      state: states.get(n)!,
+      onActivePath: carrying.has(n),
+      roles: shown.filter((p: any) => p.node_ids.includes(n)).map((p: any) => p.role),
+      readyAt: t ? new Date(t).toISOString() : null,
+      secondsToReady: t && t > now ? Math.ceil((t - now) / 1000) : 0,
+    };
+  });
+  const up = nodes.filter((n) => UP.includes(n.state)).length;
+  return {
+    simulated: true,
+    serviceId: id,
+    serviceName: svc.name,
+    serviceState: svc.state,
+    operStatus: svc.oper_status,
+    activePath: svc.active_path,
+    order,
+    workflowState: wf?.state ?? null,
+    provisioningTask: prov ? { state: prov.state, startedAt: prov.started_at } : null,
+    progress: { nodesUp: up, nodesTotal: nodes.length, pct: nodes.length ? Math.round((up / nodes.length) * 100) : 0 },
+    nodes,
+    links,
+    serverTime: new Date(now).toISOString(),
+    note: 'Node bring-up is simulated (Mode A): each device "boots" and receives configuration in sequence; no real equipment is touched.',
+  };
 }

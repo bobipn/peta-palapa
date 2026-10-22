@@ -47,7 +47,7 @@ export function SettingsPage() {
           <div className="card">
             <h2>Timeouts & simulation parameters</h2>
             <table><tbody>
-              {['quote_validity_hours', 'payment_timeout_minutes', 'provider_acceptance_timeout_minutes', 'hold_ttl_minutes', 'provisioning_delay_s_per_segment', 'reroute_ticks', 'protection_switch_ms', 'node_processing_ms'].map((k) => (
+              {['quote_validity_hours', 'payment_timeout_minutes', 'provider_acceptance_timeout_minutes', 'hold_ttl_minutes', 'provisioning_delay_s_per_node', 'reroute_ticks', 'protection_switch_ms', 'node_processing_ms'].map((k) => (
                 <tr key={k}><td className="mono small">{k}</td><td className="num">
                   {isAdmin ? <input type="number" defaultValue={settings.data[k]} style={{ width: 100 }} onBlur={(e) => Number(e.target.value) !== settings.data[k] && saveNum(k, Number(e.target.value))} /> : settings.data[k]}
                 </td></tr>

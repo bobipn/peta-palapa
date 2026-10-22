@@ -59,12 +59,16 @@ export async function topologyView(q: Queryable, who: Principal) {
       FROM cable_segments s JOIN capacity_resources c ON c.segment_id = s.id ORDER BY s.id`)
   ).rows;
   const faults = (await q.query(`SELECT * FROM injected_faults WHERE state='ACTIVE' ORDER BY created_at`)).rows;
+  const carried = new Map<string, number>();
+  for (const p of (await q.query(`SELECT sp.node_ids FROM service_paths sp JOIN services sv ON sv.id=sp.service_id WHERE sv.state='ACTIVE' AND sp.status='ACTIVE'`)).rows) {
+    for (const n of p.node_ids as string[]) carried.set(n, (carried.get(n) ?? 0) + 1);
+  }
   const own = (pid: string) => who.role !== 'PROVIDER' || who.providerId === pid;
   return {
     simulated: true,
     label: 'SIMULATED TOPOLOGY — fictional providers and cable systems; straight lines are schematic, not cable routes',
     locations,
-    nodes,
+    nodes: nodes.map((n) => ({ ...n, active_services: carried.get(n.id) ?? 0 })),
     providers,
     cableSystems: systems,
     segments: segs.map((s) => ({

@@ -11,7 +11,7 @@ import { listLocations, nodeDetail, segmentDetail, topologyView } from '../modul
 import { createQuote, getQuote, listQuotes, searchRoutes } from '../modules/quotes.js';
 import { acceptQuote, assertCustomer, cancelOrder, getOrderDetail, listOrders, payOrder, terminateService } from '../modules/orders.js';
 import { listSuborders, providerAssets, respondSuborder, updateOwnSegment, updateProviderSettings } from '../modules/providers.js';
-import { ackAlarm, getIncident, getService, listAlarms, listIncidents, listServices, nocOverview, runServiceTests, slaSummary, telemetry } from '../modules/assurance.js';
+import { ackAlarm, getIncident, getService, serviceLive, listAlarms, listIncidents, listServices, nocOverview, runServiceTests, slaSummary, telemetry } from '../modules/assurance.js';
 import { ledger, markSettled, settlementSummary } from '../modules/settlement.js';
 import { injectFaults, resetSimulation, restoreFault, runScenario, tick } from '../modules/simulation/engine.js';
 import { FAULT_TARGET, FAULT_TYPES } from '../modules/simulation/adapter.js';
@@ -154,6 +154,8 @@ export async function registerRoutes(fastify: FastifyInstance, ctx: Ctx) {
     schema: { ...tags('services'), params: Id, querystring: Type.Object({ fromTick: Type.Optional(Type.Integer({ minimum: 0 })), toTick: Type.Optional(Type.Integer({ minimum: 0 })) }) },
     preHandler: guard('services:read'),
   }, async (req) => telemetry(ctx.db, req.principal!, req.params.id, req.query.fromTick, req.query.toTick));
+  app.get('/api/services/:id/live', { schema: { ...tags('services'), params: Id, description: 'Per-node/per-link provisioning & activation state (SIMULATED)' }, preHandler: guard('services:read') }, async (req) =>
+    serviceLive(ctx, req.principal!, req.params.id));
   app.post('/api/services/:id/tests', { schema: { ...tags('services'), params: Id }, preHandler: guardAudited(ctx, 'services:test') }, async (req) => runServiceTests(ctx, req.meta, req.principal!, req.params.id));
   app.post('/api/services/:id/terminate', { schema: { ...tags('services'), params: Id }, preHandler: guardAudited(ctx, 'services:terminate') }, async (req) => {
     await terminateService(ctx, req.meta, req.params.id);

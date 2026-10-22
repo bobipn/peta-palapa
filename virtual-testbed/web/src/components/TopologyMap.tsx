@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 import { SimBadge } from './ui';
+import { LAND_PATH } from './basemap';
+import { DeviceGlyph, type DeviceState } from './DeviceIcon';
 
 export interface Topo {
   locations: any[];
@@ -21,7 +23,7 @@ export const PROVIDER_COLORS: Record<string, string> = {
 };
 
 // Equirectangular, Pacific-centred (longitudes < 0 wrap to > 180). Schematic only.
-const LON0 = 96, LON1 = 246, LAT0 = -38, LAT1 = 40;
+const LON0 = 96, LON1 = 250, LAT0 = -38, LAT1 = 40;
 const W = 1000;
 const H = Math.round((W * (LAT1 - LAT0)) / (LON1 - LON0));
 const px = (lon: number) => (((lon < 0 ? lon + 360 : lon) - LON0) / (LON1 - LON0)) * W;
@@ -30,7 +32,9 @@ const REGIONS = {
   ALL: { label: 'Asia-Pacific', box: [0, 0, W, H] },
   ID: { label: 'Indonesia', box: [px(100), py(7), px(132) - px(100), py(-13) - py(7)] },
 } as const;
-const LABEL_DX: Record<string, [number, number]> = { btm: [-10, 16], sin: [-62, -6], jkt: [-50, 14], bal: [-12, 18], sby: [-8, -10], kdi: [6, 14], mks: [-62, 4] };
+/** Global map convention: DOWN = red, carrying an active service = green, up but no service yet = blue (idle). */
+const nodeState = (n: any): DeviceState => (n.oper_status === 'DOWN' ? 'DOWN' : n.active_services > 0 ? 'ACTIVE' : 'IDLE');
+const LABEL_DX: Record<string, [number, number]> = { btm: [-10, 24], sin: [-70, -8], jkt: [-56, 18], bal: [-14, 24], sby: [-10, -14], kdi: [10, 18], mks: [-70, 6] };
 
 export function TopologyMap({ topo, highlight, selected, onSelect, height }: {
   topo: Topo;
@@ -68,6 +72,10 @@ export function TopologyMap({ topo, highlight, selected, onSelect, height }: {
       </div>
       <svg viewBox={box.join(' ')} style={height ? { maxHeight: height } : undefined} role="img" aria-label="Schematic simulated network topology">
         <title>Simulated topology (schematic straight lines, not cable routes)</title>
+        {/* basemap: Natural Earth land, same equirectangular projection as px/py */}
+        <rect x={0} y={0} width={W} height={H} fill="var(--sea)" />
+        <path d={LAND_PATH} transform={`matrix(${W / (LON1 - LON0)} 0 0 ${H / (LAT1 - LAT0)} ${(-LON0 * W) / (LON1 - LON0)} ${(LAT1 * H) / (LAT1 - LAT0)})`}
+          fill="var(--land)" stroke="var(--land-edge)" strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
         {/* graticule */}
         {[-30, -15, 0, 15, 30].map((lat) => <line key={`la${lat}`} x1={0} x2={W} y1={py(lat)} y2={py(lat)} stroke="var(--border)" vectorEffect="non-scaling-stroke" strokeWidth={lat === 0 ? 1.2 : 0.6} strokeDasharray={lat === 0 ? '' : '3 6'} />)}
         {[105, 120, 135, 150, 165, 180, 195, 210, 225, 240].map((lon) => <line key={`lo${lon}`} y1={0} y2={H} x1={px(lon > 180 ? lon - 360 : lon)} x2={px(lon > 180 ? lon - 360 : lon)} stroke="var(--border)" vectorEffect="non-scaling-stroke" strokeWidth={0.6} strokeDasharray="3 6" />)}
@@ -99,15 +107,12 @@ export function TopologyMap({ topo, highlight, selected, onSelect, height }: {
         })}
 
         {[...nodePos.entries()].map(([id, p]) => {
-          const down = p.node.oper_status === 'DOWN';
           const isSel = selected?.kind === 'node' && selected.id === id;
-          const [dx, dy] = LABEL_DX[p.loc.id] ?? [8, 4];
+          const [dx, dy] = LABEL_DX[p.loc.id] ?? [14, 4];
           return (
             <g key={id} className="node" onClick={() => onSelect?.({ kind: 'node', id })}>
-              <circle cx={p.x} cy={p.y} r={(isSel ? 8 : 6) / k} vectorEffect="non-scaling-stroke" fill={down ? 'var(--bad)' : p.node.pop_kind === 'DATA_CENTER' ? 'var(--accent)' : 'var(--surface)'}
-                stroke={down ? 'var(--bad)' : 'var(--accent)'} strokeWidth={2.5}>
-                <title>{`${p.loc.city} — ${p.node.name} (${p.node.pop_kind}) · ${p.node.oper_status}`}</title>
-              </circle>
+              <DeviceGlyph x={p.x} y={p.y} scale={0.62 / k} state={nodeState(p.node)} selected={isSel}
+                title={`${p.loc.city} — ${p.node.name} (${p.node.pop_kind}) · ${p.node.oper_status} · ${p.node.active_services ?? 0} layanan aktif`} />
               <text x={p.x + dx / k} y={p.y + dy / k} fontSize={11 / k} style={{ strokeWidth: 3 / k }}>{p.loc.city.replace(' (Denpasar)', '')}</text>
             </g>
           );
@@ -120,6 +125,8 @@ export function TopologyMap({ topo, highlight, selected, onSelect, height }: {
         <span><i style={{ background: '#a855f7' }} />protection</span>
         <span><i style={{ background: '#f59e0b' }} />reroute</span>
         <span><i style={{ background: 'var(--bad)' }} />down</span>
+        <span><i style={{ background: '#16a34a' }} />node hijau = melayani layanan aktif</span>
+        <span><i style={{ background: '#1f5f9e' }} />biru = siap, belum ada layanan</span>
         <span>Straight lines are schematic — not cable routes. City positions approximate.</span>
       </div>
     </div>

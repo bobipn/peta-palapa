@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { bw, dt, get, idr, post } from '../api';
 import { useAuth } from '../App';
+import { ProvisioningLiveView } from '../components/ProvisioningLiveView';
 import { Badge, Empty, ErrorBox, Loading, PageHead, PathChain, SimBadge, Timeline, useAction, useApi } from '../components/ui';
 
 const FLOW = ['PENDING_PAYMENT', 'CONFIRMED', 'PROVIDER_ACCEPTANCE', 'RESOURCE_RESERVED', 'PROVISIONING', 'TESTING', 'ACTIVE'];
@@ -77,6 +78,10 @@ export function OrderDetailPage() {
         {order.state === 'PENDING_PAYMENT' && order.deadline_at ? <div className="small muted">Payment window closes {dt(order.deadline_at)} — the order is auto-cancelled after that.</div> : null}
         <div className="small muted">Payment: <Badge v={order.payment_status} /> {order.payment_ref ? <span className="mono">{order.payment_ref}</span> : null} — no real money moves.</div>
       </div>
+
+      {service && order.state !== 'PENDING_PAYMENT' ? (
+        <div className="card"><ProvisioningLiveView serviceId={service.id} /></div>
+      ) : null}
 
       <div className="grid g2">
         <div className="card stack">

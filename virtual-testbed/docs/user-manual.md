@@ -59,7 +59,7 @@ Semua akun memakai password yang sama = nilai `DEMO_PASSWORD` yang Anda isi di c
 5. Klik **Request quote for selected route** → muncul kotak biru **Quote qt-…** dengan harga dan masa berlaku.
 6. Klik **Accept quote → checkout** → Anda pindah ke halaman **Order ord-…** berstatus `PENDING PAYMENT`.
 7. Klik **Pay Rp … (SIMULATED)** (tombol biru kanan atas). Tidak ada uang yang berpindah.
-8. Tunggu ±10–20 detik **di halaman yang sama** (halaman memperbarui sendiri). Status bergerak:
+8. Tunggu ±15–30 detik **di halaman yang sama** — panel *Live provisioning & activation* menunjukkan perangkat tiap kota menyala satu per satu (halaman memperbarui sendiri). Status bergerak:
    `CONFIRMED → PROVIDER ACCEPTANCE → RESOURCE RESERVED → PROVISIONING → TESTING → ACTIVE`
    Selesai bila tertulis **Service is active**.
 9. Klik **Service →** lalu tab **Activation tests**: semua tes harus `PASS` atau `NOT RUN` (berlabel SIMULATED).
@@ -83,6 +83,26 @@ Semua akun memakai password yang sama = nilai `DEMO_PASSWORD` yang Anda isi di c
 | Kendari → Sydney | Regional Standard | Butuh persetujuan manual Delta |
 
 ---
+
+## 2a. Live view perangkat per kota (provisioning & aktivasi)
+
+Muncul di halaman **Order** (setelah dibayar) dan di halaman **Service → tab Live view**. Diperbarui tiap detik.
+
+| Ikon perangkat | Status | Arti |
+|---|---|---|
+| Router **merah** | BELUM AKTIF | Perangkat di kota ini belum diprovisi |
+| Router **oranye**, LED berkedip | BOOTING | Sedang dinyalakan & dikonfigurasi (ada hitung mundur detik) |
+| Router **hijau** | KONFIGURASI OK | Perangkat siap, menunggu node lain / tes |
+| Router **biru muda**, LED berkedip | TESTING | Tes aktivasi berjalan |
+| Router **hijau** + gelombang sinyal | AKTIF | Membawa trafik layanan |
+| Router hijau gelap | STANDBY | Di jalur proteksi, siap mengambil alih |
+| Router merah dengan ✕ | DOWN | Node mati (fault simulasi) |
+
+Link antar kota: abu-abu/biru putus-putus = direncanakan/kapasitas dipesan, hijau muda = link up, **hijau tebal dengan paket kuning bergerak** = trafik aktif, ungu putus-putus = proteksi standby, merah ✕ = putus. Titik kecil di dua ujung link adalah *link light* seperti di Cisco Packet Tracer (hijau = up, oranye = menunggu, merah = belum/terputus).
+
+Perangkat dinyalakan **berurutan** (jalur utama dulu, lalu jalur proteksi), 2 detik per node (atur di Settings → `provisioning_delay_s_per_node`). Klik ikon untuk detail perangkat.
+
+Di **Network Topology**, setiap kota juga tampil sebagai ikon perangkat: **hijau** = melayani layanan aktif, **biru** = siap tetapi belum ada layanan, **merah ✕** = down.
 
 ## 3. Menyetujui order sebagai pemilik kabel (Delta)
 
