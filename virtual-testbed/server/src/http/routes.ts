@@ -39,9 +39,19 @@ export async function registerRoutes(fastify: FastifyInstance, ctx: Ctx) {
   const tags = (t: string) => ({ tags: [t] });
 
   // ------------------------------------------------------------------ meta
-  app.get('/api/health', { schema: { ...tags('meta'), security: [] } }, async () => {
+  app.get('/api/health', { schema: { ...tags('meta'), security: [] } }, async (req) => {
     await ctx.db.query('SELECT 1');
-    return { status: 'ok', db: ctx.db.kind, simulated: true, time: ctx.clock.now().toISOString() };
+    const https = req.protocol === 'https';
+    return {
+      status: 'ok', db: ctx.db.kind, simulated: true, time: ctx.clock.now().toISOString(),
+      checks: {
+        requestProtocol: req.protocol,
+        cookieSecure: ctx.config.cookieSecure,
+        trustProxy: ctx.config.trustProxy,
+        sessionCookieUsable: https || !ctx.config.cookieSecure,
+        hint: https || !ctx.config.cookieSecure ? null : 'COOKIE_SECURE=true but this request is not HTTPS: browsers drop the session cookie. Open the site via https:// (and keep TRUST_PROXY=true behind cPanel), or set COOKIE_SECURE=false for plain-http testing.',
+      },
+    };
   });
 
   app.get('/api/meta', { schema: { ...tags('meta'), security: [] } }, async () => ({

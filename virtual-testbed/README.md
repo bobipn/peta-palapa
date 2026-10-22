@@ -49,6 +49,7 @@ Password = `DEMO_PASSWORD` (default `demo-cring-2026` locally; the server **refu
 - [Mode B (Containerlab / Mininet-Optical) evaluation](docs/architecture/mode-b-emulation.md)
 - [Roadmap & integration gates before any real network](docs/architecture/integration-gates.md)
 - [Test plan & results](docs/testing/test-plan-and-results.md)
+- [Panduan pengguna (user manual, ID)](docs/user-manual.md)
 - [Demo walkthrough](docs/demo-walkthrough.md)
 - [Deployment](docs/deploy.md)
 

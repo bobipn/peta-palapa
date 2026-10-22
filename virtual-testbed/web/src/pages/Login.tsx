@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { post } from '../api';
+import { get, post } from '../api';
 import { ErrorBox, SimBadge, useAction } from '../components/ui';
 import type { User } from '../App';
 
@@ -20,7 +20,15 @@ export function LoginPage({ onLogin }: { onLogin: (u: User) => void }) {
   const { busy, error, run } = useAction();
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    const r = await run(() => post<{ user: User }>('/api/auth/login', { email, password }));
+    const r = await run(async () => {
+      const res = await post<{ user: User }>('/api/auth/login', { email, password });
+      try {
+        await get('/api/auth/me');
+      } catch {
+        throw new Error('Login berhasil, tetapi browser tidak menyimpan cookie sesi. Buka situs lewat https:// atau periksa COOKIE_SECURE/TRUST_PROXY (lihat /api/health).');
+      }
+      return res;
+    });
     if (r) onLogin(r.user);
   };
   return (

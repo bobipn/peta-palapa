@@ -86,7 +86,12 @@ export async function buildApp(config: AppConfig, opts: { clock?: Clock; db?: Db
     // CSRF defence-in-depth (cookies are SameSite=Lax): reject cross-origin mutations.
     if (!['GET', 'HEAD', 'OPTIONS'].includes(req.method)) {
       const origin = req.headers.origin;
-      if (origin && new URL(origin).host !== req.headers.host) throw new AppError(403, 'CROSS_ORIGIN', 'Cross-origin request rejected');
+      if (origin) {
+        const allowed = new Set([req.headers.host, ...String(req.headers['x-forwarded-host'] ?? '').split(',').map((s) => s.trim())].filter(Boolean));
+        let originHost = '';
+        try { originHost = new URL(origin).host; } catch { /* malformed or "null" origin */ }
+        if (!allowed.has(originHost)) throw new AppError(403, 'CROSS_ORIGIN', 'Cross-origin request rejected');
+      }
     }
   });
   app.addHook('onSend', async (_req, reply, payload) => {

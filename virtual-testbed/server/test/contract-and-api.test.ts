@@ -121,6 +121,30 @@ describe('API hardening', () => {
   });
 });
 
+describe('behind a reverse proxy (cPanel/LiteSpeed)', () => {
+  it('accepts same-site mutations when the proxy rewrites Host but forwards X-Forwarded-Host', async () => {
+    const cookie = await login(env, 'noc@demo.local');
+    const r = await env.app.inject({ method: 'POST', url: '/api/simulation/tick', payload: { count: 1 },
+      headers: { cookie, host: '127.0.0.1:3000', origin: 'https://virtual.komersiallti.my.id', 'x-forwarded-host': 'virtual.komersiallti.my.id' } });
+    expect(r.statusCode).toBe(200);
+  });
+  it('rejects a malformed Origin with 403 (not 500)', async () => {
+    const cookie = await login(env, 'noc@demo.local');
+    const r = await env.app.inject({ method: 'POST', url: '/api/simulation/tick', payload: { count: 1 }, headers: { cookie, origin: 'null' } });
+    expect(r.statusCode).toBe(403);
+  });
+  it('health reports when a Secure cookie cannot work over plain http', async () => {
+    const e = await makeEnv({ cookieSecure: true });
+    try {
+      const h = (await e.app.inject({ method: 'GET', url: '/api/health' })).json();
+      expect(h.checks.sessionCookieUsable).toBe(false);
+      expect(h.checks.hint).toMatch(/COOKIE_SECURE/);
+    } finally {
+      await e.close();
+    }
+  });
+});
+
 describe('login rate limit', () => {
   it('returns 429 after the configured number of attempts', async () => {
     const e = await makeEnv({ loginRateLimitPerMinute: 3 });

@@ -40,6 +40,12 @@ export function OverviewPage() {
         {o ? <span className="small muted">Sim tick {o.sim.tick} · {dt(o.sim.simTime)} (sim clock) · seed {o.sim.seed}</span> : null}
       </PageHead>
       <ErrorBox error={ov.error} />
+      {user.role !== 'CUSTOMER' ? (
+        <div className="alert info">
+          Anda login sebagai <strong>{user.role}</strong>. Pemesanan layanan hanya bisa dilakukan dari akun <strong>Customer</strong>
+          (mis. <code>customer.a@demo.local</code>) melalui menu <strong>Marketplace</strong>.
+        </div>
+      ) : null}
       {o ? (
         <div className="kpis">
           <Kpi label="Active services" value={o.services.active} sub={`${o.services.provisioning} in provisioning`} />
