@@ -18,6 +18,7 @@ export async function migrate(db: Db): Promise<string[]> {
 
 /** Tables holding demo data, in an order safe for TRUNCATE ... CASCADE. Schema and schema_migrations are untouched. */
 export const DATA_TABLES = [
+  'alarm_comments', 'port_metrics', 'device_metrics', 'service_configs', 'vlan_allocations', 'ip_allocations', 'ip_pools',
   'idempotency_keys', 'audit_events', 'domain_events', 'sonata_messages', 'settlement_ledger',
   'alarms', 'incident_events', 'incidents', 'sla_breaches', 'telemetry_samples', 'injected_faults',
   'simulation_scenarios', 'simulation_state', 'service_tests', 'provisioning_tasks', 'provisioning_workflows',

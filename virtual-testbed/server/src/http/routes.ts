@@ -19,6 +19,7 @@ import { ContainerlabAdapter, MininetOpticalAdapter } from '../modules/simulatio
 import { contractErrors, SONATA_INTEGRATION_STATUS, SonataProductOrderCreate, SonataMockSeller } from '../modules/sonata/sonata.js';
 import { runOnce } from '../modules/orchestrator.js';
 import { resetDemo } from '../db/seed.js';
+import { registerNocRoutes } from './noc-routes.js';
 import { isEgressGuardInstalled } from '../lib/egress.js';
 
 const Id = Type.Object({ id: Type.String({ minLength: 1, maxLength: 80 }) });
@@ -223,6 +224,8 @@ export async function registerRoutes(fastify: FastifyInstance, ctx: Ctx) {
     await audit(ctx.db, ctx, req.meta, { action: 'simulation.settings', details: req.body });
     return getSimState(ctx.db);
   });
+
+  await registerNocRoutes(app, ctx);
 
   // ------------------------------------------------------------------ settlement
   app.get('/api/settlement/summary', { schema: tags('settlement'), preHandler: guard('settlement:read') }, async (req) => settlementSummary(ctx.db, req.principal!));

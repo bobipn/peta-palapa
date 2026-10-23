@@ -523,4 +523,124 @@ UPDATE platform_settings SET key = 'provisioning_delay_s_per_node', value = '2':
 WHERE key = 'provisioning_delay_s_per_segment';
 `,
   },
+  {
+    // NOC v2: device inventory per PoP (OTN + PE router + management switch),
+    // interface attributes, IPAM, VLAN allocation, per-service network config,
+    // device/port performance metrics and alarm-console fields.
+    // Additive only; inventory rows are created by ensureInventoryV2() at startup.
+    id: '003_noc_inventory_ipam_vlan_metrics',
+    sql: /* sql */ `
+ALTER TABLE equipment ADD COLUMN hostname text;
+ALTER TABLE equipment ADD COLUMN role text;
+ALTER TABLE equipment ADD COLUMN mgmt_ip text;
+ALTER TABLE equipment ADD COLUMN loopback_ip text;
+ALTER TABLE equipment ADD COLUMN os_version text;
+ALTER TABLE equipment ADD COLUMN serial text;
+
+ALTER TABLE ports ADD COLUMN kind text NOT NULL DEFAULT 'LINE';
+ALTER TABLE ports ADD COLUMN peer_port_id text;
+ALTER TABLE ports ADD COLUMN ip_address text;
+ALTER TABLE ports ADD COLUMN mtu integer NOT NULL DEFAULT 9216;
+ALTER TABLE ports ADD COLUMN description text;
+ALTER TABLE ports ADD COLUMN mode text;
+
+CREATE TABLE ip_pools (
+  id text PRIMARY KEY,
+  name text NOT NULL,
+  cidr text NOT NULL UNIQUE,
+  purpose text NOT NULL CHECK (purpose IN ('MGMT','LOOPBACK','CUSTOMER_TEST')),
+  prefix_len integer NOT NULL,
+  note text NOT NULL DEFAULT 'SIMULATED address plan'
+);
+
+CREATE TABLE ip_allocations (
+  id text PRIMARY KEY,
+  pool_id text NOT NULL REFERENCES ip_pools(id),
+  address text NOT NULL,
+  assigned_type text NOT NULL CHECK (assigned_type IN ('DEVICE','PORT','SERVICE')),
+  assigned_id text NOT NULL,
+  service_id text REFERENCES services(id),
+  description text,
+  status text NOT NULL CHECK (status IN ('ALLOCATED','RELEASED')),
+  created_at timestamptz NOT NULL,
+  released_at timestamptz
+);
+CREATE UNIQUE INDEX ip_alloc_active_uq ON ip_allocations(pool_id, address) WHERE status = 'ALLOCATED';
+
+CREATE TABLE vlan_allocations (
+  id text PRIMARY KEY,
+  equipment_id text NOT NULL REFERENCES equipment(id),
+  port_id text REFERENCES ports(id),
+  vlan_id integer NOT NULL CHECK (vlan_id BETWEEN 2 AND 4094),
+  kind text NOT NULL CHECK (kind IN ('S_VLAN','C_VLAN','MGMT')),
+  service_id text REFERENCES services(id),
+  description text,
+  status text NOT NULL CHECK (status IN ('ALLOCATED','RELEASED')),
+  created_at timestamptz NOT NULL,
+  released_at timestamptz
+);
+-- A VLAN id is used once per device for service (S-VLAN) / management purposes.
+CREATE UNIQUE INDEX vlan_alloc_active_uq ON vlan_allocations(equipment_id, vlan_id) WHERE status = 'ALLOCATED' AND kind <> 'C_VLAN';
+
+CREATE TABLE service_configs (
+  id text PRIMARY KEY,
+  service_id text NOT NULL REFERENCES services(id),
+  equipment_id text NOT NULL REFERENCES equipment(id),
+  port_id text REFERENCES ports(id),
+  role text NOT NULL CHECK (role IN ('A_END','B_END','TRANSIT')),
+  path_role text NOT NULL,
+  s_vlan integer,
+  c_vlan text,
+  mtu integer,
+  rendered_config text NOT NULL,
+  status text NOT NULL CHECK (status IN ('APPLIED','REMOVED')),
+  created_at timestamptz NOT NULL,
+  removed_at timestamptz
+);
+-- One customer handoff (UNI) port carries one service at a time.
+CREATE UNIQUE INDEX service_uni_port_uq ON service_configs(port_id) WHERE status = 'APPLIED' AND role <> 'TRANSIT';
+
+-- Metrics are synthetic, regenerated every tick and pruned to a 24 h window:
+-- UNLOGGED keeps them out of the WAL (PGlite never recycles WAL on its own).
+-- After an unclean shutdown PostgreSQL empties UNLOGGED tables; graphs refill.
+CREATE UNLOGGED TABLE device_metrics (
+  equipment_id text NOT NULL REFERENCES equipment(id),
+  tick bigint NOT NULL,
+  reachable boolean NOT NULL,
+  ping_ms double precision,
+  ping_loss_pct double precision NOT NULL,
+  cpu_pct double precision,
+  mem_pct double precision,
+  poll_ms double precision,
+  PRIMARY KEY (equipment_id, tick)
+);
+CREATE INDEX device_metrics_tick_idx ON device_metrics(tick);
+
+CREATE UNLOGGED TABLE port_metrics (
+  port_id text NOT NULL REFERENCES ports(id),
+  tick bigint NOT NULL,
+  oper_status text NOT NULL,
+  in_mbps double precision NOT NULL,
+  out_mbps double precision NOT NULL,
+  PRIMARY KEY (port_id, tick)
+);
+CREATE INDEX port_metrics_tick_idx ON port_metrics(tick);
+
+ALTER TABLE alarms ADD COLUMN code integer;
+ALTER TABLE alarms ADD COLUMN source_name text;
+ALTER TABLE alarms ADD COLUMN location_info text;
+ALTER TABLE alarms ADD COLUMN occurrence integer NOT NULL DEFAULT 1;
+ALTER TABLE alarms ADD COLUMN acked_by text;
+ALTER TABLE alarms ADD COLUMN acked_at timestamptz;
+ALTER TABLE alarms ADD COLUMN cleared_by text;
+
+CREATE TABLE alarm_comments (
+  id bigserial PRIMARY KEY,
+  alarm_id text NOT NULL REFERENCES alarms(id),
+  author_id text NOT NULL,
+  text text NOT NULL,
+  created_at timestamptz NOT NULL
+);
+`,
+  },
 ];

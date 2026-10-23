@@ -16,6 +16,9 @@ import { SimulationLabPage } from './pages/SimulationLab';
 import { SettlementPage } from './pages/Settlement';
 import { AuditPage } from './pages/Audit';
 import { SettingsPage } from './pages/Settings';
+import { DeviceMapPage } from './pages/DeviceMap';
+import { PerformancePage } from './pages/Performance';
+import { DeviceDetailPage, IpamPage } from './pages/Devices';
 
 export type Role = 'ADMIN' | 'CUSTOMER' | 'PROVIDER' | 'NOC' | 'COMMERCIAL' | 'AUDITOR';
 export interface User { userId: string; email: string; displayName: string; role: Role; customerId: string | null; providerId: string | null }
@@ -36,6 +39,9 @@ const MENU: { path: string; label: string; roles: Role[] }[] = [
   { path: '/provisioning', label: 'Provisioning', roles: ['ADMIN', 'NOC', 'AUDITOR'] },
   { path: '/sla', label: 'SLA & Monitoring', roles: ['ADMIN', 'NOC', 'AUDITOR', 'PROVIDER', 'CUSTOMER'] },
   { path: '/alarms', label: 'Alarms & Incidents', roles: ['ADMIN', 'NOC', 'AUDITOR', 'PROVIDER', 'CUSTOMER'] },
+  { path: '/device-map', label: 'Device Map', roles: ['ADMIN', 'NOC', 'AUDITOR'] },
+  { path: '/performance', label: 'Performance', roles: ['ADMIN', 'NOC', 'AUDITOR'] },
+  { path: '/ipam', label: 'IPAM & VLAN', roles: ['ADMIN', 'NOC', 'AUDITOR'] },
   { path: '/simulation', label: 'Simulation Lab', roles: ['ADMIN', 'NOC', 'AUDITOR'] },
   { path: '/settlement', label: 'Revenue & Settlement', roles: ['ADMIN', 'COMMERCIAL', 'AUDITOR', 'PROVIDER'] },
   { path: '/audit', label: 'Audit Logs', roles: ['ADMIN', 'AUDITOR'] },
@@ -121,6 +127,10 @@ export function App() {
             <Route path="/sla" element={<Guard roles={r('/sla')}><SlaPage /></Guard>} />
             <Route path="/alarms" element={<Guard roles={r('/alarms')}><AlarmsPage /></Guard>} />
             <Route path="/incidents/:id" element={<Guard roles={r('/alarms')}><IncidentDetailPage /></Guard>} />
+            <Route path="/device-map" element={<Guard roles={r('/device-map')}><DeviceMapPage /></Guard>} />
+            <Route path="/performance" element={<Guard roles={r('/performance')}><PerformancePage /></Guard>} />
+            <Route path="/ipam" element={<Guard roles={r('/ipam')}><IpamPage /></Guard>} />
+            <Route path="/devices/:id" element={<Guard roles={r('/device-map')}><DeviceDetailPage /></Guard>} />
             <Route path="/simulation" element={<Guard roles={r('/simulation')}><SimulationLabPage /></Guard>} />
             <Route path="/settlement" element={<Guard roles={r('/settlement')}><SettlementPage /></Guard>} />
             <Route path="/audit" element={<Guard roles={r('/audit')}><AuditPage /></Guard>} />

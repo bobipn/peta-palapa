@@ -888,6 +888,31 @@
         }
       }
     },
+    "/api/services/{id}/live": {
+      "get": {
+        "tags": [
+          "services"
+        ],
+        "description": "Per-node/per-link provisioning & activation state (SIMULATED)",
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
     "/api/services/{id}/tests": {
       "post": {
         "tags": [
@@ -1395,6 +1420,433 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/devices": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/devices/{id}": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/devices/{id}/config": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "description": "SIMULATED running config (pseudo-CLI)",
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/devices/{id}/metrics": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minimum": 10,
+              "maximum": 1440,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "ticks",
+            "required": false
+          },
+          {
+            "schema": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "endTick",
+            "required": false
+          },
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/devices/{id}/ports/{portId}/admin": {
+      "post": {
+        "tags": [
+          "noc"
+        ],
+        "description": "shutdown / no shutdown on a SIMULATED interface (modelled as a PORT_DOWN fault)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "status"
+                ],
+                "properties": {
+                  "status": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "UP"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "DOWN"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "portId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/device-map": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/outages": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/probes": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/ipam": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/vlans": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/services/{id}/network": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/alarms/stats": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/alarms/export.csv": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "ACTIVE"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "CLEARED"
+                  ]
+                }
+              ]
+            },
+            "in": "query",
+            "name": "state",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/alarms/{id}": {
+      "get": {
+        "tags": [
+          "noc"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/alarms/ack": {
+      "post": {
+        "tags": [
+          "noc"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "ids"
+                ],
+                "properties": {
+                  "ids": {
+                    "minItems": 1,
+                    "maxItems": 500,
+                    "type": "array",
+                    "items": {
+                      "maxLength": 80,
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/alarms/{id}/clear": {
+      "post": {
+        "tags": [
+          "noc"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/alarms/{id}/comments": {
+      "post": {
+        "tags": [
+          "noc"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "text"
+                ],
+                "properties": {
+                  "text": {
+                    "minLength": 1,
+                    "maxLength": 1000,
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "maxLength": 80,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "Default Response"

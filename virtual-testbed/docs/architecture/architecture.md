@@ -70,6 +70,7 @@ Identity: `organizations, users, sessions, customers, providers`.
 Inventory: `locations, pops, nodes, cable_systems, cable_segments (physical span: length), equipment, ports, optical_channels (inventory only), capacity_resources (logical link capacity, 1:1 with span in MVP), reservations`.
 Commercial: `products, sla_profiles, platform_settings, quotes, orders, provider_suborders, settlement_ledger`.
 Service & orchestration: `services, service_paths, provisioning_workflows, provisioning_tasks, service_tests`.
+NOC (migration 003): `ip_pools, ip_allocations, vlan_allocations, service_configs, device_metrics, port_metrics, alarm_comments` + equipment hostname/role/mgmt_ip/loopback_ip, port kind/ip/mtu/mode, alarm code/source/occurrence/ack.
 Simulation & assurance: `simulation_state, simulation_scenarios, injected_faults, telemetry_samples, sla_breaches, alarms, incidents, incident_events`.
 Integration & audit: `sonata_messages, domain_events (+ view order_events), audit_events, idempotency_keys`.
 

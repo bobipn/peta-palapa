@@ -20,6 +20,15 @@ OSNR, optical power, dispersion and wavelength behaviour are **not modelled**; o
 ## Node bring-up (live view)
 PROVISION_VIRTUAL produces a per-node plan (primary path nodes first, then protection-only nodes; `provisioning_delay_s_per_node`, default 2 s). `/api/services/:id/live` derives each node's state (PENDING → BOOTING → CONFIGURED → TESTING → ACTIVE/STANDBY, DOWN under node faults, OFF after failure) and each link's state server-side from that plan, the service lifecycle and active faults. It is a visualisation of simulated steps, not device telemetry.
 
+## NOC layer (inventory, IP/VLAN, metrics) — SIMULATED
+- **Inventory:** per PoP one OTN, one PE router (8 UNI ports + 1 uplink) and one management switch. Hostnames, serials, OS strings and models are invented (`SIM-…`).
+- **IPAM:** management 172.31.0.0/16 (one /24 per PoP), loopbacks 10.255.0.0/24, customer test subnets 10.240.0.0/16 in /30. Partial unique indexes prevent double allocation.
+- **VLAN:** a service gets the lowest S-VLAN in 1001–3999 that is free on **both** end PEs; management VLAN 99. Allocation happens inside the CONFIGURE_SERVICE task transaction; release on disconnect or compensation.
+- **Rendered config:** pseudo-CLI text for PE and OTN, labelled SIMULATED; never pushed anywhere.
+- **Reachability:** the NMS sits at `nd-jkt`; a device is reachable if its node is connected to `nd-jkt` over up spans (in-band DCN, no out-of-band network modelled). Unreachable → `DEVICE_UNREACHABLE` alarm and null samples.
+- **Metrics per tick:** ping RTT = 2 × in-band latency + noise with rare spikes; CPU/memory = role base + 1.5 %/0.6 % per configured service + diurnal sine + seeded noise; interface traffic = Σ simulated throughput of active services crossing the port; MGMT ports carry < 1 Mb/s. Retention 1440 ticks (= 24 h simulated). These numbers illustrate the UI; they carry no information about real equipment behaviour.
+- **Alarm console:** codes (e.g. LOS 3001, PORT_DOWN 3003, DEVICE_UNREACHABLE 3004, SERVICE_DOWN 7001), occurrence counting, ack/clear/comment. Alarms are reconciled from state, so a manual clear of a persisting condition is re-raised.
+
 ## Time
 - Wall clock: orders, timeouts, provisioning delays (default 1 s per span — demo-scaled).
 - Simulation clock: ticks of 60 s simulated time. Auto-tick every 5 s real time (configurable), or manual `+1/+10/+60`.
@@ -28,7 +37,9 @@ PROVISION_VIRTUAL produces a per-node plan (primary path nodes first, then prote
 ## Faults → consequences
 | Fault | Effect |
 |---|---|
-| FIBER_CUT / PORT_DOWN | span DOWN (provider/network outage) |
+| FIBER_CUT | span DOWN (provider/network outage) |
+| PORT_DOWN (target SEGMENT) | span DOWN |
+| PORT_DOWN (target PORT — UI *shutdown*) | services whose UNI or PE uplink is that port go DOWN; no reroute can help (the hand-off itself is down) |
 | NODE_DOWN | node and every attached span DOWN |
 | SCHEDULED_MAINTENANCE | span DOWN, classified as maintenance (excluded from availability) |
 | HIGH_LATENCY / PACKET_LOSS | span DEGRADED, adds ms / % |

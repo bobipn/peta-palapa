@@ -61,7 +61,7 @@ server/src/modules     DB-backed modules: topology, capacity, quotes, orders, pr
 server/src/http        Fastify app, guards, idempotency, routes (OpenAPI)
 server/src/db          migrations, seed (synthetic topology), pg/PGlite adapter
 server/test            unit, contract/API, scenarios A–H
-web/src                React SPA (14 menus), SVG topology map
+web/src                React SPA (17 menus incl. alarm console, Device Map, Performance, IPAM & VLAN), SVG topology map
 e2e/                   Playwright
 ```
 

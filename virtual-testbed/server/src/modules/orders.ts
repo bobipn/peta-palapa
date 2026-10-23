@@ -4,6 +4,7 @@ import { scopeFor, type Principal } from '../domain/rbac.js';
 import { conflict, forbidden, newId, notFound } from '../lib/util.js';
 import { audit, emitEvent, getSettings, type Ctx, type Meta } from './context.js';
 import { release, expireHolds } from './capacity.js';
+import { releaseServiceConfig } from './netconfig.js';
 import { sonataStateOf } from './sonata/sonata.js';
 import { createActivationWorkflow, requestCompensation, withOrchestratorLock } from './orchestrator.js';
 
@@ -126,6 +127,7 @@ export async function terminateService(ctx: Ctx, meta: Meta, serviceId: string) 
     await release(q, { serviceId }, 'service terminated', now);
     await release(q, { orderId: svc.order_id }, 'service terminated', now);
     await q.query(`UPDATE service_paths SET status='RELEASED' WHERE service_id=$1`, [serviceId]);
+    await releaseServiceConfig(q, serviceId, now);
     await q.query(`UPDATE services SET state='DECOMMISSIONED', oper_status='UNKNOWN', monitoring=false WHERE id=$1`, [serviceId]);
     await q.query(`UPDATE alarms SET state='CLEARED' WHERE entity_type='SERVICE' AND entity_id=$1 AND state='ACTIVE'`, [serviceId]);
     await q.query(`UPDATE sla_breaches SET ended_tick=(SELECT tick FROM simulation_state WHERE id=1) WHERE service_id=$1 AND ended_tick IS NULL`, [serviceId]);

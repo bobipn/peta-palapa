@@ -20,6 +20,8 @@ export interface Queryable {
 export interface Db extends Queryable {
   kind: 'pg' | 'pglite';
   tx<T>(fn: (q: Queryable) => Promise<T>): Promise<T>;
+  /** Housekeeping a server would do on its own (vacuum, checkpoint). No-op on PostgreSQL. */
+  maintain(tables: string[]): Promise<void>;
   close(): Promise<void>;
 }
 
@@ -60,6 +62,9 @@ class PgDb implements Db {
       client.release();
     }
   }
+  async maintain() {
+    // autovacuum and the checkpointer handle this on a PostgreSQL server.
+  }
   close() {
     return this.pool.end();
   }
@@ -89,6 +94,16 @@ class PgliteDb implements Db {
         },
       }),
     );
+  }
+  /**
+   * PGlite runs PostgreSQL single-user: no autovacuum, no background checkpointer,
+   * and postgresql.conf is not applied (max_wal_size stays 1 GB), so pg_wal and
+   * churned tables grow until someone vacuums and checkpoints. Must run outside a
+   * transaction.
+   */
+  async maintain(tables: string[]) {
+    for (const t of tables) await this.db.query(`VACUUM ${t}`);
+    await this.db.query('CHECKPOINT');
   }
   close() {
     return this.db.close();

@@ -17,6 +17,8 @@ import { audit, emitEvent, getSettings, getSimState, simTimeOf, type Ctx, type M
 import { release, reserve } from '../capacity.js';
 import { loadGraph } from '../topology.js';
 import { FAULT_TARGET, FAULT_TYPES, type FaultSpec, type FaultType } from './adapter.js';
+import { servicePortDependencies } from '../netconfig.js';
+import { alarmContext, recordNocMetrics, unreachableDevices } from './noc.js';
 
 interface FaultRow {
   id: string;
@@ -54,7 +56,7 @@ const FAULT_META: Record<FaultType, { severity: 'CRITICAL' | 'MAJOR' | 'MINOR' |
   SCHEDULED_MAINTENANCE: { severity: 'INFO', alarm: 'MAINTENANCE', title: 'Scheduled maintenance' },
   CUSTOMER_SIDE_OUTAGE: { severity: 'MINOR', alarm: 'CUSTOMER_SIDE_DOWN', title: 'Customer-side outage' },
 };
-const SERVICE_ALARMS = ['SERVICE_DOWN', 'ON_PROTECTION', 'ON_REROUTE'];
+const SERVICE_ALARMS = ['SERVICE_DOWN', 'ON_PROTECTION', 'ON_REROUTE', 'DEVICE_UNREACHABLE'];
 const MANAGED_ALARMS = new Set([...Object.values(FAULT_META).map((m) => m.alarm), ...SERVICE_ALARMS]);
 
 // ------------------------------------------------------------------ state
@@ -126,9 +128,10 @@ async function addImpact(q: Queryable, incidentId: string, field: 'impacted_serv
 }
 
 /** Incidents (by fault) that affect any of the given segments. */
-function faultsTouching(ns: NetState, segIds: string[], serviceId: string): FaultRow[] {
+function faultsTouching(ns: NetState, segIds: string[], serviceId: string, portDeps: string[] = []): FaultRow[] {
   return ns.faults.filter((f) => {
     if (f.type === 'CUSTOMER_SIDE_OUTAGE') return f.target_id === serviceId;
+    if (f.type === 'PORT_DOWN' && f.target_id && portDeps.includes(f.target_id)) return true;
     const fs = ns.faultSegments.get(f.id);
     return !!fs && segIds.some((s) => fs.has(s));
   });
@@ -161,7 +164,8 @@ async function evaluateServices(q: Queryable, ctx: Ctx, meta: Meta, ns: NetState
     let reroute = paths.find((p) => p.role === 'REROUTE');
     const up = (p?: PathRow) => !!p && p.segment_ids.every((s) => !ns.segDown.has(s)) && p.node_ids.every((n) => !ns.nodeDown.has(n));
     const allSegs = paths.flatMap((p) => p.segment_ids);
-    const touching = faultsTouching(ns, allSegs, svc.id);
+    const portDeps = await servicePortDependencies(q, svc.id);
+    const touching = faultsTouching(ns, allSegs, svc.id, portDeps);
     const incidents: any[] = [];
     for (const f of touching) {
       const inc = await incidentForGroup(q, f.group_id);
@@ -196,7 +200,9 @@ async function evaluateServices(q: Queryable, ctx: Ctx, meta: Meta, ns: NetState
       downSince = null;
     };
 
-    if (ns.customerSideDown.has(svc.id)) {
+    if (portDeps.some((p) => ns.portDown.has(p))) {
+      await goDown('customer handoff (UNI) or PE uplink port down');
+    } else if (ns.customerSideDown.has(svc.id)) {
       await goDown('customer-side outage (excluded from provider SLA)');
     } else if (reroute && reroute.status === 'PLANNED') {
       if (up(primary)) {
@@ -303,6 +309,9 @@ async function reconcileAlarms(q: Queryable, ctx: Ctx, ns: NetState, sim: SimSta
     else if (s.active_path === 'PROTECTION') desired.push({ type: 'ON_PROTECTION', severity: 'MAJOR', entityType: 'SERVICE', entityId: s.id, message: `${s.name} running on protection path (no redundancy)`, faultId: null, group: null });
     else if (s.active_path === 'REROUTE') desired.push({ type: 'ON_REROUTE', severity: 'MAJOR', entityType: 'SERVICE', entityId: s.id, message: `${s.name} running on restoration reroute`, faultId: null, group: null });
   }
+  for (const d of await unreachableDevices(q, ns)) {
+    desired.push({ type: 'DEVICE_UNREACHABLE', severity: 'MAJOR', entityType: 'DEVICE', entityId: d.id, message: `${d.hostname}: NE communication lost (no management path from NMS) [SIMULATED]`, faultId: null, group: null });
+  }
   const active = (await q.query(`SELECT * FROM alarms WHERE state='ACTIVE'`)).rows.filter((a) => MANAGED_ALARMS.has(a.type));
   const key = (t: string, et: string, eid: string) => `${t}|${et}|${eid}`;
   const want = new Map(desired.map((d) => [key(d.type, d.entityType, d.entityId), d]));
@@ -319,9 +328,11 @@ async function reconcileAlarms(q: Queryable, ctx: Ctx, ns: NetState, sim: SimSta
       incidentId = (await q.query(`SELECT id FROM incidents WHERE state <> 'RESOLVED' AND impacted_services ? $1 ORDER BY opened_tick DESC LIMIT 1`, [d.entityId])).rows[0]?.id ?? null;
     }
     const id = newId('alm');
+    const c = await alarmContext(q, d.type, d.entityType, d.entityId);
     await q.query(
-      `INSERT INTO alarms (id, severity, type, entity_type, entity_id, message, state, raised_tick, incident_id, fault_id, created_at) VALUES ($1,$2,$3,$4,$5,$6,'ACTIVE',$7,$8,$9,$10)`,
-      [id, d.severity, d.type, d.entityType, d.entityId, d.message, sim.tick, incidentId, d.faultId, ctx.clock.now()],
+      `INSERT INTO alarms (id, severity, type, entity_type, entity_id, message, state, raised_tick, incident_id, fault_id, created_at, code, source_name, location_info, occurrence)
+       VALUES ($1,$2,$3,$4,$5,$6,'ACTIVE',$7,$8,$9,$10,$11,$12,$13,$14)`,
+      [id, d.severity, d.type, d.entityType, d.entityId, d.message, sim.tick, incidentId, d.faultId, ctx.clock.now(), c.code, c.source, c.location, c.occurrence],
     );
     if (incidentId) await timeline(q, incidentId, sim.tick, 'ALARM_RAISED', `${d.severity} ${d.type}: ${d.message}`, { alarmId: id });
   }
@@ -488,6 +499,10 @@ export async function sampleService(q: Queryable, svc: any, path: PathRow, ns: N
   });
 }
 
+/** Tables rewritten or pruned every tick; vacuumed with a checkpoint every N ticks (PGlite only). */
+const CHURN_TABLES = ['device_metrics', 'port_metrics', 'ports', 'equipment', 'simulation_state', 'services', 'cable_segments', 'nodes'];
+const MAINTENANCE_EVERY_TICKS = 30;
+
 /** Advance the simulation clock by `count` ticks, generating SIMULATED telemetry and SLA evaluation. */
 export async function tick(ctx: Ctx, meta: Meta, count = 1) {
   if (count < 1 || count > 1440) throw badRequest('TICK_RANGE', 'count must be 1..1440');
@@ -501,6 +516,7 @@ export async function tick(ctx: Ctx, meta: Meta, count = 1) {
       const segs = await segmentStates(q, ns);
       const services = (await q.query(`SELECT s.*, p.latency_ms AS sla_latency, p.jitter_ms AS sla_jitter, p.loss_pct AS sla_loss, p.availability_pct AS sla_avail
         FROM services s JOIN sla_profiles p ON p.id = s.sla_profile_id WHERE s.state='ACTIVE' AND s.monitoring ORDER BY s.id`)).rows;
+      const throughput = new Map<string, number>();
       for (const svc of services) {
         const path = (await q.query<PathRow>(`SELECT * FROM service_paths WHERE service_id=$1 AND role=$2 AND status <> 'RELEASED' ORDER BY created_at DESC LIMIT 1`, [svc.id, svc.active_path ?? 'PRIMARY'])).rows[0];
         if (!path) continue;
@@ -529,10 +545,19 @@ export async function tick(ctx: Ctx, meta: Meta, count = 1) {
           [svc.id, sim.tick, simTimeOf(sim), sim.tickSeconds, m.latencyMs, m.jitterMs, m.lossPct, m.throughputMbps, state, cause, JSON.stringify(breaches), svc.active_path],
         );
         if (state !== 'DOWN') await q.query(`UPDATE services SET oper_status=$2 WHERE id=$1`, [svc.id, state]);
+        throughput.set(svc.id, state === 'DOWN' ? 0 : m.throughputMbps);
         await trackBreaches(q, ctx, svc, breaches, m, sim);
       }
+      await recordNocMetrics(q, ns, sim, throughput);
       return sim.tick;
     });
+    if (last % MAINTENANCE_EVERY_TICKS === 0) {
+      try {
+        await ctx.db.maintain(CHURN_TABLES);
+      } catch (e) {
+        ctx.log.warn({ err: e }, 'db maintenance skipped');
+      }
+    }
   }
   return { tick: last };
 }
@@ -554,9 +579,11 @@ async function trackBreaches(q: Queryable, ctx: Ctx, svc: any, breaches: string[
     if (open.some((b) => b.metric === metric)) continue;
     const incident = (await q.query(`SELECT id FROM incidents WHERE state <> 'RESOLVED' AND impacted_services ? $1 ORDER BY opened_tick DESC LIMIT 1`, [svc.id])).rows[0]?.id ?? null;
     const alarmId = newId('alm');
+    const c = await alarmContext(q, `SLA_BREACH_${metric}`, 'SERVICE', svc.id);
     await q.query(
-      `INSERT INTO alarms (id, severity, type, entity_type, entity_id, message, state, raised_tick, incident_id, created_at) VALUES ($1,'MAJOR',$2,'SERVICE',$3,$4,'ACTIVE',$5,$6,$7)`,
-      [alarmId, `SLA_BREACH_${metric}`, svc.id, `${svc.name}: ${metric.toLowerCase()} ${value(metric)} above SLA ${threshold(metric)} [SIMULATED]`, sim.tick, incident, ctx.clock.now()],
+      `INSERT INTO alarms (id, severity, type, entity_type, entity_id, message, state, raised_tick, incident_id, created_at, code, source_name, location_info, occurrence)
+       VALUES ($1,'MAJOR',$2,'SERVICE',$3,$4,'ACTIVE',$5,$6,$7,$8,$9,$10,$11)`,
+      [alarmId, `SLA_BREACH_${metric}`, svc.id, `${svc.name}: ${metric.toLowerCase()} ${value(metric)} above SLA ${threshold(metric)} [SIMULATED]`, sim.tick, incident, ctx.clock.now(), c.code, c.source, c.location, c.occurrence],
     );
     await q.query(`INSERT INTO sla_breaches (id, service_id, metric, threshold, peak_value, started_tick, alarm_id) VALUES ($1,$2,$3,$4,$5,$6,$7)`, [
       newId('brc'), svc.id, metric, threshold(metric), value(metric), sim.tick, alarmId,
@@ -583,6 +610,9 @@ export async function resetSimulation(ctx: Ctx, meta: Meta) {
                    WHERE status IN ('ACTIVE','STANDBY') AND service_id IN (SELECT id FROM services WHERE state='ACTIVE')`);
     await q.query(`UPDATE services SET active_path='PRIMARY', oper_status='UP', reroute_ready_tick=NULL, down_since_tick=NULL, activated_sim_tick=0 WHERE state='ACTIVE'`);
     for (const t of ['incident_events', 'sla_breaches', 'telemetry_samples']) await q.query(`DELETE FROM ${t}`);
+    await q.query(`DELETE FROM device_metrics`);
+    await q.query(`DELETE FROM port_metrics`);
+    await q.query(`DELETE FROM alarm_comments`);
     await q.query(`DELETE FROM alarms`);
     await q.query(`DELETE FROM incidents`);
     await q.query(`DELETE FROM injected_faults`);

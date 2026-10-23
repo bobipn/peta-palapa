@@ -128,6 +128,32 @@ Skenario lain yang berguna: **Latency above SLA Jakarta–Makassar** (memicu pel
 
 ---
 
+## 4a. Fitur NOC: alarm console, peta perangkat, grafik, IP & VLAN (akun NOC/Admin/Auditor)
+
+Semua data di bawah **SIMULASI**: hostname, IP (rentang privat 172.31/16, 10.255.0/24, 10.240/16), VLAN, konfigurasi, dan grafik dibangkitkan oleh testbed. Tidak ada yang dikirim ke perangkat sungguhan, dan konfigurasinya *pseudo-CLI* yang tidak valid untuk OS perangkat mana pun.
+
+**Inventori per kota (PoP):** 3 perangkat — `<KOTA>-OTN-01` (transport optik), `<KOTA>-PE-01` (router PE, 8 port UNI `10GE0/1/1–8` + uplink `100GE0/0/1`), `<KOTA>-MSW-01` (switch manajemen, VLAN 99). Server NMS virtual berada di Jakarta; perangkat yang terputus dari Jakarta (semua jalur fiber ke kotanya putus) menjadi **UNREACHABLE**.
+
+| Menu | Yang bisa dilakukan |
+|---|---|
+| **Alarms & Incidents** | Tab **Current Alarms**: penghitung per severity (Critical/Major/Minor/Warning), filter cepat, **Auto Refresh**, centang beberapa alarm → **Acknowledge / Clear / Comment**, **Export CSV**, klik baris → panel detail (kode alarm, sumber, lokasi, jumlah kemunculan, riwayat komentar). Tab **Alarm Logs** (alarm yang sudah clear), **Statistics** (per tipe/severity/sumber), **Incidents**. |
+| **Device Map** | Peta logis seperti The Dude: ikon perangkat hijau = UP, oranye = ada alarm, merah = DOWN/unreachable; garis = link fiber (merah bila putus). Tombol **Fit semua / Indonesia / Asia**, scroll untuk zoom, drag untuk geser, klik ikon → detail perangkat. Tab **Devices** (daftar + ping/CPU), **Outages** (periode down per perangkat), **Probes** (ping/SNMP/SSH dari NMS — simulasi), **Links**. |
+| **Performance** | Grafik ala Cacti per perangkat: ping RTT & loss, CPU, memori, trafik per interface (in/out) dengan legenda Cur/Avg/Max/Min. Rentang 1 jam / 6 jam / 1 hari *waktu simulasi*; tombol **◀◀ ▶▶** untuk geser dan **Live** untuk kembali ke saat ini. Grafik baru terisi setelah jam simulasi berjalan (auto-tick atau **+10** di Simulation Lab). |
+| **IPAM & VLAN** | Pemakaian pool IP (manajemen, loopback, subnet uji pelanggan /30) dan tabel VLAN per perangkat; filter teks; centang *tampilkan yang dilepas* untuk riwayat. |
+| **Detail perangkat** (klik hostname di mana pun) | Tab **Interfaces** (status, IP, VLAN, MTU, trafik; tombol **shutdown / no shutdown** untuk NOC/Admin), **VLAN**, **Services**, **Alarms**, **Running config** (bisa disalin), **Graphs**. |
+| **Services → tab Network config** | Hand-off pelanggan: port UNI di kedua ujung, S-VLAN, MTU, subnet uji CE /30, dan konfigurasi per perangkat. Customer hanya melihat bagian hand-off miliknya. |
+
+**Latihan singkat (5 menit):**
+1. Pastikan ada minimal satu layanan ACTIVE (bagian 2).
+2. **Services** → buka layanan → tab **Network config**: catat port UNI dan S-VLAN di ujung A.
+3. **Device Map** → klik perangkat PE ujung A → tab **Interfaces** → baris port UNI tadi → **shutdown**. Layanan menjadi DOWN, muncul alarm `PORT_DOWN` (kode 3003) di **Alarms & Incidents**.
+4. Kembali ke port tersebut → **no shutdown** → **Simulation Lab +1** → layanan pulih, alarm pindah ke **Alarm Logs**.
+5. **Simulation Lab** → injeksi FIBER_CUT pada semua span menuju satu kota (mis. Ternate: `seg-kdi-tte` dan `seg-mdo-tte`) → +10 → perangkat TTE menjadi merah di **Device Map**, alarm `DEVICE_UNREACHABLE` (3004) muncul, tab **Outages** mencatat periodenya.
+
+Catatan: **Clear** manual pada alarm yang kondisinya masih ada akan memunculkan alarm itu kembali pada rekonsiliasi berikutnya (perilaku NMS yang wajar). Port UNI per PE hanya 8 — order ke-9 yang berujung di kota yang sama akan gagal `NO_FREE_UNI_PORT` dan di-rollback otomatis.
+
+---
+
 ## 5. Menu lain
 
 | Menu | Untuk |
@@ -135,7 +161,7 @@ Skenario lain yang berguna: **Latency above SLA Jakarta–Makassar** (memicu pel
 | **Orders** | Daftar order & status; klik ID untuk timeline lengkap |
 | **Services** | Inventori layanan, jalur aktif (PRIMARY/PROTECTION/REROUTE) |
 | **Provisioning** | Detail tiap langkah workflow (percobaan, error, idempotency key) |
-| **Alarms & Incidents** | Alarm aktif, insiden & dampaknya |
+| **Alarms & Incidents** | Alarm console & insiden (lihat bagian 4a) |
 | **Revenue & Settlement** | Ledger simulasi; fee platform 10 % = konfigurasi DEMO |
 | **Audit Logs** | Siapa melakukan apa, termasuk akses yang ditolak |
 | **Settings** | Parameter platform, profil SLA, status integrasi (semua MOCK/SIMULATED) |

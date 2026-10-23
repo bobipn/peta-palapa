@@ -6,6 +6,7 @@ import {
 } from './seed-data.js';
 import { FIBER_MS_PER_KM, haversineKm, round, type Clock } from '../lib/util.js';
 import { hashPassword } from '../lib/password.js';
+import { ensureInventoryV2 } from '../modules/netconfig.js';
 
 export const segId = (a: string, b: string) => `seg-${a}-${b}`;
 
@@ -26,6 +27,7 @@ export async function seed(db: Db, opts: { clock: Clock; demoPassword: string })
       ]);
     }
   });
+  await ensureInventoryV2(db, opts.clock);
 }
 
 export async function resetDemo(db: Db, opts: { clock: Clock; demoPassword: string }) {

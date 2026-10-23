@@ -12,6 +12,7 @@ import type { AppConfig } from '../config.js';
 import { openDb, type Db } from '../db/db.js';
 import { migrate } from '../db/migrate.js';
 import { seed } from '../db/seed.js';
+import { ensureInventoryV2 } from '../modules/netconfig.js';
 import { installEgressGuard } from '../lib/egress.js';
 import { AppError, systemClock, type Clock } from '../lib/util.js';
 import { can, type Permission, type Principal } from '../domain/rbac.js';
@@ -39,6 +40,7 @@ export async function buildApp(config: AppConfig, opts: { clock?: Clock; db?: Db
   await migrate(db);
   const seeded = (await db.query(`SELECT count(*)::int AS n FROM organizations`)).rows[0].n > 0;
   if (!seeded) await seed(db, { clock, demoPassword: config.demoPassword });
+  else await ensureInventoryV2(db, clock); // upgrades databases created before NOC v2
 
   const app = Fastify({
     logger: config.env === 'test' ? false : { level: 'info', redact: ['req.headers.cookie', 'req.headers.authorization', 'body.password'] },

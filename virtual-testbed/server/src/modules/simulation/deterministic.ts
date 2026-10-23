@@ -130,6 +130,28 @@ export class DeterministicSimulationAdapter implements NetworkSimulationAdapter 
       r({ testName: 'PROTECTION_PATH_STATUS', status: 'NOT_RUN', input: {}, threshold: null, result: null, reason: 'Service ordered without protection' });
     }
 
+    const handoff = (await db.query(`SELECT c.role, c.s_vlan, c.c_vlan, p.name AS port, e.hostname FROM service_configs c JOIN equipment e ON e.id=c.equipment_id LEFT JOIN ports p ON p.id=c.port_id
+                                      WHERE c.service_id=$1 AND c.status='APPLIED' AND c.role <> 'TRANSIT' ORDER BY c.role`, [svc.id])).rows;
+    const handoffOk = handoff.length === 2 && handoff.every((h) => h.port);
+    r({
+      testName: 'HANDOFF_CONFIG', status: handoffOk ? 'PASS' : 'FAIL',
+      input: {}, threshold: { endpoints: 2 }, result: { handoff },
+      reason: handoffOk ? `UNI ports ${handoff.map((h) => `${h.hostname} ${h.port}`).join(' / ')}${handoff[0].s_vlan ? `, S-VLAN ${handoff[0].s_vlan}` : ''} configured` : 'Customer handoff (UNI port / VLAN) not configured on both ends',
+    });
+    const testNet = (await db.query(`SELECT address, description FROM ip_allocations WHERE service_id=$1 AND status='ALLOCATED' LIMIT 1`, [svc.id])).rows[0];
+    if (testNet && reach && primary) {
+      const s = await sampleService(db, svc, primary, ns, sim, settings);
+      const rtt = s.latencyMs !== null ? Math.round(s.latencyMs * 2 * 1000) / 1000 : null;
+      const [, aIp, bIp] = /A=([\d.]+) B=([\d.]+)/.exec(testNet.description) ?? [];
+      r({
+        testName: 'CE_TEST_PING', status: rtt !== null ? 'PASS' : 'FAIL',
+        input: { from: aIp, to: bIp, subnet: testNet.address, count: 5 }, threshold: { lossPct: 0 }, result: { rttMs: rtt, lossPct: 0 },
+        reason: rtt !== null ? `5/5 replies from ${bIp}, RTT ${rtt} ms (simulated ping across the L2 circuit)` : 'No reply',
+      });
+    } else {
+      r({ testName: 'CE_TEST_PING', status: 'NOT_RUN', input: {}, threshold: null, result: null, reason: testNet ? 'Skipped: endpoints not reachable' : 'No CE test subnet allocated' });
+    }
+
     const drift = await capacityConsistency(db);
     r({
       testName: 'RESERVATION_CONSISTENCY', status: drift.length === 0 ? 'PASS' : 'FAIL',

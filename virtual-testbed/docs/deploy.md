@@ -35,6 +35,11 @@ Put a TLS reverse proxy (Caddy/Nginx) in front for `virtual.komersiallti.my.id` 
 ## Option C — VPS/bare Node with managed PostgreSQL
 `DATABASE_URL=postgres://…` then `npm ci && npm run build && npm start` under systemd/pm2. Migrations run automatically at start; seeding happens only if the database is empty.
 
+**Disk usage (PGlite).** PGlite runs PostgreSQL in single-user mode: no autovacuum, no background checkpointer, and `postgresql.conf` is not applied. Before this release the WAL (`pg_wal/`) was never recycled and grew with every tick (measured: 767 MB after 3,000 ticks). The app now vacuums churned tables and issues `CHECKPOINT` every 30 ticks, and keeps the synthetic metrics tables `UNLOGGED`. Measured after the fix (2026-10-23, no active services): data directory plateaus at ~122 MB, `pg_wal` ~6 MB, RSS ~430 MB. Still unbounded: `telemetry_samples` (one row per active service per tick, ~17k rows/service/day at `AUTO_TICK_MS=5000`) — use *Reset simulation* periodically on a long-running demo. After an unclean kill, PostgreSQL empties UNLOGGED tables: the Performance graphs restart empty; nothing else is lost.
+
+## Upgrading an existing install
+Overwrite the app files (keep the PGlite data directory / database), *Run NPM Install*, then **Restart** — the server serves the SPA files it found at start, so without a restart the browser gets a blank page. Migrations run at start; migration 003 (NOC layer) is additive and `ensureInventoryV2` back-fills devices, IPs and network configs for services that were already ACTIVE. Existing orders and services are kept.
+
 ## Operations
 - Health: `GET /api/health`. Logs: JSON (pino) to stdout, cookies/passwords redacted.
 - Reset demo data: Admin → Simulation Lab → *Full demo reset*, or `npm run db:reset-demo` (keeps schema + migration history).

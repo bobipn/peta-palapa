@@ -68,8 +68,23 @@ test('customer orders Jakarta–Ternate 1 Gbps 1+1 and NOC handles a fiber cut',
   await page.getByRole('button', { name: 'Restore all faults' }).click();
   await page.getByRole('button', { name: '+10' }).click();
   await page.getByRole('link', { name: 'Alarms & Incidents' }).click();
+  await page.getByRole('tab', { name: 'Alarm Logs' }).click();
+  await expect(page.getByText('LOS').first()).toBeVisible();
+  await page.getByRole('tab', { name: 'Incidents' }).click();
   await expect(page.locator('tr', { hasText: 'Fiber cut' }).getByText('RESOLVED')).toBeVisible();
   await snap(page, '09-alarms-resolved');
+
+  // NOC tools: device inventory, per-service network config, IPAM/VLAN.
+  await page.getByRole('link', { name: 'IPAM & VLAN' }).click();
+  await expect(page.getByText('Management (DCN)').first()).toBeVisible();
+  await page.getByRole('link', { name: 'JKT-PE-01' }).first().click();
+  await expect(page.getByRole('tab', { name: 'Interfaces' })).toBeVisible();
+  await page.getByRole('tab', { name: 'Running config' }).click();
+  await expect(page.getByText(/SIMULATED RUNNING CONFIG/).first()).toBeVisible();
+  await snap(page, '10-device-config');
+  await page.getByRole('link', { name: 'Device Map', exact: true }).click();
+  await expect(page.locator('.dude svg')).toBeVisible();
+  await snap(page, '11-device-map');
   await logout(page);
 
   // RBAC in the UI mirrors the backend.

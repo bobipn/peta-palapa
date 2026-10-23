@@ -21,6 +21,7 @@ import { canTransitionService, type OrderState, type ServiceState } from '../dom
 import { audit, emitEvent, getSettings, getSimState, systemMeta, type Ctx, type Meta } from './context.js';
 import { commitHolds, release, reserve } from './capacity.js';
 import { loadGraph } from './topology.js';
+import { allocateServiceConfig, releaseServiceConfig } from './netconfig.js';
 import { transitionOrder } from './orders.js';
 import { SimulationError } from './simulation/adapter.js';
 import { providerFaultActive } from './simulation/engine.js';
@@ -371,8 +372,13 @@ const HANDLERS: Record<string, Handler> = {
   async CONFIGURE_SERVICE(ctx, _m, wf) {
     const svc = (await ctx.db.query(`SELECT sim_handle FROM services WHERE id=$1`, [wf.service_id])).rows[0];
     await ctx.sim.activateService(svc.sim_handle);
-    await ctx.db.tx((q) => setServiceState(q, wf.service_id, 'CONFIGURED'));
-    return { kind: 'DONE', result: { handle: svc.sim_handle } };
+    // Customer handoff (UNI port), S-VLAN, CE test subnet and per-device config.
+    const net = await ctx.db.tx(async (q) => {
+      const r = await allocateServiceConfig(q, wf.service_id, ctx.clock.now());
+      await setServiceState(q, wf.service_id, 'CONFIGURED');
+      return r;
+    });
+    return { kind: 'DONE', result: { handle: svc.sim_handle, network: net } };
   },
 
   async RUN_ACTIVATION_TESTS(ctx, meta, wf) {
@@ -431,7 +437,8 @@ const HANDLERS: Record<string, Handler> = {
   async DEPROVISION_VIRTUAL(ctx, _m, wf) {
     const svc = (await ctx.db.query(`SELECT sim_handle FROM services WHERE id=$1`, [wf.service_id])).rows[0];
     if (svc?.sim_handle) await ctx.sim.deactivateService(svc.sim_handle);
-    return { kind: 'DONE', result: { handle: svc?.sim_handle ?? null } };
+    const removed = await ctx.db.tx((q) => releaseServiceConfig(q, wf.service_id, ctx.clock.now()));
+    return { kind: 'DONE', result: { handle: svc?.sim_handle ?? null, configsRemoved: removed } };
   },
 
   async RELEASE_CAPACITY(ctx, _m, wf) {
