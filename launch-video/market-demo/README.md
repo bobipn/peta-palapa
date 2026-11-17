@@ -1,6 +1,6 @@
 # C-Ring Market — demo produk (pendaftaran → aktivasi → dokumen)
 
-`cring_market_demo.mp4`: 1920×1080, 30 fps, 2:04, H.264 High + AAC 160 kbps. Ditujukan untuk calon pelanggan di wilayah Sulawesi.
+`cring_market_demo.mp4`: 1920×1080, 30 fps, 2:04, H.264 High + AAC 160 kbps, ~25 MB. Ditujukan untuk calon pelanggan di wilayah Sulawesi.
 
 Seluruh film menampilkan web market saja. Portal utama, NaaS, harga, link web, dan rute internasional tidak ditampilkan. Kapasitas yang ditampilkan hanya 1G dan 10G. Kursor memakai orb spiral, bukan maskot kucing.
 
