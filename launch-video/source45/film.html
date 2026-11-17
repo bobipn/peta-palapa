@@ -207,7 +207,7 @@ function sGrid(t){
  if(tp>0){sk(THREAD,{p:tp,w:6,c:OR,passes:1,amp:1.5,step:30});const q=ptAt(THREAD,tp);const goingLeft=Math.abs(Math.cos(q[2]))>.5&&Math.cos(q[2])<0;const vertical=Math.abs(Math.sin(q[2]))>.7;
   cat(q[0],q[1],.62,{walk:vertical?null:t*22,flip:goingLeft,armR:.2,sq:vertical?1.1:1})}
  else if(t>.5){cat(70,GR.y(0),.62,{sq:E.back(prog(t,.5,.75))})}
- if(t>2.05){const k=prog(t,2.05,2.25);fillP(rrect(W/2-210,1000-40,420,80,40),INK,{a:1});txt('komersiallti.my.id',W/2,1010,{size:34,weight:700,c:'#fff',align:'center',p:E.out(k)})}
+ if(t>2.05){const k=prog(t,2.05,2.25);fillP(rrect(W/2-210,1000-40,420,80,40),INK,{a:1});txt('C-Ring · Portal LTI',W/2,1010,{size:34,weight:700,c:'#fff',align:'center',p:E.out(k)})}
 }
 function sPlanTarget(t){
  const sh=shake(.95,.3,16);cam(punch(0)+t*.03,W/2,H/2,0,...sh);
@@ -389,7 +389,7 @@ function sEnd(t){
  txt('Your end to end commercial all in one platform',W/2,640,{size:46,weight:500,align:'center',a:E.out(prog(t,1.4,1.7))});
  const ph=[['Plan your goals.',1.9],['Connect your data.',2.25],['Trace your progress',2.6]];const psz=64;const gapP=40;const widths=ph.map(p=>mw(p[0],psz,500,'Caveat'));const tot=widths.reduce((a,b)=>a+b,0)+gapP*2;let px=(W-tot)/2;
  ph.forEach(([s,t0],i)=>{hand(s,px,760,{size:psz,p:E.out(prog(t,t0,t0+.3))});const vw=mw(s.split(' ')[0],psz,500,'Caveat');scribbleUnder(px,778,vw,E.out(prog(t,t0+.15,t0+.4)),OR,7);px+=widths[i]+gapP});
- const up=E.back(prog(t,2.9,3.2));if(up>0){ctx.save();ctx.translate(W/2,880);ctx.scale(up,up);fillP(rrect(-300,-44,600,88,44),NAVY);txt('komersiallti.my.id',0,14,{size:38,weight:700,c:'#fff',align:'center'});fillP(ell(-250,0,9,9),LB);ctx.restore();
+ const up=E.back(prog(t,2.9,3.2));if(up>0){ctx.save();ctx.translate(W/2,880);ctx.scale(up,up);fillP(rrect(-340,-44,680,88,44),NAVY);txt('Daftar sekarang · C-Ring Market',14,13,{size:34,weight:700,c:'#fff',align:'center'});fillP(ell(-308,0,9,9),LB);ctx.restore();
   if(t>3.35){const k=prog(t,3.35,3.8);sk(ell(W/2+230,880,20+60*k,20+60*k),{closed:true,w:4*(1-k)+1,c:OR,a:1-k})}
   const ax=W/2+lerp(420,230,E.out(prog(t,3.1,3.35))),ay=lerp(980,892,E.out(prog(t,3.1,3.35)));if(t>3.1){const arr=[[ax,ay],[ax,ay+46],[ax+12,ay+34],[ax+22,ay+56],[ax+30,ay+52],[ax+20,ay+31],[ax+36,ay+31]];fillP(arr,'#fff');sk(arr,{closed:true,w:3,passes:1})}}
 }
@@ -445,11 +445,11 @@ function sFree(t){cam(punch(0)*(1+t*.03),W/2,H/2,0,...shake(.8,.3,18));
  const sk2=prog(t,.65,.85);const cs=1.05,cx=lerp(1150,1080,E.out(prog(t,.4,.7))),cy=1000;cat(cx,cy,cs,{armR:t<.65?-1.4:t<.85?-.4:-.9,armL:PI/2+.3,sq:t>.75&&t<.9?.9:1,happy:t>.9,look:[-8,-6],flip:true});
  stamp(860,330,'GRATIS',prog(t,.75,.9),110);
  const L=['C-Ring Market','Peta Rute & Site','Helpdesk & Tiket','Ruang Meeting','Jadwal / Booking'];L.forEach((s,i)=>{const a=prog(t,.95+i*.1,1.1+i*.1);if(a<=0)return;const y=280+i*92;sk(rrect(1240,y-36,46,46,8),{closed:true,w:3,a});txt(s,1310,y,{size:34,weight:700,a});checkMark(1263,y-14,38,E.out(prog(t,1.0+i*.1,1.15+i*.1)))});
- txt('Biaya aktivasi gratis untuk kontrak ≥ 12 bulan.',300,820,{size:30,weight:800,c:OR2,a:prog(t,1.5,1.8)});txt('Bayar hanya layanan konektivitas yang Anda pesan.',300,864,{size:26,weight:600,c:GREY,a:prog(t,1.65,1.95)});
+ txt('Aktivasi dulu, tagihan terbit saat layanan aktif.',300,820,{size:30,weight:800,c:OR2,a:prog(t,1.5,1.8)});txt('Bayar hanya layanan konektivitas yang Anda pesan.',300,864,{size:26,weight:600,c:GREY,a:prog(t,1.65,1.95)});
 }
 /* 40.0–45.0 : end card */
 function sEnd45(t){sEnd(Math.min(t,3.0)+Math.max(0,t-3.0)*.5);
- ctx.save();ctx.setTransform(1,0,0,1,0,0);const k=E.out(prog(t,3.2,3.6));if(k>0){hand('Daftar sekarang di market.komersiallti.my.id',W/2,995,{size:48,align:'center',p:k});}ctx.restore()}
+ ctx.save();ctx.setTransform(1,0,0,1,0,0);const k=E.out(prog(t,3.2,3.6));if(k>0){hand('pesan · pantau · bayar — dalam satu portal',W/2,995,{size:48,align:'center',p:k});}ctx.restore()}
 
 /* ================= Connectivity Market — v2, mirrors the real logged-in UI ================= */
 const FX=60,FY=60,FW=1800,FH=960;
@@ -768,22 +768,173 @@ function sKeu(t){cam(punch(0,.14)*(1+t*.03),W/2,H/2);const act=t<.45?'Tagihan':t
  cat(x0+w+180,1010,.8,{flip:true,armR:-1.0,look:[-8,-4],happy:t>1.0});
 }
 
+/* ================= C-Ring Market — v4, from the sample customer account (17 Nov 2026) ================= */
+/* No URLs, no customer names, no order numbers, no rupiah amounts are drawn. */
+const BMR=[[-5.47,122.60],[-4.84,122.72],[-4.10,123.10],[-3.97,122.51]];
+const KMR=[[-3.97,122.51],[-2.54,121.97],[-2.00,121.34],[-1.77,120.65],[-1.39,120.75],[-0.80,120.18],[-0.66,119.74],[0.95,120.75],[0.50,122.35],[0.84,122.92],[0.90,123.40],[0.87,124.02],[1.13,124.50],[1.30,124.91],[1.42,124.98],[1.48,124.84]];
+function crPortal2(active,o={}){return crPortal(active,o)}
+function vendTag(x,y,s,on=true){const w=mw(s,15,800)+24;fillP(rrect(x,y,w,30,15),on?SOFT:'#EEF1F6');txt(s,x+w/2,y+21,{size:15,weight:800,c:on?OR2:GREY,align:'center'});return w}
+function chipRow(x,y,items){let cx=x;items.forEach(s=>{const w=mw(s,16,700)+26;sk(rrect(cx,y,w,34,9),{closed:true,w:2,c:LINE,passes:1});txt(s,cx+w/2,y+23,{size:16,weight:700,align:'center'});cx+=w+10})}
+/* 9.0–11.5 : search Bau-Bau → Manado on Marketplace A→B */
+function sMP2(t){cam(punch(0)*(1+t*.015),W/2,H/2);box(FX,FY,FW,FH,{r:26,p:E.out(prog(t,0,.2))});if(t<.12)return;
+ crTop('Marketplace Konektivitas',null,[['','moon'],['Untuk Cable Owner','dark'],['Akun','dark'],['Modul','dark']]);
+ const X=FX+150,Wd=FW-300;fillP(rrect(X,FY+106,Wd,560,22),NAVY);
+ txt('Link dari kota mana pun ke kota mana pun, dalam satu pesanan',X+30,FY+152,{size:32,weight:800,c:'#fff',p:E.out(prog(t,.1,.45))});
+ txt('Pilih titik A dan B, domestik atau internasional. Sistem merangkai ruas kabel dari beberapa cable owner,',X+30,FY+186,{size:18,weight:500,c:'#C9D4E8',a:prog(t,.2,.35)});
+ txt('menghitung harga, dan membagi pembayaran ke tiap owner secara otomatis.',X+30,FY+210,{size:18,weight:500,c:'#C9D4E8',a:prog(t,.2,.35)});
+ const F=[X+20,FY+232,Wd-40,350];fillP(rrect(F[0],F[1],F[2],F[3],16),'#fff');const fx=F[0]+18,fw=F[2]-36,half=(fw-70)/2;
+ field(fx,F[1]+24,half,'Dari','Bau-Bau',prog(t,.4,.65));fillP(rrect(fx+half-104,F[1]+48,92,40,8),SOFT);txt('Lokasi',fx+half-58,F[1]+74,{size:16,weight:800,c:OR2,align:'center'});
+ if(t>.62&&t<.85){fillP(rrect(fx,F[1]+92,half,46,10),'#fff');sk(rrect(fx,F[1]+92,half,46,10),{closed:true,w:2,c:OR,passes:1});txt('Bau-Bau, Indonesia · Bau - Bau INT',fx+16,F[1]+122,{size:17,weight:700})}
+ sk(rrect(fx+half+10,F[1]+38,50,62,10),{closed:true,w:2.5,passes:1});sk([[fx+half+30,F[1]+56],[fx+half+30,F[1]+84]],{w:2.5,passes:1});sk([[fx+half+40,F[1]+56],[fx+half+40,F[1]+84]],{w:2.5,passes:1});
+ field(fx+half+70,F[1]+24,half,'Ke','Manado',prog(t,.85,1.05));
+ if(t>1.02&&t<1.25){const bx=fx+half+70;fillP(rrect(bx,F[1]+92,half,46,10),'#fff');sk(rrect(bx,F[1]+92,half,46,10),{closed:true,w:2,c:OR,passes:1});txt('Manado, Indonesia · neuCentrIX Manado',bx+16,F[1]+122,{size:17,weight:700})}
+ lab('LAYANAN',fx,F[1]+150);chipsRow(fx,F[1]+162,fw,['Leased line (sewa kapasitas)','Sewa core (per 2 core)'],t>1.3?0:-1);
+ lab('BANDWIDTH',fx,F[1]+236);const bw=t<1.4?-1:Math.min(3,Math.floor((t-1.4)/.07));chipsRow(fx,F[1]+248,660,['100M','200M','500M','1G','2G','5G','10G'],bw,{size:17,h:40});
+ lab('KONTRAK',fx+690,F[1]+236);chipsRow(fx+690,F[1]+248,300,['12 bln','24 bln','36 bln'],t>1.7?0:-1,{size:17,h:40});
+ lab('URUTKAN',fx+1020,F[1]+236);chipsRow(fx+1020,F[1]+248,500,['Termurah','Terpendek','Tercepat aktif'],t>1.8?0:-1,{size:17,h:40});
+ btn(fx,F[1]+300,fw,46,'Cari link',{dark:false,size:21,press:t>2.05&&t<2.22?1:0});ripple(fx+fw/2,F[1]+322,2.07,INK);
+ let qx=X+20;QCH.forEach((q,i)=>{const w=mw(q,15,600)+26;const a=prog(t,.3+i*.05,.45+i*.05);if(a>0){ctx.save();ctx.globalAlpha*=a;fillP(rrect(qx,FY+604,w,34,17),'#1E3466');txt(q,qx+w/2,FY+627,{size:15,weight:600,c:'#DCE4F2',align:'center'});ctx.restore()}qx+=w+10});
+ [['Hasil pencarian',1],['Pesanan saya',0],['Cara kerja',0]].forEach(([s,on],i)=>{const w=mw(s,17,800)+30,x=X+[0,180,330][i];if(on)fillP(rrect(x,FY+690,w,42,10),NAVY);else{fillP(rrect(x,FY+690,w,42,10),'#fff');sk(rrect(x,FY+690,w,42,10),{closed:true,w:2,c:LINE,passes:1})}txt(s,x+w/2,FY+717,{size:17,weight:800,c:on?'#fff':INK,align:'center'})});
+ const tg=t<.65?[fx+200,F[1]+70]:t<1.25?[fx+half+300,F[1]+70]:t<1.95?[fx+500,F[1]+268]:[fx+fw/2,F[1]+322];
+ const cx=1730,cy=1005,s=.8;cat(cx,cy,s,{flip:true,armR:aim(cx,cy,s,true,tg[0],tg[1]),look:[-8,-6],sq:t>2.05&&t<2.2?.93:1});
+}
+/* 11.5–14.25 : the real search result — 4 route options, 2 vendors · 2 segments */
+function sResult(t){cam(punch(0)*(1+t*.012),W/2,H/2);box(FX,FY,FW,FH,{r:26,shadow:false});
+ crTop('Marketplace Konektivitas',null,[['','moon'],['Untuk Cable Owner','dark'],['Akun','dark'],['Modul','dark']]);
+ [['Hasil pencarian',1],['Pesanan saya',0],['Cara kerja',0]].forEach(([s,on],i)=>{const w=mw(s,17,800)+30,x=FX+40+[0,180,330][i];if(on)fillP(rrect(x,FY+108,w,42,10),NAVY);else{fillP(rrect(x,FY+108,w,42,10),'#fff');sk(rrect(x,FY+108,w,42,10),{closed:true,w:2,c:LINE,passes:1})}txt(s,x+w/2,FY+135,{size:17,weight:800,c:on?'#fff':INK,align:'center'})});
+ // light map like the real page, with the two vendor segments
+ const R=[FX+40,FY+168,800,FH-196];ctx.save();ctx.beginPath();ctx.rect(R[0],R[1],R[2],R[3]);ctx.clip();fillP(rrect(R[0],R[1],R[2],R[3],16),'#BFD7EA');const P=mapP(R,118.2,2.6,8.2);
+ LAND.forEach(pl=>fillP(pl.map(q=>[P.x(q[1]),P.y(q[0])]),'#F4F1EA',{amp:.5}));ROUTES.forEach(r=>sk(r.p.map(q=>[P.x(q[1]),P.y(q[0])]),{w:2,c:'#9DB3CF',passes:1,amp:.4,step:12}));
+ const vb=crs(BMR.map(c=>LL(P,c)),10),va=crs(KMR.map(c=>LL(P,c)),10);const kb=E.io(prog(t,.25,.7)),ka=E.io(prog(t,.6,1.4));
+ sk(vb,{p:kb,w:9,c:OR,passes:1,amp:1,step:8});sk(va,{p:ka,w:9,c:NAVY,passes:1,amp:1,step:8});
+ const A=LL(P,BMR[0]),B=LL(P,KMR[KMR.length-1]),K=LL(P,BMR[3]);dot(A[0],A[1],1,OR,11);dot(B[0],B[1],E.back(prog(t,1.3,1.5)),NAVY,11);dot(K[0],K[1],E.back(prog(t,.65,.85)),'#fff',8);
+ mlabel('Bau-Bau',A[0]+18,A[1]+6);if(t>1.35)mlabel('Manado',B[0]-18,B[1]+34,prog(t,1.35,1.5),'right');if(t>.75)mlabel('Kendari',K[0]+16,K[1]+6,prog(t,.75,.9));
+ if(t>1.4){const f=E.io(prog(t,1.4,2.75));const q=ptAt(va,f);cat(q[0],q[1]+4,.38,{walk:t*24,flip:Math.cos(q[2])<0,propR:'mag',armR:-.25})}
+ ctx.restore();
+ const cx0=FX+870,cw=FW-910;txt('4 pilihan rute  Bau-Bau → Manado · Leased line 1G · 12 bulan',cx0,FY+136,{size:19,weight:600,c:GREY,a:prog(t,.05,.2)});
+ const k=E.out(prog(t,.1,.45));ctx.save();ctx.translate(lerp(160,0,k),0);ctx.globalAlpha*=k;
+ const y0=FY+168;box(cx0,y0,cw,640,{r:18,c:OR,w:3,shadow:false});
+ let tx=cx0+24;['Termurah','Tercepat aktif','SLA tertinggi','Terpendek'].forEach((s,i)=>{if(t>.4+i*.08)tx+=vendTag(tx,y0+22,s)+8});
+ txt('2 vendor · 2 ruas',cx0+24,y0+92,{size:26,weight:800});txt('Rp',cx0+cw-250,y0+64,{size:30,weight:900});ph(cx0+cw-210,y0+54,186,INK,13);txt('per bulan',cx0+cw-24,y0+92,{size:16,weight:600,c:GREY,align:'right'});
+ txt('Bau - Bau INT · Baubau → Raha → Wawonii → Kendari → Bungku → Kolonodale →',cx0+24,y0+134,{size:17,weight:500,c:'#33415C'});txt('Tentena → Poso → … → Tondano → Airmadidi → neuCentrIX Manado · Manado',cx0+24,y0+160,{size:17,weight:500,c:'#33415C'});
+ if(t>.9)chipRow(cx0+24,y0+186,['2.298 km','SLA ±97.025%','Aktif ±14 hari','darat 1.961 km · laut 338 km']);
+ const bw=cw-48,sp=E.out(prog(t,1.0,1.5));fillP(rrect(cx0+24,y0+244,bw*.5*sp,16,8),NAVY);fillP(rrect(cx0+24+bw*.5,y0+244,bw*.5*sp,16,8),OR);
+ fillP(ell(cx0+30,y0+286,6,6),NAVY);txt('Vendor A',cx0+44,y0+292,{size:16,weight:700});fillP(ell(cx0+140,y0+286,6,6),OR);txt('Vendor B',cx0+154,y0+292,{size:16,weight:700});
+ sk([[cx0+24,y0+322],[cx0+cw-24,y0+322]],{w:2,c:LINE,passes:1});txt('KOMPONEN',cx0+24,y0+350,{size:14,fam:MONO,weight:500,c:GREY});txt('VENDOR',cx0+cw-200,y0+350,{size:14,fam:MONO,weight:500,c:GREY});
+ [['Port & perangkat di Baubau','Vendor B'],['Ruas Baubau → Kendari · laut + darat','Vendor B'],['Ruas Kendari → Manado · darat + laut','Vendor A']].forEach(([a,b],i)=>{const a2=prog(t,1.2+i*.12,1.35+i*.12);if(a2<=0)return;const yy=y0+392+i*44;txt(a,cx0+24,yy,{size:18,weight:600,a:a2});txt(b,cx0+cw-200,yy,{size:18,weight:800,c:b==='Vendor A'?NAVY:OR2,a:a2});sk([[cx0+24,yy+16],[cx0+cw-24,yy+16]],{w:1.5,c:LINE,passes:1,a:a2})});
+ btn(cx0+24,y0+560,320,58,'Pesan rute ini',{dark:false,size:21,press:t>2.4&&t<2.58?1:0});ripple(cx0+184,y0+589,2.42,INK);
+ box(cx0,y0+660,cw,120,{r:18,shadow:false,w:2});txt('2 vendor · 2 ruas',cx0+24,y0+710,{size:22,weight:800});chipRow(cx0+24,y0+730,['2.314 km','SLA ±96.54%','Aktif ±14 hari']);
+ ctx.restore();
+}
+/* 14.25–16.25 : "Pesanan saya" — real tracker, per-vendor status */
+const TRK=['Dipesan','Vendor konfirmasi','Aktivasi','Aktif','Lunas'];
+function sTrack(t){cam(punch(0)*(1+t*.015),W/2,H/2,0,...shake(1.45,.2,10));box(FX,FY,FW,FH,{r:26,shadow:false});
+ crTop('Marketplace Konektivitas',null,[['','moon'],['Untuk Cable Owner','dark'],['Akun','dark'],['Modul','dark']]);
+ [['Hasil pencarian',0],['Pesanan saya',1],['Cara kerja',0]].forEach(([s,on],i)=>{const w=mw(s,17,800)+30,x=FX+150+[0,180,330][i];if(on)fillP(rrect(x,FY+108,w,42,10),NAVY);else{fillP(rrect(x,FY+108,w,42,10),'#fff');sk(rrect(x,FY+108,w,42,10),{closed:true,w:2,c:LINE,passes:1})}txt(s,x+w/2,FY+135,{size:17,weight:800,c:on?'#fff':INK,align:'center'})});
+ fillP(ell(FX+160,FY+182,6,6),'#1D8348');txt('Status diperbarui otomatis tiap 30 detik',FX+176,FY+188,{size:17,weight:600,c:GREY});
+ const X=FX+150,Wd=FW-300,Y=FY+210;box(X,Y,Wd,520,{r:18,shadow:false,c:t>1.45?OR:INK,w:t>1.45?3:2});
+ txt('Bau - Bau INT · Baubau → neuCentrIX Manado · Manado',X+30,Y+52,{size:26,weight:800});txt('Leased line 1G · 12 bulan',X+30,Y+86,{size:18,weight:500,c:GREY});txt('Rp',X+Wd-240,Y+56,{size:28,weight:900});ph(X+Wd-202,Y+46,170,INK,12);
+ const tt=[.15,.5,.9,1.3,1.65];const sx0=X+120,sx1=X+Wd-120,sy=Y+170;sk([[sx0,sy],[sx1,sy]],{w:5,c:'#E2E2E2',passes:1});let fx=sx0;
+ TRK.forEach((s,i)=>{const x=lerp(sx0,sx1,i/4);if(i>0){const k=E.io(prog(t,tt[i-1],tt[i]));if(k>0){sk([[lerp(sx0,sx1,(i-1)/4),sy],[lerp(lerp(sx0,sx1,(i-1)/4),x,k),sy]],{w:5,c:'#1D8348',passes:1});fx=lerp(lerp(sx0,sx1,(i-1)/4),x,k)}}
+  const done=t>=tt[i];fillP(ell(x,sy,13,13),done?'#1D8348':'#fff');sk(ell(x,sy,13,13),{closed:true,w:3,c:done?'#1D8348':LINE,passes:1});
+  let lab2=s;if(i===1||i===2)lab2=s+' '+(t<tt[i]-.18?'0/2':t<tt[i]?'1/2':'2/2');txt(lab2,x,sy+44,{size:18,weight:800,c:done?'#1D8348':GREY,align:'center'})});
+ cat(fx,sy-14,.42,{walk:t<1.65?t*24:null,happy:t>1.65,armR:t>1.65?-1.3:null,armL:t>1.65?-1.9:null});
+ ['Vendor A','Vendor B'].forEach((v,i)=>{const y=Y+270+i*60;txt(v,X+30,y,{size:20,weight:700});sk([[X+30,y+22],[X+Wd-30,y+22]],{w:1.5,c:LINE,passes:1});if(t>tt[2]+.1*i){const k=E.back(prog(t,tt[2]+.1*i,tt[2]+.1*i+.2));ctx.save();ctx.translate(X+Wd-90,y-6);ctx.scale(k,k);fillP(rrect(-60,-17,120,34,17),'#E3F5EC');txt('Ruas aktif',0,6,{size:16,weight:800,c:'#1D8348',align:'center'});ctx.restore()}});
+ let bx=X+Wd-30;['Tagihan & saldo','Kontrak','Lapor gangguan','Hentikan','Perpanjang','Ubah bandwidth'].forEach(s=>{const w=mw(s,18,800)+34;bx-=w;fillP(rrect(bx,Y+430,w,54,12),'#fff');sk(rrect(bx,Y+430,w,54,12),{closed:true,w:2,c:LINE,passes:1});txt(s,bx+w/2,Y+464,{size:18,weight:800,c:OR2,align:'center'});bx-=12});
+ hand('aktivasi dulu — tagihan terbit saat layanan aktif',W/2,850,{size:54,align:'center',c:OR2,p:E.out(prog(t,.6,1.1))});
+}
+/* 16.25–18.25 : documents issued automatically (contract e-signed, SOF, BAA, BAST, invoice) */
+const DOCS=[['Kontrak','ditandatangani sistem & pelanggan'],['Service Order Form','diterbitkan sistem'],['Berita Acara Aktivasi','diterbitkan sistem'],['Berita Acara Serah Terima','diterbitkan sistem'],['Invoice','LUNAS · unduh PDF']];
+function sDocs(t){cam(punch(0)*(1+t*.02),W/2,H/2);
+ hand('dokumen terbit otomatis',W/2,170,{size:66,align:'center',p:E.out(prog(t,.05,.45))});
+ DOCS.forEach(([h,s],i)=>{const k=E.back(prog(t,.15+i*.14,.45+i*.14));if(k<=0)return;const x=230+i*300,y=560+(i%2?30:-10),r=(i-2)*.05;ctx.save();ctx.translate(x+130,y);ctx.rotate(r*(1-k*.3));ctx.scale(k,k);
+  fillP(rrect(-118,-188,260,380,14),'rgba(13,33,80,.12)');fillP(rrect(-130,-200,260,380,14),'#fff');sk(rrect(-130,-200,260,380,14),{closed:true,w:2.5,passes:1});
+  fillP(rrect(-130,-200,260,60,14),i===4?OR:NAVY);ctx.drawImage(IMG.app_icon,-112,-188,36,36);txt(i===4?'INVOICE':'DOKUMEN',-64,-162,{size:15,fam:MONO,weight:500,c:'#fff'});
+  const words=h.split(' ');let line='',ly=-100;words.forEach(wd=>{const tst=line?line+' '+wd:wd;if(mw(tst,22,800)>220){txt(line,-110,ly,{size:22,weight:800});line=wd;ly+=28}else line=tst});txt(line,-110,ly,{size:22,weight:800});
+  for(let j=0;j<4;j++)ph(-110,ly+38+j*26,[200,170,190,120][j],'#D6DCE8',7);
+  txt(s,-110,150,{size:15,weight:700,c:i===4?'#1D8348':OR2});
+  if(i===0){sk([[-100,110],[-80,96],[-60,114],[-40,98],[-20,112]],{w:3,c:NAVY,passes:1});sk([[10,110],[30,94],[48,112],[70,96]],{w:3,c:OR,passes:1})}
+  ctx.restore();if(i===4)stamp(x+190,y-90,'LUNAS',prog(t,1.05,1.25),56)});
+ cat(1690,1010,.85,{flip:true,armR:-1.0,look:[-8,-6],happy:t>1.3});
+ txt('Kontrak · SOF · BAA · BAST · Invoice — tersimpan di portal, siap diunduh',W/2,960,{size:24,weight:600,c:GREY,align:'center',a:prog(t,1.3,1.6)});
+}
+/* 18.25–20.25 : NaaS Hub dashboard (real layout and copy) */
+function sNaas2(t){cam(punch(0)*(1+t*.015),W/2,H/2);box(FX,FY,FW,FH,{r:26,shadow:false});
+ crTop('NaaS Hub',null,[['','moon'],['← Market','dark'],['Modul','dark']]);
+ const sx=FX+4,sw=240;['Dasbor','Port & LOA','Virtual Circuit','Cloud','Marketplace','Telemetri','Tata Kelola'].forEach((s,i)=>{const y=FY+112+i*52;if(i===0)fillP(rrect(sx+12,y,sw-24,42,10),SOFT);txt(s,sx+28,y+28,{size:18,weight:i?600:800,c:i?INK:OR2})});sk([[sx+sw,FY+90],[sx+sw,FY+FH-6]],{w:2,c:LINE,passes:1});
+ const X=sx+sw+30,Wd=FX+FW-X-30;const q='Backbone 2 Gbps Ternate ke Kendari 12 bulan';const n=Math.floor(prog(t,.15,.7)*q.length);
+ fillP(rrect(X,FY+104,Wd-180,52,12),'#fff');sk(rrect(X,FY+104,Wd-180,52,12),{closed:true,w:2.5,c:OR,passes:1});txt('>',X+18,FY+138,{size:20,fam:MONO,weight:700,c:OR});txt(q.slice(0,n),X+44,FY+138,{size:20,weight:600});if(t<.8&&Math.floor(T*6)%2)fillP(rrect(X+48+mw(q.slice(0,n),20,600),FY+116,4,28,1),OR);
+ btn(X+Wd-166,FY+104,166,52,'Rancang',{dark:false,size:20,press:t>.75&&t<.9?1:0});ripple(X+Wd-83,FY+130,.77,INK);
+ let cx=X;['Backbone 2 Gbps Ternate ke Kendari 12 bulan','1 Gbps Manado ke IX terdekat','Bare metal di Ternate 500 Mbps per GB'].forEach(s=>{const w=mw(s,15,600)+24;sk(rrect(cx,FY+166,w,32,16),{closed:true,w:1.5,c:LINE,passes:1});txt(s,cx+w/2,FY+188,{size:15,weight:600,c:GREY,align:'center'});cx+=w+10});
+ txt('Dasbor terpadu',X,FY+250,{size:30,weight:800});txt('Port fisik, virtual circuit, koneksi cloud, dan mitra ekosistem dalam satu tampilan.',X,FY+282,{size:18,weight:500,c:GREY});
+ ['port aktif','virtual circuit aktif','bandwidth VC aktif','biaya bulanan','skor kepatuhan'].forEach((s,i)=>{const bx=X+i*((Wd+16)/5),bw=(Wd+16)/5-16;box(bx,FY+304,bw,90,{r:14,shadow:false,w:2});ph(bx+18,FY+338,lerp(30,70,E.out(prog(t,1.0,1.4))),i===1?OR:INK,16);txt(s,bx+18,FY+374,{size:15,weight:600,c:GREY})});
+ const R=[X,FY+414,Wd,FH-430];const P=mapP(R,116.0,1.7,18);darkMap(R,P,{legend:false,analisis:false,extra:()=>{const tt=LL(P,[0.79,127.38]),kd=LL(P,[-3.97,122.51]),md=LL(P,[1.48,124.84]);dot(tt[0],tt[1],1,LB,9);dot(kd[0],kd[1],1,LB,9);
+  const f=E.io(prog(t,.95,1.55));const pth=bez(tt,kd,-80);sk(pth,{p:f,w:6,c:LB,passes:1});if(f>=1)packets(pth,18.25+1.55,3,1.3,6);mlabel('Ternate',tt[0]+14,tt[1]-12);mlabel('Kendari',kd[0]+14,kd[1]+8);
+  const g=E.io(prog(t,1.3,1.8));const p2=bez(md,[R[0]+R[2]-60,R[1]+70],-30);sk(p2,{p:g,w:4,c:'#C9A227',passes:1,dash:[10,8]})}});
+ fillP(rrect(R[0]+16,R[1]+16,250,40,10),'rgba(5,13,30,.85)');txt('Topology studio',R[0]+32,R[1]+43,{size:18,weight:800,c:'#fff'});
+ let lx=R[0]+16;[['Backbone VC',LB],['Point-to-Point (EPL/EVPL)',NAVY],['Marketplace VC','#1D8348'],['Cloud (CSP) VC','#C9A227']].forEach(([s,c])=>{const w=mw(s,14,700)+30;fillP(rrect(lx,R[1]+R[3]-46,w,30,8),'rgba(5,13,30,.85)');fillP(ell(lx+12,R[1]+R[3]-31,5,5),c);txt(s,lx+22,R[1]+R[3]-26,{size:14,weight:700,c:'#fff'});lx+=w+8});
+ cat(X+Wd-120,FY+404,.55,{flip:true,armR:aim(X+Wd-120,FY+404,.55,true,X+Wd-83,FY+130),look:[-6,-6]});
+}
+/* 20.25–22.75 : Layanan Saya with SLA compliance (customer view) */
+function sLayanan3(t){cam(punch(0)*(1+t*.015),W/2,H/2);const act=t<.25?'Ringkasan':'Layanan Saya';
+ const L=crPortal(act,{cw:720,map:R=>{const P=mapP(R,118.6,2.4,9.5);darkMap(R,P,{legend:false,extra:()=>{const vb=crs(BMR.map(c=>LL(P,c)),10),va=crs(KMR.map(c=>LL(P,c)),10);sk(vb,{w:7,c:OR,passes:1,amp:1,step:8});sk(va,{w:7,c:LB,passes:1,amp:1,step:8});packets(va,20.25,3,.9,6);const A=LL(P,BMR[0]),B=LL(P,KMR[KMR.length-1]);dot(A[0],A[1],1,OR,10);dot(B[0],B[1],1,LB,10)}})}});
+ if(!L)return;const {x0,w}=L;
+ box(x0,FY+110,w,130,{r:16,shadow:false,w:2});txt('Kepatuhan SLA bulan ini',x0+24,FY+150,{size:21,weight:800});txt('target per layanan · gangguan tercatat otomatis',x0+24,FY+178,{size:16,weight:500,c:GREY});
+ const g=E.out(prog(t,.3,.9));sk([[x0+24,FY+210],[x0+w-24,FY+210]],{w:12,c:'#E6E6E6',passes:1});sk([[x0+24,FY+210],[x0+24+(w-48)*g,FY+210]],{w:12,c:'#1D8348',passes:1,p:g>0?1:0});
+ txt('Layanan Saya',x0,FY+284,{size:26,weight:800});
+ box(x0,FY+304,w,520,{r:16,shadow:false,c:OR,w:3});txt('C-Ring Leased Line 1G',x0+24,FY+350,{size:24,weight:800});fillP(rrect(x0+w-110,FY+326,86,32,16),'#E3F5EC');txt('AKTIF',x0+w-67,FY+348,{size:15,weight:800,c:'#1D8348',align:'center'});
+ const sw=(w-48-30)/4;for(let i=0;i<4;i++){const sx=x0+24+i*(sw+10);const k=E.io(prog(t,.1+i*.12,.3+i*.12));fillP(rrect(sx,FY+386,sw,10,5),'#E6E6E6');if(k>0)fillP(rrect(sx,FY+386,Math.max(10,sw*k),10,5),'#1D8348');txt(['Diajukan','Studi','Provisioning','Aktif'][i],i===0?sx:i===3?sx+sw:sx+sw/2,FY+420,{size:14,weight:600,c:GREY,align:i===0?'left':i===3?'right':'center'})}
+ txt('Bau - Bau INT → … → neuCentrIX Manado · 2.298 km',x0+24,FY+460,{size:17,weight:600,c:'#33415C'});
+ fillP(rrect(x0+24,FY+478,w-48,40,10),'#F5F7FB');txt('Marketplace · 2 vendor · SLA rute · lacak per vendor · kontrak',x0+40,FY+504,{size:16,weight:600});
+ let bx=x0+24,by=FY+540;['Laporan SLA','Ubah bandwidth','Perpanjang','Hentikan','Dokumen','Lapor gangguan','Unduh ringkasan'].forEach((s,i)=>{const bw=mw(s,16,800)+28;if(bx+bw>x0+w-20){bx=x0+24;by+=52}const a=prog(t,.6+i*.06,.75+i*.06);if(a>0){ctx.save();ctx.globalAlpha*=a;fillP(rrect(bx,by,bw,42,10),i===0&&t>1.8?SOFT:'#fff');sk(rrect(bx,by,bw,42,10),{closed:true,w:2,c:i===0&&t>1.8?OR:LINE,passes:1});txt(s,bx+bw/2,by+28,{size:16,weight:800,align:'center'});ctx.restore()}bx+=bw+10});
+ ripple(x0+90,FY+561,1.82,OR);
+ cat(x0+w-60,FY+316,.42,{flip:true,look:[-4,6],tailSpeed:5,happy:t>1.0});
+}
+/* 22.75–24.75 : Portal Cable Owner — real 5-step sign-up, payout after platform fee */
+const OSTEP=['Akun & email terverifikasi','Isi izin dan rekening','Admin C-Ring memeriksa','Unggah KML/KMZ jalur kabel & isi tarif','Terima pesanan lewat SPK'];
+function sOwner3(t){cam(punch(0)*(1+t*.02),W/2,H/2);
+ const X=150,Y=130,Wd=820;box(X,Y,Wd,820,{r:24,p:E.out(prog(t,0,.2))});if(t<.1)return;
+ txt('PORTAL CABLE OWNER',X+34,Y+52,{size:15,fam:MONO,weight:500,c:GREY});txt('Daftar jadi Cable Owner',X+34,Y+100,{size:36,weight:800});
+ txt('Pasang ruas kabel Anda di marketplace C-Ring. Pelanggan membeli link',X+34,Y+142,{size:19,weight:500,c:'#33415C'});txt('ujung-ke-ujung; porsi Anda dibayarkan otomatis setelah fee platform.',X+34,Y+168,{size:19,weight:700,c:OR2});
+ OSTEP.forEach((s,i)=>{const t0=.25+i*.22;const k=prog(t,t0,t0+.15);const y=Y+230+i*96;const done=t>t0+.1;
+  fillP(ell(X+62,y+28,22,22),done?OR:'#fff');sk(ell(X+62,y+28,22,22),{closed:true,w:3,c:done?OR2:LINE,passes:1});if(done)checkMark(X+62,y+30,22,1,'#fff',5);else txt(String(i+1),X+62,y+36,{size:18,weight:800,c:GREY,align:'center'});
+  if(i<4)sk([[X+62,y+52],[X+62,y+92]],{w:3,c:done?OR:LINE,passes:1});txt(s,X+104,y+36,{size:22,weight:done?800:500,c:done?INK:GREY,a:.4+.6*k})});
+ const R=[1020,130,760,820];fillP(rrect(R[0],R[1],R[2],R[3],22),'#0A1A3A');const P=mapP(R,114.8,3.2,12);ctx.save();ctx.beginPath();ctx.rect(R[0],R[1],R[2],R[3]);ctx.clip();LAND.forEach(pl=>{fillP(pl.map(q=>[P.x(q[1]),P.y(q[0])]),'#16294F',{amp:.6})});
+ ROUTES.forEach(r=>sk(r.p.map(q=>[P.x(q[1]),P.y(q[0])]),{w:3,c:'#5C6F93',passes:1,amp:.5,step:12}));
+ const own=crs([[-1.27,116.83],[-2.6,118.9],[-3.97,122.51],[-5.47,122.6]].map(c=>LL(P,c)),16);sk(own,{p:E.io(prog(t,1.2,1.75)),w:7,c:LB,passes:1,amp:1.2,step:10});ctx.restore();
+ txt('KABEL CABLE OWNER',R[0]+24,R[1]+40,{size:15,fam:MONO,weight:500,c:'#9FB0CF'});
+ const fk=prog(t,.85,1.2);if(fk>0&&fk<1){const f=E.io(fk);const x=lerp(980,R[0]+R[2]/2,f),y=lerp(820,R[1]+R[3]/2,f)-Math.sin(f*PI)*220;ctx.save();ctx.translate(x,y);ctx.rotate(f*2);fillP(rrect(-34,-44,68,88,8),'#fff');sk(rrect(-34,-44,68,88,8),{closed:true,w:3,passes:1});txt('KMZ',0,8,{size:18,weight:900,c:OR2,align:'center'});ctx.restore()}
+ ripple(R[0]+R[2]/2,R[1]+R[3]/2,1.2,'#fff');if(t>1.75)mlabel('Ruas baru Anda',R[0]+R[2]-30,R[1]+R[3]-60,prog(t,1.75,1.9),'right');
+ cat(990,1010,.8,{flip:true,armR:t<.85?-.4:-1.4,look:[6,-6],happy:t>1.6});
+}
+/* 26.25–28.0 : Perusahaan — the real onboarding checklist up to an active service */
+const ONB=['Registrasi perusahaan','Verifikasi dokumen (KYC)','Persetujuan LTI','Profil pembayaran & kredit','Pemesanan layanan','Kontrak ditandatangani','Layanan aktif'];
+function sOnboard(t){cam(punch(0,.14)*(1+t*.03),W/2,H/2);
+ const L=crPortal('Perusahaan',{cw:900,map:R=>{const P=mapP(R,118.6,2.4,9.5);darkMap(R,P,{legend:false,analisis:false})}});if(!L)return;const {x0,w}=L;
+ txt('Perusahaan',x0,FY+150,{size:34,weight:800});fillP(rrect(x0,FY+168,250,34,17),'#E3F5EC');txt('Status: Terverifikasi',x0+125,FY+191,{size:16,weight:800,c:'#1D8348',align:'center',a:prog(t,1.2,1.4)});
+ txt('Langkah menuju layanan aktif',x0,FY+248,{size:22,weight:800});
+ ONB.forEach((s,i)=>{const t0=.1+i*.14;const done=t>t0;const y=FY+280+i*82;box(x0,y,w,68,{r:14,shadow:false,w:2,c:done?OR:LINE});
+  fillP(ell(x0+38,y+34,18,18),done?OR:'#fff');sk(ell(x0+38,y+34,18,18),{closed:true,w:2.5,c:done?OR2:LINE,passes:1});if(done)checkMark(x0+38,y+36,18*E.back(prog(t,t0,t0+.15)),1,'#fff',4);
+  txt(s,x0+72,y+42,{size:21,weight:done?800:500,c:done?INK:GREY})});
+ cat(x0+w+170,1010,.8,{flip:true,armR:-1.1,look:[-8,-4],happy:t>1.2,mouth:t>1.2&&t<1.4?'open':null});
+}
+
 /* ================= TIMELINE ================= */
 const SC=[[0,2.5,sIntro],[2.5,3.25,sPalette],[3.25,5.5,sGrid],[5.5,8,sValue],
- [8,9,t=>chapter(t,'01','C-Ring ','Market','.','mag','marketplace A→B · NaaS · cable owner')],[9,12,sMP],[12,14.75,sChain],[14.75,16.75,sCara],[16.75,18.5,sReach],[18.5,20.25,sNaas],[20.25,23,sPortal],[23,25,sOwner],[25,26.5,sMobile],[26.5,28,sKeu],
+ [8,9,t=>chapter(t,'01','C-Ring ','Market','.','mag','cari · pesan · aktif · lunas')],[9,11.5,sMP2],[11.5,14.25,sResult],[14.25,16.25,sTrack],[16.25,18.25,sDocs],[18.25,20.25,sNaas2],[20.25,22.75,sLayanan3],[22.75,24.75,sOwner3],[24.75,26.25,sMobile],[26.25,28,sOnboard],
  [28,29,t=>chapter(t,'02','Satu ','platform',', semua aplikasi.','plug','kelas dunia · terpadu · tanpa biaya akses')],[29,32.25,sHub],[32.25,35,sNetMap],[35,37.5,sHelp],[37.5,40,sFree],[40,45.01,sEnd45]];
 function hud(){const a=(T<39.8?1:1-prog(T,39.8,40.1))*(T>8.9&&T<28.1?0:1);if(a<=0)return;ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=a;
  const f=Math.floor(T*30+1e-6);const ss=String(Math.floor(f/30)).padStart(2,'0'),ff=String(f%30).padStart(2,'0');
  ctx.font=font(17,500,MONO);ctx.fillStyle=GREY;ctx.fillText('C-RING — LAUNCH FILM',74,58);ctx.fillStyle=OR;ctx.beginPath();ctx.arc(56,52,6,0,2*PI);ctx.fill();
  const ch=[['01 MARKET',8,28],['02 ALL-IN-ONE',28,40]];let x=1872;for(let i=1;i>=0;i--){const [s,a0,a1]=ch[i];ctx.font=font(17,T>=a0&&T<a1?700:500,MONO);const w=ctx.measureText(s).width;x-=w;ctx.fillStyle=T>=a0&&T<a1?OR:GREY;ctx.fillText(s,x,58);x-=34}
- ctx.font=font(17,500,MONO);ctx.fillStyle=GREY;ctx.fillText(`TC 00:00:${ss}:${ff}`,56,1040);ctx.textAlign='right';ctx.fillText('komersiallti.my.id',1864,1040);
+ ctx.font=font(17,500,MONO);ctx.fillStyle=GREY;ctx.fillText(`TC 00:00:${ss}:${ff}`,56,1040);ctx.textAlign='right';ctx.fillText('BACKBONE TO BUSINESS',1864,1040);
  ctx.strokeStyle='#BDBDBD';ctx.lineWidth=2;[[28,28,1,1],[1892,28,-1,1],[28,1052,1,-1],[1892,1052,-1,-1]].forEach(([x,y,sx,sy])=>{ctx.beginPath();ctx.moveTo(x,y+sy*26);ctx.lineTo(x,y);ctx.lineTo(x+sx*26,y);ctx.stroke()});
  ctx.restore()}
 const GRAIN=(()=>{const g=document.createElement('canvas');g.width=g.height=384;const c=g.getContext('2d');const d=c.createImageData(384,384);const r=mulberry(99);for(let i=0;i<d.data.length;i+=4){const v=r()*255;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=255}c.putImageData(d,0,0);return g})();
 function render(t){T=t;BOIL=Math.floor(t*10);ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.fillStyle=ICE;ctx.fillRect(0,0,W,H);
  for(const [a,b,fn] of SC){if(t>=a&&t<b){ctx.save();fn(t-a);ctx.restore();break}}
  ctx.setTransform(1,0,0,1,0,0);
- [8,28,40].forEach(wipe);[3.25,5.5,9,12,14.75,16.75,18.5,20.25,23,25,26.5,29,32.25,35,37.5].forEach(b=>burst(b));flash(2.5,.08);flash(2.8,.08);
+ [8,28,40].forEach(wipe);[3.25,5.5,9,11.5,14.25,16.25,18.25,20.25,22.75,24.75,26.25,29,32.25,35,37.5].forEach(b=>burst(b));flash(2.5,.08);flash(2.8,.08);
  hud();
  ctx.save();ctx.globalAlpha=.035;ctx.globalCompositeOperation='multiply';const r=mulberry(BOIL);const ox=-r()*384,oy=-r()*384;for(let x=ox;x<W;x+=384)for(let y=oy;y<H;y+=384)ctx.drawImage(GRAIN,x,y);ctx.restore();
  const vg=ctx.createRadialGradient(W/2,H/2,H*.45,W/2,H/2,H*1.05);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(8,22,51,.09)');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);
