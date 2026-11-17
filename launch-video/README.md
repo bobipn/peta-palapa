@@ -52,18 +52,22 @@ ffmpeg -i video_hq.mp4 -i audio.wav -map 0:v -map 1:a -c:v libx264 -preset slowe
 |---|---|---|
 | 0–5.5 | Intro · Ctrl+K · Suite | "Introducing Portal Komersial", palet perintah, 15 modul — "Aplikasi kelas dunia. Satu platform." |
 | 5.5–8.0 | Nilai | Banyak aplikasi terpisah ditarik kucing menjadi satu platform — "Satu platform. Tanpa biaya akses." |
-| **8.0–28.0** | **Connectivity Market (20 dtk)**, tata letak mengikuti UI asli: tab di atas, panel kiri, peta gelap di kanan | |
-| 8.0–9.0 | Bab 01 | Connectivity Market · rute · bandwidth · data center · global |
-| 9.0–11.75 | Estimasi rute | Jenis layanan (Dark Fiber / Lit 1G / 10G / 100G), Makassar → Ternate INT (PRT), kontrak 1 tahun, "Cari Rute & Harga"; tombol Analisis di peta |
-| 11.75–14.5 | Hasil | Termurah: Makassar → Manado INT → Ternate INT (Terrestrial, SMPCS Packet-1), DC terdekat NOC LTI Ternate · kolokasi 1U; kartu Terpendek & Diversitas (jalur keduanya **ilustrasi**) |
-| 14.5–16.25 | Global | Makassar → Tokyo (Termurah · Terpendek) melalui sistem kabel ACC1 (RENCANA), MIC-1, EAC-C2C, SJC2 (RENCANA), SeaMeWe-3, FEA; DC terdekat DC Tokyo; peringatan "Melewati kabel berstatus RENCANA" — "dihitung dari jalur kabel nyata" |
-| 16.25–17.75 | Keranjang | Tambah ke Keranjang → Keranjang Estimasi → Ajukan Penawaran Resmi (dengan disclaimer estimasi) |
-| 17.75–20.75 | Pesan | LTI Link / Wave / Net; bandwidth 100 Mbps … 10 Gbps; masa kontrak 1 hari … 36 bln; rincian harga (nilai disamarkan) dengan **Biaya aktivasi: Gratis (kontrak ≥ 12 bln)**; Pesan Sekarang → "Pesanan diajukan" |
-| 20.75–23.5 | Layanan | Bayar dari saldo → stepper bar Diajukan → Studi → Provisioning → Aktif, Riwayat dengan format log asli; Ubah bandwidth / Lapor gangguan / Unduh ringkasan |
-| 23.5–28.0 | Ponsel · Tiket · Saldo | Tampilan mobile ("lengkap juga di ponsel"), tiket dengan dropdown Kategori/Prioritas dan contoh "Link down sejak 09.00 WITA", saldo prabayar, "Kredit SLA yang disetujui masuk sebagai saldo" |
+| **8.0–28.0** | **C-Ring Market (20 dtk)**, mengikuti web live per 17 Nov 2026 | |
+| 8.0–9.0 | Bab 01 | C-Ring Market · marketplace A→B · NaaS · cable owner |
+| 9.0–12.0 | Marketplace A→B (publik) | "Link dari kota mana pun ke kota mana pun, dalam satu pesanan"; Dari/Ke + Lokasi, Leased line / Sewa core, 100M–10G, 12/24/36 bln, Termurah / Terpendek / Tercepat aktif, Cari link, contoh pencarian |
+| 12.0–14.75 | Rangkaian ruas | Diagram konsep: ruas PRT · LTI + ruas owner lain, cross-connect, satu pembayaran dibagi otomatis ke tiap owner, SLA ujung-ke-ujung = perkalian SLA tiap ruas |
+| 14.75–16.75 | Cara kerja | Cari → Pilih → Pesan → Aktif & bayar ("aktivasi dimulai tanpa menunggu pembayaran; tagihan terbit saat layanan aktif") |
+| 16.75–18.5 | Jangkauan | Peta domestik & internasional dengan contoh pencarian dari halaman (Kendari → Sydney, Denpasar/Jakarta → Tokyo, Manado → Los Angeles) + "Minta penawaran khusus" |
+| 18.5–20.25 | NaaS Hub | Port · virtual circuit · cloud on-ramp (sesuai menu Modul) |
+| 20.25–23.0 | Portal (rail baru) | Menu Beranda / Belanja / Layanan / Keuangan / Akun; Layanan Saya dengan status bar, Bayar dari saldo, Ubah bandwidth, Lapor gangguan, Unduh ringkasan, Riwayat |
+| 23.0–25.0 | Cable owner | "Buat akun perusahaan" → Menyewakan kabel: unggah KML/KMZ, pesanan lewat SPK, bagi hasil |
+| 25.0–26.5 | Ponsel | Header C-RING · Market, menu ringkas, kartu layanan |
+| 26.5–28.0 | Keuangan | Tagihan · Saldo · Kontrak & Penawaran; "Kredit SLA yang disetujui masuk sebagai saldo" |
 | **28.0–40.0** | **All-in-one** | Hub 9 aplikasi untuk pelanggan, Peta Rute & Site, Helpdesk/Meeting/Jadwal, "Rp 0 · akses platform" + "Biaya aktivasi gratis untuk kontrak ≥ 12 bulan" |
 | 40.0–45.0 | End card | Logo, tagline, komersiallti.my.id, "Daftar sekarang di market.komersiallti.my.id" |
 
 **Brand C-RING (versi terbaru):** palet seluruh film mengikuti logo C-RING · Connex-Ring — navy `#0D2150` / `#0B1C3E`, aksen biru `#2E6BDB`, biru muda `#6FA3FF` untuk rute di peta gelap, latar ice `#F1F4F9`. App icon, mark dan wordmark diambil dari aset logo asli (`brand/`: `app_icon.png`, `mark.png`, `logo_word.png` — wordmark dibersihkan dari board logo dengan upscale + threshold) dan disematkan di `source45/brand.js`. Logo "L" diganti app icon C-RING (termasuk tag kalung maskot dan header market); intro dan end card memakai wordmark C-RING + "BACKBONE TO BUSINESS".
+
+**Pembaruan 17 Nov 2026:** bagian market digambar ulang mengikuti C-Ring Market live: halaman publik `marketplace.php` (Cari Link A→B, Cara kerja, daftar cable owner) dan tata letak portal baru dengan rail menu (dirender dari `app.html` tanpa data akun, karena login kini memakai MFA). Pada tanggal itu pencarian publik yang diuji belum menemukan rangkaian ruas owner, jadi video **tidak** menampilkan hasil pencarian berharga; mekanisme multi-owner ditampilkan sebagai diagram konsep sesuai teks halaman.
 
 Fitur, label dan alur market diverifikasi dengan login ke market.komersiallti.my.id dan screenshot mobile dari pemilik akun (2–3 Okt 2026). Video tidak menampilkan saldo, nomor rekening, nomor order, ataupun angka harga.
