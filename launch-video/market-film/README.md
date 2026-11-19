@@ -1,6 +1,6 @@
 # C-Ring Market: film produk sinematik (2:35)
 
-`cring_market_film.mp4`: 1920×1080, 30 fps, 2:35, H.264 High + AAC 160 kbps.
+`cring_market_film.mp4`: 1920×1080, 30 fps, 2:35, H.264 High + AAC 160 kbps, ~38 MB.
 
 Film ini memakai alur demo sebelumnya (`../market-demo/`), tetapi digarap ulang dengan gaya sinematik gelap:
 - Pembuka berupa bola bumi dot-matrix yang zoom ke Sulawesi, dengan jalur serat sebagai garis cahaya.
