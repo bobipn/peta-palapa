@@ -68,3 +68,14 @@ function sOShare(t){stage(t,{stars:.6});cam(lerp(1.0,1.03,E.sine(prog(t,0,7))),W
  const ck=E.out(prog(t,4.6,5.2));if(ck>0){ctx.save();ctx.globalAlpha*=ck;txt('KONTRIBUSI FISIK  =  KM × BOBOT JENIS KABEL',fx,860,{size:12,weight:500,ls:2.2,c:LB,fam:MONO});let cx=fx;['darat','laut','udara','microwave'].forEach(s=>{cx+=chip(cx,878,s,false,{size:14,h:34})+10});ctx.restore()}
  drawOrb([[0,W/2,H+60],[2.0,560,500],[4.2,fx+60,780],[6.0,fx+400,900]],t);
  caption('07 / CABLE OWNER','Setiap ruas mendapat porsinya.','Laporan bagi hasil dapat diunduh dari portal owner.',t,.6,6.8);fade(1-prog(t,0,.4))}
+/* ===== closing slate: Special Introduction for APJII Sulampua (partner logo kept in its original colours on a white plate) ===== */
+loadImg('apjii',APJII_LOGO);
+function sApjii(t){ctx.fillStyle=BK;ctx.fillRect(0,0,W,H);stars(.4*prog(t,0,1.5),T*.02);
+ ctx.save();const g=ctx.createRadialGradient(W/2,H*.52,40,W/2,H*.52,900);g.addColorStop(0,'rgba(22,57,122,.45)');g.addColorStop(1,'rgba(1,3,9,0)');ctx.fillStyle=g;ctx.globalAlpha=E.out(prog(t,.6,2.4));ctx.fillRect(0,0,W,H);ctx.restore();
+ reveal('SPECIAL INTRODUCTION FOR',W/2,290,.5,{size:20,weight:500,ls:12,align:'center',c:LB,fam:MONO,st:.12});
+ const k=E.out(prog(t,1.3,2.6));if(k>0){const pw=700,ph=pw/APJII_AR,px=W/2-pw/2,py=lerp(370,340,k);ctx.save();ctx.globalAlpha=k;ctx.shadowColor='rgba(111,163,255,.45)';ctx.shadowBlur=70;fillR(px,py,pw,ph,26,'#ffffff');ctx.restore();
+  ctx.save();ctx.globalAlpha=k;rr(px,py,pw,ph,26);ctx.clip();ctx.drawImage(IMG.apjii,px,py,pw,ph);ctx.restore();
+  const sk=prog(t,2.2,3.4);if(sk>0&&sk<1)streak(px+pw*sk,py-2,260,.8*Math.sin(sk*PI));
+  txt('Sulawesi  ·  Maluku  ·  Papua',W/2,py+ph+70,{size:22,weight:300,ls:6,align:'center',c:ICEB,a:prog(t,3.0,3.8)})}
+ const bk=prog(t,3.8,4.6);if(bk>0){const lw=150,lh=lw*882/3372;ctx.save();ctx.globalAlpha=bk;ctx.drawImage(IMG.word,W/2-lw-16,H-130,lw,lh);ctx.fillStyle='rgba(255,255,255,.3)';ctx.fillRect(W/2,H-132,1,lh+6);ctx.restore();txt('MARKET',W/2+18,H-130+lh*.72,{size:15,weight:500,ls:6,c:LB,fam:MONO,a:bk})}
+ fade(1-prog(t,0,.6));fade(prog(t,7.2,8))}

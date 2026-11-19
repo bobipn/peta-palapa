@@ -1,6 +1,6 @@
-# C-Ring Market: film produk sinematik (2:35)
+# C-Ring Market: film produk sinematik (2:43)
 
-`cring_market_film.mp4`: 1920×1080, 30 fps, 2:35, H.264 High + AAC 160 kbps, ~38 MB.
+`cring_market_film.mp4`: 1920×1080, 30 fps, 2:43, H.264 High + AAC 160 kbps, ~40 MB.
 
 Film ini memakai alur demo sebelumnya (`../market-demo/`), tetapi digarap ulang dengan gaya sinematik gelap:
 - Pembuka berupa bola bumi dot-matrix yang zoom ke Sulawesi, dengan jalur serat sebagai garis cahaya.
@@ -29,6 +29,7 @@ Batasan yang tetap berlaku:
 | 1:41–1:56 | 06 Dokumen | Kontrak, BAA, BAST; Layanan Saya (Lapor gangguan, Unduh ringkasan, Riwayat) |
 | 1:56–2:25 | **07 Cable owner** | Cara kerja owner (4 langkah), unggah KML/KMZ menjadi ruas (contoh Kendari→Kolaka darat, Kolaka→Siwa laut), Tugas pesanan (setujui SPK, aktifkan, serah-terima), bagi hasil otomatis untuk rute multi-owner |
 | 2:25–2:35 | Penutup | Kembali ke orbit, "Beli layanan. Sewakan kabel. Satu akun.", "Daftar akun perusahaan" |
+| 2:35–2:43 | Special Introduction | "SPECIAL INTRODUCTION FOR", logo APJII Sulampua (warna asli, di atas pelat putih), Sulawesi · Maluku · Papua, C-RING Market |
 
 ## Sumber dan catatan
 
@@ -37,6 +38,7 @@ Batasan yang tetap berlaku:
 - Koordinat titik di peta adalah perkiraan pusat kota, bukan jalur kabel survei.
 - Kotak masuk email dan chat WhatsApp adalah mockup generik.
 - Bab cable owner memakai teks dari Portal Cable Owner (Tugas pesanan, Ruas kabel, Unggah KML/KMZ, Titik & perangkat, Bagi hasil). Ruas Kendari→Kolaka→Siwa, panjangnya, dan pembagian Owner A/B/C adalah ilustrasi, bukan data owner nyata. Fee platform dan nominal tidak ditampilkan.
+- Logo APJII Sulampua diberikan oleh pemilik produk (19 Nov 2026) dan ditampilkan tanpa perubahan warna.
 - Syarat KYC dua dokumen (Akta keanggotaan APJII, NPWP perusahaan) dikonfirmasi pemilik produk pada 19 Nov 2026.
 - **Perlu dikonfirmasi:** fitur WhatsApp yang terlihat di market adalah opt-in "Info produk & penawaran lewat WhatsApp" dan nomor WhatsApp PIC. Pengiriman notifikasi status pesanan lewat WhatsApp belum terverifikasi.
 
@@ -45,7 +47,7 @@ Batasan yang tetap berlaku:
 ```bash
 pip install numpy scipy imageio-ffmpeg
 python3 audio_pro.py                                    # -> audio_pro.wav
-FILM=film_pro.html node render.js "$(python3 -c 'import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())')" 4662   # -> video_hq.mp4
+FILM=film_pro.html node render.js "$(python3 -c 'import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())')" 4902   # -> video_hq.mp4
 ffmpeg -i video_hq.mp4 -i audio_pro.wav -map 0:v -map 1:a -c:v libx264 -preset slower -crf 20 -profile:v high -level 4.1 \
   -pix_fmt yuv420p -r 30 -g 60 -c:a aac -b:a 160k -ar 48000 -movflags +faststart -shortest cring_market_film.mp4
 ```

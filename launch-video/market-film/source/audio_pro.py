@@ -3,7 +3,7 @@ import numpy as np, wave
 from scipy.signal import butter, sosfilt, fftconvolve
 
 SR = 48000
-DUR = 155.5
+DUR = 163.5
 N = int(SR * DUR)
 rng = np.random.default_rng(11)
 BUS = {k: np.zeros((N, 2)) for k in ('music', 'fx', 'dry')}
@@ -115,8 +115,9 @@ while t < DUR - 1:
 ARP = [[74, 77, 81, 84], [74, 77, 82, 86], [72, 77, 81, 84], [72, 74, 79, 84]]
 step = 0.3
 t = 9.0; k = 0
-while t < 153:
-    if t < 15 or t > 145.4: g = .9
+while t < 161:
+    if t < 15 or (145.4 < t < 155.4): g = .9
+    elif t >= 155.4: g = .55
     else: g = .42
     c = ARP[int(t // 8) % 4]
     f = mtof(c[k % 4])
@@ -207,6 +208,14 @@ add('fx', 145.4 + 3.0, air(2.2, 300, 5000), .35)
 success(145.4 + 3.6, 1.1)
 click(145.4 + 6.6, .2)
 add('music', 145.4 + 4.0, pad([50, 57, 62, 66, 69, 74], 6.4, a=1.0, r=4.0, bright=2400), .8)
+
+# APJII Sulampua slate
+add('music', 155.0, pad([50, 57, 62, 66, 69, 74], 8.6, a=2.0, r=3.5, bright=2000), .7)
+add('music', 155.0, sub(mtof(38), 8.4, a=2.5, r=3), .35)
+add('fx', 155.9, air(1.2, 500, 6000), .3)
+add('fx', 156.7, bell(mtof(81), 2.8), .4, -.2); add('fx', 156.85, bell(mtof(88), 3.0, .8), .32, .2)
+add('fx', 157.6, air(1.4, 1500, 9000), .2)
+add('fx', 159.2, bell(mtof(86), 3.0, .6), .25)
 
 # ---------- reverb & master ----------
 def ir(d, decay, seed):
