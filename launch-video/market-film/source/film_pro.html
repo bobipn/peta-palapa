@@ -10,12 +10,12 @@
 html,body{margin:0;background:#000}canvas{display:block}
 </style></head><body><canvas id="c" width="1920" height="1080"></canvas>
 <script src="logos.js"></script><script src="brand.js"></script><script src="dots.js"></script><script src="land.js"></script><script src="routes.js"></script>
-<script src="core.js"></script><script src="scenes.js"></script>
+<script src="core.js"></script><script src="scenes.js"></script><script src="owner.js"></script>
 <script>
 const SC=[[0,9,sOrbit],[9,15,sTitle],[15,17.6,C1],[17.6,27.6,sReg],[27.6,33.6,sCode],[33.6,36.2,C2],[36.2,47.2,sKYC],[47.2,53.2,sNVer],[53.2,55.8,C3],
  [55.8,61.8,sSearch],[61.8,68.8,sResult],[68.8,74,sSwitch],[74,76.6,C4],[76.6,82.6,sOrder],[82.6,85.2,C5],[85.2,92.2,sTrack],[92.2,101.2,sNAct],[101.2,103.8,C6],
- [103.8,109.8,sDocs],[109.8,115.8,sService],[115.8,126.01,sEnd]];
-const CHAP=[15,33.6,53.2,74,82.6,101.2];
+ [103.8,109.8,sDocs],[109.8,115.8,sService],[115.8,118.4,C7],[118.4,124.4,sOHow],[124.4,132.4,sOUpload],[132.4,138.4,sOTask],[138.4,145.4,sOShare],[145.4,155.41,sEnd]];
+const CHAP=[15,33.6,53.2,74,82.6,101.2,115.8];
 function render(t){T=t;ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.filter='none';ctx.fillStyle=BK;ctx.fillRect(0,0,W,H);
  for(const [a,b,fn] of SC){if(t>=a&&t<b){ctx.save();fn(t-a);ctx.restore();break}}
  ctx.setTransform(1,0,0,1,0,0);CHAP.forEach(c=>{if(t<c)fade(prog(t,c-.4,c))});

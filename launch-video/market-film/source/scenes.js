@@ -37,31 +37,32 @@ function sTitle(t){ctx.fillStyle=BK;ctx.fillRect(0,0,W,H);const V=view(-1.7,121.
 /* ================= chapter cards ================= */
 function chapter(t,n,title,sub,d=2.6){ctx.fillStyle=BK;ctx.fillRect(0,0,W,H);stars(.35,T*.02);const a=Math.min(E.out(prog(t,0,.6)),1-prog(t,d-.5,d));
  ctx.save();ctx.globalAlpha=a;ctx.translate(W/2,H/2);ctx.scale(lerp(1.04,1,E.out(prog(t,0,d))),lerp(1.04,1,E.out(prog(t,0,d))));ctx.translate(-W/2,-H/2);
- txt(n+'  /  06',W/2,H/2-92,{size:14,weight:500,ls:5,c:LB,align:'center',fam:MONO});
+ txt(n+'  /  07',W/2,H/2-92,{size:14,weight:500,ls:5,c:LB,align:'center',fam:MONO});
  txt(title,W/2,H/2+10,{size:78,weight:300,ls:22,align:'center'});
  const lw2=lerp(0,520,E.io(prog(t,.2,1.2)));fillR(W/2-lw2/2,H/2+46,lw2,1,0,'rgba(111,163,255,.6)');
  txt(sub,W/2,H/2+98,{size:22,weight:400,c:MU,align:'center',a:prog(t,.5,1.1)});ctx.restore();streak(W/2,H/2+46,420,.5*Math.sin(prog(t,.2,1.2)*PI))}
 const C1=t=>chapter(t,'01','DAFTAR','Email kantor, kode verifikasi, data perusahaan.');
-const C2=t=>chapter(t,'02','VERIFIKASI','Data perusahaan, dokumen KYC, persetujuan LTI.');
+const C2=t=>chapter(t,'02','VERIFIKASI','Akta keanggotaan APJII dan NPWP perusahaan, lalu persetujuan LTI.');
 const C3=t=>chapter(t,'03','PILIH RUTE','Makassar → Tentena  ·  Makassar → Manado');
 const C4=t=>chapter(t,'04','PESAN','Vendor mengonfirmasi dalam 24 jam.');
 const C5=t=>chapter(t,'05','AKTIVASI','Status per vendor, dikabarkan lewat email dan WhatsApp.');
 const C6=t=>chapter(t,'06','DOKUMEN','Kontrak, BAA dan BAST ditandatangani sistem.');
+const C7=t=>chapter(t,'07','CABLE OWNER','Punya kabel? Sewakan lewat C-Ring Market.');
 /* ================= registration ================= */
 function regHead(cx,cy,cw,step,title){const lw=112;ctx.drawImage(IMG.word,cx+40,cy+38,lw,lw*882/3372);ctx.fillStyle='rgba(255,255,255,.25)';ctx.fillRect(cx+166,cy+38,1,28);txt('Market',cx+180,cy+59,{size:17,weight:600});
  txt(title,cx+40,cy+128,{size:32,weight:600});['Isi data','Kode email','Lengkapi data'].forEach((s,i)=>{const sw=(cw-80-20)/3,sx=cx+40+i*(sw+10);fillR(sx,cy+148,sw,3,2,i<=step?BL2:'rgba(255,255,255,.12)');txt(s,sx,cy+176,{size:14,weight:i===step?600:400,c:i===step?TX:MU})})}
 function sReg(t){stage(t);const s=lerp(1.03,1,E.out(prog(t,0,10)));cam(s,W*.62,H/2);
  const cw=640,ch=930,cx=W-cw-190,cy=(H-ch)/2+6;glowPanel(cx,cy,cw,ch,24,E.out(prog(t,0,.5)));regHead(cx,cy,cw,0,'Buat akun perusahaan');
- label('Saya mendaftar untuk',cx+40,cy+222);const sel=t>1.0;['Membeli layanan','Menyewakan kabel','Keduanya'].forEach((s,i)=>{const bw=(cw-80-16)/3,bx=cx+40+i*(bw+8);const on=sel&&i===0;fillR(bx,cy+236,bw,46,11,on?'rgba(46,107,219,.3)':'rgba(255,255,255,.04)');strokeR(bx,cy+236,bw,46,11,on?BL2:LINE2,on?1.4:1);txt(s,bx+bw/2,cy+265,{size:15,weight:600,align:'center',c:on?'#fff':ICEB})});
- txt('Cari rute, pesan leased line atau sewa core, dan bayar dalam satu tagihan.',cx+40,cy+312,{size:14,c:MU,a:prog(t,1.0,1.4)});
+ label('Saya mendaftar untuk',cx+40,cy+222);const sel=t>1.0;['Membeli layanan','Menyewakan kabel','Keduanya'].forEach((s,i)=>{const bw=(cw-80-16)/3,bx=cx+40+i*(bw+8);const on=sel&&i===2;fillR(bx,cy+236,bw,46,11,on?'rgba(46,107,219,.3)':'rgba(255,255,255,.04)');strokeR(bx,cy+236,bw,46,11,on?BL2:LINE2,on?1.4:1);txt(s,bx+bw/2,cy+265,{size:15,weight:600,align:'center',c:on?'#fff':ICEB})});
+ txt('Bisa membeli layanan dan menyewakan kabel dari satu akun perusahaan.',cx+40,cy+312,{size:14,c:LB,a:prog(t,1.0,1.4)});
  const F=[['Nama perusahaan',CO,1.5,2.4],['Nama lengkap Anda','Nama PIC',2.6,3.2],['Email kantor','pic@••••••.co.id',3.4,4.2],['No. HP/WA','0812 •••• ••••',4.4,5.0],['Kata sandi','••••••••••',5.2,5.7]];
  F.forEach(([l,v,a,b],i)=>field(cx+40,cy+340+i*86,cw-80,l,v,prog(t,a,b+.5)*(1+.5/(b-a))));
  const ck=t>6.4;checkbox(cx+40,cy+780,ck,E.out(prog(t,6.4,6.6)));txt('Saya setuju data perusahaan & PIC diproses LTI untuk verifikasi (KYC).',cx+76,cy+798,{size:14,c:ICEB});
  btn(cx+40,cy+830,cw-80,58,'Daftar & kirim kode',{press:t>7.4&&t<7.65?1:0});
- const fy=i=>cy+340+i*86+40;drawOrb([[0,cx+cw/2,H+80],[.9,cx+150,cy+259,1],[1.4,cx+260,fy(0),1],[2.5,cx+260,fy(1),1],[3.3,cx+260,fy(2),1],[4.3,cx+260,fy(3),1],[5.1,cx+260,fy(4),1],[6.3,cx+52,cy+792,1],[7.3,cx+cw/2,cy+859,1],[8.4,cx+cw/2+80,cy+930]],t);
+ const fy=i=>cy+340+i*86+40;drawOrb([[0,cx+cw/2,H+80],[.9,cx+40+2*((cw-80-16)/3+8)+(cw-80-16)/6,cy+259,1],[1.4,cx+260,fy(0),1],[2.5,cx+260,fy(1),1],[3.3,cx+260,fy(2),1],[4.3,cx+260,fy(3),1],[5.1,cx+260,fy(4),1],[6.3,cx+52,cy+792,1],[7.3,cx+cw/2,cy+859,1],[8.4,cx+cw/2+80,cy+930]],t);
  ctx.setTransform(1,0,0,1,0,0);
- reveal('Daftar sebagai',110,420,.6,{size:58,weight:300});reveal('perusahaan.',110,490,.8,{size:58,weight:300,c:LB});
- txt('Registrasi mandiri. Data PIC dan',110,560,{size:22,c:MU,a:prog(t,1.4,2)});txt('nomor WhatsApp dicatat sejak awal.',110,592,{size:22,c:MU,a:prog(t,1.4,2)});
+ reveal('Pelanggan dan',110,420,.6,{size:58,weight:300});reveal('cable owner.',110,490,.8,{size:58,weight:300,c:LB});
+ txt('Pilih "Keduanya": beli layanan dan sewakan',110,560,{size:22,c:MU,a:prog(t,1.4,2)});txt('kabel dari satu akun perusahaan.',110,592,{size:22,c:MU,a:prog(t,1.4,2)});
  toast('Kode dikirim ke email Anda',7.85,9.6);fade(1-prog(t,0,.5))}
 function sCode(t){stage(t);cam(lerp(1.02,1,E.out(prog(t,0,6))),W*.62,H/2);const cw=640,ch=560,cx=W-cw-190,cy=(H-ch)/2;
  glowPanel(cx,cy,cw,ch,24);regHead(cx,cy,cw,t>4.2?2:1,'Masukkan kode');txt('Kami mengirim kode 6 digit ke email Anda.',cx+40,cy+226,{size:17,c:MU});
@@ -87,7 +88,7 @@ function sKYC(t){stage(t);cam(lerp(1.035,1,E.out(prog(t,0,11))),W/2,H/2);glowPan
  btn(x0,WY+462,190,48,'Simpan data',{size:16,press:t>4.6&&t<4.85?1:0});
  // KYC docs
  const dx=x0+w1+36,dw=WX+WW-dx-36;card(dx,WY+96,dw,430,{fill:'rgba(255,255,255,.03)'});txt('Dokumen KYC',dx+24,WY+136,{size:19,weight:600});txt('PDF/JPG/PNG maks. 5 MB. Wajib: Akta keanggotaan APJII, NPWP perusahaan.',dx+24,WY+162,{size:13,c:MU});
- [['Akta keanggotaan APJII',5.2],['NPWP perusahaan',6.3],['NIB (OSS)',7.4]].forEach(([s,a],i)=>{const yy=WY+186+i*108;card(dx+20,yy,dw-40,94,{r:12,fill:'rgba(255,255,255,.03)'});txt(s,dx+40,yy+36,{size:16,weight:600});
+ [['Akta keanggotaan APJII',5.2],['NPWP perusahaan',6.4]].forEach(([s,a],i)=>{const yy=WY+196+i*118;card(dx+20,yy,dw-40,100,{r:12,fill:'rgba(255,255,255,.03)'});txt(s,dx+40,yy+36,{size:16,weight:600});
   const p=E.io(prog(t,a,a+.7));if(p<=0){txt('Belum diunggah',dx+40,yy+66,{size:13,c:MU});btn(dx+dw-150,yy+26,110,40,'Unggah',{kind:'ghost',size:14})}else{fillR(dx+40,yy+60,dw-230,6,3,'rgba(255,255,255,.08)');fillR(dx+40,yy+60,(dw-230)*p,6,3,BL2);if(p>=1)pillS(dx+dw-140,yy+30,'diterima',{bg:OKBG,c:OK,size:13,h:28})}})
  // onboarding steps (8, as in portal)
  const cy0=WY+556,bw0=WX+WW-x0-36;card(x0,cy0,bw0,WH-580,{fill:'rgba(255,255,255,.025)'});txt('Langkah menuju layanan aktif',x0+24,cy0+40,{size:19,weight:600});
@@ -97,8 +98,8 @@ function sKYC(t){stage(t);cam(lerp(1.035,1,E.out(prog(t,0,11))),W/2,H/2);glowPan
   txt(h,xx+44,yy-2,{size:15,weight:600,c:done?TX:ICEB});txt(done?ds:cur?'Diperiksa tim LTI…':'—',xx+44,yy+20,{size:13,c:cur?LB:MU})});
  ctx.restore();
  const fx=i=>[x0+(i%2)*(w1/2+10)+170,WY+200+Math.floor(i/2)*90+40];
- drawOrb([[0,W/2,H+60],[.3,...fx(0),1],[1.3,...fx(1),1],[2.8,x0+90,WY+424,1],[3.3,...fx(2),1],[3.8,...fx(3),1],[4.5,x0+95,WY+486,1],[5.1,dx+dw-95,WY+232,1],[6.2,dx+dw-95,WY+340,1],[7.3,dx+dw-95,WY+448,1],[8.8,x0+24+2*cw0+20,cy0+70],[10.6,x0+24+2*cw0+60,cy0+140]],t);
- caption('02 / VERIFIKASI','Unggah dokumen. LTI memverifikasi.','Wajib: Akta keanggotaan APJII dan NPWP perusahaan.',t,.5,10.6);fade(1-prog(t,0,.5))}
+ drawOrb([[0,W/2,H+60],[.3,...fx(0),1],[1.3,...fx(1),1],[2.8,x0+90,WY+424,1],[3.3,...fx(2),1],[3.8,...fx(3),1],[4.5,x0+95,WY+486,1],[5.1,dx+dw-95,WY+242,1],[6.3,dx+dw-95,WY+360,1],[8.8,x0+24+2*cw0+20,cy0+70],[10.6,x0+24+2*cw0+60,cy0+140]],t);
+ caption('02 / VERIFIKASI','Unggah dokumen. LTI memverifikasi.','Cukup dua dokumen: Akta keanggotaan APJII dan NPWP perusahaan.',t,.5,10.6);fade(1-prog(t,0,.5))}
 /* ================= notifications: email + WhatsApp mockups ================= */
 function mail(x,y,w,h,items,t){glowPanel(x,y,w,h,18);ctx.save();rr(x,y,w,h,18);ctx.clip();fillR(x,y,w,52,0,'rgba(255,255,255,.04)');[0,1,2].forEach(i=>circ(x+26+i*20,y+26,6,'rgba(255,255,255,.14)'));txt('EMAIL  ·  KOTAK MASUK',x+w/2,y+32,{size:12,weight:500,ls:2.5,c:MU,align:'center',fam:MONO});
  const lw=360;ctx.fillStyle=LINE;ctx.fillRect(x+lw,y+52,1,h-52);const shown=items.filter(it=>t>=it.at);
@@ -229,7 +230,7 @@ function sEnd(t){ctx.fillStyle=BK;ctx.fillRect(0,0,W,H);stars(prog(t,1.5,3.5),T*
  ctx.save();ctx.globalAlpha=lerp(1,.75,z);globe(V,{dots:prog(R,6000,2600),body:prog(R,6000,3000),atm:prog(R,6000,3000),land:1-prog(R,4200,1800)});prtRoutes(V,.8,{c:'rgba(150,190,255,.8)'});lightRoute(proj(V,PATH_TTN),1,'#fff',lerp(3.2,1.4,z),.9);lightRoute(proj(V,PATH_MDO),1,LB,lerp(3.2,1.4,z),.9);ctx.restore();
  const lw=860,lh=lw*1128/3372,lx=(W-lw)/2,ly=200;const k=E.io(prog(t,3.0,4.4));if(k>0){ctx.save();ctx.beginPath();ctx.rect(lx-40,ly-40,(lw+80)*k,lh+80);ctx.clip();ctx.drawImage(IMG.logo,lx,ly,lw,lh);ctx.restore();if(k<1)streak(lx-40+(lw+80)*k,ly+lh*.45,300,.9*Math.sin(k*PI))}
  txt('MARKET',W/2,ly-14,{size:18,weight:500,ls:16,c:LB,align:'center',a:prog(t,4.2,4.8)});
- reveal('Daftar. Verifikasi. Pesan. Aktif.',W/2,ly+lh+84,4.6,{size:36,weight:300,align:'center'});
+ reveal('Beli layanan. Sewakan kabel. Satu akun.',W/2,ly+lh+84,4.6,{size:36,weight:300,align:'center'});
  const up=E.out(prog(t,5.6,6.2));if(up>0){const bw=440;ctx.save();ctx.globalAlpha=up;ctx.shadowColor='rgba(111,163,255,.5)';ctx.shadowBlur=30;fillR(W/2-bw/2,ly+lh+130,bw,64,32,'rgba(255,255,255,.95)');ctx.restore();txt('DAFTAR AKUN PERUSAHAAN',W/2,ly+lh+169,{size:17,weight:600,ls:3,c:NAVY,align:'center',a:up})}
  txt('C-Ring Market  ·  PT Len Telekomunikasi Indonesia',W/2,ly+lh+250,{size:14,weight:500,ls:2.5,c:MU,align:'center',fam:MONO,a:prog(t,6.2,6.8)});
  drawOrb([[0,W/2+420,H+60],[5.8,W/2+420,ly+lh+180],[6.6,W/2+150,ly+lh+162,1],[7.4,W/2+200,ly+lh+200]],t,{a:1-prog(t,8.6,9.2)});

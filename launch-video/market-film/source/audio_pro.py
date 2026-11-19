@@ -3,7 +3,7 @@ import numpy as np, wave
 from scipy.signal import butter, sosfilt, fftconvolve
 
 SR = 48000
-DUR = 126.0
+DUR = 155.5
 N = int(SR * DUR)
 rng = np.random.default_rng(11)
 BUS = {k: np.zeros((N, 2)) for k in ('music', 'fx', 'dry')}
@@ -101,7 +101,7 @@ SUBF = [mtof(38), mtof(34), mtof(29), mtof(36)]
 def section_gain(t):
     if t < 9: return .58
     if t < 15: return 1.0
-    if t < 115.8: return .62
+    if t < 145.4: return .62
     return 1.0
 t = 0.0; i = 0
 while t < DUR - 1:
@@ -115,8 +115,8 @@ while t < DUR - 1:
 ARP = [[74, 77, 81, 84], [74, 77, 82, 86], [72, 77, 81, 84], [72, 74, 79, 84]]
 step = 0.3
 t = 9.0; k = 0
-while t < 124:
-    if t < 15 or t > 115.8: g = .9
+while t < 153:
+    if t < 15 or t > 145.4: g = .9
     else: g = .42
     c = ARP[int(t // 8) % 4]
     f = mtof(c[k % 4])
@@ -125,7 +125,7 @@ while t < 124:
 
 # gentle pulse (heartbeat) under the product walkthrough
 t = 17.6
-while t < 115.4:
+while t < 145.0:
     add('dry', t, soft_kick(.9), .32)
     t += 0.6
 
@@ -135,7 +135,7 @@ add('fx', 6.6, riser(2.4), .55)
 add('dry', 9.0, boom(.9), .65); add('fx', 9.0, air(2.5, 300, 5000), .4)
 success(10.0, .8)
 # chapter transitions: airy whoosh + soft bell
-for c in (15, 33.6, 53.2, 74, 82.6, 101.2):
+for c in (15, 33.6, 53.2, 74, 82.6, 101.2, 115.8):
     add('fx', c - .45, air(1.2, 400, 6000), .45)
     add('fx', c + .15, bell(mtof(86), 2.6, .8), .28)
     add('dry', c + .1, soft_kick(.8), .45)
@@ -155,9 +155,9 @@ for j in range(6): add('dry', C0 + 2.2 + j * .2, key(.8), .5, .2)
 click(C0 + 3.6, .2); success(C0 + 4.1, .9)
 # KYC 36.2
 K0 = 36.2
-at(K0, (.3, 1.3, 2.8, 3.3, 3.8, 4.5, 5.1, 6.2, 7.3), lambda x: click(x, -.2))
+at(K0, (.3, 1.3, 2.8, 3.3, 3.8, 4.5, 5.1, 6.3), lambda x: click(x, -.2))
 for a, b in ((.4, 1.2), (1.4, 2.0), (3.4, 3.8), (3.9, 4.4)): add('dry', K0 + a, typing(b - a), .32, -.2)
-for a in (5.2, 6.3, 7.4): add('fx', K0 + a, air(.7, 1500, 8000), .25, .5); add('fx', K0 + a + .7, bell(mtof(81), .9, .7), .25, .5)
+for a in (5.2, 6.4): add('fx', K0 + a, air(.7, 1500, 8000), .25, .5); add('fx', K0 + a + .7, bell(mtof(81), .9, .7), .25, .5)
 for j, a in enumerate((4.8, 8.2, 10.0)): add('fx', K0 + a, bell(mtof(79 + j * 3), 1.6), .35)
 success(K0 + 10.0, 1.0)
 # verified notification 47.2
@@ -188,13 +188,25 @@ for j in range(3): add('fx', 103.8 + .6 + j * .25, air(.5, 900, 8000), .3, -.4 +
 click(103.8 + 3.6, -.4)
 # service 109.8
 click(109.8 + .35, -.5); success(109.8 + .9, .7)
-# finale 115.8
-add('fx', 113.6, riser(2.2), .5)
-add('dry', 115.8, boom(.8), .5)
-add('fx', 115.8 + 3.0, air(2.2, 300, 5000), .35)
-success(115.8 + 3.6, 1.1)
-click(115.8 + 6.6, .2)
-add('music', 115.8 + 4.0, pad([50, 57, 62, 66, 69, 74], 6.4, a=1.0, r=4.0, bright=2400), .8)
+# owner chapter
+for j in range(4): add('fx', 118.4 + .8 + j * .35, bell(mtof(79 + j * 2), 1.4, .7), .25, -.45 + j * .3)
+U0 = 124.4
+add('fx', U0 + .4, air(1.1, 600, 7000), .35); add('fx', U0 + 1.5, bell(mtof(76), .9), .3)
+add('fx', U0 + 1.9, air(1.3, 1500, 9000), .2); success(U0 + 3.2, .7)
+for j in range(2): add('fx', U0 + 3.3 + j * .3, bell(mtof(84 + j * 3), .8, .6), .22)
+click(U0 + 5.8); add('fx', U0 + 6.1, bell(mtof(81), 1.2), .3)
+K1 = 132.4
+click(K1 + 1.9, .2); add('fx', K1 + 2.2, bell(mtof(79), 1.4), .35); click(K1 + 3.7, .2); success(K1 + 4.0, 1.0)
+S1 = 138.4
+for j in range(3): add('fx', S1 + .4 + j * .6, air(.9, 400, 5000), .2, -.4 + j * .4)
+for j in range(4): add('fx', S1 + 1.4 + j * .7, bell(mtof(74 + j * 3), 1.6, .8), .3, -.3 + j * .2)
+# finale 145.4
+add('fx', 143.2, riser(2.2), .5)
+add('dry', 145.4, boom(.8), .5)
+add('fx', 145.4 + 3.0, air(2.2, 300, 5000), .35)
+success(145.4 + 3.6, 1.1)
+click(145.4 + 6.6, .2)
+add('music', 145.4 + 4.0, pad([50, 57, 62, 66, 69, 74], 6.4, a=1.0, r=4.0, bright=2400), .8)
 
 # ---------- reverb & master ----------
 def ir(d, decay, seed):
